@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,0,
+decal,records/fx/decals/decal_blackcharlrg.dbr,
+effectFile,fx/particlesystems/skillsother/rangeddirect/pfx_icebolt_impact01.pfx,
+localOrientFix,0,

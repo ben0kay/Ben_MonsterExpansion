@@ -1,0 +1,4 @@
+templateName,database/templates/charfxpak.tpl,
+meshEffectNames,records/fx/meshfx/scepterspectral_aldritch_meshfx01.dbr,
+particleEffectAttachPoints,HeadFXUP,
+particleEffectNames,records/fx/skillsother/buffoffensive/aldritch_scepter01.dbr,

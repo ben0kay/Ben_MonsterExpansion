@@ -1,0 +1,8 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+cameraShakeAmplitude,0.000000,
+cameraShakeDuration,0.000000,
+canBeSoft,0,
+effectFile,fx/particlesystems/skillsdevotion/direbear_maul_loop01.pfx,
+emitterType,Standard,
+localOrientFix,0,

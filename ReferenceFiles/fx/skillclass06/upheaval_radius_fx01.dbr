@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,0,
+decal,records/fx/decals/decal_groundimpact_lightning01.dbr,
+effectFile,fx/particlesystems/skillsclass06/pfx_upheaval_01.pfx,
+localOrientFix,0,

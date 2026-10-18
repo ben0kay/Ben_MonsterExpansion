@@ -1,0 +1,8 @@
+templateName,database/templates/fxmesh.tpl,
+Class,FxMesh,
+animationName,fx/meshfx/anm/scepterspectral_aldritch01_idle01.anm,
+attachPoint,HeadFXUP,
+disturbanceRadius,2.000000,
+loop,1,
+meshName,fx/meshfx/scepterspectral_aldritch01.msh,
+speed,1.000000,

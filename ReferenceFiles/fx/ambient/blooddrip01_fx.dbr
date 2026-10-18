@@ -1,0 +1,6 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+decal,records/fx/decals/ambdecal_bloodspatter01.dbr,
+effectFile,fx/particlesystems/ambient/pfx_blooddrip_01.pfx,
+localOrientFix,0,

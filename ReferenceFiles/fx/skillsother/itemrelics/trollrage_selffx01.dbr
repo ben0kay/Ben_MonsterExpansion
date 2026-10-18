@@ -1,0 +1,6 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+canBeSoft,1,
+effectFile,fx/particlesystems/skillsother/itemrelics/pfx_trollrage_self01.pfx,
+emitterType,Standard,
+localOrientFix,1,

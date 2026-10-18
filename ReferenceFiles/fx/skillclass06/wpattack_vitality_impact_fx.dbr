@@ -1,0 +1,6 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,1,
+effectFile,fx/particlesystems/skillsclass06/pfx_wpattack_vitality_impact.pfx,
+localOrientFix,0,

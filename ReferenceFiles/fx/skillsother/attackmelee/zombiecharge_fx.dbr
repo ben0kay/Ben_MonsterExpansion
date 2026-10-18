@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+cameraShakeAmplitude,0.100000,
+cameraShakeDuration,0.100000,
+canBeSoft,0,
+effectFile,fx/particlesystems/skillsother/attackmelee/pfx_zombiechargehit.pfx,
+localOrientFix,0,

@@ -1,0 +1,7 @@
+templateName,database/templates/decaltype.tpl,
+Class,DecalType,
+bumpTexture,fx/decals/footprint_01_nml.tex,
+height,1.000000,
+shader,shaders/effects/decal_bump.ssh,
+texture,fx/decals/footprint_01_sand.tex,
+width,1.000000,

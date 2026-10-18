@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+ActorName,Effects_Tree_Break_Debris01,
+Class,EffectEntity,
+canBeSoft,1,
+effectFile,fx/particlesystems/anomalies/pfx_aetherialobeliskambient01.pfx,
+emitterType,Standard,
+localOrientFix,1,

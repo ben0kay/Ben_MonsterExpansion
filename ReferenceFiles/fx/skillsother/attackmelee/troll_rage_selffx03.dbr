@@ -1,0 +1,6 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+canBeSoft,1,
+effectFile,fx/particlesystems/skillsother/attackmelee/pfx_troll_rage_self03.pfx,
+emitterType,Standard,
+localOrientFix,1,

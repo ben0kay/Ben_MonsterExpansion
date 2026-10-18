@@ -1,0 +1,8 @@
+templateName,database/templates/fxmesh.tpl,
+Class,FxMesh,
+animationName,fx/meshfx/anm/aethercrystals_buffaura01a_idle01a.anm,
+disturbanceRadius,2.000000,
+loop,1,
+meshName,fx/meshfx/aethercrystals_buffaura01a.msh,
+speed,1.000000,
+stationaryAttachment,1,

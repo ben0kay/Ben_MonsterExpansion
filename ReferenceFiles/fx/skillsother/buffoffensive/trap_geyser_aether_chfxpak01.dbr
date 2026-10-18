@@ -1,0 +1,3 @@
+templateName,database/templates/charfxpak.tpl,
+particleEffectNames,records/fx/skillsother/buffoffensive/trap_geyser_aether_fx.dbr,
+startSound,records/sounds/skillsounds/class02/spak_flame_mine_activate01.dbr,

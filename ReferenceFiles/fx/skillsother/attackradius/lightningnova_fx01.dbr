@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+FileDescription,4.8,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,1,
+effectFile,fx/particlesystems/skillsother/attackradius/pfx_lightningnova_01.pfx,
+localOrientFix,0,
