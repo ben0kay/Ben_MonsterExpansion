@@ -2,7 +2,7 @@
 
 An AI-assisted Grim Dawn mod project to expand the existing monster hierarchy, beginning with the base game's monsters and spawn pools. The goal is **recognizable tier visuals, progressively stronger stats, and increasingly interesting combat behavior**, while preserving the original game feel.
 
-> **Status:** ME1 architecture/configuration and read-only tooling implemented. No new monsters, modified spawn pools, or playable builds have been implemented yet.
+> **Status (October 18, 2026):** ME1 complete; ME2 Veteran Boar DBR generation and pre-ME3 isolated console-spawn staging helper committed. Generated monster records are **not yet confirmed compiled or tested in-game**. Normal spawn pools, tier FX/UI colors, custom spawner GUI and the other new tiers are not implemented.
 
 ## Project location and workflow
 
@@ -94,7 +94,7 @@ All of these are in [ReferenceFiles/](ReferenceFiles/):
 5. **ME5 — Apex prototype:** rare encounter, distinctive visuals and rewards; test rarity/performance.
 6. **ME6 — Scale-up:** generalize to additional monster families without hardcoded per-creature generators.
 
-**Next immediate step:** Run ME2 generator/tests, then begin ME3 spawn-pool integration and the first real in-game Veteran Boar test.
+**Next immediate step:** Follow `debug/README.md` to generate/stage three Veteran Boar DBRs, build the Custom Game with Grim Dawn Asset Manager, and spawn the Veteran Boar via the console. Confirm it renders, moves, attacks, takes hits and behaves at the intended scale. Only then modify a narrowly scoped spawn pool for ME3.
 
 For the earlier path/hierarchy note, see [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
@@ -130,3 +130,54 @@ Then build the selected Ben_MonsterExpansion mod in Asset Manager and load a Cus
     game.Spawn "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr"
 
 Not a clickable UI; spawning occurs near the player, not 256 pixels ahead. No normal spawn pools are edited.
+
+
+## Project handoff — current checkpoint (October 18, 2026)
+
+This section is a durable handoff for continuing work across ChatGPT conversations. **Do not mistake committed tooling for a proven playable mod.**
+
+### Verified repository work
+
+| Area | Current state | Evidence / entry point |
+| --- | --- | --- |
+| ME1 design | Implemented nine-tier order, provisional colors/multipliers, boar mapping and read-only validation/preview tools | `config/tiers.json`, `config/families/boar.json`, `scripts/validate_config.py`, `scripts/preview_variants.py` |
+| ME2 first variant | Python generator and tests committed. Clones one boar monster DBR plus a bio and physical-damage skill into staged output; no vanilla records edited | `scripts/generate_variants.py`, `tests/` |
+| Veteran Boar behavior | Configured +30% health, +8% defensive ability, +10% physical passive base damage and +10% model scale; these are narrow generated-data targets, **not in-game measurements** | ME2 source and tests |
+| Debug preparation | Isolated helper committed to inspect/stage exactly three generated records into the Asset Manager mod source after explicit `--stage`; dry-run by default | `scripts/prepare_console_test.py`, `debug/README.md` |
+| In-game test | Not yet verified: Asset Manager compilation, Custom Game loading, console spawning, hit registration, size and positioning | Await user test results |
+| Natural spawning | Not implemented for Veteran; vanilla pool/proxy references were researched but have not been modified | `ReferenceFiles/proxies/` |
+| Tier visuals and combat footprint | Nine color identities agreed; no custom glow/HP bar/nameplate visuals. Scale field is modified for Veteran, but collision and melee reach are not proven | Configuration and design notes |
+
+### Immediate order of work
+
+1. **Pre-ME3 / first playable debug test:** Pull latest `main` locally. Follow [debug/README.md](debug/README.md): validate and test, generate with `--write`, inspect/stage with `prepare_console_test.py --stage`, compile only the selected custom mod with Asset Manager, select the Custom Game and try `game.Spawn "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr"`. Compare against a vanilla Common Boar. Record any build errors and in-game findings. Never overwrite the base game or copy the entire extracted reference library into the mod.
+2. **ME3 / natural spawning:** Once the direct spawn works, copy the smallest relevant boar pool/proxy path into mod sources, add a controlled low-frequency Veteran Boar entry and test natural appearance. Preserve vanilla pool behavior and level restrictions as far as possible; tune weights after observation.
+3. **Debug tool evolution:** Desired eventual *in-game* on-demand GUI opened via hotkey, with tier/family selection (start with a boar), and a spawn action targeting roughly **256 pixels in front of the player along the facing direction**, subject to Grim Dawn's actual coordinate and scripting capabilities. **This is a request/design, not an implemented GUI.** Keep it modular and debug-only, separate from normal spawns. The current console method spawns at/near the player instead.
+4. **ME4 / tiers and presentation:** Prototype Elite above Champion and Ascended above Hero. Add visually readable tier colors/auras/FX, modest family-relative size increases and compatible abilities or usage-frequency changes. Test whether name/HP-bar color can be customized; do not depend on unsupported engine enums.
+5. **ME5 / Apex:** Design very rare Apex threats with distinct identity, encounter controls and appropriate rewards. Preserve vanilla Boss and Nemesis significance.
+6. **ME6 / scale-up:** Expand reusable data-driven family mappings/generation, spawn rarity/weights, difficulty and level gating, stat progression, ability behavior and loot across monster families after the boar slice is validated.
+
+### Accepted design decisions to preserve
+
+- **Tier order:** Common → Veteran → Champion → Elite → Hero → Ascended → Boss → Nemesis → Apex. The **new** gameplay tiers are Veteran, Elite, Ascended and Apex; vanilla classifications remain unchanged.
+- Each tier should become more threatening through a mix of stats, attack behavior, ability selection/frequency and rarity; **new tiers should be physically larger relative to their appropriate parent**. Align hitbox, melee reach and FX placement with visible size when engine records support it; don't enlarge just the mesh and assume the combat footprint follows.
+- Tier color targets are detailed in the table above. Distinct in-world FX are the primary reliable target; health-bar/nameplate colors need independent feasibility testing.
+- Spawning is intended to be data-driven using the game's actual proxy/pool DBRs, *not* random edits to engine binaries. Existing boar references reveal Common/Champion/Hero pool entries, level restrictions and weighted selection; no global spawn probability has been agreed.
+- No bulk monster generation until compilation and in-game behavior are proven for a single boar.
+- Treat `ReferenceFiles/` as read-only extracted examples, not mod build input. Generated files and staging outputs remain isolated; preserve original game data.
+
+### Continuation checklist
+
+- [x] Nine-tier specification and family/config scaffolding
+- [x] Safe first Veteran Boar DBR generator and unit tests committed
+- [x] Console-test preparation script and instructions committed
+- [ ] Local generation and staging confirmed
+- [ ] Asset Manager build succeeds for custom mod
+- [ ] Direct console spawn works in a new Custom Game
+- [ ] Veteran stats, scale, collision, pathing and melee reach checked in-game
+- [ ] Narrow Veteran Boar natural spawn-pool integration
+- [ ] Visible Veteran green effect and further tier prototypes
+- [ ] Investigate/debug hotkey GUI and exact forward spawning
+- [ ] Expand generator, abilities, rarity/loot and additional families
+
+**Handoff note:** When resuming, first inspect latest `main`, especially this README, `debug/README.md` and the generation/staging scripts. Ask for the *results* of the first local in-game spawn test, not for earlier architecture decisions already documented here.
