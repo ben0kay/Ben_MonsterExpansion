@@ -26,7 +26,8 @@
     "source_tier": "common",
     "future_output_record": "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr",
     "planned_spawn_integration": false,
-    "status": "not_generated"
+    "status": "not_generated",
+    "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr"
   },
   "notes": [
     "Use skill and bio records referenced by each vanilla monster; do not assume they share formulas.",

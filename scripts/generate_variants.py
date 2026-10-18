@@ -1,0 +1,237 @@
+#!/usr/bin/env python3
+"""ME2: stage ONE validated monster variant, never edit extracted DBRs/spawn pools.
+
+Run from the repository root:
+    python scripts/generate_variants.py
+    python scripts/generate_variants.py --write
+
+Only generated/MonsterExpansion/ is written and it is Git-ignored. No Grim Dawn
+build, Asset Manager invocation, spawner modification, coloring or reach fixes.
+"""
+import argparse
+import json
+import os
+import re
+import sys
+import tempfile
+from decimal import Decimal, InvalidOperation
+from pathlib import Path
+
+from dbr import DBR, DBRError
+from validate_config import check_configs, reference_path
+
+REPO = Path(__file__).resolve().parents[1]
+REFERENCE = REPO / "ReferenceFiles"
+OUTPUT = REPO / "generated" / "MonsterExpansion"
+VALID_NAME = re.compile(r"^[a-z][a-z0-9_]*$")
+
+
+class GenerationError(ValueError):
+    pass
+
+
+def fail_unless(ok, reason):
+    if not ok:
+        raise GenerationError(reason)
+
+
+def game_location(relative_record):
+    """Produce relative path under staged database/. No arbitrary destinations."""
+    source = reference_path(relative_record, REFERENCE)
+    return Path("database") / Path("records") / source.relative_to(REFERENCE)
+
+
+def read_game_dbr(game_record):
+    path = reference_path(game_record, REFERENCE)
+    fail_unless(path.is_file() and not path.is_symlink(), f"Missing/unsafe source: {path}")
+    return DBR.from_file(path)
+
+
+def scaled_expression(expression, factor):
+    fail_unless(bool(expression.strip()), "Cannot scale empty attribute equation")
+    fail_unless(";" not in expression, "Expected one attribute equation")
+    return f"({expression})*{format(Decimal(str(factor)), 'f')}"
+
+
+def scaled_number(value, multiplier):
+    try:
+        number = Decimal(value)
+        result = number * Decimal(str(multiplier))
+    except InvalidOperation as exc:
+        raise GenerationError(f"Not a numeric skill value: {value!r}") from exc
+    fail_unless(result.is_finite(), "Scaled skill value must be finite")
+    return f"{result:.6f}"
+
+
+def scaled_series(raw, factor):
+    chunks = raw.split(";")
+    fail_unless(bool(chunks) and all(item.strip() for item in chunks), "Empty damage series member")
+    return ";".join(scaled_number(chunk, factor) for chunk in chunks)
+
+
+def get_source(family, tier):
+    sources = [s for s in family["source_records"] if s["tier"] == tier]
+    fail_unless(len(sources) == 1, f"Cannot find unique source tier {tier}")
+    return sources[0]
+
+
+def build_variant(family, tier):
+    """Read only references; return {relative staged path: generated contents}."""
+    first = family["first_prototype"]
+    fail_unless(first["tier"] == tier["id"], "Only configured first prototype is supported in ME2")
+    fail_unless(first["status"] == "not_generated" and first["planned_spawn_integration"] is False,
+                "ME2 must not integrate spawn pools")
+    fid = family["id"]
+    fail_unless(bool(VALID_NAME.fullmatch(fid)), "Invalid family id")
+    source = get_source(family, first["source_tier"])
+    source_record = source["record"]
+    monster = read_game_dbr(source_record)
+    fail_unless(monster.get("templateName") == "database/templates/monster.tpl", "Wrong monster template")
+    fail_unless(monster.get("monsterClassification") == source["expected_classification"],
+                "Unexpected parent classification")
+    proto = tier["prototype"]
+    stats = proto["stats_vs_parent"]
+
+    target_monster = first["future_output_record"]
+    prefix = f"{fid}_{tier['id']}_01"
+    monster_namespace = "records/creatures/enemies/monsterexpansion/"
+    fail_unless(target_monster == monster_namespace + prefix + ".dbr", "Unexpected prototype output name")
+    bio_record = monster_namespace + "bios/" + prefix + "_bio.dbr"
+    damage_record = "records/skills/nonplayerskills/monsterexpansion/" + prefix + "_damage.dbr"
+    damage_source = first["damage_skill_source_record"]
+    source_skills = [monster.get(f"skillName{n}") for n in range(1, 25)
+                     if any(line.startswith(f"skillName{n},") for line in monster.lines)]
+    fail_unless(source_skills.count(damage_source) == 1,
+                "Configured damage skill must be assigned to the monster exactly once")
+
+    bio_source = monster.get("characterAttributeEquations")
+    fail_unless(bio_source.startswith("records/creatures/enemies/bios/"),
+                "Unexpected parent bio; needs manual review")
+    bio = read_game_dbr(bio_source)
+    fail_unless(bio.get("templateName") == "database/templates/characterattributeequations.tpl",
+                "Unexpected bio template")
+    bio.set("characterLife", scaled_expression(bio.get("characterLife"), stats["health"]))
+    bio.set("characterDefensiveAbility", scaled_expression(
+        bio.get("characterDefensiveAbility"), stats["defense"]))
+    monster.set("characterAttributeEquations", bio_record)
+
+    damage = read_game_dbr(damage_source)
+    fail_unless(damage.get("templateName") == "database/templates/skill_passive.tpl",
+                "Expected skill_passive for damage source")
+    # Physical base damage is one contribution to final damage; this is
+    # NOT a guaranteed final 10% damage boost after all bonuses are applied.
+    for key in ("offensivePhysicalMin", "offensivePhysicalMax"):
+        damage.set(key, scaled_series(damage.get(key), stats["damage"]))
+    for idx in range(1, 25):
+        field = f"skillName{idx}"
+        if any(line.startswith(field + ",") for line in monster.lines) and monster.get(field) == damage_source:
+            monster.set(field, damage_record)
+
+    scale = monster.get("scale")
+    try:
+        factor = Decimal(scale) * Decimal(str(proto["model_scale_vs_parent"]))
+    except InvalidOperation as exc:
+        raise GenerationError("Monster scale is not numeric") from exc
+    fail_unless(factor.is_finite() and Decimal("0.1") <= factor <= Decimal("20"),
+                "Unsafe monster scale")
+    monster.set("scale", f"{factor:.6f}")
+    # Preserve original monsterClassification, actorRadius, actorHeight, description,
+    # skill timing and spawn references pending in-game compatibility tests.
+
+    result = {
+        game_location(target_monster): monster.render(),
+        game_location(bio_record): bio.render(),
+        game_location(damage_record): damage.render(),
+    }
+    manifest = {
+        "schema_version": 1,
+        "phase": "ME2",
+        "family": fid,
+        "tier": tier["id"],
+        "vanilla_source": source_record,
+        "output_monster": target_monster,
+        "files": sorted(p.as_posix() for p in result),
+        "settings_provisional": stats,
+        "model_scale_vs_parent": proto["model_scale_vs_parent"],
+        "color_target_only": tier["color_hex"],
+        "not_implemented": [
+            "spawn pool integration", "model tint/aura", "name and health bar UI color",
+            "melee/charge hitbox and range scaling", "compilation and in-game testing",
+            "uniform total damage multiplier"
+        ],
+    }
+    result[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    return result
+
+
+def write_staged(files, output_root, overwrite=False):
+    """Write only inside a dedicated stage root, after preflighting all targets."""
+    root = Path(output_root)
+    fail_unless(root.absolute() == OUTPUT.absolute(), "ME2 output root must remain generated/MonsterExpansion")
+    fail_unless(not root.is_symlink() and not root.parent.is_symlink(),
+                "Refusing symlinked generator output")
+    for path, content in files.items():
+        fail_unless(not path.is_absolute() and ".." not in path.parts,
+                    f"Unsafe relative output: {path}")
+        target = root / path
+        for parent in (target, *target.parents):
+            if parent == root.parent:
+                break
+            fail_unless(not parent.is_symlink(), f"Symlink in output tree: {parent}")
+        if target.exists():
+            fail_unless(target.is_file(), f"Output path not a normal file: {target}")
+            current = target.read_text(encoding="utf-8")
+            fail_unless(current == content or overwrite,
+                        f"Generated file differs: {target}; use --replace-generated intentionally")
+    for path, content in files.items():
+        target = root / path
+        if target.exists() and target.read_text(encoding="utf-8") == content:
+            continue
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile("w", encoding="utf-8", newline="", dir=target.parent,
+                                         prefix=".tmp-me2-", delete=False) as handle:
+            temp = Path(handle.name)
+            try:
+                handle.write(content)
+            except BaseException:
+                temp.unlink(missing_ok=True)
+                raise
+        try:
+            os.replace(temp, target)
+        finally:
+            temp.unlink(missing_ok=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--family", default="boar", help="ME2 currently supports boar")
+    parser.add_argument("--write", action="store_true", help="Stage the output in generated/ (ignored by Git)")
+    parser.add_argument("--replace-generated", action="store_true", help="Replace changed generated files (requires --write)")
+    args = parser.parse_args()
+    try:
+        fail_unless(not args.replace_generated or args.write,
+                    "--replace-generated requires --write")
+        fail_unless(bool(VALID_NAME.fullmatch(args.family)), "Invalid family name")
+        validation = check_configs(REFERENCE)
+        fail_unless(not validation, "; ".join(validation))
+        family = json.loads((REPO / "config" / "families" / f"{args.family}.json").read_text(encoding="utf-8"))
+        tiers = json.loads((REPO / "config" / "tiers.json").read_text(encoding="utf-8"))["tiers"]
+        selected = [t for t in tiers if t["id"] == family["first_prototype"]["tier"]]
+        fail_unless(len(selected) == 1, "Expected exactly one configured prototype tier")
+        files = build_variant(family, selected[0])
+        print(f"ME2: {family['display_name']} / {selected[0]['name']}")
+        for p in sorted(files):
+            print(f"  {'WRITE' if args.write else 'PLAN '} {p} ({len(files[p])} chars)")
+        if args.write:
+            write_staged(files, OUTPUT, overwrite=args.replace_generated)
+            print("Staged in generated/MonsterExpansion/. Spawn pools untouched; NOT playable yet.")
+        else:
+            print("Dry run only. Re-run with --write to stage files (not into Asset Manager).")
+        return 0
+    except (GenerationError, DBRError, ValueError, KeyError, OSError) as exc:
+        print(f"FAIL: {exc}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

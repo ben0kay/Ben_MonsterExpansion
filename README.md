@@ -88,13 +88,13 @@ All of these are in [ReferenceFiles/](ReferenceFiles/):
 ## Implementation passes
 
 1. **ME1 — Architecture/config (complete):** tier config, boar family mapping, read-only validator, preview and architecture specification.
-2. **ME2 — DBR tooling:** implement safe parsing/generation, reference checks and non-destructive build preparation.
+2. **ME2 — DBR tooling (first boar slice implemented):** safe DBR cloning, health/defense + physical-base-damage scaling and staged outputs; not yet compiled or in-game tested.
 3. **ME3 — Vertical slice:** create a working **Veteran Boar** and a spawn pool modification; compile/test in Grim Dawn.
 4. **ME4 — Tier expansion:** introduce Elite and Ascended to suitable existing families with validated ability changes.
 5. **ME5 — Apex prototype:** rare encounter, distinctive visuals and rewards; test rarity/performance.
 6. **ME6 — Scale-up:** generalize to additional monster families without hardcoded per-creature generators.
 
-**Next immediate step:** ME2 — build the safe DBR generation tools; then test a *single* Veteran Boar in ME3 before broad rollout.
+**Next immediate step:** Run ME2 generator/tests, then begin ME3 spawn-pool integration and the first real in-game Veteran Boar test.
 
 For the earlier path/hierarchy note, see [PROJECT_NOTES.md](PROJECT_NOTES.md).
 
@@ -107,3 +107,14 @@ For the earlier path/hierarchy note, see [PROJECT_NOTES.md](PROJECT_NOTES.md).
 - [Read-only prototype preview](scripts/preview_variants.py)
 
 Run `python scripts/validate_config.py` to validate the checked-in reference mappings.
+
+## ME2: generate the first Veteran Boar (staging only)
+
+```powershell
+python scripts/validate_config.py
+python -m unittest discover -s tests -v
+python scripts/generate_variants.py
+python scripts/generate_variants.py --write
+```
+
+The generated DBRs are staged under `generated/MonsterExpansion/database/records/`, excluded from Git. **They are not installed, spawned or compiled into Grim Dawn yet.** Current size is visually +10%; melee reach/hitbox changes and green color are not implemented until investigated and tested. The +10% damage target presently scales only one physical-base-damage passive, not all outgoing damage. More details: [ME2 architecture](docs/ARCHITECTURE.md).
