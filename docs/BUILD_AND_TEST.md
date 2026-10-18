@@ -1,3 +1,5 @@
+> **Aura update:** For the new six-record cosmetic test, use the replacement commands and acceptance checks in [VETERAN_AURA_TEST.md](VETERAN_AURA_TEST.md). Earlier three-record counts below describe the prior successful baseline.
+
 # Build, Install and Test — Ben_MonsterExpansion (Windows)
 
 Last updated: 2026-10-18.

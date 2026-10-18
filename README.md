@@ -4,6 +4,8 @@ An AI-assisted Grim Dawn mod project to expand the existing monster hierarchy, b
 
 > **Status (October 18, 2026, live-tested):** ME1 complete; ME2 Veteran Boar generated, compiled, installed and directly spawned successfully in a Grim Dawn Custom Game. At the tested level, Veteran max HP was **92** versus **71** for a comparable Common Boar (**+29.6%**, matching the +30% target with rounding). Visual size, damage/defense, melee reach and pathing remain to be measured. Tier FX, natural spawn pools and debug GUI are not implemented.
 
+> **New cosmetic test checkpoint:** Veteran Boar now has a generated self-only nature-glow buff ready for its first build/playtest. Six DBRs are staged with the aura enabled. Exact muted-green color, intensity and runtime activation remain unverified; see [Veteran aura test](docs/VETERAN_AURA_TEST.md) for evidence, commands and rollback. Older no-aura/three-record descriptions below refer to the previous tested baseline.
+
 ## Project location and workflow
 
 - **Repository:** [ben0kay/Ben_MonsterExpansion](https://github.com/ben0kay/Ben_MonsterExpansion)

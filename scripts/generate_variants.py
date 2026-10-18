@@ -6,7 +6,7 @@ Run from the repository root:
     python scripts/generate_variants.py --write
 
 Only generated/MonsterExpansion/ is written and it is Git-ignored. No Grim Dawn
-build, Asset Manager invocation, spawner modification, coloring or reach fixes.
+build, Asset Manager invocation, spawner modification or reach fixes. Cosmetic aura is an unverified playtest.
 """
 import argparse
 import json
@@ -75,6 +75,65 @@ def get_source(family, tier):
     return sources[0]
 
 
+def build_cosmetic_aura(monster, first, prefix):
+    """Single-boar visual test: self-only toggle, no inherited combat bonuses.
+
+    Evidence: necro_skeleton_b03_priest -> skeleton_priestselfaura uses
+    initialSkillName + Skill_BuffSelfToggled + charFxPakSelfNames. Create a
+    minimal record instead of cloning its fire damage/camera shake settings.
+    Reuse a vanilla particle resource; do not copy Resources into mod sources.
+    """
+    config = first.get("cosmetic_aura", {"enabled": False})
+    fail_unless(type(config.get("enabled")) is bool, "Aura enabled must be boolean")
+    if not config["enabled"]:
+        return {}
+    effect_source = config.get("effect_source_record")
+    fail_unless(effect_source == "records/fx/creatures/glownature01_large.dbr",
+                "Only researched nature glow is supported in this playtest")
+    effect = read_game_dbr(effect_source)
+    fail_unless(effect.get("templateName") == "database/templates/effect.tpl",
+                "Unexpected cosmetic effect template")
+    particle = effect.get("effectFile")
+    fail_unless(particle == "fx/particlesystems/creature/pfx_glownature_01_lg.pfx",
+                "Unexpected nature glow particle")
+    fail_unless((REFERENCE / "Resources" / particle).is_file(), "Missing particle reference")
+    # Do not overwrite another initial skill or occupied skill slot.
+    fail_unless(not any(line.startswith("initialSkillName,") and line.split(",")[1]
+                        for line in monster.lines), "Parent initial skill needs manual review")
+    fail_unless(not any(line.startswith(("skillName6,", "skillLevel6,"))
+                        for line in monster.lines), "Parent skill slot 6 is occupied")
+    skill_record = f"records/skills/nonplayerskills/monsterexpansion/{prefix}_cosmetic.dbr"
+    pack_record = f"records/fx/monsterexpansion/{prefix}_cosmetic_chfxpak.dbr"
+    effect_record = f"records/fx/monsterexpansion/{prefix}_cosmetic_fx.dbr"
+    # All keys are established by uploaded templates; no attack radius, damage,
+    # stat bonuses, reservation, weapon enchantment, cast animation or sound.
+    skill = DBR("""templateName,database/templates/skill_buffselftoggled.tpl,
+Class,Skill_BuffSelfToggled,
+FileDescription,Cosmetic Veteran glow - no combat bonuses,
+instantCast,1,
+notDispelable,1,
+skillMaxLevel,1,
+skillManaCost,0.000000,
+skillActiveLifeCost,0.000000,
+skillActiveManaCost,0.000000,
+""" + f"charFxPakSelfNames,{pack_record},\n")
+    # Tint semantics are not proven for particles; disable rather than tint the
+    # boar's original texture by accident. Exact muted green remains a target.
+    pack = DBR("templateName,database/templates/charfxpak.tpl,\n"
+               "particleEffectAttachPoints,FXCentered,\n"
+               f"particleEffectNames,{effect_record},\nuseTintColor,0,\n")
+    if monster.lines and not monster.lines[-1].endswith("\n"):
+        monster.lines[-1] += "\n"
+    fields = {"skillName6": skill_record, "skillLevel6": "1", "initialSkillName": skill_record}
+    for key, value in fields.items():
+        if any(line.startswith(key + ",") for line in monster.lines):
+            monster.set(key, value)
+        else:
+            monster.lines.append(f"{key},{value},\n")
+    return {game_location(skill_record): skill.render(), game_location(pack_record): pack.render(),
+            game_location(effect_record): effect.render()}
+
+
 def build_variant(family, tier):
     """Read only references; return {relative staged path: generated contents}."""
     first = family["first_prototype"]
@@ -138,7 +197,9 @@ def build_variant(family, tier):
     # Preserve original monsterClassification, actorRadius, actorHeight, description,
     # skill timing and spawn references pending in-game compatibility tests.
 
+    aura_files = build_cosmetic_aura(monster, first, prefix)
     result = {
+        **aura_files,
         game_location(target_monster): monster.render(),
         game_location(bio_record): bio.render(),
         game_location(damage_record): damage.render(),
@@ -154,8 +215,10 @@ def build_variant(family, tier):
         "settings_provisional": stats,
         "model_scale_vs_parent": proto["model_scale_vs_parent"],
         "color_target_only": tier["color_hex"],
+        "cosmetic_aura": {"enabled": bool(aura_files), "runtime_verified": False,
+                          "particle_tint_verified": False, "uses_base_game_particle": True},
         "not_implemented": [
-            "spawn pool integration", "model tint/aura", "name and health bar UI color",
+            "spawn pool integration", "exact tier tint and aura intensity", "name and health bar UI color",
             "melee/charge hitbox and range scaling", "compilation and in-game testing",
             "uniform total damage multiplier"
         ],
@@ -224,7 +287,7 @@ def main():
             print(f"  {'WRITE' if args.write else 'PLAN '} {p} ({len(files[p])} chars)")
         if args.write:
             write_staged(files, OUTPUT, overwrite=args.replace_generated)
-            print("Staged in generated/MonsterExpansion/. Spawn pools untouched; NOT playable yet.")
+            print("Staged in generated/MonsterExpansion/. Spawn pools untouched; rebuild/install required for these changes.")
         else:
             print("Dry run only. Re-run with --write to stage files (not into Asset Manager).")
         return 0

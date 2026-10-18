@@ -20,6 +20,11 @@ ALLOWED = {
     Path("database/records/creatures/enemies/monsterexpansion/bios/boar_veteran_01_bio.dbr"),
     Path("database/records/skills/nonplayerskills/monsterexpansion/boar_veteran_01_damage.dbr"),
 }
+AURA_ALLOWED = {
+    Path("database/records/skills/nonplayerskills/monsterexpansion/boar_veteran_01_cosmetic.dbr"),
+    Path("database/records/fx/monsterexpansion/boar_veteran_01_cosmetic_chfxpak.dbr"),
+    Path("database/records/fx/monsterexpansion/boar_veteran_01_cosmetic_fx.dbr"),
+}
 COMMAND = 'game.Spawn "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr"'
 
 
@@ -37,7 +42,7 @@ def preflight():
     require(family["first_prototype"]["tier"] == "veteran", "Prototype is no longer Veteran")
     current = build_variant(family, tier)
     planned = set(current) - {Path("manifest.json")}
-    require(planned == ALLOWED, "Unexpected output set; inspect the generator before staging")
+    require(planned in (ALLOWED, ALLOWED | AURA_ALLOWED), "Unexpected output set; inspect the generator before staging")
     require(OUTPUT.is_dir() and not OUTPUT.is_symlink(), "Run generate_variants.py --write first")
     for path, expected in current.items():
         require(not path.is_absolute() and ".." not in path.parts, "Unsafe output path")
@@ -45,13 +50,13 @@ def preflight():
         require(file.is_file() and not file.is_symlink(), f"Missing generated file: {file}")
         require(file.read_text(encoding="utf-8") == expected,
                 f"Stale generated file: {file}. Regenerate before staging.")
-    return {k: current[k] for k in sorted(ALLOWED)}
+    return {k: current[k] for k in sorted(planned)}
 
 
 def stage(files, repo=REPO, replace=False):
     require(repo.name == MOD_NAME and repo.parent.name.lower() == "mods",
             "Repo must live inside Asset Manager Working/mods/Ben_MonsterExpansion")
-    require(set(files) == ALLOWED, "Refusing unexpected game database paths")
+    require(set(files) in (ALLOWED, ALLOWED | AURA_ALLOWED), "Refusing unexpected game database paths")
     require(not (repo / "database").is_symlink(), "Refusing linked mod database directory")
     updates = []
     for path, text in sorted(files.items()):
@@ -86,7 +91,7 @@ def stage(files, repo=REPO, replace=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", action="store_true", help="Stage just 3 generated DBRs into the mod's database/records")
+    parser.add_argument("--stage", action="store_true", help="Stage only allowlisted generated DBRs into the mod's database/records")
     parser.add_argument("--replace-staged", action="store_true", help="Replace modified staged DBRs (requires --stage)")
     args = parser.parse_args()
     try:
@@ -96,7 +101,7 @@ def main():
             print(f"{'STAGE' if args.stage else 'PLAN '} {path}")
         if args.stage:
             stage(files, replace=args.replace_staged)
-            print("PASS: staged 3 DBRs. No spawn pools edited and no .arz built.")
+            print(f"PASS: staged {len(files)} DBRs. No spawn pools edited and no .arz built.")
         else:
             print("Dry run only; add --stage to copy files into this Asset Manager mod.")
         print("After building and loading the Custom Game, enter: " + COMMAND)

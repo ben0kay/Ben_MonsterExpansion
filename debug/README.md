@@ -2,7 +2,7 @@
 
 Goal: spawn an individual monster on demand WITHOUT changing original spawn pools.
 
-Current test uses the built-in Grim Dawn Custom Game console; no GUI/hotkey yet. Spawn occurs at/near the player, NOT precisely 256 pixels in front. The Veteran Boar currently has no green coloring or custom name/HP-bar appearance; ME2 only alters staged statistics and model scale.
+Current test uses the built-in Grim Dawn Custom Game console; no GUI/hotkey yet. Spawn occurs at/near the player, NOT precisely 256 pixels in front. The Veteran Boar now includes an unverified cosmetic nature-glow test; exact green coloring and custom name/HP-bar appearance remain unimplemented. See [the aura test guide](../docs/VETERAN_AURA_TEST.md).
 
 ## A. Stage the record (in VS Code Terminal)
 
@@ -11,11 +11,11 @@ Run from the repository root under your Asset Manager Working/mods/Ben_MonsterEx
     git pull
     python -m unittest discover -s tests -v
     python scripts/validate_config.py
-    python scripts/generate_variants.py --write
+    python scripts/generate_variants.py --write --replace-generated
     python scripts/prepare_console_test.py
-    python scripts/prepare_console_test.py --stage
+    python scripts/prepare_console_test.py --stage --replace-staged
 
-The last command stages ONLY the three generated monster/bio/damage .dbr files into the repo's database/records path, which Asset Manager can build. The folder is Git-ignored. Do not put the entire ReferenceFiles directory in your mod. No original game files or spawn pools are changed. Changed staged records require the explicit --replace-staged flag.
+The last command stages ONLY the six allowlisted monster/bio/damage/cosmetic skill/FX pack/effect .dbr files into the repo's database/records path, which Asset Manager can build. The folder is Git-ignored. Do not put the entire ReferenceFiles directory in your mod. No original game files or spawn pools are changed. Changed staged records require the explicit --replace-staged flag.
 
 ## B. Build with Asset Manager
 

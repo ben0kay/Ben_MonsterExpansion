@@ -47,9 +47,9 @@ class VariantTests(unittest.TestCase):
         cls.tier = next(t for t in json.loads((REPO / "config/tiers.json").read_text(encoding="utf-8"))["tiers"]
                         if t["id"] == "veteran")
 
-    def test_builds_three_records_and_manifest(self):
+    def test_builds_six_records_and_manifest(self):
         files = gen.build_variant(self.family, self.tier)
-        self.assertEqual(len(files), 4)
+        self.assertEqual(len(files), 7)
         monster_path = gen.game_location(self.family["first_prototype"]["future_output_record"])
         monster = DBR(files[monster_path])
         self.assertEqual(monster.get("monsterClassification"), "Common")

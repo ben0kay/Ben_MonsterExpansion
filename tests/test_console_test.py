@@ -19,8 +19,8 @@ class ConsoleStagingTests(unittest.TestCase):
         contents = generator.build_variant(family, next(t for t in tiers if t["id"] == "veteran"))
         cls.files = {key: value for key, value in contents.items() if key != Path("manifest.json")}
 
-    def test_fixed_only_three_mod_files(self):
-        self.assertEqual(set(self.files), debug.ALLOWED)
+    def test_fixed_only_six_mod_files(self):
+        self.assertEqual(set(self.files), debug.ALLOWED | debug.AURA_ALLOWED)
         self.assertTrue(all("monsterexpansion" in p.as_posix() for p in self.files))
         self.assertTrue(all("proxies" not in p.as_posix() for p in self.files))
 
