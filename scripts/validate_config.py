@@ -84,6 +84,12 @@ def check_configs(reference_root=None):
             else:
                 require(tier["origin"] == "vanilla", f"{tid} must remain vanilla")
                 require("prototype" not in tier, f"Do not override vanilla tier {tid}")
+        veteran = next(t for t in tier_rows if t["id"] == "veteran")
+        aura = veteran["prototype"].get("cosmetic_aura")
+        require(isinstance(aura, dict) and type(aura.get("enabled")) is bool,
+                "Veteran cosmetic_aura.enabled must be boolean")
+        require(aura.get("effect_source_record") == "records/fx/creatures/glownature01_large.dbr",
+                "Veteran glow preset needs review before changing effect source")
         require(len(set(colors)) == 9, "Tier colors must be distinct")
         for fpath in families:
             fam = load_json(fpath)
@@ -114,6 +120,10 @@ def check_configs(reference_root=None):
                 require(any(data.get(k) == s["record"]
                             for k in data if k.startswith("name")
                             for s in sources), f"{fid}: pool does not reference the source monsters")
+            if "natural_spawns" in fam:
+                from natural_spawns import validate_spawn_settings
+                selected_tier = next(t for t in tier_rows if t["id"] == fam["first_prototype"]["tier"])
+                validate_spawn_settings(fam, selected_tier)
             prototype = fam.get("first_prototype")
             require(isinstance(prototype, dict), f"{fid}: first_prototype required")
             target_tier = prototype["tier"]

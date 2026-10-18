@@ -20,9 +20,9 @@ class CosmeticAuraTests(unittest.TestCase):
 
     def test_aura_isolated_from_baseline_combat_and_can_be_disabled(self):
         enabled = gen.build_variant(self.family, self.tier)
-        disabled_config = copy.deepcopy(self.family)
-        disabled_config['first_prototype']['cosmetic_aura']['enabled'] = False
-        disabled = gen.build_variant(disabled_config, self.tier)
+        disabled_tier = copy.deepcopy(self.tier)
+        disabled_tier['prototype']['cosmetic_aura']['enabled'] = False
+        disabled = gen.build_variant(self.family, disabled_tier)
         self.assertEqual(len(disabled), 4)
         monster_path = gen.game_location(self.family['first_prototype']['future_output_record'])
         monster = DBR(enabled[monster_path])
@@ -67,4 +67,4 @@ class CosmeticAuraTests(unittest.TestCase):
         for field in ('initialSkillName', 'skillName6', 'skillLevel6'):
             monster = DBR(source.render() + f'{field},occupied,\n')
             with self.assertRaises(gen.GenerationError):
-                gen.build_cosmetic_aura(monster, self.family['first_prototype'], 'boar_veteran_01')
+                gen.build_cosmetic_aura(monster, self.tier['prototype'], 'boar_veteran_01')

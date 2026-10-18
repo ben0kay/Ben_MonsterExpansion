@@ -29,7 +29,16 @@
         "model_scale_vs_parent": 1.1,
         "ability_policy": "reuse_base_skills_first",
         "visual_intensity": "subtle",
-        "spawn_policy": "standard_pool_variant"
+        "spawn_policy": "standard_pool_variant",
+        "cosmetic_aura": {
+          "enabled": true,
+          "effect_source_record": "records/fx/creatures/glownature01_large.dbr"
+        },
+        "natural_spawns": {
+          "target_veterans_per_champion": 2.5,
+          "regular_pool_weight": 25,
+          "calibration_status": "provisional_unmeasured"
+        }
       }
     },
     {

@@ -25,6 +25,14 @@ AURA_ALLOWED = {
     Path("database/records/fx/monsterexpansion/boar_veteran_01_cosmetic_chfxpak.dbr"),
     Path("database/records/fx/monsterexpansion/boar_veteran_01_cosmetic_fx.dbr"),
 }
+POOL_ALLOWED = {Path("database/records/proxies/pools/p_beasts_boar_n.dbr")}
+
+
+def allowed_outputs():
+    return tuple(ALLOWED | aura | pool for aura in (set(), AURA_ALLOWED)
+                 for pool in (set(), POOL_ALLOWED))
+
+
 COMMAND = 'game.Spawn "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr"'
 
 
@@ -33,16 +41,16 @@ def require(condition, why):
         raise GenerationError(why)
 
 
-def preflight():
+def preflight(include_spawns=False):
     errors = check_configs(REPO / "ReferenceFiles")
     require(not errors, "; ".join(errors))
     family = json.loads((REPO / "config/families/boar.json").read_text(encoding="utf-8"))
     tiers = json.loads((REPO / "config/tiers.json").read_text(encoding="utf-8"))["tiers"]
     tier = next(t for t in tiers if t["id"] == "veteran")
     require(family["first_prototype"]["tier"] == "veteran", "Prototype is no longer Veteran")
-    current = build_variant(family, tier)
+    current = build_variant(family, tier, include_spawns=include_spawns)
     planned = set(current) - {Path("manifest.json")}
-    require(planned in (ALLOWED, ALLOWED | AURA_ALLOWED), "Unexpected output set; inspect the generator before staging")
+    require(planned in allowed_outputs(), "Unexpected output set; inspect the generator before staging")
     require(OUTPUT.is_dir() and not OUTPUT.is_symlink(), "Run generate_variants.py --write first")
     for path, expected in current.items():
         require(not path.is_absolute() and ".." not in path.parts, "Unsafe output path")
@@ -56,7 +64,7 @@ def preflight():
 def stage(files, repo=REPO, replace=False):
     require(repo.name == MOD_NAME and repo.parent.name.lower() == "mods",
             "Repo must live inside Asset Manager Working/mods/Ben_MonsterExpansion")
-    require(set(files) in (ALLOWED, ALLOWED | AURA_ALLOWED), "Refusing unexpected game database paths")
+    require(set(files) in allowed_outputs(), "Refusing unexpected game database paths")
     require(not (repo / "database").is_symlink(), "Refusing linked mod database directory")
     updates = []
     for path, text in sorted(files.items()):
@@ -91,17 +99,20 @@ def stage(files, repo=REPO, replace=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--include-spawns", action="store_true", help="Verify/stage the scoped ME3 pool as well")
     parser.add_argument("--stage", action="store_true", help="Stage only allowlisted generated DBRs into the mod's database/records")
     parser.add_argument("--replace-staged", action="store_true", help="Replace modified staged DBRs (requires --stage)")
     args = parser.parse_args()
     try:
         require(args.stage or not args.replace_staged, "--replace-staged requires --stage")
-        files = preflight()
+        files = preflight(include_spawns=args.include_spawns)
         for path in sorted(files):
             print(f"{'STAGE' if args.stage else 'PLAN '} {path}")
         if args.stage:
             stage(files, replace=args.replace_staged)
-            print(f"PASS: staged {len(files)} DBRs. No spawn pools edited and no .arz built.")
+            print(f"PASS: staged {len(files)} DBRs. No original game files edited and no .arz built.")
+            if not args.include_spawns:
+                print("Existing staged pool overrides are NOT removed. See docs/ME3_NATURAL_SPAWNS.md for rollback.")
         else:
             print("Dry run only; add --stage to copy files into this Asset Manager mod.")
         print("After building and loading the Custom Game, enter: " + COMMAND)

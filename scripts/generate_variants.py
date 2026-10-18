@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""ME2: stage ONE validated monster variant, never edit extracted DBRs/spawn pools.
+"""Generate one validated monster variant and an optional scoped mod pool override.
 
 Run from the repository root:
     python scripts/generate_variants.py
     python scripts/generate_variants.py --write
 
 Only generated/MonsterExpansion/ is written and it is Git-ignored. No Grim Dawn
-build, Asset Manager invocation, spawner modification or reach fixes. Cosmetic aura is an unverified playtest.
+build, Asset Manager invocation or reach fixes. --include-spawns opts into ME3.
 """
 import argparse
 import json
@@ -18,6 +18,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 from dbr import DBR, DBRError
+from natural_spawns import build_pool_override
 from validate_config import check_configs, reference_path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -75,7 +76,7 @@ def get_source(family, tier):
     return sources[0]
 
 
-def build_cosmetic_aura(monster, first, prefix):
+def build_cosmetic_aura(monster, prototype, prefix):
     """Single-boar visual test: self-only toggle, no inherited combat bonuses.
 
     Evidence: necro_skeleton_b03_priest -> skeleton_priestselfaura uses
@@ -83,7 +84,7 @@ def build_cosmetic_aura(monster, first, prefix):
     minimal record instead of cloning its fire damage/camera shake settings.
     Reuse a vanilla particle resource; do not copy Resources into mod sources.
     """
-    config = first.get("cosmetic_aura", {"enabled": False})
+    config = prototype.get("cosmetic_aura", {"enabled": False})
     fail_unless(type(config.get("enabled")) is bool, "Aura enabled must be boolean")
     if not config["enabled"]:
         return {}
@@ -134,7 +135,7 @@ skillActiveManaCost,0.000000,
             game_location(effect_record): effect.render()}
 
 
-def build_variant(family, tier):
+def build_variant(family, tier, include_spawns=False):
     """Read only references; return {relative staged path: generated contents}."""
     first = family["first_prototype"]
     fail_unless(first["tier"] == tier["id"], "Only configured first prototype is supported in ME2")
@@ -197,16 +198,21 @@ def build_variant(family, tier):
     # Preserve original monsterClassification, actorRadius, actorHeight, description,
     # skill timing and spawn references pending in-game compatibility tests.
 
-    aura_files = build_cosmetic_aura(monster, first, prefix)
+    aura_files = build_cosmetic_aura(monster, proto, prefix)
     result = {
         **aura_files,
         game_location(target_monster): monster.render(),
         game_location(bio_record): bio.render(),
         game_location(damage_record): damage.render(),
     }
+    spawn_summary = {"included": False}
+    if include_spawns:
+        pool_record, pool_text, spawn_summary = build_pool_override(family, tier, REFERENCE)
+        result[game_location(pool_record)] = pool_text
     manifest = {
         "schema_version": 1,
-        "phase": "ME2",
+        "phase": "ME3" if include_spawns else "ME2",
+        "natural_spawns": spawn_summary,
         "family": fid,
         "tier": tier["id"],
         "vanilla_source": source_record,
@@ -215,14 +221,16 @@ def build_variant(family, tier):
         "settings_provisional": stats,
         "model_scale_vs_parent": proto["model_scale_vs_parent"],
         "color_target_only": tier["color_hex"],
-        "cosmetic_aura": {"enabled": bool(aura_files), "runtime_verified": False,
+        "cosmetic_aura": {"enabled": bool(aura_files), "runtime_verified": True,
                           "particle_tint_verified": False, "uses_base_game_particle": True},
         "not_implemented": [
-            "spawn pool integration", "exact tier tint and aura intensity", "name and health bar UI color",
+            "natural spawn frequency calibration", "exact tier tint and aura intensity", "name and health bar UI color",
             "melee/charge hitbox and range scaling", "compilation and in-game testing",
             "uniform total damage multiplier"
         ],
     }
+    if not include_spawns:
+        manifest["not_implemented"].append("spawn pool integration")
     result[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return result
 
@@ -268,6 +276,7 @@ def write_staged(files, output_root, overwrite=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--family", default="boar", help="ME2 currently supports boar")
+    parser.add_argument("--include-spawns", action="store_true", help="Include the scoped ME3 boar pool override")
     parser.add_argument("--write", action="store_true", help="Stage the output in generated/ (ignored by Git)")
     parser.add_argument("--replace-generated", action="store_true", help="Replace changed generated files (requires --write)")
     args = parser.parse_args()
@@ -281,13 +290,15 @@ def main():
         tiers = json.loads((REPO / "config" / "tiers.json").read_text(encoding="utf-8"))["tiers"]
         selected = [t for t in tiers if t["id"] == family["first_prototype"]["tier"]]
         fail_unless(len(selected) == 1, "Expected exactly one configured prototype tier")
-        files = build_variant(family, selected[0])
-        print(f"ME2: {family['display_name']} / {selected[0]['name']}")
+        files = build_variant(family, selected[0], include_spawns=args.include_spawns)
+        print(f"{'ME3' if args.include_spawns else 'ME2'}: {family['display_name']} / {selected[0]['name']}")
         for p in sorted(files):
             print(f"  {'WRITE' if args.write else 'PLAN '} {p} ({len(files[p])} chars)")
         if args.write:
             write_staged(files, OUTPUT, overwrite=args.replace_generated)
-            print("Staged in generated/MonsterExpansion/. Spawn pools untouched; rebuild/install required for these changes.")
+            print("Staged in generated/MonsterExpansion/. Rebuild/install required.")
+            if not args.include_spawns:
+                print("No pool emitted. Existing staged pool overrides are NOT removed; see docs/ME3_NATURAL_SPAWNS.md.")
         else:
             print("Dry run only. Re-run with --write to stage files (not into Asset Manager).")
         return 0

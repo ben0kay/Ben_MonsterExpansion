@@ -27,15 +27,17 @@
     "future_output_record": "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr",
     "planned_spawn_integration": false,
     "status": "not_generated",
-    "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
-    "cosmetic_aura": {
-      "enabled": true,
-      "effect_source_record": "records/fx/creatures/glownature01_large.dbr"
-    }
+    "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr"
   },
   "notes": [
     "Use skill and bio records referenced by each vanilla monster; do not assume they share formulas.",
     "First compile/test a single Veteran Boar. Test collision and melee/charge reach before mass generation.",
     "The .dbr names must keep real Grim Dawn fields; project config keys are not engine DBR field names."
-  ]
+  ],
+  "natural_spawns": {
+    "enabled": true,
+    "pool_slot": 5,
+    "level_variance_source_slot": 1,
+    "proxy_reference_record": "records/proxies/area001/beasts_boar_n.dbr"
+  }
 }

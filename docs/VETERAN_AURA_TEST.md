@@ -1,3 +1,5 @@
+> **Live-test update:** The user successfully spawned the glowing Veteran with 92/92 HP, confirmed it looked/moved well and approved the current appearance. The attachment and asset resolution work in that test; exact RGB tint, combat impact and full death/performance coverage are not independently measured. Aura settings now live in Veteran `prototype.cosmetic_aura` in `config/tiers.json`. For natural spawns use [ME3_NATURAL_SPAWNS.md](ME3_NATURAL_SPAWNS.md). The original research/test plan follows.
+
 # Veteran Boar cosmetic aura — first test
 
 Implemented October 18, 2026; Python validation passes, Asset Manager compilation
@@ -85,8 +87,8 @@ game.Spawn "records/creatures/enemies/boar_a01.dbr"
 
 ## Reversible switch
 
-Set `first_prototype.cosmetic_aura.enabled` to `false` in
-`config/families/boar.json`, then repeat generation/staging with both replacement
+Set Veteran `prototype.cosmetic_aura.enabled` to `false` in
+`config/tiers.json`, then repeat generation/staging with both replacement
 flags, rebuild and reinstall. This restores the original three-record output
 and removes the monster's references to the aura. The previous three extra
 staged DBRs can remain inert; the helper does not automatically delete files.

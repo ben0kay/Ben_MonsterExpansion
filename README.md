@@ -2,9 +2,9 @@
 
 An AI-assisted Grim Dawn mod project to expand the existing monster hierarchy, beginning with the base game's monsters and spawn pools. The goal is **recognizable tier visuals, progressively stronger stats, and increasingly interesting combat behavior**, while preserving the original game feel.
 
-> **Status (October 18, 2026, live-tested):** ME1 complete; ME2 Veteran Boar generated, compiled, installed and directly spawned successfully in a Grim Dawn Custom Game. At the tested level, Veteran max HP was **92** versus **71** for a comparable Common Boar (**+29.6%**, matching the +30% target with rounding). Visual size, damage/defense, melee reach and pathing remain to be measured. Tier FX, natural spawn pools and debug GUI are not implemented.
+> **Status (October 18, 2026):** ME1 complete; ME2 Veteran Boar compiled/spawned successfully, 92 vs 71 HP verified, green glow live-tested and approved by user. ME3 scoped natural-spawn implementation is ready for its first in-game test: weight 25 vs Common total 100 (20% of regular selections), unchanged Champion/Hero rules and pack counts. Target 2–3 Veterans per Champion (2.5 midpoint) remains unmeasured. Debug GUI and later tiers remain pending.
 
-> **New cosmetic test checkpoint:** Veteran Boar now has a generated self-only nature-glow buff ready for its first build/playtest. Six DBRs are staged with the aura enabled. Exact muted-green color, intensity and runtime activation remain unverified; see [Veteran aura test](docs/VETERAN_AURA_TEST.md) for evidence, commands and rollback. Older no-aura/three-record descriptions below refer to the previous tested baseline.
+> **Current instructions:** [ME3 natural spawn build/test and rollback](docs/ME3_NATURAL_SPAWNS.md). Use `--include-spawns` on generation AND staging; expect seven DBRs. Tier glow/spawn defaults live in `config/tiers.json`. Earlier no-aura/no-spawn/three-record descriptions below are historical; this checkpoint supersedes them.
 
 ## Project location and workflow
 
@@ -91,7 +91,7 @@ All of these are in [ReferenceFiles/](ReferenceFiles/):
 
 1. **ME1 — Architecture/config (complete):** tier config, boar family mapping, read-only validator, preview and architecture specification.
 2. **ME2 — DBR tooling and Veteran Boar direct spawn (working):** safe DBR cloning/staging; successfully compiled and spawned in a Custom Game; +30% HP validated against Common Boar (92 vs 71). Other stats/scale only configured, not measured.
-3. **ME3 — Natural spawn-pool vertical slice (pending):** direct spawn now works; integrate a controlled Veteran Boar into a copied, scoped vanilla pool/proxy and test its natural frequency, level behavior and combat.
+3. **ME3 — Natural spawn-pool vertical slice (implemented, runtime pending):** one mod pool override adds Veteran to regular selections; weight 25 vs Common 100. Preserve Champion/Hero behavior; verify natural frequency, level behavior and combat. See `docs/ME3_NATURAL_SPAWNS.md`.
 4. **ME4 — Tier expansion:** introduce Elite and Ascended to suitable existing families with validated ability changes.
 5. **ME5 — Apex prototype:** rare encounter, distinctive visuals and rewards; test rarity/performance.
 6. **ME6 — Scale-up:** generalize to additional monster families without hardcoded per-creature generators.

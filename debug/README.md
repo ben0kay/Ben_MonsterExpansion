@@ -1,3 +1,5 @@
+> **Natural-spawn update:** See [ME3 instructions](../docs/ME3_NATURAL_SPAWNS.md) for the current seven-record build, `--include-spawns` flags, centralized tier settings and rollback. The console-only workflow below does not remove an existing pool override.
+
 # Debug Enemy Spawner — Console Prototype (pre-ME3)
 
 Goal: spawn an individual monster on demand WITHOUT changing original spawn pools.
