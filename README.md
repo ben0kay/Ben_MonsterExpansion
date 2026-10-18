@@ -119,6 +119,10 @@ python scripts/generate_variants.py --write
 
 The generated DBRs are staged under `generated/MonsterExpansion/database/records/`, excluded from Git. **They are not installed, spawned or compiled into Grim Dawn yet.** Current size is visually +10%; melee reach/hitbox changes and green color are not implemented until investigated and tested. The +10% damage target presently scales only one physical-base-damage passive, not all outgoing damage. More details: [ME2 architecture](docs/ARCHITECTURE.md).
 
+
+
+**Build/install reference:** [Windows Asset Manager build and in-game testing guide](docs/BUILD_AND_TEST.md).
+
 ## First playable console-spawn test (pre-ME3)
 
 See [debug test instructions](debug/README.md). After generating the Veteran Boar, run:
