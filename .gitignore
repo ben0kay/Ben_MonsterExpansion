@@ -1,0 +1,9 @@
+# Build/generator output: tracked reference data and authoring config stay visible
+mods/
+generated/
+build/
+dist/
+__pycache__/
+*.py[cod]
+.venv/
+.vscode/

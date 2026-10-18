@@ -2,7 +2,7 @@
 
 An AI-assisted Grim Dawn mod project to expand the existing monster hierarchy, beginning with the base game's monsters and spawn pools. The goal is **recognizable tier visuals, progressively stronger stats, and increasingly interesting combat behavior**, while preserving the original game feel.
 
-> **Status:** Design/reference stage. No new monsters, modified spawn pools, or game builds have been implemented yet.
+> **Status:** ME1 architecture/configuration and read-only tooling implemented. No new monsters, modified spawn pools, or playable builds have been implemented yet.
 
 ## Project location and workflow
 
@@ -85,15 +85,25 @@ All of these are in [ReferenceFiles/](ReferenceFiles/):
 
 **Repository hygiene:** The repository is public and includes substantial extracted game data; consider keeping additional unmodified source assets local and switching to a private repository. Build scripts should never overwrite the original extracted records or include the entire reference set in the distributed mod.
 
-## Proposed implementation passes (not yet started)
+## Implementation passes
 
-1. **ME1 — Architecture/config:** agree data layout for tiers, visuals, stats, family definitions and generated outputs.
+1. **ME1 — Architecture/config (complete):** tier config, boar family mapping, read-only validator, preview and architecture specification.
 2. **ME2 — DBR tooling:** implement safe parsing/generation, reference checks and non-destructive build preparation.
 3. **ME3 — Vertical slice:** create a working **Veteran Boar** and a spawn pool modification; compile/test in Grim Dawn.
 4. **ME4 — Tier expansion:** introduce Elite and Ascended to suitable existing families with validated ability changes.
 5. **ME5 — Apex prototype:** rare encounter, distinctive visuals and rewards; test rarity/performance.
 6. **ME6 — Scale-up:** generalize to additional monster families without hardcoded per-creature generators.
 
-**Next immediate step:** confirm the architecture and make a *small* Veteran Boar prototype rather than mass-generating variants before the first successful in-game test.
+**Next immediate step:** ME2 — build the safe DBR generation tools; then test a *single* Veteran Boar in ME3 before broad rollout.
 
 For the earlier path/hierarchy note, see [PROJECT_NOTES.md](PROJECT_NOTES.md).
+
+## ME1 implementation files
+
+- [Architecture and workflow](docs/ARCHITECTURE.md)
+- [Tier settings](config/tiers.json)
+- [Boar family mapping](config/families/boar.json)
+- [Read-only config validator](scripts/validate_config.py)
+- [Read-only prototype preview](scripts/preview_variants.py)
+
+Run `python scripts/validate_config.py` to validate the checked-in reference mappings.

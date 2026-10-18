@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "boar",
+  "display_name": "Boar",
+  "status": "reference_only",
+  "source_records": [
+    {
+      "tier": "common",
+      "record": "records/creatures/enemies/boar_a01.dbr",
+      "expected_classification": "Common"
+    },
+    {
+      "tier": "champion",
+      "record": "records/creatures/enemies/boar_b01.dbr",
+      "expected_classification": "Champion"
+    },
+    {
+      "tier": "hero",
+      "record": "records/creatures/enemies/hero/boar_h01.dbr",
+      "expected_classification": "Hero"
+    }
+  ],
+  "spawn_pool_record": "records/proxies/pools/p_beasts_boar_n.dbr",
+  "first_prototype": {
+    "tier": "veteran",
+    "source_tier": "common",
+    "future_output_record": "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr",
+    "planned_spawn_integration": false,
+    "status": "not_generated"
+  },
+  "notes": [
+    "Use skill and bio records referenced by each vanilla monster; do not assume they share formulas.",
+    "First compile/test a single Veteran Boar. Test collision and melee/charge reach before mass generation.",
+    "The .dbr names must keep real Grim Dawn fields; project config keys are not engine DBR field names."
+  ]
+}

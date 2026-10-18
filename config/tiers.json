@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "implementation_status": "architecture_only",
+  "note": "Prototype numbers are starting points for testing, not approved final balance. JSON is build tooling input, not read by Grim Dawn.",
+  "ui_color_support": "unverified_in_game",
+  "tiers": [
+    {
+      "id": "common",
+      "name": "Common",
+      "order": 1,
+      "origin": "vanilla",
+      "color_name": "Grey",
+      "color_hex": "#A4A4A4"
+    },
+    {
+      "id": "veteran",
+      "name": "Veteran",
+      "order": 2,
+      "origin": "custom",
+      "color_name": "Green",
+      "color_hex": "#81AF71",
+      "prototype": {
+        "parent_tier": "common",
+        "stats_vs_parent": {
+          "health": 1.3,
+          "damage": 1.1,
+          "defense": 1.08
+        },
+        "model_scale_vs_parent": 1.1,
+        "ability_policy": "reuse_base_skills_first",
+        "visual_intensity": "subtle",
+        "spawn_policy": "standard_pool_variant"
+      }
+    },
+    {
+      "id": "champion",
+      "name": "Champion",
+      "order": 3,
+      "origin": "vanilla",
+      "color_name": "Yellow",
+      "color_hex": "#D5B743"
+    },
+    {
+      "id": "elite",
+      "name": "Elite",
+      "order": 4,
+      "origin": "custom",
+      "color_name": "Amber",
+      "color_hex": "#E49A36",
+      "prototype": {
+        "parent_tier": "champion",
+        "stats_vs_parent": {
+          "health": 1.3,
+          "damage": 1.18,
+          "defense": 1.12
+        },
+        "model_scale_vs_parent": 1.1,
+        "ability_policy": "increase_compatible_skill_frequency_and_optional_extra_skill",
+        "visual_intensity": "noticeable",
+        "spawn_policy": "champion_pool_variant"
+      }
+    },
+    {
+      "id": "hero",
+      "name": "Hero",
+      "order": 5,
+      "origin": "vanilla",
+      "color_name": "Orange",
+      "color_hex": "#D57832"
+    },
+    {
+      "id": "ascended",
+      "name": "Ascended",
+      "order": 6,
+      "origin": "custom",
+      "color_name": "Violet",
+      "color_hex": "#AF69D2",
+      "prototype": {
+        "parent_tier": "hero",
+        "stats_vs_parent": {
+          "health": 1.4,
+          "damage": 1.22,
+          "defense": 1.15
+        },
+        "model_scale_vs_parent": 1.15,
+        "ability_policy": "more_frequent_and_optional_compatible_extra_skill",
+        "visual_intensity": "strong",
+        "spawn_policy": "rare_hero_pool_variant"
+      }
+    },
+    {
+      "id": "boss",
+      "name": "Boss",
+      "order": 7,
+      "origin": "vanilla",
+      "color_name": "Purple",
+      "color_hex": "#9370C4"
+    },
+    {
+      "id": "nemesis",
+      "name": "Nemesis",
+      "order": 8,
+      "origin": "vanilla",
+      "color_name": "Red",
+      "color_hex": "#D64B51"
+    },
+    {
+      "id": "apex",
+      "name": "Apex",
+      "order": 9,
+      "origin": "custom",
+      "color_name": "Crimson/Pink",
+      "color_hex": "#E94488",
+      "prototype": {
+        "parent_tier": "nemesis",
+        "stats_vs_parent": {
+          "health": 1.5,
+          "damage": 1.25,
+          "defense": 1.2
+        },
+        "model_scale_vs_parent": 1.2,
+        "ability_policy": "curated_unique_encounter",
+        "visual_intensity": "dramatic",
+        "spawn_policy": "curated_only_not_global"
+      }
+    }
+  ]
+}
