@@ -1,0 +1,6 @@
+templateName,database/templates/skillsecondary_onhitbuffradius.tpl,
+Class,SkillSecondary_OnHitBuffRadius,
+FileDescription,cc resist + energy absorb,
+buffSkillName,records/sandbox/jakub/onhittest_buff.dbr,
+debuff,1,
+onHitActivationChance,100.000000,
