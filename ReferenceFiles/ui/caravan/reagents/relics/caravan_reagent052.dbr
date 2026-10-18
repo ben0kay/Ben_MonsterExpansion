@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,357,
+itemBoxY,251,
+reagentName,records/items/materia/compa_spinedcarapace.dbr,

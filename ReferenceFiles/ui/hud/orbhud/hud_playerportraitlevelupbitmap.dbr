@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/bitmapsingle.tpl,
+FileDescription,BitmapSingle,
+bitmapName,ui/hud/orbhud/hud_playerportraitlevelupprompt.tex,
+bitmapPositionX,355,
+bitmapPositionY,59,

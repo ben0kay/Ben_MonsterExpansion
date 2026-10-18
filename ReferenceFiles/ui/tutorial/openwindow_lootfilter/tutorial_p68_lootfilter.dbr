@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uitutorialpageinstance.tpl,
+FadeSeconds,60,
+FileDescription,Loot Filter,
+NuggetArray,records/ui/tutorial/openwindow_lootfilter/lootfilter_n1.dbr;records/ui/tutorial/openwindow_lootfilter/lootfilter_n2.dbr;records/ui/tutorial/openwindow_lootfilter/lootfilter_n3.dbr;records/ui/tutorial/openwindow_lootfilter/lootfilter_n4.dbr;records/ui/tutorial/openwindow_lootfilter/lootfilter_n5.dbr;records/ui/tutorial/openwindow_lootfilter/lootfilter_n6.dbr;records/ui/tutorial/openwindow_lootfilter/lootfilter_n7.dbr;records/ui/tutorial/openwindow_lootfilter/lootfilter_n8.dbr,
+quickTag,tagQuickTip69,

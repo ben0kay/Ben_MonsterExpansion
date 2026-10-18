@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,224,
+itemBoxY,156,
+reagentName,records/items/crafting/materials/craft_royaljelly.dbr,

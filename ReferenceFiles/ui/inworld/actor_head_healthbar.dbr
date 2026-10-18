@@ -1,0 +1,7 @@
+templateName,database/templates/ingameui/bargraph.tpl,
+FileDescription,BarGraph,
+FontStyle,records/ui/styles/text/style_special_statusbarhealth.dbr,
+bitmapEmptyName,ui/hud/hud_monsterhealthhead_barempty.tex,
+bitmapFullName,ui/hud/hud_monsterhealthhead_bar.tex,
+bitmapPositionX,0,
+bitmapPositionY,0,

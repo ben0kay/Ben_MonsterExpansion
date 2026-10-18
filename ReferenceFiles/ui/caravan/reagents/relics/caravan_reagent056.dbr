@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,375,
+itemBoxY,143,
+reagentName,records/items/materia/compa_viciousspikes.dbr,

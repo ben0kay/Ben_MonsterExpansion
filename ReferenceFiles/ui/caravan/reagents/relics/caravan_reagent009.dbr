@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,159,
+itemBoxY,35,
+reagentName,records/items/materia/compa_bristlyfur.dbr,

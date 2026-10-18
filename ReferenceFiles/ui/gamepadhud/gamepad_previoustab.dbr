@@ -1,0 +1,7 @@
+templateName,database/templates/ingameui/buttonstatic.tpl,
+FileDescription,ButtonStatic,
+bitmapNameUp,ui/hud/gamepad/large/shoulder_l.tex,
+bitmapPositionX,0,
+bitmapPositionY,40,
+isCircular,0,
+soundNameDown,records/sounds/ui/spak_buttonclickgenericlarge.dbr,

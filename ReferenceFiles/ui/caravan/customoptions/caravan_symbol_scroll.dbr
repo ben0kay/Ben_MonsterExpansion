@@ -1,0 +1,7 @@
+templateName,database/templates/ingameui/buttoncaravanoption.tpl,
+FileDescription,ButtonCaravanOption,
+bitmapNameDown,ui/caravan/stashbuttons/button_stashcustom_symbol-scroll01a_down.tex,
+bitmapNameDownMask,ui/caravan/stashbuttons/button_stashcustom_symbol-scroll01a_down-msk.tex,
+bitmapNameInFocus,ui/caravan/stashbuttons/button_stashcustom_symbol-scroll01a_over.tex,
+bitmapNameUp,ui/caravan/stashbuttons/button_stashcustom_symbol-scroll01a_up.tex,
+bitmapNameUpMask,ui/caravan/stashbuttons/button_stashcustom_symbol-scroll01a_up-msk.tex,

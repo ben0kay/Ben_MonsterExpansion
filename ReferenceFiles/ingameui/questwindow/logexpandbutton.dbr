@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/bitmapmulti.tpl,
+FileDescription,BitmapMulti,
+bitmapPositionX,0,
+bitmapPositionY,80,
+bitmaps,ui/quest/questlogexpand.tex;ui/quest/questlogcontract.tex,

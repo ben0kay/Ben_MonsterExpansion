@@ -1,0 +1,6 @@
+templateName,database/templates/ingameui/bargraph.tpl,
+FileDescription,BarGraph,
+bitmapEmptyName,ui/hud/orbhud/hud_playerexperiencebarempty.tex,
+bitmapFullName,ui/hud/orbhud/hud_playerexperiencebarfull.tex,
+bitmapPositionX,207,
+bitmapPositionY,2,

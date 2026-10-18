@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,159,
+itemBoxY,287,
+reagentName,records/items/materia/compa_vengefulwraith.dbr,

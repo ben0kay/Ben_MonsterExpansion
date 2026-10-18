@@ -1,0 +1,6 @@
+templateName,database/templates/ingameui/caravanwindowpublic.tpl,
+InventoryDBR,records/ui/caravan/caravan_transferinventory.dbr,
+TransferPageCostArray,0;50000;100000;150000;250000,
+TransferPlate,records/ui/caravan/caravan_transfercoverimage.dbr,
+WindowLocationX,0,
+WindowLocationY,90,

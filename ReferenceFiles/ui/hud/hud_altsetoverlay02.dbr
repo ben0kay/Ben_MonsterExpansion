@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/bitmapsingle.tpl,
+FileDescription,BitmapSingle,
+bitmapName,ui/hud/hud_altsetoverlay2.tex,
+bitmapPositionX,-29,
+bitmapPositionY,0,

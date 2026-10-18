@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,195,
+itemBoxY,71,
+reagentName,records/items/materia/compa_mutagenicichor.dbr,

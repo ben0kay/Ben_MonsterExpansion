@@ -1,0 +1,8 @@
+templateName,database/templates/ingameui/buttonstatic.tpl,
+FileDescription,ButtonStatic,
+bitmapNameDown,ui/generic/scrollboxwidedark_buttoncarrowupdown.tex,
+bitmapNameInFocus,ui/generic/scrollboxwidedark_buttoncarrowupover.tex,
+bitmapNameUp,ui/generic/scrollboxwidedark_buttoncarrowupup.tex,
+bitmapPositionX,0,
+bitmapPositionY,0,
+isCircular,0,

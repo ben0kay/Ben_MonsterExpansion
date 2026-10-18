@@ -1,0 +1,2 @@
+templateName,database/templates/gameachievements.tpl,
+achievementGroups,records/ui/achievements/achievementgroup/achievementgroup_challenges.dbr;records/ui/achievements/achievementgroup/achievementgroup_character.dbr;records/ui/achievements/achievementgroup/achievementgroup_monsters.dbr;records/ui/achievements/achievementgroup/achievementgroup_story.dbr;records/ui/achievements/achievementgroup/achievementgroup_world.dbr,

@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,231,
+itemBoxY,215,
+reagentName,records/items/materia/compa_leatheryhide.dbr,

@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/bitmapmulti.tpl,
+FileDescription,ButtonStatic,
+bitmapPositionX,0,
+bitmapPositionY,80,
+bitmaps,ui/quest/questjournalobjectiveunchecked.tex;ui/quest/questjournalobjectivechecked.tex,

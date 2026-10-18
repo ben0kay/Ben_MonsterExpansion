@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,123,
+itemBoxY,71,
+reagentName,records/items/materia/compa_frozenheart.dbr,

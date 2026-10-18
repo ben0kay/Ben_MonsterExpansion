@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,184,
+itemBoxY,76,
+reagentName,records/items/questitems/quest_dynamite.dbr,

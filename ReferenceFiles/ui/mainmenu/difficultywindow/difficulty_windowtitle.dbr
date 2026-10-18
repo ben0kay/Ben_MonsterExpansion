@@ -1,0 +1,8 @@
+templateName,database/templates/menu/menulabel.tpl,
+FileDescription,MenuLabel,
+bitmapAlignmentX,Center,
+bitmapAlignmentY,Top,
+bitmapPositionX,0,
+bitmapPositionY,52,
+textFont,records/ui/styles/text/style_difficultywindowtitle.dbr,
+textTag,tagDifficultyWindowTitle,

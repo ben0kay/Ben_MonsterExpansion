@@ -1,0 +1,4 @@
+templateName,database/templates/ingameui/bitmapmulti.tpl,
+FileDescription,ButtonStatic,
+bitmapPositionY,2,
+bitmaps,ui/quest/questwidget_nocheck.tex;ui/quest/questwidget_check.tex,

@@ -1,0 +1,8 @@
+templateName,database/templates/ingameui/buttonstatic.tpl,
+FileDescription,ButtonStatic,
+bitmapNameDown,ui/caravan/caravan_scrollbox_buttoncarrowrightdown.tex,
+bitmapNameInFocus,ui/caravan/caravan_scrollbox_buttoncarrowrightover.tex,
+bitmapNameUp,ui/caravan/caravan_scrollbox_buttoncarrowrightup.tex,
+bitmapPositionX,-1,
+bitmapPositionY,-37,
+isCircular,0,

@@ -1,0 +1,3 @@
+templateName,database/templates/gametips.tpl,
+loadingTipStyle,records/ui/styles/text/style_cinematictext.dbr,
+loadingTips,tagLoadingTip01;tagLoadingTip02;tagLoadingTip03;tagLoadingTip04;tagLoadingTip05;tagLoadingTip06;tagLoadingTip07;tagLoadingTip08;tagLoadingTip09;tagLoadingTip10;tagLoadingTip11;tagLoadingTip12;tagLoadingTip13;tagLoadingTip14;tagLoadingTip15;tagLoadingTip16;tagLoadingTip17;tagLoadingTip18;tagLoadingTip19;tagLoadingTip20;tagLoadingTip21,

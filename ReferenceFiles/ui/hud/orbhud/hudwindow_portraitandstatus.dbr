@@ -1,0 +1,8 @@
+templateName,database/templates/ingameui/hudportraitandstatssummary.tpl,
+FileDescription,HudPortraitAndStatsSummary,
+windowDefaultExtentX,940,
+windowDefaultExtentY,85,
+windowDefaultX,0,
+windowDefaultY,54,
+windowScreenAlignmentX,Center,
+windowScreenAlignmentY,Bottom,

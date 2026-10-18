@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,267,
+itemBoxY,143,
+reagentName,records/items/materia/compa_resilientchestplate.dbr,

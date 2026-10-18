@@ -1,0 +1,7 @@
+templateName,database/templates/ingameui/textboxmeasureable.tpl,
+fontStyle,records/ui/styles/text/style_quest_description.dbr,
+positionX,0,
+positionY,0,
+textAlignmentX,Left,
+textBoxHeight,-1,
+textBoxWidth,315,

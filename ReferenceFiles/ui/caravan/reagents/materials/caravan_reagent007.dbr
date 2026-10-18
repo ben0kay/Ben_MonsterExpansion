@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,360,
+itemBoxY,76,
+reagentName,records/items/crafting/materials/craft_cultistseal.dbr,

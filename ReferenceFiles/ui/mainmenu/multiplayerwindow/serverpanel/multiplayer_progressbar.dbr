@@ -1,0 +1,8 @@
+templateName,database/templates/ingameui/bargraph.tpl,
+FileDescription,BarGraph,
+bitmapEmptyName,ui/mainmenu/multiplayer/progressbar_empty01.tex,
+bitmapFullName,ui/mainmenu/multiplayer/progressbar_full01.tex,
+bitmapPositionX,-2,
+bitmapPositionY,85,
+reverse,0,
+vertical,0,

@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/bitmapsingle.tpl,
+FileDescription,BitmapSingle,
+bitmapName,ui/hud/hud_monsterhealth_border_tier05.tex,
+bitmapPositionX,0,
+bitmapPositionY,31,

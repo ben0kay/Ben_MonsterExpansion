@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,339,
+itemBoxY,366,
+reagentName,records/items/materia/compb_chainsofoleron.dbr,

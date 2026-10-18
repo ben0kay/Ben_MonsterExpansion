@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,123,
+itemBoxY,179,
+reagentName,records/items/materia/compa_viscousvenom.dbr,

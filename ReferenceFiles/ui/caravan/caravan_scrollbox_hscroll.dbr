@@ -1,0 +1,8 @@
+templateName,database/templates/ingameui/scrollbar.tpl,
+leftButton,records/ui/caravan/caravan_scrollbox_hscrollbuttonleft.dbr,
+onlyShowButtons,1,
+positionX,0,
+positionY,0,
+rightButton,records/ui/caravan/caravan_scrollbox_hscrollbuttonright.dbr,
+scrollBar,records/ui/caravan/caravan_scrollbox_hscrollsquare.dbr,
+scrollTrack,records/ui/caravan/caravan_scrollbox_hscrolltrack.dbr,

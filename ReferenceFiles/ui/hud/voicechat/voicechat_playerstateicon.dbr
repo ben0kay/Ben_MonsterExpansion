@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/bitmapmulti.tpl,
+FileDescription,BitmapMulti,
+bitmapPositionX,190,
+bitmapPositionY,10,
+bitmaps,ui/hud/voicechat/voicechat_nomic.tex;ui/hud/voicechat/voicechat_mic.tex;ui/hud/voicechat/voicechat_speaking.tex;ui/hud/voicechat/voicechat_muted.tex,
