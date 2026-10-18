@@ -1,0 +1,101 @@
+Group
+{
+	name = "All Groups"
+	type = "list"
+
+	Variable
+	{
+		name = "Include File"
+		class = "static"
+		type = "include"
+		description = ""
+		value = ""
+		defaultValue = "database\Templates\Skill_Modifier.tpl"
+	}
+
+	Group
+	{
+		name = "Header"
+		type = "system"
+
+		Variable
+		{
+			name = "ActorName"
+			class = "variable"
+			type = "string"
+			description = ""
+			value = ""
+			defaultValue = ""
+		}
+
+		Variable
+		{
+			name = "Class"
+			class = "static"
+			type = "string"
+			description = ""
+			value = ""
+			defaultValue = "Skill_PotionModifier"
+		}
+
+		Variable
+		{
+			name = "FileDescription"
+			class = "variable"
+			type = "string"
+			description = ""
+			value = ""
+			defaultValue = ""
+		}
+
+	}
+
+	Group
+	{
+		name = "Potion Modifiers"
+		type = "list"
+
+		Variable
+		{
+			name = "potionInfusion"
+			class = "array"
+			type = "real"
+			description = ""
+			value = ""
+			defaultValue = ""
+		}
+
+		Variable
+		{
+			name = "potionTransfusion"
+			class = "array"
+			type = "real"
+			description = ""
+			value = ""
+			defaultValue = ""
+		}
+
+		Variable
+		{
+			name = "potionPurity"
+			class = "variable"
+			type = "bool"
+			description = ""
+			value = ""
+			defaultValue = "0"
+		}
+
+		Variable
+		{
+			name = "potionTrueSight"
+			class = "variable"
+			type = "bool"
+			description = ""
+			value = ""
+			defaultValue = "0"
+		}
+
+	}
+
+}
+
