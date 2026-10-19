@@ -1,64 +1,64 @@
-"""ME2 debug staging tests; no game or game files are modified."""
+"""Staging must match a freshly validated config plan, never a manifest allowlist."""
 import json
+from pathlib import Path
 import sys
 import tempfile
 import unittest
-from pathlib import Path
+from unittest.mock import patch
 
 REPO = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO / "scripts"))
-import prepare_console_test as debug
-import generate_variants as generator
+sys.path.insert(0, str(REPO / 'scripts'))
+import generate_variants as gen
+import prepare_console_test as staging
 
 
 class ConsoleStagingTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        family = json.loads((REPO / "config/families/boar.json").read_text(encoding="utf-8"))
-        tiers = json.loads((REPO / "config/tiers.json").read_text(encoding="utf-8"))["tiers"]
-        contents = generator.build_variant(family, next(t for t in tiers if t["id"] == "veteran"))
-        cls.files = {key: value for key, value in contents.items() if key != Path("manifest.json")}
-
-    def test_fixed_only_six_mod_files(self):
-        self.assertEqual(set(self.files), debug.ALLOWED | debug.AURA_ALLOWED)
-        self.assertTrue(all("monsterexpansion" in p.as_posix() for p in self.files))
-        self.assertTrue(all("proxies" not in p.as_posix() for p in self.files))
-
-    def test_stage_idempotent_in_safe_directory(self):
+    def test_all_families_stage_idempotently_and_protect_existing_edits(self):
+        files = gen.configured_plan(include_spawns=True); files.pop(Path('manifest.json'))
+        self.assertEqual(len(files), 30)
         with tempfile.TemporaryDirectory() as tmp:
-            folder = Path(tmp) / "mods" / debug.MOD_NAME
-            folder.mkdir(parents=True)
-            debug.stage(self.files, repo=folder)
-            debug.stage(self.files, repo=folder)
-            for path, text in self.files.items():
-                self.assertEqual((folder / path).read_text(encoding="utf-8"), text)
+            repo = Path(tmp) / 'mods' / staging.MOD_NAME; repo.mkdir(parents=True)
+            staging.stage(files, repo=repo, include_spawns=True)
+            staging.stage(files, repo=repo, include_spawns=True)
+            path = next(iter(files)); target = repo / path
+            target.write_text('local edits')
+            with self.assertRaises(gen.GenerationError):
+                staging.stage(files, repo=repo, include_spawns=True)
+            self.assertEqual(target.read_text(), 'local edits')
+            staging.stage(files, repo=repo, include_spawns=True, replace=True)
+            self.assertEqual(target.read_text(), files[path])
 
-    def test_stage_refuses_changed_file_unless_opted_in(self):
+    def test_unexpected_paths_changed_contents_and_wrong_selection_rejected(self):
+        files = gen.configured_plan('boar'); files.pop(Path('manifest.json'))
         with tempfile.TemporaryDirectory() as tmp:
-            folder = Path(tmp) / "mods" / debug.MOD_NAME
-            folder.mkdir(parents=True)
-            path = sorted(self.files)[0]
-            destination = folder / path
-            destination.parent.mkdir(parents=True)
-            destination.write_text("user's altered data", encoding="utf-8")
-            with self.assertRaises(generator.GenerationError):
-                debug.stage(self.files, repo=folder)
-            self.assertEqual(destination.read_text(encoding="utf-8"), "user's altered data")
-            debug.stage(self.files, repo=folder, replace=True)
-            self.assertEqual(destination.read_text(encoding="utf-8"), self.files[path])
+            repo = Path(tmp) / 'mods' / staging.MOD_NAME; repo.mkdir(parents=True)
+            bad = dict(files); bad[Path('database/records/game/gameengine.dbr')] = 'bad'
+            with self.assertRaises(gen.GenerationError):
+                staging.stage(bad, repo=repo, family='boar')
+            bad = dict(files); bad[next(iter(files))] = 'bad'
+            with self.assertRaises(gen.GenerationError):
+                staging.stage(bad, repo=repo, family='boar')
+            with self.assertRaises(gen.GenerationError):
+                staging.stage(files, repo=repo, family='all')
+            self.assertEqual(list(repo.iterdir()), [])
 
-    def test_stage_rejects_repo_mismatch_and_extra_file(self):
+    def test_generated_manifest_tampering_and_stale_files_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
-            with self.assertRaises(generator.GenerationError):
-                debug.stage(self.files, repo=Path(tmp))
-            with self.assertRaises(generator.GenerationError):
-                debug.stage({**self.files, Path("database/records/game/gameengine.dbr"): "bad"},
-                            repo=Path(tmp) / "mods" / debug.MOD_NAME)
+            output = Path(tmp) / 'generated/MonsterExpansion'
+            with patch.object(gen, 'OUTPUT', output), patch.object(staging, 'OUTPUT', output):
+                files = gen.configured_plan(include_spawns=True)
+                gen.write_staged(files, output)
+                self.assertEqual(len(staging.preflight(include_spawns=True)), 30)
+                (output / 'manifest.json').write_text('{}')
+                with self.assertRaises(gen.GenerationError):
+                    staging.preflight(include_spawns=True)
 
-    def test_console_command_references_generated_enemy(self):
-        self.assertEqual(debug.COMMAND,
-                         'game.Spawn "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr"')
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_symlinked_output_parent_rejected(self):
+        files = gen.configured_plan('boar'); files.pop(Path('manifest.json'))
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); repo = root / 'mods' / staging.MOD_NAME; repo.mkdir(parents=True)
+            outside = root / 'outside'; outside.mkdir()
+            (repo / 'database').symlink_to(outside, target_is_directory=True)
+            with self.assertRaises(gen.GenerationError):
+                staging.stage(files, repo=repo, family='boar')
+            self.assertEqual(list(outside.iterdir()), [])

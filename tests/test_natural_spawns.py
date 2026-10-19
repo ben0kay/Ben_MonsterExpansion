@@ -1,79 +1,90 @@
-"""Pool composition, safe scope, inheritance and rollback for ME3."""
+"""Exact conditional weight conversion, rules preservation and safe rollback."""
 import copy
-import hashlib
+from fractions import Fraction
 import json
+from pathlib import Path
+import re
 import sys
 import tempfile
 import unittest
-from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / 'scripts'))
 import generate_variants as gen
-import prepare_console_test as staging
 import natural_spawns as spawns
 from dbr import DBR
+from validate_config import reference_path
+
+
+def catalog():
+    families = [json.loads(p.read_text()) for p in sorted((REPO / 'config/families').glob('*.json'))]
+    tiers = {t['id']: t for t in json.loads((REPO / 'config/tiers.json').read_text())['tiers']}
+    return families, tiers
 
 
 class NaturalSpawnTests(unittest.TestCase):
-    def setUp(self):
-        self.family = json.loads((REPO / 'config/families/boar.json').read_text())
-        self.tier = next(t for t in json.loads((REPO / 'config/tiers.json').read_text())['tiers']
-                         if t['id'] == 'veteran')
+    def test_every_pool_conserves_weight_rules_and_higher_tiers(self):
+        families, tiers = catalog()
+        for family in families:
+            for config in family['pools']:
+                with self.subTest(pool=config['record']):
+                    record, text, _ = spawns.build_pool_override(family, config, tiers, gen.REFERENCE)
+                    original = DBR.from_file(reference_path(record, gen.REFERENCE)); result = DBR(text)
+                    slots = [int(line.split(',')[0][4:]) for line in original.lines
+                             if re.fullmatch(r'name\d+', line.split(',')[0])]
+                    mapped = {p['source_slot']: p for p in config['promotions']}
+                    old_total = sum(int(original.get(f'weight{i}')) for i in slots)
+                    new_slots = slots + [p['output_slot'] for p in config['promotions']]
+                    new_total = sum(int(result.get(f'weight{i}')) for i in new_slots)
+                    for i in slots:
+                        old = int(original.get(f'weight{i}'))
+                        new = int(result.get(f'weight{i}'))
+                        if i in mapped:
+                            p = mapped[i]; target = p['output_slot']
+                            promoted = int(result.get(f'weight{target}'))
+                            self.assertEqual(Fraction(promoted, new + promoted), Fraction(1, 5))
+                            self.assertEqual(Fraction(new + promoted, new_total), Fraction(old, old_total))
+                            for stem in ('levelVarianceEquation', 'minPlayerLevel', 'maxPlayerLevel'):
+                                if original._locations(f'{stem}{i}'):
+                                    self.assertEqual(result.get(f'{stem}{target}'), original.get(f'{stem}{i}'))
+                        else:
+                            self.assertEqual(Fraction(new, new_total), Fraction(old, old_total))
+                    # Every existing field except regular weight is byte-value identical.
+                    for line in original.lines:
+                        key = line.split(',')[0]
+                        if not re.fullmatch(r'weight\d+', key):
+                            self.assertEqual(result.get(key), original.get(key))
 
-    def test_preserves_all_original_fields_and_only_adds_regular_variant(self):
-        source = REPO / 'ReferenceFiles/proxies/pools/p_beasts_boar_n.dbr'
-        before = hashlib.sha256(source.read_bytes()).hexdigest()
-        files = gen.build_variant(self.family, self.tier, include_spawns=True)
-        baseline = gen.build_variant(self.family, self.tier)
-        path = gen.game_location(spawns.POOL)
-        self.assertEqual(set(files) - set(baseline), {path})
-        for old in baseline:
-            if old != Path('manifest.json'):
-                self.assertEqual(files[old], baseline[old])
-        pool = DBR(files[path]); original = DBR.from_file(source)
-        for line in original.lines:
-            key = line.split(',')[0]
-            self.assertEqual(pool.get(key), original.get(key))
-        self.assertEqual(pool.get('name5'), spawns.MONSTER)
-        self.assertEqual(pool.get('weight5'), '25')
-        self.assertEqual(pool.get('levelVarianceEquation5'), original.get('levelVarianceEquation1'))
-        self.assertEqual(before, hashlib.sha256(source.read_bytes()).hexdigest())
-        report = json.loads(files[Path('manifest.json')])['natural_spawns']
-        self.assertEqual(report['regular_selection_share'], .2)
-        self.assertFalse(report['ratio_verified'])
-        self.assertEqual(report['target_veterans_per_champion'], 2.5)
-        self.assertFalse(any('area001' in str(p) for p in files))
+    def test_starter_max_level_is_inherited(self):
+        families, tiers = catalog(); zombie = next(f for f in families if f['id'] == 'zombie')
+        pool = next(p for p in zombie['pools'] if p['record'].endswith('/p_zombie_e.dbr'))
+        _, text, _ = spawns.build_pool_override(zombie, pool, tiers, gen.REFERENCE)
+        self.assertEqual(DBR(text).get('maxPlayerLevel5'), '3')
+        # Other source starter slot had no max; do not invent a gate for its promotion.
+        self.assertFalse(DBR(text)._locations('maxPlayerLevel6'))
 
-    def test_disabled_emits_vanilla_pool_for_safe_rollback(self):
-        self.family['natural_spawns']['enabled'] = False
-        files = gen.build_variant(self.family, self.tier, include_spawns=True)
-        self.assertEqual(files[gen.game_location(spawns.POOL)],
-                         (REPO / 'ReferenceFiles/proxies/pools/p_beasts_boar_n.dbr').read_text())
+    def test_disabled_pool_emits_exact_vanilla_for_incremental_build_rollback(self):
+        families, tiers = catalog()
+        for family in families:
+            for config in family['pools']:
+                disabled = dict(config, enabled=False)
+                record, text, report = spawns.build_pool_override(family, disabled, tiers, gen.REFERENCE)
+                self.assertEqual(text, reference_path(record, gen.REFERENCE).read_text())
+                self.assertTrue(report['rollback_vanilla_pool'])
 
-    def test_invalid_weights_ratios_and_scopes_rejected(self):
-        for key, value in [('regular_pool_weight', -1), ('regular_pool_weight', 100),
-                           ('regular_pool_weight', True), ('regular_pool_weight', 2.5),
-                           ('target_veterans_per_champion', float('nan'))]:
-            tier = copy.deepcopy(self.tier); tier['prototype']['natural_spawns'][key] = value
-            with self.subTest(key=key, value=value), self.assertRaises(ValueError):
-                gen.build_variant(self.family, tier, include_spawns=True)
-        self.family['spawn_pool_record'] = 'records/proxies/pools/unreviewed.dbr'
+    def test_limited_source_and_occupied_target_refused(self):
+        families, tiers = catalog(); zombie = next(f for f in families if f['id'] == 'zombie')
+        config = copy.deepcopy(zombie['pools'][0])
+        config['promotions'] = [{'source_slot': 4, 'variant': 'veteran_01', 'output_slot': 5}]
         with self.assertRaises(ValueError):
-            gen.build_variant(self.family, self.tier, include_spawns=True)
+            spawns.build_pool_override(zombie, config, tiers, gen.REFERENCE)
+        config = copy.deepcopy(zombie['pools'][0]); config['promotions'][0]['output_slot'] = 2
+        with self.assertRaises(ValueError):
+            spawns.build_pool_override(zombie, config, tiers, gen.REFERENCE)
 
-    def test_seven_record_staging_and_partial_or_unrelated_sets_rejected(self):
-        files = gen.build_variant(self.family, self.tier, include_spawns=True)
-        files.pop(Path('manifest.json'))
-        self.assertEqual(len(files), 7)
-        with tempfile.TemporaryDirectory() as tmp:
-            repo = Path(tmp) / 'mods' / staging.MOD_NAME
-            repo.mkdir(parents=True)
-            staging.stage(files, repo=repo)
-            self.assertEqual((repo / gen.game_location(spawns.POOL)).read_text(),
-                             files[gen.game_location(spawns.POOL)])
-            missing = dict(files); missing.pop(next(p for p in files if p.name.endswith('_cosmetic_fx.dbr')))
-            with self.assertRaises(gen.GenerationError):
-                staging.stage(missing, repo=repo)
-            with self.assertRaises(gen.GenerationError):
-                staging.stage({**files, Path('database/records/proxies/unreviewed.dbr'): 'bad'}, repo=repo)
+    def test_pool_selection_does_not_mutate_references(self):
+        families, tiers = catalog()
+        before = {p: p.read_bytes() for f in families for p in
+                  [reference_path(c['record'], gen.REFERENCE) for c in f['pools']]}
+        gen.configured_plan(include_spawns=True)
+        self.assertTrue(all(p.read_bytes() == text for p, text in before.items()))

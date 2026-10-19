@@ -1,3 +1,5 @@
+> **October 19 update:** [Current config-driven families guide](DATA_DRIVEN_FAMILIES.md) supersedes old schema, record counts and config keys below. Generate/stage all families for 30 DBRs. Original boar visuals and proxy/pool selection were verified by the user; new zombies remain untested in-game.
+
 > **Live-test update:** The user successfully spawned the glowing Veteran with 92/92 HP, confirmed it looked/moved well and approved the current appearance. The attachment and asset resolution work in that test; exact RGB tint, combat impact and full death/performance coverage are not independently measured. Aura settings now live in Veteran `prototype.cosmetic_aura` in `config/tiers.json`. For natural spawns use [ME3_NATURAL_SPAWNS.md](ME3_NATURAL_SPAWNS.md). The original research/test plan follows.
 
 # Veteran Boar cosmetic aura — first test

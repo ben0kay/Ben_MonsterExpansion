@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "id": "zombie",
+  "display_name": "Starting Zombies",
+  "enabled": true,
+  "variants": [
+    {
+      "id": "veteran_starter_01",
+      "tier": "veteran",
+      "source_record": "records/creatures/enemies/zombie_a01_starter.dbr",
+      "expected_classification": "Common",
+      "output_record": "records/creatures/enemies/monsterexpansion/zombie_veteran_starter_01.dbr",
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr"
+    },
+    {
+      "id": "veteran_01",
+      "tier": "veteran",
+      "source_record": "records/creatures/enemies/zombie_a01.dbr",
+      "expected_classification": "Common",
+      "output_record": "records/creatures/enemies/monsterexpansion/zombie_veteran_01.dbr",
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr"
+    }
+  ],
+  "pools": [
+    {
+      "record": "records/proxies/pools/p_zombie_e.dbr",
+      "enabled": true,
+      "proxy_references": [
+        "records/proxies/area001/zombie_e.dbr"
+      ],
+      "promotions": [
+        {
+          "source_slot": 1,
+          "variant": "veteran_starter_01",
+          "output_slot": 5
+        },
+        {
+          "source_slot": 3,
+          "variant": "veteran_starter_01",
+          "output_slot": 6
+        }
+      ]
+    },
+    {
+      "record": "records/proxies/pools/p_zombie_el_health.dbr",
+      "enabled": true,
+      "proxy_references": [
+        "records/proxies/area001/zombie_el_20m_health.dbr"
+      ],
+      "promotions": [
+        {
+          "source_slot": 1,
+          "variant": "veteran_starter_01",
+          "output_slot": 5
+        }
+      ]
+    },
+    {
+      "record": "records/proxies/pools/p_zombie_n.dbr",
+      "enabled": true,
+      "proxy_references": [
+        "records/proxies/area001/zombie_n.dbr"
+      ],
+      "promotions": [
+        {
+          "source_slot": 1,
+          "variant": "veteran_01",
+          "output_slot": 10
+        },
+        {
+          "source_slot": 7,
+          "variant": "veteran_starter_01",
+          "output_slot": 11
+        }
+      ]
+    },
+    {
+      "record": "records/proxies/pools/p_zombie_amb_s1_n.dbr",
+      "enabled": true,
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s1_n.dbr"
+      ],
+      "promotions": [
+        {
+          "source_slot": 1,
+          "variant": "veteran_01",
+          "output_slot": 5
+        }
+      ]
+    },
+    {
+      "record": "records/proxies/pools/p_zombie_amb_s2_n.dbr",
+      "enabled": true,
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s2_n.dbr"
+      ],
+      "promotions": [
+        {
+          "source_slot": 1,
+          "variant": "veteran_01",
+          "output_slot": 5
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "Starter variants keep their own bio and source skills; do not promote potion/loot-droppers, summons, corpses or limited/forced entries.",
+    "Early-pool DBR references verified; exact opening-map placements are not supplied, so map coverage needs playtesting."
+  ]
+}

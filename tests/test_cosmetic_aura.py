@@ -1,11 +1,9 @@
-"""Cosmetic isolation, rollback and template compatibility checks."""
+"""Cosmetic isolation, established template fields and non-destructive slot allocation."""
 import copy
-import json
 import re
-import sys
 import unittest
 from pathlib import Path
-
+import sys
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / 'scripts'))
 import generate_variants as gen
@@ -13,40 +11,31 @@ from dbr import DBR
 
 
 class CosmeticAuraTests(unittest.TestCase):
-    def setUp(self):
-        self.family = json.loads((REPO / 'config/families/boar.json').read_text())
-        self.tier = next(t for t in json.loads((REPO / 'config/tiers.json').read_text())['tiers']
-                         if t['id'] == 'veteran')
+    def test_preserves_existing_initial_and_uses_available_slots(self):
+        monster = gen.read_game_dbr('records/creatures/enemies/zombie_a01.dbr')
+        monster.lines.append('initialSkillName,records/skills/existing.dbr,\n')
+        monster.lines.append('skillName4,records/skills/occupied.dbr,\n')
+        proto = {'cosmetic_aura': {'enabled': True,
+                 'effect_source_record': 'records/fx/creatures/glownature01_large.dbr'}}
+        files = gen.build_cosmetic_aura(monster, proto, 'test_veteran_01')
+        self.assertEqual(monster.get('initialSkillName'), 'records/skills/existing.dbr')
+        self.assertIn('test_veteran_01_cosmetic', monster.get('initial2SkillName'))
+        self.assertEqual(monster.get('skillName4'), 'records/skills/occupied.dbr')
+        self.assertEqual(monster.get('initial2SkillName'), monster.get('skillName5'))
+        monster.lines.append('initial2SkillName,duplicate,\n')
+        with self.assertRaises(ValueError):
+            gen.build_cosmetic_aura(monster, proto, 'test_veteran_01')
 
-    def test_aura_isolated_from_baseline_combat_and_can_be_disabled(self):
-        enabled = gen.build_variant(self.family, self.tier)
-        disabled_tier = copy.deepcopy(self.tier)
-        disabled_tier['prototype']['cosmetic_aura']['enabled'] = False
-        disabled = gen.build_variant(self.family, disabled_tier)
-        self.assertEqual(len(disabled), 4)
-        monster_path = gen.game_location(self.family['first_prototype']['future_output_record'])
-        monster = DBR(enabled[monster_path])
-        self.assertEqual(monster.get('initialSkillName'), monster.get('skillName6'))
-        self.assertEqual(monster.get('skillLevel6'), '1')
-        stripped = ''.join(line for line in monster.lines
-                           if not line.startswith(('initialSkillName,', 'skillName6,', 'skillLevel6,')))
-        self.assertEqual(stripped, disabled[monster_path])
-        for path in disabled:
-            if path not in (monster_path, Path('manifest.json')):
-                self.assertEqual(enabled[path], disabled[path])
-        skill = DBR(enabled[gen.game_location(monster.get('skillName6'))])
-        for line in skill.lines:
-            key, value, _ = line.split(',', 2)
-            self.assertFalse(key.startswith(('offensive', 'defensive', 'character', 'retaliation')))
-            if 'Cost' in key:
-                self.assertEqual(float(value), 0)
-        self.assertEqual(skill.get('notDispelable'), '1')
-        pack = DBR(enabled[gen.game_location(skill.get('charFxPakSelfNames'))])
-        self.assertEqual(pack.get('particleEffectAttachPoints'), 'FXCentered')
-        self.assertEqual(pack.get('useTintColor'), '0')
-        self.assertIn(gen.game_location(pack.get('particleEffectNames')), enabled)
+    def test_both_initial_slots_occupied_rejected(self):
+        monster = gen.read_game_dbr('records/creatures/enemies/zombie_a01.dbr')
+        monster.lines += ['initialSkillName,one,\n', 'initial2SkillName,two,\n']
+        before = monster.render()
+        with self.assertRaises(gen.GenerationError):
+            gen.build_cosmetic_aura(monster, {'cosmetic_aura': {'enabled': True,
+                'effect_source_record': 'records/fx/creatures/glownature01_large.dbr'}}, 'test_veteran_01')
+        self.assertEqual(before, monster.render())
 
-    def test_new_buff_fields_are_declared_in_real_templates(self):
+    def test_minimal_cosmetic_fields_match_real_template_no_stat_bonuses(self):
         root = REPO / 'ReferenceFiles/Resources/templates'
         def fields(template):
             text = (root / template).read_text()
@@ -55,16 +44,14 @@ class CosmeticAuraTests(unittest.TestCase):
                 result |= fields(include.replace('\\', '/').lower())
             return result
         supported = fields('skill_buffselftoggled.tpl')
-        generated = gen.build_variant(self.family, self.tier)
-        skill = next(value for path, value in generated.items() if path.name.endswith('_cosmetic.dbr'))
-        for line in DBR(skill).lines:
-            key = line.split(',')[0]
-            if key != 'templateName':
-                self.assertIn(key, supported)
-
-    def test_refuses_to_replace_parent_initial_skill_or_slot(self):
-        source = gen.read_game_dbr(self.family['source_records'][0]['record'])
-        for field in ('initialSkillName', 'skillName6', 'skillLevel6'):
-            monster = DBR(source.render() + f'{field},occupied,\n')
-            with self.assertRaises(gen.GenerationError):
-                gen.build_cosmetic_aura(monster, self.tier['prototype'], 'boar_veteran_01')
+        for path, text in gen.configured_plan().items():
+            if path.name.endswith('_cosmetic.dbr'):
+                data = DBR(text)
+                for line in data.lines:
+                    key, value, _ = line.split(',', 2)
+                    if key != 'templateName':
+                        self.assertIn(key, supported)
+                    self.assertFalse(key.startswith(('offensive', 'defensive', 'character', 'retaliation')))
+                    if 'Cost' in key:
+                        self.assertEqual(float(value), 0)
+                self.assertEqual(data.get('notDispelable'), '1')

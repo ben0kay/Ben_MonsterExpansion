@@ -1,43 +1,55 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "id": "boar",
   "display_name": "Boar",
-  "status": "reference_only",
-  "source_records": [
+  "enabled": true,
+  "variants": [
     {
-      "tier": "common",
-      "record": "records/creatures/enemies/boar_a01.dbr",
-      "expected_classification": "Common"
+      "id": "veteran_01",
+      "tier": "veteran",
+      "source_record": "records/creatures/enemies/boar_a01.dbr",
+      "expected_classification": "Common",
+      "output_record": "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr",
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr"
     },
     {
-      "tier": "champion",
-      "record": "records/creatures/enemies/boar_b01.dbr",
-      "expected_classification": "Champion"
-    },
-    {
-      "tier": "hero",
-      "record": "records/creatures/enemies/hero/boar_h01.dbr",
-      "expected_classification": "Hero"
+      "id": "veteran_02",
+      "tier": "veteran",
+      "source_record": "records/creatures/enemies/boar_a02.dbr",
+      "expected_classification": "Common",
+      "output_record": "records/creatures/enemies/monsterexpansion/boar_veteran_02.dbr",
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr"
     }
   ],
-  "spawn_pool_record": "records/proxies/pools/p_beasts_boar_n.dbr",
-  "first_prototype": {
-    "tier": "veteran",
-    "source_tier": "common",
-    "future_output_record": "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr",
-    "planned_spawn_integration": false,
-    "status": "not_generated",
-    "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr"
-  },
-  "notes": [
-    "Use skill and bio records referenced by each vanilla monster; do not assume they share formulas.",
-    "First compile/test a single Veteran Boar. Test collision and melee/charge reach before mass generation.",
-    "The .dbr names must keep real Grim Dawn fields; project config keys are not engine DBR field names."
-  ],
-  "natural_spawns": {
-    "enabled": true,
-    "pool_slot": 5,
-    "level_variance_source_slot": 1,
-    "proxy_reference_record": "records/proxies/area001/beasts_boar_n.dbr"
-  }
+  "pools": [
+    {
+      "record": "records/proxies/pools/p_beasts_boar_n.dbr",
+      "enabled": true,
+      "proxy_references": [
+        "records/proxies/area001/beasts_boar_n.dbr"
+      ],
+      "promotions": [
+        {
+          "source_slot": 1,
+          "variant": "veteran_01",
+          "output_slot": 5
+        },
+        {
+          "source_slot": 2,
+          "variant": "veteran_01",
+          "output_slot": 6
+        },
+        {
+          "source_slot": 3,
+          "variant": "veteran_02",
+          "output_slot": 7
+        },
+        {
+          "source_slot": 4,
+          "variant": "veteran_02",
+          "output_slot": 8
+        }
+      ]
+    }
+  ]
 }

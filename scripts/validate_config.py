@@ -51,110 +51,116 @@ def dbr_values(path):
     return values
 
 
-def check_configs(reference_root=None):
+def check_configs(reference_root=None, repo=REPO):
+    """Validate the full catalog before generating/staging any selected family."""
     errors = []
     try:
-        catalog = load_json(REPO / "config" / "tiers.json")
-        families = sorted((REPO / "config" / "families").glob("*.json"))
-        require(catalog.get("schema_version") == 1, "tiers.json schema_version must be 1")
-        require(families, "No config/families/*.json found")
-        tier_rows = catalog.get("tiers")
-        require(isinstance(tier_rows, list), "tiers must be a list")
-        ids = [t["id"] for t in tier_rows]
-        require(ids == ORDER, f"Tier ordering changed: {ids}")
-        require(len(set(ids)) == len(ids), "Tier ids must be unique")
-        colors = []
-        for i, tier in enumerate(tier_rows, 1):
-            tid = tier["id"]
-            require(tier["order"] == i, f"Wrong order for {tid}")
-            color = tier.get("color_hex")
-            require(isinstance(color, str) and HEX.fullmatch(color), f"Invalid hex color for {tid}")
-            colors.append(color.lower())
-            if tid in CUSTOM_PARENTS:
-                require(tier["origin"] == "custom", f"{tid} must be custom")
-                p = tier.get("prototype")
-                require(isinstance(p, dict), f"{tid} prototype is missing")
-                require(p.get("parent_tier") == CUSTOM_PARENTS[tid], f"{tid} parent is incorrect")
-                require(isinstance(p.get("model_scale_vs_parent"), (int, float))
-                        and p["model_scale_vs_parent"] > 1, f"{tid} must scale up from parent")
-                for key in ("health", "damage", "defense"):
-                    value = p.get("stats_vs_parent", {}).get(key)
-                    require(isinstance(value, (int, float)) and value > 1,
-                            f"{tid} prototype '{key}' must exceed parent")
-            else:
-                require(tier["origin"] == "vanilla", f"{tid} must remain vanilla")
-                require("prototype" not in tier, f"Do not override vanilla tier {tid}")
-        veteran = next(t for t in tier_rows if t["id"] == "veteran")
-        aura = veteran["prototype"].get("cosmetic_aura")
-        require(isinstance(aura, dict) and type(aura.get("enabled")) is bool,
-                "Veteran cosmetic_aura.enabled must be boolean")
-        require(aura.get("effect_source_record") == "records/fx/creatures/glownature01_large.dbr",
-                "Veteran glow preset needs review before changing effect source")
-        require(len(set(colors)) == 9, "Tier colors must be distinct")
-        for fpath in families:
-            fam = load_json(fpath)
-            fid = fam.get("id", fpath.name)
-            require(fam.get("schema_version") == 1, f"{fid}: unknown schema")
-            sources = fam.get("source_records")
-            require(isinstance(sources, list) and sources, f"{fid}: source_records empty")
-            source_by_tier = {}
-            for source in sources:
-                t = source["tier"]
-                require(t in ORDER, f"{fid}: unknown source tier {t}")
-                require(t not in source_by_tier, f"{fid}: duplicate source tier {t}")
-                source_by_tier[t] = source
-                path = reference_path(source["record"], reference_root or REPO / "ReferenceFiles")
+        import math
+        root = reference_root or repo / "ReferenceFiles"
+        catalog = load_json(repo / "config/tiers.json")
+        require(catalog.get("schema_version") == 1, "Unsupported tier schema")
+        tiers = catalog["tiers"]
+        require([t["id"] for t in tiers] == ORDER, "Tier order changed")
+        require(len({t["color_hex"].lower() for t in tiers}) == 9, "Tier colors must differ")
+        by_id = {t["id"]: t for t in tiers}
+        for i, tier in enumerate(tiers, 1):
+            require(tier["order"] == i and HEX.fullmatch(tier["color_hex"]), "Invalid tier order/color")
+            if tier["id"] not in CUSTOM_PARENTS:
+                require(tier["origin"] == "vanilla" and "prototype" not in tier,
+                        "Vanilla tier overrides are not supported")
+                continue
+            proto = tier["prototype"]
+            require(tier["origin"] == "custom" and proto["parent_tier"] == CUSTOM_PARENTS[tier["id"]],
+                    "Wrong custom parent")
+            for value in [proto["model_scale_vs_parent"], *proto["stats_vs_parent"].values()]:
+                require(type(value) in (int, float) and math.isfinite(value) and value > 1,
+                        "Tier multipliers must be finite and exceed 1")
+            aura = proto.get("cosmetic_aura", {"enabled": False})
+            require(type(aura.get("enabled")) is bool, "Aura enabled must be boolean")
+            if aura["enabled"]:
+                path = reference_path(aura["effect_source_record"], root)
+                require(str(aura["effect_source_record"]).startswith("records/fx/"), "Aura must reference FX")
                 if reference_root is not None:
-                    require(path.is_file(), f"{fid}: missing extracted source: {path}")
+                    require(path.is_file() and not path.is_symlink(), "Missing/unsafe aura source")
+            if "natural_spawns" in proto:
+                value = proto["natural_spawns"]["common_conversion_share"]
+                require(type(value) in (int, float) and math.isfinite(value) and 0 < value < .5,
+                        "common_conversion_share must be finite, above 0 and below 0.5")
+                ratio = proto["natural_spawns"].get("target_veterans_per_champion", 2.5)
+                require(type(ratio) in (int, float) and math.isfinite(ratio) and ratio > 0,
+                        "Ratio target must be finite and positive (reporting only)")
+        paths = sorted((repo / "config/families").glob("*.json"))
+        require(paths, "No families configured")
+        outputs, pools = set(), set()
+        for fpath in paths:
+            fam = load_json(fpath)
+            require(fam.get("schema_version") == 2, "Family schema must be 2")
+            require(re.fullmatch(r"[a-z][a-z0-9_]*", fam["id"]) and fpath.stem == fam["id"],
+                    "Family id must match filename")
+            require(type(fam.get("enabled")) is bool, "Family enabled must be boolean")
+            require(fam["variants"], "Family needs variants")
+            ids = set()
+            for variant in fam["variants"]:
+                vid = variant["id"]
+                require(re.fullmatch(r"[a-z][a-z0-9_]*", vid) and vid not in ids, "Invalid/duplicate variant id")
+                ids.add(vid)
+                require(variant["tier"] in CUSTOM_PARENTS, "Variant must use a custom tier")
+                for key in ("source_record", "output_record", "damage_skill_source_record"):
+                    reference_path(variant[key], root)
+                require(variant["source_record"].startswith("records/creatures/enemies/"), "Wrong monster path")
+                expected = f"records/creatures/enemies/monsterexpansion/{fam['id']}_{vid}.dbr"
+                require(variant["output_record"] == expected, "Output must follow family_variant namespace")
+                require(expected not in outputs, "Duplicate variant output")
+                outputs.add(expected)
+                require(variant["damage_skill_source_record"].startswith("records/skills/nonplayerskills/"),
+                        "Wrong damage source namespace")
+                if reference_root is not None:
+                    path = reference_path(variant["source_record"], root)
+                    require(path.is_file() and not path.is_symlink(), f"Missing/unsafe monster: {path}")
                     data = dbr_values(path)
-                    require(data.get("templateName") == "database/templates/monster.tpl",
-                            f"{fid}: not a monster DBR: {path}")
-                    require(data.get("monsterClassification") == source["expected_classification"],
-                            f"{fid}: classification differs: {path}")
-            pool = reference_path(fam["spawn_pool_record"], reference_root or REPO / "ReferenceFiles")
-            if reference_root is not None:
-                require(pool.is_file(), f"{fid}: missing spawn pool: {pool}")
-                data = dbr_values(pool)
-                require(data.get("templateName") == "database/templates/proxypool.tpl",
-                        f"{fid}: not a proxy pool: {pool}")
-                require(any(data.get(k) == s["record"]
-                            for k in data if k.startswith("name")
-                            for s in sources), f"{fid}: pool does not reference the source monsters")
-            if "natural_spawns" in fam:
-                from natural_spawns import validate_spawn_settings
-                selected_tier = next(t for t in tier_rows if t["id"] == fam["first_prototype"]["tier"])
-                validate_spawn_settings(fam, selected_tier)
-            prototype = fam.get("first_prototype")
-            require(isinstance(prototype, dict), f"{fid}: first_prototype required")
-            target_tier = prototype["tier"]
-            require(target_tier in CUSTOM_PARENTS, f"{fid}: prototype must use a new tier")
-            require(prototype["source_tier"] == CUSTOM_PARENTS[target_tier],
-                    f"{fid}: prototype source_tier should be its parent")
-            require(prototype["source_tier"] in source_by_tier, f"{fid}: missing prototype parent source")
-            out = prototype["future_output_record"]
-            reference_path(out, reference_root or REPO / "ReferenceFiles")
-            require(out.startswith("records/creatures/enemies/monsterexpansion/"),
-                    f"{fid}: output must be in our namespace")
-            require(all(out != s["record"] for s in sources), f"{fid}: output clashes with vanilla")
-            require(prototype["planned_spawn_integration"] is False,
-                    f"{fid}: do not activate spawns during ME1")
-    except (ValueError, KeyError, TypeError, OSError, json.JSONDecodeError) as exc:
+                    require(data.get("templateName") == "database/templates/monster.tpl", "Not a monster")
+                    require(data.get("monsterClassification") == variant["expected_classification"],
+                            "Source classification differs")
+                    # Do not promote quest/summoned records through broad automatic discovery.
+                    require(not any(x in path.stem.lower() for x in ("summon", "potiondropper", "lootdropper", "_doa")),
+                            "Special monster needs explicit separate policy")
+            for pool in fam["pools"]:
+                record = pool["record"]
+                reference_path(record, root)
+                require(record.startswith("records/proxies/pools/") and record not in pools,
+                        "Pool must be unique and in regular pools namespace")
+                pools.add(record)
+                require(type(pool.get("enabled")) is bool, "Pool enabled must be boolean")
+                require(pool["proxy_references"] and pool["promotions"], "Pool needs proxy evidence and mappings")
+                for proxy in pool["proxy_references"]:
+                    reference_path(proxy, root)
+                sources, targets = set(), set()
+                for entry in pool["promotions"]:
+                    a, b = entry["source_slot"], entry["output_slot"]
+                    require(type(a) is int and type(b) is int and 1 <= a <= 15 and 1 <= b <= 15,
+                            "Pool slots must be integers 1..15 (template capacity)")
+                    require(a not in sources and b not in targets and entry["variant"] in ids,
+                            "Duplicate slot or missing variant")
+                    sources.add(a); targets.add(b)
+                require(not sources & targets, "Source and destination slots overlap")
+                if reference_root is not None:
+                    from natural_spawns import build_pool_override
+                    build_pool_override(fam, pool, by_id, root)
+    except (ValueError, KeyError, TypeError, OSError, StopIteration, json.JSONDecodeError) as exc:
         errors.append(str(exc))
     return errors
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--skip-references", action="store_true",
-                        help="Check JSON and paths without requiring extracted game files")
+    parser.add_argument("--skip-references", action="store_true")
     args = parser.parse_args()
     errors = check_configs(None if args.skip_references else REPO / "ReferenceFiles")
     if errors:
         for error in errors:
             print("FAIL:", error, file=sys.stderr)
         return 1
-    print("PASS: tier order, colors, prototype rules, family references and spawn pool")
-    print("Read-only validation; no DBR files generated or modified.")
+    print("PASS: tier defaults, family variants, references and promotion mappings (read-only)")
     return 0
 
 

@@ -1,3 +1,5 @@
+> **October 19 update:** [Current config-driven families guide](DATA_DRIVEN_FAMILIES.md) supersedes old schema, record counts and config keys below. Generate/stage all families for 30 DBRs. Original boar visuals and proxy/pool selection were verified by the user; new zombies remain untested in-game.
+
 # ME3 — natural Veteran Boar spawns
 
 Implemented for first playtest, October 18, 2026. Natural spawning and its

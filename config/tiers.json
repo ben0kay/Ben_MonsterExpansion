@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "implementation_status": "architecture_only",
+  "implementation_status": "configured_veteran_families",
   "note": "Prototype numbers are starting points for testing, not approved final balance. JSON is build tooling input, not read by Grim Dawn.",
   "ui_color_support": "unverified_in_game",
   "tiers": [
@@ -35,9 +35,9 @@
           "effect_source_record": "records/fx/creatures/glownature01_large.dbr"
         },
         "natural_spawns": {
+          "common_conversion_share": 0.2,
           "target_veterans_per_champion": 2.5,
-          "regular_pool_weight": 25,
-          "calibration_status": "provisional_unmeasured"
+          "calibration_status": "conversion_share_exact_ratio_unmeasured"
         }
       }
     },

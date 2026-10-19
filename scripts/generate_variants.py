@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate one validated monster variant and an optional scoped mod pool override.
+"""Generate configured monster families and optional reviewed pool overrides.
 
 Run from the repository root:
     python scripts/generate_variants.py
@@ -70,14 +70,8 @@ def scaled_series(raw, factor):
     return ";".join(scaled_number(chunk, factor) for chunk in chunks)
 
 
-def get_source(family, tier):
-    sources = [s for s in family["source_records"] if s["tier"] == tier]
-    fail_unless(len(sources) == 1, f"Cannot find unique source tier {tier}")
-    return sources[0]
-
-
 def build_cosmetic_aura(monster, prototype, prefix):
-    """Single-boar visual test: self-only toggle, no inherited combat bonuses.
+    """Shared cosmetic attachment: self-only toggle, no inherited combat bonuses.
 
     Evidence: necro_skeleton_b03_priest -> skeleton_priestselfaura uses
     initialSkillName + Skill_BuffSelfToggled + charFxPakSelfNames. Create a
@@ -89,20 +83,21 @@ def build_cosmetic_aura(monster, prototype, prefix):
     if not config["enabled"]:
         return {}
     effect_source = config.get("effect_source_record")
-    fail_unless(effect_source == "records/fx/creatures/glownature01_large.dbr",
-                "Only researched nature glow is supported in this playtest")
     effect = read_game_dbr(effect_source)
     fail_unless(effect.get("templateName") == "database/templates/effect.tpl",
                 "Unexpected cosmetic effect template")
     particle = effect.get("effectFile")
-    fail_unless(particle == "fx/particlesystems/creature/pfx_glownature_01_lg.pfx",
-                "Unexpected nature glow particle")
+    fail_unless(particle.startswith("fx/") and ".." not in particle.split("/")
+                and "\\" not in particle and particle.endswith(".pfx"), "Unsafe particle path")
     fail_unless((REFERENCE / "Resources" / particle).is_file(), "Missing particle reference")
-    # Do not overwrite another initial skill or occupied skill slot.
-    fail_unless(not any(line.startswith("initialSkillName,") and line.split(",")[1]
-                        for line in monster.lines), "Parent initial skill needs manual review")
-    fail_unless(not any(line.startswith(("skillName6,", "skillLevel6,"))
-                        for line in monster.lines), "Parent skill slot 6 is occupied")
+    # Template supports 60 assigned skills and two initial skills. Preserve every
+    # occupied slot; use an available initial slot or fail without overwriting.
+    slot = next((n for n in range(1, 61)
+                 if not monster._locations(f"skillName{n}") and not monster._locations(f"skillLevel{n}")), None)
+    initial = next((key for key in ("initialSkillName", "initial2SkillName")
+                    if not monster._locations(key) or not monster.get(key)), None)
+    fail_unless(slot is not None and initial is not None,
+                "No safe cosmetic/initial skill slot; disable aura or review this source")
     skill_record = f"records/skills/nonplayerskills/monsterexpansion/{prefix}_cosmetic.dbr"
     pack_record = f"records/fx/monsterexpansion/{prefix}_cosmetic_chfxpak.dbr"
     effect_record = f"records/fx/monsterexpansion/{prefix}_cosmetic_fx.dbr"
@@ -119,13 +114,13 @@ skillActiveLifeCost,0.000000,
 skillActiveManaCost,0.000000,
 """ + f"charFxPakSelfNames,{pack_record},\n")
     # Tint semantics are not proven for particles; disable rather than tint the
-    # boar's original texture by accident. Exact muted green remains a target.
+    # creature's original texture by accident. Exact muted green remains a target.
     pack = DBR("templateName,database/templates/charfxpak.tpl,\n"
                "particleEffectAttachPoints,FXCentered,\n"
                f"particleEffectNames,{effect_record},\nuseTintColor,0,\n")
     if monster.lines and not monster.lines[-1].endswith("\n"):
         monster.lines[-1] += "\n"
-    fields = {"skillName6": skill_record, "skillLevel6": "1", "initialSkillName": skill_record}
+    fields = {f"skillName{slot}": skill_record, f"skillLevel{slot}": "1", initial: skill_record}
     for key, value in fields.items():
         if any(line.startswith(key + ",") for line in monster.lines):
             monster.set(key, value)
@@ -135,34 +130,27 @@ skillActiveManaCost,0.000000,
             game_location(effect_record): effect.render()}
 
 
-def build_variant(family, tier, include_spawns=False):
-    """Read only references; return {relative staged path: generated contents}."""
-    first = family["first_prototype"]
-    fail_unless(first["tier"] == tier["id"], "Only configured first prototype is supported in ME2")
-    fail_unless(first["status"] == "not_generated" and first["planned_spawn_integration"] is False,
-                "ME2 must not integrate spawn pools")
+def build_variant(family, variant, tier):
+    """Generate one configured variant; no family-specific branching."""
     fid = family["id"]
-    fail_unless(bool(VALID_NAME.fullmatch(fid)), "Invalid family id")
-    source = get_source(family, first["source_tier"])
-    source_record = source["record"]
+    source_record = variant["source_record"]
     monster = read_game_dbr(source_record)
     fail_unless(monster.get("templateName") == "database/templates/monster.tpl", "Wrong monster template")
-    fail_unless(monster.get("monsterClassification") == source["expected_classification"],
-                "Unexpected parent classification")
+    fail_unless(monster.get("monsterClassification") == variant["expected_classification"],
+                "Unexpected source classification")
     proto = tier["prototype"]
     stats = proto["stats_vs_parent"]
-
-    target_monster = first["future_output_record"]
-    prefix = f"{fid}_{tier['id']}_01"
+    target_monster = variant["output_record"]
+    prefix = f"{fid}_{variant['id']}"
     monster_namespace = "records/creatures/enemies/monsterexpansion/"
-    fail_unless(target_monster == monster_namespace + prefix + ".dbr", "Unexpected prototype output name")
+    fail_unless(target_monster == monster_namespace + prefix + ".dbr", "Unexpected variant output name")
     bio_record = monster_namespace + "bios/" + prefix + "_bio.dbr"
     damage_record = "records/skills/nonplayerskills/monsterexpansion/" + prefix + "_damage.dbr"
-    damage_source = first["damage_skill_source_record"]
-    source_skills = [monster.get(f"skillName{n}") for n in range(1, 25)
-                     if any(line.startswith(f"skillName{n},") for line in monster.lines)]
+    damage_source = variant["damage_skill_source_record"]
+    source_skills = [monster.get(f"skillName{n}") for n in range(1, 61)
+                     if monster._locations(f"skillName{n}")]
     fail_unless(source_skills.count(damage_source) == 1,
-                "Configured damage skill must be assigned to the monster exactly once")
+                "Configured damage skill must be assigned exactly once")
 
     bio_source = monster.get("characterAttributeEquations")
     fail_unless(bio_source.startswith("records/creatures/enemies/bios/"),
@@ -182,7 +170,7 @@ def build_variant(family, tier, include_spawns=False):
     # NOT a guaranteed final 10% damage boost after all bonuses are applied.
     for key in ("offensivePhysicalMin", "offensivePhysicalMax"):
         damage.set(key, scaled_series(damage.get(key), stats["damage"]))
-    for idx in range(1, 25):
+    for idx in range(1, 61):
         field = f"skillName{idx}"
         if any(line.startswith(field + ",") for line in monster.lines) and monster.get(field) == damage_source:
             monster.set(field, damage_record)
@@ -205,40 +193,57 @@ def build_variant(family, tier, include_spawns=False):
         game_location(bio_record): bio.render(),
         game_location(damage_record): damage.render(),
     }
-    spawn_summary = {"included": False}
-    if include_spawns:
-        pool_record, pool_text, spawn_summary = build_pool_override(family, tier, REFERENCE)
-        result[game_location(pool_record)] = pool_text
-    manifest = {
-        "schema_version": 1,
-        "phase": "ME3" if include_spawns else "ME2",
-        "natural_spawns": spawn_summary,
-        "family": fid,
-        "tier": tier["id"],
-        "vanilla_source": source_record,
-        "output_monster": target_monster,
-        "files": sorted(p.as_posix() for p in result),
-        "settings_provisional": stats,
-        "model_scale_vs_parent": proto["model_scale_vs_parent"],
-        "color_target_only": tier["color_hex"],
-        "cosmetic_aura": {"enabled": bool(aura_files), "runtime_verified": True,
-                          "particle_tint_verified": False, "uses_base_game_particle": True},
-        "not_implemented": [
-            "natural spawn frequency calibration", "exact tier tint and aura intensity", "name and health bar UI color",
-            "melee/charge hitbox and range scaling", "compilation and in-game testing",
-            "uniform total damage multiplier"
-        ],
-    }
-    if not include_spawns:
-        manifest["not_implemented"].append("spawn pool integration")
-    result[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return result
+
+
+def build_plan(families, tier_by_id, include_spawns=False):
+    """One complete manifest per invocation; reject output collisions."""
+    files, variants, pools = {}, [], []
+    def merge(records):
+        fail_unless(not set(files) & set(records), "Duplicate generated output path")
+        files.update(records)
+    for family in families:
+        if not family["enabled"]:
+            continue
+        for variant in family["variants"]:
+            tier = tier_by_id[variant["tier"]]
+            merge(build_variant(family, variant, tier))
+            variants.append({"family": family["id"], "variant": variant["id"], "tier": variant["tier"],
+                             "source": variant["source_record"], "output": variant["output_record"],
+                             "runtime_verified": False})
+        if include_spawns:
+            for config in family["pools"]:
+                record, text, report = build_pool_override(family, config, tier_by_id, REFERENCE)
+                merge({game_location(record): text})
+                pools.append(report)
+    fail_unless(files, "No enabled variants selected")
+    manifest = {"schema_version": 2, "phase": "data_driven_families",
+                "families": [f["id"] for f in families if f["enabled"]],
+                "include_spawns": include_spawns, "variants": variants, "pools": pools,
+                "files": sorted(p.as_posix() for p in files),
+                "notes": ["Variant runtime flags default to unverified; see docs for existing boar evidence.",
+                          "Pool conversion share applies only to mapped regular entries, not all enemies.",
+                          "Champion ratios/map coverage, exact tint and collision/reach need playtesting."]}
+    files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    return files
+
+
+def configured_plan(family="all", include_spawns=False):
+    fail_unless(family == "all" or bool(VALID_NAME.fullmatch(family)), "Invalid family selector")
+    errors = check_configs(REFERENCE)
+    fail_unless(not errors, "; ".join(errors))
+    families = [json.loads(path.read_text(encoding="utf-8"))
+                for path in sorted((REPO / "config/families").glob("*.json"))
+                if family == "all" or path.stem == family]
+    fail_unless(families, f"No configured family: {family}")
+    tiers = json.loads((REPO / "config/tiers.json").read_text(encoding="utf-8"))["tiers"]
+    return build_plan(families, {t["id"]: t for t in tiers}, include_spawns)
 
 
 def write_staged(files, output_root, overwrite=False):
     """Write only inside a dedicated stage root, after preflighting all targets."""
     root = Path(output_root)
-    fail_unless(root.absolute() == OUTPUT.absolute(), "ME2 output root must remain generated/MonsterExpansion")
+    fail_unless(root.absolute() == OUTPUT.absolute(), "Generator output root must remain generated/MonsterExpansion")
     fail_unless(not root.is_symlink() and not root.parent.is_symlink(),
                 "Refusing symlinked generator output")
     for path, content in files.items():
@@ -275,30 +280,23 @@ def write_staged(files, output_root, overwrite=False):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--family", default="boar", help="ME2 currently supports boar")
-    parser.add_argument("--include-spawns", action="store_true", help="Include the scoped ME3 boar pool override")
+    parser.add_argument("--family", default="all", help="Configured family id, or all (default)")
+    parser.add_argument("--include-spawns", action="store_true", help="Include the scoped configured family pools override")
     parser.add_argument("--write", action="store_true", help="Stage the output in generated/ (ignored by Git)")
     parser.add_argument("--replace-generated", action="store_true", help="Replace changed generated files (requires --write)")
     args = parser.parse_args()
     try:
         fail_unless(not args.replace_generated or args.write,
                     "--replace-generated requires --write")
-        fail_unless(bool(VALID_NAME.fullmatch(args.family)), "Invalid family name")
-        validation = check_configs(REFERENCE)
-        fail_unless(not validation, "; ".join(validation))
-        family = json.loads((REPO / "config" / "families" / f"{args.family}.json").read_text(encoding="utf-8"))
-        tiers = json.loads((REPO / "config" / "tiers.json").read_text(encoding="utf-8"))["tiers"]
-        selected = [t for t in tiers if t["id"] == family["first_prototype"]["tier"]]
-        fail_unless(len(selected) == 1, "Expected exactly one configured prototype tier")
-        files = build_variant(family, selected[0], include_spawns=args.include_spawns)
-        print(f"{'ME3' if args.include_spawns else 'ME2'}: {family['display_name']} / {selected[0]['name']}")
+        files = configured_plan(args.family, args.include_spawns)
+        print(f"Configured families: {args.family}; pools: {args.include_spawns}")
         for p in sorted(files):
             print(f"  {'WRITE' if args.write else 'PLAN '} {p} ({len(files[p])} chars)")
         if args.write:
             write_staged(files, OUTPUT, overwrite=args.replace_generated)
             print("Staged in generated/MonsterExpansion/. Rebuild/install required.")
             if not args.include_spawns:
-                print("No pool emitted. Existing staged pool overrides are NOT removed; see docs/ME3_NATURAL_SPAWNS.md.")
+                print("No pool emitted. Existing staged pool overrides are NOT removed; see docs/DATA_DRIVEN_FAMILIES.md.")
         else:
             print("Dry run only. Re-run with --write to stage files (not into Asset Manager).")
         return 0
