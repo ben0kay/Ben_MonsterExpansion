@@ -24,6 +24,7 @@ from validate_config import check_configs, reference_path
 REPO = Path(__file__).resolve().parents[1]
 REFERENCE = REPO / "ReferenceFiles"
 OUTPUT = REPO / "generated" / "MonsterExpansion"
+TEXT_SOURCE = Path("source/Text_EN/tags_benmonsterexpansion.txt")
 VALID_NAME = re.compile(r"^[a-z][a-z0-9_]*$")
 
 
@@ -130,6 +131,19 @@ skillActiveManaCost,0.000000,
             game_location(effect_record): effect.render()}
 
 
+def display_tag(family, variant):
+    return f"tagBME_{family['id']}_{variant['id']}"
+
+
+def display_text(variant, tier):
+    name = variant.get("display_name")
+    if name is None:
+        return None
+    fail_unless(isinstance(name, str) and name.strip() == name and bool(name) and
+                not any(c in name for c in "\r\n=\x00"), "Invalid display_name text")
+    return f"{name} ({tier['name']})"
+
+
 def build_variant(family, variant, tier):
     """Generate one configured variant; no family-specific branching."""
     fid = family["id"]
@@ -138,6 +152,9 @@ def build_variant(family, variant, tier):
     fail_unless(monster.get("templateName") == "database/templates/monster.tpl", "Wrong monster template")
     fail_unless(monster.get("monsterClassification") == variant["expected_classification"],
                 "Unexpected source classification")
+    label = display_text(variant, tier)
+    if label is not None:
+        monster.set("description", display_tag(family, variant))
     proto = tier["prototype"]
     stats = proto["stats_vs_parent"]
     target_monster = variant["output_record"]
@@ -198,7 +215,7 @@ def build_variant(family, variant, tier):
 
 def build_plan(families, tier_by_id, include_spawns=False):
     """One complete manifest per invocation; reject output collisions."""
-    files, variants, pools = {}, [], []
+    files, variants, pools, tags = {}, [], [], {}
     def merge(records):
         fail_unless(not set(files) & set(records), "Duplicate generated output path")
         files.update(records)
@@ -208,6 +225,11 @@ def build_plan(families, tier_by_id, include_spawns=False):
         for variant in family["variants"]:
             tier = tier_by_id[variant["tier"]]
             merge(build_variant(family, variant, tier))
+            label = display_text(variant, tier)
+            if label is not None:
+                tag = display_tag(family, variant)
+                fail_unless(tag not in tags, "Duplicate display tag")
+                tags[tag] = label
             variants.append({"family": family["id"], "variant": variant["id"], "tier": variant["tier"],
                              "source": variant["source_record"], "output": variant["output_record"],
                              "runtime_verified": False})
@@ -217,9 +239,12 @@ def build_plan(families, tier_by_id, include_spawns=False):
                 merge({game_location(record): text})
                 pools.append(report)
     fail_unless(files, "No enabled variants selected")
+    if tags:
+        merge({TEXT_SOURCE: "".join(f"{key}={value}\n" for key, value in sorted(tags.items()))})
     manifest = {"schema_version": 2, "phase": "data_driven_families",
                 "families": [f["id"] for f in families if f["enabled"]],
                 "include_spawns": include_spawns, "variants": variants, "pools": pools,
+                "text_source": TEXT_SOURCE.as_posix() if tags else None,
                 "files": sorted(p.as_posix() for p in files),
                 "notes": ["Variant runtime flags default to unverified; see docs for existing boar evidence.",
                           "Pool conversion share applies only to mapped regular entries, not all enemies.",

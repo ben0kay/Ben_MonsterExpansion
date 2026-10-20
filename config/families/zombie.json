@@ -10,7 +10,8 @@
       "source_record": "records/creatures/enemies/zombie_a01_starter.dbr",
       "expected_classification": "Common",
       "output_record": "records/creatures/enemies/monsterexpansion/zombie_veteran_starter_01.dbr",
-      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr"
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "display_name": "Walking Dead"
     },
     {
       "id": "veteran_01",
@@ -18,7 +19,8 @@
       "source_record": "records/creatures/enemies/zombie_a01.dbr",
       "expected_classification": "Common",
       "output_record": "records/creatures/enemies/monsterexpansion/zombie_veteran_01.dbr",
-      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr"
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "display_name": "Walking Dead"
     }
   ],
   "pools": [

@@ -1,3 +1,5 @@
+> **Custom zombie names:** Now requires building the text asset and copying Text_EN.arc as well as the .arz. See [instructions](../docs/VETERAN_NAMES.md).
+
 > **October 19 update:** [Current config-driven families guide](../docs/DATA_DRIVEN_FAMILIES.md) supersedes old schema, record counts and config keys below. Generate/stage all families for 30 DBRs. Original boar visuals and proxy/pool selection were verified by the user; new zombies remain untested in-game.
 
 > **Natural-spawn update:** See [ME3 instructions](../docs/ME3_NATURAL_SPAWNS.md) for the current seven-record build, `--include-spawns` flags, centralized tier settings and rollback. The console-only workflow below does not remove an existing pool override.

@@ -6,9 +6,9 @@ while retaining the original game's enemies, roles and encounters.
 **Current checkpoint — October 19, 2026:** The original Veteran Boar builds,
 spawns, has verified +30% HP (92 vs 71 at one test level), and has a green glow
 approved by the user. Spawning the vanilla boar proxy selected a custom Veteran,
-confirming the modified pool works. Frequency and natural map coverage remain
-unmeasured. The generator is now generic and includes **boars plus starting
-zombies**, ready for the next build/playtest. Python checks: **25 passing tests**.
+confirming the modified pool works. The user has also confirmed a naturally spawned green Veteran zombie in an early
+Lower Crossing house. Frequency and broader map coverage remain unmeasured. The generator is now generic and includes **boars plus starting
+zombies**, ready for the next build/playtest. Python checks: **28 passing tests**.
 
 ## Build this version
 
@@ -22,8 +22,9 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **30 DBRs**: four monster variants plus supporting records and six pool
-overrides. Select the custom mod in Asset Manager, build with F7, copy its rebuilt
+Expect **30 DBRs + 1 text source**: four monster variants plus supporting records and six pool
+overrides. **New name-label step:** build the Text_EN source asset and install the
+mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
 reference tree into the mod. See [current build/test and rollback guide](docs/DATA_DRIVEN_FAMILIES.md)
 and [Windows Asset Manager guide](docs/BUILD_AND_TEST.md).
@@ -150,6 +151,7 @@ staged/compiled records. See the current guide before rolling back.
 
 ## Documentation and working rules
 
+- [Veteran name labels and new text-archive build step](docs/VETERAN_NAMES.md)
 - [Current generic architecture and tests](docs/DATA_DRIVEN_FAMILIES.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Asset Manager/build/install reference](docs/BUILD_AND_TEST.md)

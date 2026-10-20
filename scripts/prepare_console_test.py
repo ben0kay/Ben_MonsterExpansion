@@ -11,7 +11,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from generate_variants import REPO, OUTPUT, configured_plan, GenerationError
+from generate_variants import REPO, OUTPUT, configured_plan, GenerationError, TEXT_SOURCE
 from dbr import DBRError
 
 MOD_NAME = "Ben_MonsterExpansion"
@@ -47,7 +47,7 @@ def stage(files, repo=REPO, replace=False, family="all", include_spawns=False):
     updates = []
     for path, text in sorted(files.items()):
         require(not path.is_absolute() and ".." not in path.parts and
-                path.as_posix().startswith("database/records/"), "Unsafe target")
+                (path.as_posix().startswith("database/records/") or path == TEXT_SOURCE), "Unsafe target")
         target = repo / path
         for item in (target, *target.parents):
             if item == repo:
@@ -89,7 +89,10 @@ def main():
             print(f"{'STAGE' if args.stage else 'PLAN '} {path}")
         if args.stage:
             stage(files, replace=args.replace_staged, family=args.family, include_spawns=args.include_spawns)
-            print(f"PASS: staged {len(files)} DBRs. No original game files edited and no .arz built.")
+            count = sum(p.suffix == ".dbr" for p in files)
+            print(f"PASS: staged {count} DBRs and {len(files) - count} text source(s). No archives built.")
+            if TEXT_SOURCE in files:
+                print("NEW TEXT: Auto-Create Asset for source/Text_EN/tags_benmonsterexpansion.txt in Asset Manager, F7, then install resources/Text_EN.arc AND the .arz. See docs/VETERAN_NAMES.md.")
             if not args.include_spawns:
                 print("Existing staged pool overrides are NOT removed. See docs/DATA_DRIVEN_FAMILIES.md for rollback.")
         else:

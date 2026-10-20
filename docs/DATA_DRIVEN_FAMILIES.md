@@ -1,3 +1,5 @@
+> **Name-label update:** Zombie names now generate as `Walking Dead (Veteran)` via one additional text source. Build its asset and install the mod's Text_EN.arc as well as the .arz: [name-label instructions](VETERAN_NAMES.md). A Veteran zombie has now been observed naturally in an early Lower Crossing house. Other coverage and frequency remain unmeasured.
+
 # Config-driven families — boars and starting zombies
 
 October 19, 2026. Python checks pass; new variants and updated pools need a new
@@ -19,10 +21,10 @@ python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 
 Default selection is now **all enabled families**. Expect **30 DBRs** plus one
 generated manifest: four monster variants, each with monster/bio/damage/cosmetic
-skill/FX pack/effect (24), and six pool overrides. F7 in Asset Manager with the
+skill/FX pack/effect (24), six pool overrides and one text source. F7 in Asset Manager with the
 custom mod selected; copy the newly compiled mod `.arz` to the installed mod's
 database directory and restart the Custom Game. Existing world population may
-retain old enemies until a fresh session. No PFX edits or new resource archive.
+retain old enemies until a fresh session. No PFX edits. Custom names now require the text archive described above.
 
 Use the same options for generation and staging. `--family boar` or
 `--family zombie` restricts either command to one family. Restricted selection
@@ -38,8 +40,8 @@ game.Spawn "records/creatures/enemies/monsterexpansion/zombie_veteran_01.dbr"
 game.Spawn "records/creatures/enemies/monsterexpansion/boar_veteran_02.dbr"
 ```
 
-The existing `boar_veteran_01.dbr` command still works. Zombie variants currently
-retain their vanilla names/classifications; identify Veterans by the green glow,
+The existing `boar_veteran_01.dbr` command still works. Zombie variants retain their vanilla classifications but display `Walking Dead (Veteran)`
+when the new text archive is installed; identify Veterans by the green glow,
 size and matching-level HP comparison. The starter zombie uses its own weaker
 vanilla bio; it is not replaced by the stronger normal zombie's stat baseline.
 Stats remain +30% health, +8% defensive ability, +10% physical base-damage passive
@@ -144,7 +146,7 @@ cosmetic records can remain inert. Do not delete unmodified reference assets.
 
 ## Validation and remaining work
 
-25 tests pass: old-boar byte hashes, second-family generation via config,
+28 tests pass: old-boar byte hashes, second-family generation via config,
 starter bio preservation, no cosmetic combat stats, safe skill/initial allocation,
 exact fraction/weight conservation, higher-tier/count rules unchanged, source
 level gates inherited, collision rejection, config/path validation, staging

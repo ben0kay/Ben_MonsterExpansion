@@ -104,6 +104,10 @@ def check_configs(reference_root=None, repo=REPO):
                 vid = variant["id"]
                 require(re.fullmatch(r"[a-z][a-z0-9_]*", vid) and vid not in ids, "Invalid/duplicate variant id")
                 ids.add(vid)
+                if "display_name" in variant:
+                    name = variant["display_name"]
+                    require(isinstance(name, str) and bool(name) and name.strip() == name and
+                            not any(c in name for c in "\r\n=\x00"), "Invalid display_name")
                 require(variant["tier"] in CUSTOM_PARENTS, "Variant must use a custom tier")
                 for key in ("source_record", "output_record", "damage_skill_source_record"):
                     reference_path(variant[key], root)

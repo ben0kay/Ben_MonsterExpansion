@@ -30,7 +30,7 @@ class DataDrivenTests(unittest.TestCase):
             monster = DBR(files[gen.game_location(variant['output_record'])])
             original = gen.read_game_dbr(variant['source_record'])
             self.assertEqual(monster.get('monsterClassification'), 'Common')
-            self.assertEqual(monster.get('description'), original.get('description'))
+            self.assertEqual(monster.get('description'), gen.display_tag(zombie, variant))
             self.assertEqual(monster.get('actorRadius'), original.get('actorRadius'))
             self.assertEqual(monster.get('skillName3'), original.get('skillName3'))
             self.assertEqual(monster.get('initialSkillName'), monster.get('skillName4'))
@@ -45,21 +45,21 @@ class DataDrivenTests(unittest.TestCase):
         for v in family['variants']:
             v['output_record'] = f"records/creatures/enemies/monsterexpansion/configuration_test_{v['id']}.dbr"
         files = gen.build_plan([family], tiers)
-        self.assertEqual(len(files), 13)
-        self.assertTrue(all('configuration_test' in str(p) for p in files if p.name != 'manifest.json'))
+        self.assertEqual(len(files), 14)
+        self.assertTrue(all('configuration_test' in str(p) for p in files if p.name != 'manifest.json' and p != gen.TEXT_SOURCE))
 
     def test_tier_aura_disable_applies_to_both_families(self):
         families, tiers = catalog(); tiers['veteran']['prototype']['cosmetic_aura']['enabled'] = False
         files = gen.build_plan(families, tiers)
-        self.assertEqual(len(files), 13)
+        self.assertEqual(len(files), 14)
         self.assertFalse(any('_cosmetic' in str(p) for p in files))
 
     def test_deterministic_plans_and_no_proxy_or_asset_outputs(self):
         first = gen.configured_plan(include_spawns=True)
         self.assertEqual(first, gen.configured_plan(include_spawns=True))
-        self.assertEqual(len(first), 31)
+        self.assertEqual(len(first), 32)
         for p in first:
-            if p.name != 'manifest.json':
+            if p.name != 'manifest.json' and p != gen.TEXT_SOURCE:
                 self.assertTrue(p.as_posix().startswith('database/records/'))
                 self.assertFalse('area001' in str(p) or 'Resources' in str(p))
 
