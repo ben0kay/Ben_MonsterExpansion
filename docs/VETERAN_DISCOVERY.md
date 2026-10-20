@@ -1,3 +1,12 @@
+> Update: the audited 96-source snapshot is now enabled in
+> `config/families/discovered_veterans.json` at the shared 20% conversion share.
+> It adds 200 pools and 431 substitutions. All generated pool fields were compared
+> with vanilla: inherited level rules, unchanged Champion/count fields, exact
+> probability mass and no changes to existing boar/zombie output. Runtime testing
+> remains pending. The historical scan counts below precede activation; a fresh
+> scan will classify these mappings as already configured. Scanner drafts still
+> default to disabled and do not change active content.
+
 # Veteran discovery scanner
 
 October 19, 2026. This pass discovers mechanically compatible sources and prepares

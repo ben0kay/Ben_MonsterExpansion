@@ -39,7 +39,7 @@ class DataDrivenTests(unittest.TestCase):
             self.assertEqual(bio.get('characterLife'), f"({source_bio.get('characterLife')})*1.3")
 
     def test_new_family_can_be_generated_by_config_only(self):
-        families, tiers = catalog(); family = copy.deepcopy(families[1])
+        families, tiers = catalog(); family = copy.deepcopy(next(f for f in families if f['id'] == 'zombie'))
         family['id'] = 'configuration_test'
         family['pools'] = []
         for v in family['variants']:
@@ -51,13 +51,13 @@ class DataDrivenTests(unittest.TestCase):
     def test_tier_aura_disable_applies_to_both_families(self):
         families, tiers = catalog(); tiers['veteran']['prototype']['cosmetic_aura']['enabled'] = False
         files = gen.build_plan(families, tiers)
-        self.assertEqual(len(files), 14)
+        self.assertEqual(len(files), 302)
         self.assertFalse(any('_cosmetic' in str(p) for p in files))
 
     def test_deterministic_plans_and_no_proxy_or_asset_outputs(self):
         first = gen.configured_plan(include_spawns=True)
         self.assertEqual(first, gen.configured_plan(include_spawns=True))
-        self.assertEqual(len(first), 32)
+        self.assertEqual(len(first), 808)
         for p in first:
             if p.name != 'manifest.json' and p != gen.TEXT_SOURCE:
                 self.assertTrue(p.as_posix().startswith('database/records/'))

@@ -8,15 +8,17 @@ spawns, has verified +30% HP (92 vs 71 at one test level), and has a green glow
 approved by the user. Spawning the vanilla boar proxy selected a custom Veteran,
 confirming the modified pool works. The user has also confirmed a naturally spawned green Veteran zombie in an early
 Lower Crossing house. Frequency and broader map coverage remain unmeasured. The generator is now generic and includes **boars plus starting
-zombies**, ready for the next build/playtest. Python checks: **40 passing tests**.
+zombies**. An additional **96 audited Veteran variants in 200 pools** are now enabled for the next build/playtest. Python checks: **40 passing tests**.
 
 ## Veteran discovery scanner
 
 The scanner is implemented and has been run on the uploaded references:
 **96 new mechanically compatible sources, 431 candidate regular selections,
 200 candidate pools**, plus explicit reasons for excluded/review-required entries.
-The disabled draft validates with our existing configs and dry-runs through the
-actual generator. This is not in-game proof or automatic activation.
+The reviewed snapshot is now enabled in `config/families/discovered_veterans.json`.
+All 431 substitutions passed a generated-pool comparison: exact 80/20 split,
+inherited level rules, unchanged Champion/count fields and existing mod output.
+The 96 new variants still need in-game testing. Discovery itself remains read-only.
 
 ```powershell
 python scripts/discover_veterans.py
@@ -30,8 +32,8 @@ are flagged for merge review rather than overwritten. Extracted English tag file
 are missing; provide a Text_EN directory via `--text-root` for automatic names.
 
 See [scanner instructions and limitations](docs/VETERAN_DISCOVERY.md) and
-[scan snapshot](docs/VETERAN_DISCOVERY_REPORT.md). Next: resolve English names,
-review a small batch, then activate/build/playtest that subset before wider use.
+[scan snapshot](docs/VETERAN_DISCOVERY_REPORT.md). The enabled snapshot adds 96 variants;
+unresolved names retain their vanilla text, while existing zombie labels remain intact.
 
 ## Build this version
 
@@ -45,7 +47,7 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **30 DBRs + 1 text source**: four monster variants plus supporting records and six pool
+Expect **806 DBRs + 1 text source**: 100 monster variants with supporting records and 206 pool
 overrides. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
@@ -165,7 +167,7 @@ family sources and a successful small playable slice.
 | ME3 boar proxy/pool selection | Passed by user; rarity and natural map coverage still pending |
 | Generic family pipeline + starting zombies | Implemented; natural Veteran zombie observed in an early Lower Crossing house |
 | Generated Veteran zombie name labels | Passed in-game; correct header and original faction subtitle confirmed |
-| Broader Veteran coverage | Scanner/report and disabled draft implemented: 96 new candidate sources / 200 pools; no new families enabled |
+| Broader Veteran coverage | 96 additional audited variants enabled across 200 pools; build/runtime testing pending |
 | Champion → Elite (33%) | Future: inspect Champion selections, preserve limits/eligibility, generate exact-parent variants and test |
 | Hero → Ascended (33%) | Future: preserve named identity/skills and encounter restrictions; no Common/Champion fallback |
 | Nemesis → Apex (10%) | Future: investigate Nemesis activation/spawning before implementing provisional replacement chance |
@@ -175,15 +177,15 @@ family sources and a successful small playable slice.
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
 Python suite has **40 passing tests**. The original Veteran Boar's six-record
-regression is byte-identical. Four variants and six pool overrides generate
-30 DBRs plus one English text source.
+regression is byte-identical. 100 variants and 206 pool overrides generate
+806 DBRs plus one English text source.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks
 and larger rarity samples; this is not proof of every map placement or variant.
 
-The discovery scanner and disabled config generation are complete. Next development
-work is reviewed batch activation, English tag resolution and explicit handling of
+The discovery scanner and audited 96-variant activation are complete. Next work
+is build/playtesting, English tag resolution and explicit handling of
 existing-pool extensions/finite quotas. All strict tier-parent rules above remain.
 
 ## Local paths and references

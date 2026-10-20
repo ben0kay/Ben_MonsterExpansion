@@ -15,7 +15,7 @@ import prepare_console_test as staging
 class ConsoleStagingTests(unittest.TestCase):
     def test_all_families_stage_idempotently_and_protect_existing_edits(self):
         files = gen.configured_plan(include_spawns=True); files.pop(Path('manifest.json'))
-        self.assertEqual(len(files), 31)
+        self.assertEqual(len(files), 807)
         with tempfile.TemporaryDirectory() as tmp:
             repo = Path(tmp) / 'mods' / staging.MOD_NAME; repo.mkdir(parents=True)
             staging.stage(files, repo=repo, include_spawns=True)
@@ -48,7 +48,7 @@ class ConsoleStagingTests(unittest.TestCase):
             with patch.object(gen, 'OUTPUT', output), patch.object(staging, 'OUTPUT', output):
                 files = gen.configured_plan(include_spawns=True)
                 gen.write_staged(files, output)
-                self.assertEqual(len(staging.preflight(include_spawns=True)), 31)
+                self.assertEqual(len(staging.preflight(include_spawns=True)), 807)
                 (output / 'manifest.json').write_text('{}')
                 with self.assertRaises(gen.GenerationError):
                     staging.preflight(include_spawns=True)
