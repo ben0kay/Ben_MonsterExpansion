@@ -56,6 +56,10 @@ def check_configs(reference_root=None, repo=REPO):
     errors = []
     try:
         import math
+        from global_spawns import load_settings, build_global_spawn
+        settings = load_settings(repo)
+        if settings is not None and reference_root is not None:
+            build_global_spawn(settings, reference_root)
         root = reference_root or repo / "ReferenceFiles"
         catalog = load_json(repo / "config/tiers.json")
         require(catalog.get("schema_version") == 1, "Unsupported tier schema")

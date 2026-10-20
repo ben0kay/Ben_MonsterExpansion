@@ -8,7 +8,7 @@ spawns, has verified +30% HP (92 vs 71 at one test level), and has a green glow
 approved by the user. Spawning the vanilla boar proxy selected a custom Veteran,
 confirming the modified pool works. The user has also confirmed a naturally spawned green Veteran zombie in an early
 Lower Crossing house. Frequency and broader map coverage remain unmeasured. The generator is now generic and includes **boars plus starting
-zombies**. An additional **96 audited Veteran variants in 200 pools** are now enabled for the next build/playtest. Python checks: **40 passing tests**.
+zombies**. An additional **96 audited Veteran variants in 200 pools** are now enabled for the next build/playtest. Python checks: **43 passing tests**.
 
 ## Veteran discovery scanner
 
@@ -35,6 +35,24 @@ See [scanner instructions and limitations](docs/VETERAN_DISCOVERY.md) and
 [scan snapshot](docs/VETERAN_DISCOVERY_REPORT.md). The enabled snapshot adds 96 variants;
 unresolved names retain their vanilla text, while existing zombie labels remain intact.
 
+## Global pack size
+
+`config/master.json` now enables **1.5x regular pack size** through
+`monster_spawning.pack_size_multiplier`. Set `1.0` for vanilla size, `2.0` for
+2x, or `enabled=false` to emit the exact vanilla equation for rollback.
+Settings require generate/stage **with `--include-spawns`**, F7 and reinstalling
+the rebuilt `.arz`. Omitting the flag/removing the setting does not undo a
+previously compiled override. This JSON is build input, not a live game setting.
+
+The shared `records/proxies/proxypoolequation_01.dbr` changes only
+`spawnMinEquation` and `spawnMaxEquation`; Champion equations remain byte-identical.
+315 of 326 immediate reference pools use it (538 pool records across the full
+reference tree). Any referencing pool is affected, including special encounters;
+this global override cannot exclude particular pools. It adds monsters at existing
+encounters, not new map placements. Existing limits still apply, and engine
+rounding, placement/caps and actual pack increases need in-game testing.
+Veteran selection remains 20% within eligible mapped selections.
+
 ## Build this version
 
 Run in the local repository under `Working/mods/Ben_MonsterExpansion`:
@@ -47,7 +65,7 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **806 DBRs + 1 text source**: 100 monster variants with supporting records and 206 pool
+Expect **807 DBRs + 1 text source**: 100 monster variants with supporting records and 206 pool
 overrides. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
@@ -176,9 +194,9 @@ family sources and a successful small playable slice.
 
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
-Python suite has **40 passing tests**. The original Veteran Boar's six-record
+Python suite has **43 passing tests**. The original Veteran Boar's six-record
 regression is byte-identical. 100 variants and 206 pool overrides generate
-806 DBRs plus one English text source.
+807 DBRs plus one English text source.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks
