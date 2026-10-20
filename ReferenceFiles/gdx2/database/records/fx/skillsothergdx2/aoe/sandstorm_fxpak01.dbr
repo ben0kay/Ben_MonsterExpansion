@@ -1,0 +1,5 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+activateSound,records/sounds/skillsounds/nonplayer/spak_sandtornado_loop.dbr,
+disturbanceRadius,2.000000,
+particleEffectNames,records/fx/skillsothergdx2/aoe/sandstorm_fx01.dbr,

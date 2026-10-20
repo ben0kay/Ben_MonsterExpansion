@@ -1,0 +1,4 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+activateSound,records/sounds/skillsounds/nonplayer/korvaak/spak_korvaak_p2_teleport_end.dbr,
+particleEffectNames,records/fx/skillsothergdx2/attackradius/korvaak_teleporteruption_radius_fx01.dbr,

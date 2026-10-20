@@ -1,0 +1,5 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+FileDescription,5.0,
+activateSound,records/sounds/skillsounds/class05/spak_flashfreeze.dbr,
+particleEffectNames,records/fx/skillsothergdx2/itemrunes/disengage_cold_radius_fx01.dbr,

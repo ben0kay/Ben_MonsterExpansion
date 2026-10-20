@@ -1,0 +1,5 @@
+templateName,database/templates/spawnondeathpool.tpl,
+name1,records/creatures/enemies/boss&quest/beetle_maggot01_maggotsummon.dbr,
+spawnMax,15,
+spawnMin,9,
+weight1,100,

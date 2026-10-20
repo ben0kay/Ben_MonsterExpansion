@@ -1,0 +1,5 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+FileDescription,4.5,
+activateSound,records/sounds/skillsounds/class05/spak_arcanetempest.dbr,
+particleEffectNames,records/fx/skillsothergdx2/itemrunes/disengage_aether_radius_fx01.dbr,

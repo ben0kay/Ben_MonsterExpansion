@@ -1,0 +1,8 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+cameraShakeAmplitude,0.200000,
+cameraShakeDuration,0.200000,
+decal,records/fx/decals/decal_groundimpact_charredearth02_lg.dbr,
+effectFile,fx/particlesystems/ambient/pfx_korvaaktotem01_activate.pfx,
+localOrientFix,0,

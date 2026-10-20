@@ -1,0 +1,6 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+decal,records/fx/decals/decal_icesplatter01_med.dbr,
+effectFile,fx/particlesystems/creature/pfx_death_iceexplosion_med01.pfx,
+localOrientFix,1,

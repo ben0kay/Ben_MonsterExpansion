@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+canBeSoft,1,
+decal,records/fx/decals/decal_groundimpact_orange01_lg.dbr,
+effectFile,fx/particlesystems/skillsothergdx2/attackmelee/pfx_korvaakp03_attack01c-2.pfx,
+emitterType,Standard,
+localOrientFix,0,

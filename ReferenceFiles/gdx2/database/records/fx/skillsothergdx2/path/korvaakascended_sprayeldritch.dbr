@@ -1,0 +1,5 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+effectFile,fx/particlesystems/skillsothergdx2/path/pfx_korvaakscended_barfeldritch.pfx,
+localOrientFix,0,

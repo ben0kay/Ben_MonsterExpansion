@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+cameraShakeAmplitude,0.000000,
+cameraShakeDuration,0.000000,
+canBeSoft,0,
+effectFile,fx/particlesystems/skillsothergdx2/itemcomponents/pfx_chaosauraloop_self.pfx,
+localOrientFix,0,

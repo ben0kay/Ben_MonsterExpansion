@@ -1,0 +1,6 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,1,
+effectFile,fx/particlesystems/skillsclass09/pfx_aegispierce_impact01.pfx,
+localOrientFix,0,

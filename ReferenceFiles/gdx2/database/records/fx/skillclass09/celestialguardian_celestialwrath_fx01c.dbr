@@ -1,0 +1,4 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+effectFile,fx/particlesystems/skillsclass09/pfx_celestialguardian_celestialwrath_other_01c.pfx,

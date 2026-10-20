@@ -1,0 +1,8 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+cameraShakeAmplitude,0.400000,
+cameraShakeDuration,0.300000,
+canBeSoft,1,
+effectFile,fx/particlesystems/skillsothergdx2/attackmelee/pfx_korvaakp03_eviscerate_dual.pfx,
+emitterType,Standard,
+localOrientFix,0,

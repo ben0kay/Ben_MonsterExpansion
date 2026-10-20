@@ -1,0 +1,5 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+effectFile,fx/particlesystems/creature/pfx_korvaak_p03_flameswords01.pfx,
+emitterType,Standard,
+localOrientFix,0,

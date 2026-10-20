@@ -1,0 +1,7 @@
+templateName,database/templates/climate.tpl,
+climate1chance,100,
+climate1dbr,records/fx/climate_weather/desertcanyon_d_clear.dbr,
+climate1time,Day,
+climate4chance,100,
+climate4dbr,records/fx/climate_weather/desertcanyon_n_clear.dbr,
+climate4time,Night,

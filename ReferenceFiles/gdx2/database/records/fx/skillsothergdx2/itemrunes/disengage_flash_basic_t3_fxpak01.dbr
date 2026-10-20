@@ -1,0 +1,5 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+FileDescription,6.0,
+activateSound,records/sounds/skillsounds/class02/spak_flashbangexplosion01.dbr,
+particleEffectNames,records/fx/skillsothergdx2/itemrunes/disengage_flash_basic_t3_fx01.dbr,

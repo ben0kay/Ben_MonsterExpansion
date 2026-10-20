@@ -1,0 +1,5 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+effectFile,fx/particlesystems/skillsothergdx2/aoe/pfx_loghorrean_celestialvortex_loop01.pfx,
+localOrientFix,1,

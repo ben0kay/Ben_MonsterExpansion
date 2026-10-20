@@ -1,0 +1,7 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+activateSound,records/sounds/skillsounds/nonplayer/korvaak/spak_korvaak_p2_teleport_start.dbr,
+cameraShakeAmplitude,0.000000,
+cameraShakeDuration,0.000000,
+disturbanceRadius,0.000000,
+particleEffectNames,records/fx/skillsothergdx2/attackradius/korvaak_teleportstart_fx01.dbr,

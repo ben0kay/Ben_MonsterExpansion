@@ -1,0 +1,8 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+FileDescription,8.0 blue,
+activateSound,records/sounds/enemies/vocalizations/spak_gargoylevox.dbr,
+cameraShakeAmplitude,0.200000,
+cameraShakeDuration,0.050000,
+disturbanceRadius,10.000000,
+particleEffectNames,records/fx/skillsothergdx2/attackradius/gargoyle_roar_radius_fx.dbr,

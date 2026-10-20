@@ -1,0 +1,5 @@
+templateName,database/templates/setpiece.tpl,
+Class,SetPiece,
+placementChance,100.000000,
+pool1,records/proxies/areag/setpieceproxies/set_statuebasaltambush_01_chance.dbr,
+weight1,100,

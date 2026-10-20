@@ -1,0 +1,8 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+FileDescription,5.0,
+activateSound,records/sounds/skillsounds/class05/spak_flashfreeze.dbr,
+cameraShakeAmplitude,0.200000,
+cameraShakeDuration,0.100000,
+disturbanceRadius,4.000000,
+particleEffectNames,records/fx/skillsothergdx2/itemrunes/leapcold_radius_fx01.dbr,

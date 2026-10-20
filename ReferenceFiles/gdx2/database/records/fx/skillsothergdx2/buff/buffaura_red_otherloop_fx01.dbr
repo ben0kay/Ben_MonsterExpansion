@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+cameraShakeAmplitude,0.000000,
+cameraShakeDuration,0.000000,
+canBeSoft,0,
+effectFile,fx/particlesystems/skillsothergdx2/buff/pfx_buffaura_red_other.pfx,
+localOrientFix,1,

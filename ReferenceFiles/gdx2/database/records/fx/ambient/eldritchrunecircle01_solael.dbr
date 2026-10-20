@@ -1,0 +1,6 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+decal,records/fx/decals/ambdecal_groundimpact_charredearth02_xlg.dbr,
+effectFile,fx/particlesystems/ambient/pfx_eldritchrunecircle01_solael.pfx,
+localOrientFix,0,

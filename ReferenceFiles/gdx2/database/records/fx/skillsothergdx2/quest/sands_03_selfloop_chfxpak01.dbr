@@ -1,0 +1,4 @@
+templateName,database/templates/charfxpak.tpl,
+activeSound,records/sounds/skillsounds/nonplayer/spak_sandtornado_loop.dbr,
+particleEffectAttachPoints,FXUnParentedCenter,
+particleEffectNames,records/fx/skillsothergdx2/quest/sands_03_selfloop_fx01.dbr,

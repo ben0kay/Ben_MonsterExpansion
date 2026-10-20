@@ -1,0 +1,7 @@
+templateName,database/templates/engine/light.tpl,
+Class,Light,
+color.b,0.500000,
+color.g,0.800000,
+color.r,1.000000,
+radius,100.000000,
+shadowPriority,1,

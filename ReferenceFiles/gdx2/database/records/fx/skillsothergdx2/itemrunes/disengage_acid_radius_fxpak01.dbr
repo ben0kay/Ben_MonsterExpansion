@@ -1,0 +1,5 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+FileDescription,5.5,
+activateSound,records/sounds/combatshared/spak_acid_impact.dbr,
+particleEffectNames,records/fx/skillsothergdx2/itemrunes/disengage_acid_radius_fx01.dbr,

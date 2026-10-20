@@ -1,0 +1,5 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+effectFile,fx/particlesystems/ambient/pfx_sandfallthin01_sm.pfx,
+localOrientFix,0,

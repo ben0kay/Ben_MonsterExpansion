@@ -1,0 +1,8 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+FileDescription,5.0,
+activateSound,records/sounds/skillsounds/nonplayer/spak_electricalblast.dbr,
+cameraShakeAmplitude,0.000000,
+cameraShakeDuration,0.000000,
+disturbanceRadius,0.000000,
+particleEffectNames,records/fx/skillsothergdx2/itemrunes/disengage_radius_lightning_fx01.dbr,

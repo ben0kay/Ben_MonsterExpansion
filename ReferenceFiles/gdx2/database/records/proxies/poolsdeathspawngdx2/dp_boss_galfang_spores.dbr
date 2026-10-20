@@ -1,0 +1,8 @@
+templateName,database/templates/spawnondeathpool.tpl,
+limit2,4,
+name1,records/creatures/enemies/spore_a01.dbr,
+name2,records/creatures/enemies/spore_b01.dbr,
+spawnMax,12,
+spawnMin,9,
+weight1,75,
+weight2,25,

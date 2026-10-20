@@ -1,0 +1,4 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+meshEffectNames,records/fx/meshfx/bonespikes_ground_meshfx01.dbr,
+particleEffectNames,records/fx/skillsdevotion/scorpion_sting_impact_fx.dbr,
