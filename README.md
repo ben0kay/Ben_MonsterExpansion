@@ -76,17 +76,36 @@ ability rewriting or automatic conversion of every monster.
 Veteran baseline: 1.30× health, 1.08× defensive ability, 1.10× physical base-damage
 passive, 1.10× visible model scale, approved vanilla nature-glow particle. The
 passive adjustment is not a guaranteed 10% increase in final damage. Original
-name/classification, textures, collision and existing skills remain intact.
+classification, textures, collision and existing skills remain intact. Zombie
+name labels now use custom tags for `Walking Dead (Veteran)`; runtime label
+verification is pending. Boar names retain their original tags.
 Cosmetic skill and initial slots are selected safely without overwriting occupied
 slots. Glow intensity/particle scale controls and exact RGB tint remain unproven.
 
-**Spawning policy:** Convert 20% of each mapped Common entry's weight into its
-corresponding Veteran. Preserve the remaining Common share, original variants,
-level restrictions, total encounter counts and all Champion/Hero selection rules.
-The 2.5 Veterans-per-Champion target is reporting context, not a guaranteed ratio.
+**Agreed spawning policy:** Replace a portion of each eligible original enemy's
+selection weight with a variant derived from that exact source. This is per
+enemy selection, not per pack, and does not transform an already spawned enemy.
+
+| Original selection | Stays original | Replacement | Implementation |
+| --- | ---: | --- | --- |
+| Common | 80% | 20% Veteran | Implemented for mapped boars/zombies |
+| Champion | 67% | 33% Elite | Agreed; not implemented |
+| Hero | 67% | 33% Ascended | Agreed; not implemented |
+| Nemesis | 90% | 10% Apex | Provisional agreement; not implemented |
+
+**Strict parent rules; no cross-tier fallbacks.** Elite must derive from Champion,
+Ascended from Hero, and Apex from Nemesis. If a suitable parent is unavailable,
+skip that variant. Bosses remain unchanged. Preserve source level/faction/quest
+eligibility and encounter counts. Nemesis spawning needs independent investigation;
+do not assume regular pool splitting can be applied to it unchanged.
+
+The earlier 2.5 Veterans-per-Champion target is superseded as the governing
+spawn rule by these per-parent conversion percentages; the current Common split
+is still 20%. Existing config may retain the old target as reporting metadata.
 Limited/forced entries, loot droppers, summons, corpses and scripted encounters
-are excluded pending separate policies. Pool overrides affect encounters resolving
-those exact paths; opening-map placement coverage still needs playtesting.
+remain excluded pending explicit policies. Current code only splits mapped
+regular Common entries; the other three conversions require implementation.
+Pool overrides affect encounters resolving those exact paths.
 
 ## Tier hierarchy and design
 
@@ -103,7 +122,7 @@ game difficulty. Custom tiers are separate generated DBRs, not new engine enums.
 | 6 | Ascended | New | Violet `#AF69D2` | Selected enhanced Hero variants |
 | 7 | Boss | Vanilla | Purple `#9370C4` | Preserve major encounters |
 | 8 | Nemesis | Vanilla | Red `#D64B51` | Preserve faction threats |
-| 9 | Apex | New | Crimson/Pink `#E94488` | Rare, curated pinnacle encounters |
+| 9 | Apex | New | Crimson/Pink `#E94488` | Derived from Nemesis; provisional 10% replacement |
 
 Color values are design targets, not proof of name/health-bar color support.
 The Veteran effect uses the approved vanilla particle without actor tint.
@@ -122,17 +141,31 @@ family sources and a successful small playable slice.
 | ME1 design/config/validation | Complete |
 | ME2 Veteran Boar generation/build/direct test | Passed; approved green visual, HP verified |
 | ME3 boar proxy/pool selection | Passed by user; rarity and natural map coverage still pending |
-| Generic family pipeline + starting zombies | Implemented; 25 tests pass, new build/playtest pending |
-| Elite/Ascended variants and abilities | Pending source/mechanism research |
-| Apex encounter/reward prototype | Pending |
-| Broader family coverage | Add reviewed configs after zombie test |
+| Generic family pipeline + starting zombies | Implemented; natural Veteran zombie observed in an early Lower Crossing house |
+| Generated Veteran zombie name labels | Implemented with Text_EN resource; in-game label check pending |
+| Broader Veteran coverage | Next: automatic read-only discovery and compatibility reporting, then reviewed bulk config generation |
+| Champion → Elite (33%) | Future: inspect Champion selections, preserve limits/eligibility, generate exact-parent variants and test |
+| Hero → Ascended (33%) | Future: preserve named identity/skills and encounter restrictions; no Common/Champion fallback |
+| Nemesis → Apex (10%) | Future: investigate Nemesis activation/spawning before implementing provisional replacement chance |
+| Higher-tier visuals/abilities/rewards | Pending evidence, minimal prototypes and playtesting |
 | Debug hotkey GUI / exact forward spawn | Requested, unimplemented; console only for now |
 
-Next in-game checks: starter and normal zombie direct spawns, green effect on
-movement/death, early proxy selection, opening-area natural encounters and larger
-sample rarity. Boar02 retains its own vanilla stats/skills; its new Veteran and
-the refactored pool need testing. The original boar six-record regression stays
-byte-identical. Do not mark zombie results as verified from Python tests.
+The generic generator, safe skill/initial-slot allocation, exact Common weight
+splitting, validated staging and name-text generation are implemented; the latest
+Python suite has **28 passing tests**. The original Veteran Boar's six-record
+regression is byte-identical. Four variants and six pool overrides generate
+30 DBRs plus one English text source.
+
+Next immediate checks: verify `Walking Dead (Veteran)` after installing both the
+mod `.arz` and `resources/Text_EN.arc` (resources is beside database, not inside
+it); check movement/death FX and collect a larger rarity sample. A natural
+Lower Crossing house spawn and boar proxy selection are verified, not every
+map placement, every generated variant or every combat stat.
+
+Next development pass: discover ordinary sources and their pool references
+automatically, flag unsupported skills/initial slots/finite quotas and special
+encounters, then generate reviewed family configs in batches. Broad generation
+must retain strict tier parents and preserve the current working baseline.
 
 ## Local paths and references
 
