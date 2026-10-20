@@ -262,7 +262,18 @@ def configured_plan(family="all", include_spawns=False):
                 if family == "all" or path.stem == family]
     fail_unless(families, f"No configured family: {family}")
     tiers = json.loads((REPO / "config/tiers.json").read_text(encoding="utf-8"))["tiers"]
-    return build_plan(families, {t["id"]: t for t in tiers}, include_spawns)
+    files = build_plan(families, {t["id"]: t for t in tiers}, include_spawns)
+    if include_spawns:
+        from global_spawns import load_settings, build_global_spawn, OUTPUT_RECORD
+        settings = load_settings(REPO)
+        if settings is not None:
+            fail_unless(OUTPUT_RECORD not in files, "Global equation output collision")
+            files[OUTPUT_RECORD] = build_global_spawn(settings, REFERENCE)
+            manifest = json.loads(files[Path("manifest.json")])
+            manifest["global_spawning"] = settings
+            manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
+            files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    return files
 
 
 def write_staged(files, output_root, overwrite=False):
