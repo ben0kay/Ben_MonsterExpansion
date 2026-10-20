@@ -5,19 +5,19 @@ while retaining the original game's enemies, roles and encounters.
 
 ## Handoff checkpoint — October 20, 2026
 
-**Active content:** 100 Veteran variants (four original boar/zombie variants plus
-96 discovered variants), 206 pool overrides, 1.5x regular pack-size equation and
+**Active content:** 148 Veteran variants (four original boar/zombie variants plus
+144 discovered variants), 325 pool overrides, 1.5x regular pack-size equation and
 player attributes at 2 spendable points per level / +6 per point to the chosen
-Physique, Cunning or Spirit. Full generation emits **808 DBRs + 1 English text
-source**, plus the manifest. Latest Python suite: **52 passing tests**; generation
-and staging preflight pass. Asset Manager builds and game verification are manual.
+Physique, Cunning or Spirit. Full generation emits **1,215 DBRs + 1 English text
+source**, plus the manifest. Latest Python suite: **52 passing tests**. Asset
+Manager builds and game verification are manual.
 
-**Important unfinished work: the 48 additional candidates from the DLC-aware
-rescan are NOT enabled.** The user wants broad compatible coverage and questioned
-why these remained disabled. They were left as a discovery draft while DLC
-resolution and attribute settings were implemented; this is pending work, not a
-technical requirement to test tiny batches. Next agent should audit and activate
-the compatible expansion candidates, then supply the normal build commands.
+**DLC candidates are now enabled:** the additional 48 sources / 186 selections /
+119 pools have been merged into the existing discovered family, preserving all
+prior variants and pool mappings. All use the shared 20% Veteran conversion.
+Generated-pool tests verify unchanged unrelated fields and inherited level rules.
+All earlier generated files remain byte-identical; the activation only adds files.
+The new content needs build/install and representative in-game checks.
 
 ### Completed and published
 
@@ -40,34 +40,18 @@ not bundled into the mod, and the rescan did not activate more enemies. Archive
 size alone is not validation. The 2-point/+6 change and 1.5x packs still need explicit
 in-game confirmation; no successful level-up test has been reported yet.
 
-### Next agent: expansion candidate activation
+### Next work
 
-1. Pull latest main and read `scripts/references.py`, `config/families/`, and
-   `docs/VETERAN_DISCOVERY_REPORT.md`. Reference uploads are under
-   `ReferenceFiles/gdx1/database/records/` and `ReferenceFiles/gdx2/database/records/`.
-2. Reproduce discovery with the command below. Latest result: 6,285 regular
-   entries, 1,170 distinct sources, 442 already mapped selections, **48 new source
-   candidates / 186 selections / 119 pools**, 5,657 review-required entries,
-   zero reference-read errors. Reason counts overlap.
-3. Audit generated pool changes against effective DLC sources: exact 80/20 split,
-   inherited level rules, preserved quotas/counts/Champion fields and existing
-   content. `tests/test_references.py` audits all active pool fields already.
-4. Merge compatible candidates into active configuration. The generated draft
-   uses the same family ID `discovered_veterans` as the active 96-source family:
-   **do not replace the active config with the draft**, or lose prior coverage.
-   Merge new variants/pools, respecting unique output paths and pool ownership.
-   Known-source/new-pool and existing-owned-pool entries remain separate review
-   cases; do not duplicate pool outputs or silently bypass restrictions.
-5. Keep flagged entries excluded. Six missing-dependency entries currently refer
-   to four volcanic sandlizard Hero records and two selections requiring
-   `records/endlessdungeon/skills/special/maggot_passive_a01.dbr`.
-6. Validate, test, generate, publish and give the user the usual stage/F7/install
-   commands. Broad compatible activation is preferred; representative gameplay
-   testing can find exceptions rather than requiring tiny batches by default.
+The DLC candidate activation is complete. The previous rescan found 48 compatible
+sources / 186 selections / 119 pools; these are now active. Existing-source/new-pool
+and existing-owned-pool extensions remain review cases. Keep limited/forced and
+special entries excluded until explicit policies support them. Six missing-dependency
+entries previously referred to four volcanic sandlizard Hero records and two
+selections needing `records/endlessdungeon/skills/special/maggot_passive_a01.dbr`.
 
-```powershell
-python scripts/discover_veterans.py --write-report --draft-config
-```
+Re-running discovery is optional and read-only; generated drafts are disabled and
+must never replace the active aggregate family. The active catalog now has 628
+mapped regular selections (442 original + 186 added). No higher tiers are enabled.
 
 ### Preferences and remaining features
 
@@ -96,10 +80,10 @@ from `ReferenceFiles/gdx2/database/records/`, then the corresponding `gdx1`
 folder, then `ReferenceFiles/`. Generated paths keep the original game namespace.
 Discovery includes expansion pool folders and deduplicates overridden records.
 
-All 100 active variants / 206 pools validate with the uploaded DLC records.
-Only the cave half-troll Veteran monster output changes versus the base-only
-build; all other generated content, including pack equations, is identical.
-A fresh scan found **48 additional candidate sources / 119 pools**, not enabled.
+All 148 active variants / 325 pools validate with the uploaded DLC records.
+The DLC resolver initially changed only the cave half-troll Veteran output.
+The later 48-source activation adds new content while preserving all earlier files.
+The DLC-aware scan found **48 additional sources / 119 pools**, now enabled.
 Six entries flag missing/invalid dependencies; see the generated JSON for details.
 GDX1 and GDX2 player-level records match; player attribute settings below now use this expansion baseline.
 
@@ -187,7 +171,7 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **808 DBRs + 1 text source**: 100 monster variants with supporting records and 206 pool
+Expect **1,215 DBRs + 1 text source**: 148 monster variants with supporting records and 325 pool
 overrides. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
@@ -307,7 +291,7 @@ family sources and a successful small playable slice.
 | ME3 boar proxy/pool selection | Passed by user; rarity and natural map coverage still pending |
 | Generic family pipeline + starting zombies | Implemented; natural Veteran zombie observed in an early Lower Crossing house |
 | Generated Veteran zombie name labels | Passed in-game; correct header and original faction subtitle confirmed |
-| Broader Veteran coverage | 96 additional audited variants enabled across 200 pools; build/runtime testing pending |
+| Broader Veteran coverage | 144 discovered variants enabled across 319 additional pools; build/runtime testing pending |
 | Champion → Elite (33%) | Future: inspect Champion selections, preserve limits/eligibility, generate exact-parent variants and test |
 | Hero → Ascended (33%) | Future: preserve named identity/skills and encounter restrictions; no Common/Champion fallback |
 | Nemesis → Apex (10%) | Future: investigate Nemesis activation/spawning before implementing provisional replacement chance |
@@ -317,8 +301,8 @@ family sources and a successful small playable slice.
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
 Python suite has **52 passing tests**. The original Veteran Boar's six-record
-regression is byte-identical. 100 variants and 206 pool overrides generate
-808 DBRs plus one English text source.
+regression is byte-identical. 148 variants and 325 pool overrides generate
+1,215 DBRs plus one English text source.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks

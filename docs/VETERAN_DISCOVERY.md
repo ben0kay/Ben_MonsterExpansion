@@ -1,3 +1,5 @@
+> Activation update: the additional 48 sources / 186 selections / 119 pools are now merged into the active discovered family. Total active coverage is 148 variants / 325 pools / 628 mappings. Earlier disabled-status/count notes below are historical.
+
 > DLC update: scanner, validation and generation now resolve GDX2, then GDX1,
 > then base records. Expansion-specific pool namespaces are included. A fresh
 > scan examined 6,285 regular entries / 1,170 sources: 442 existing mappings,

@@ -1,6 +1,8 @@
+> Activation update: the 48 candidates listed in this pre-activation snapshot are now enabled. All previous content is retained; current total is 148 variants and 325 pools.
+
 # DLC-aware discovery snapshot
 
-GDX2 > GDX1 > base. Existing 100 variants remain enabled; 48 additional sources are disabled candidates.
+GDX2 > GDX1 > base. Existing 100 variants remain enabled; 48 additional sources were candidates at scan time and have since been enabled.
 
 # Veteran discovery report
 
