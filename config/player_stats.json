@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "attribute_points_per_level": 2,
+  "attribute_gain_per_point": {
+    "physique": 6,
+    "cunning": 6,
+    "spirit": 6
+  }
+}

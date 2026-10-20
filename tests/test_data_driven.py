@@ -57,7 +57,7 @@ class DataDrivenTests(unittest.TestCase):
     def test_deterministic_plans_and_no_proxy_or_asset_outputs(self):
         first = gen.configured_plan(include_spawns=True)
         self.assertEqual(first, gen.configured_plan(include_spawns=True))
-        self.assertEqual(len(first), 809)
+        self.assertEqual(len(first), 810)
         for p in first:
             if p.name != 'manifest.json' and p != gen.TEXT_SOURCE:
                 self.assertTrue(p.as_posix().startswith('database/records/'))

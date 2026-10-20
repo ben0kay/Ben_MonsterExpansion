@@ -61,6 +61,10 @@ def check_configs(reference_root=None, repo=REPO):
         settings = load_settings(repo)
         if settings is not None and reference_root is not None:
             build_global_spawn(settings, reference_root)
+        from player_stats import load_settings as load_player_stats, build_player_stats
+        player_settings = load_player_stats(repo)
+        if player_settings is not None and reference_root is not None:
+            build_player_stats(player_settings, reference_root)
         root = reference_root or repo / "ReferenceFiles"
         catalog = load_json(repo / "config/tiers.json")
         require(catalog.get("schema_version") == 1, "Unsupported tier schema")

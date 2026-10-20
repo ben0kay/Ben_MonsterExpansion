@@ -8,7 +8,7 @@ spawns, has verified +30% HP (92 vs 71 at one test level), and has a green glow
 approved by the user. Spawning the vanilla boar proxy selected a custom Veteran,
 confirming the modified pool works. The user has also confirmed a naturally spawned green Veteran zombie in an early
 Lower Crossing house. Frequency and broader map coverage remain unmeasured. The generator is now generic and includes **boars plus starting
-zombies**. An additional **96 audited Veteran variants in 200 pools** are now enabled for the next build/playtest. Python checks: **48 passing tests**.
+zombies**. An additional **96 audited Veteran variants in 200 pools** are now enabled for the next build/playtest. Python checks: **52 passing tests**.
 
 ## DLC reference priority
 
@@ -22,7 +22,7 @@ Only the cave half-troll Veteran monster output changes versus the base-only
 build; all other generated content, including pack equations, is identical.
 A fresh scan found **48 additional candidate sources / 119 pools**, not enabled.
 Six entries flag missing/invalid dependencies; see the generated JSON for details.
-Player attributes are still unchanged; GDX1 and GDX2 player-level records match.
+GDX1 and GDX2 player-level records match; player attribute settings below now use this expansion baseline.
 
 ## Veteran discovery scanner
 
@@ -48,6 +48,35 @@ are missing; provide a Text_EN directory via `--text-root` for automatic names.
 See [scanner instructions and limitations](docs/VETERAN_DISCOVERY.md) and
 [scan snapshot](docs/VETERAN_DISCOVERY_REPORT.md). The enabled snapshot adds 96 variants;
 unresolved names retain their vanilla text, while existing zombie labels remain intact.
+
+## Player attribute settings
+
+`config/player_stats.json` controls attribute progression:
+
+```json
+{
+  "schema_version": 1,
+  "enabled": true,
+  "attribute_points_per_level": 2,
+  "attribute_gain_per_point": { "physique": 6, "cunning": 6, "spirit": 6 }
+}
+```
+
+Each level awards 2 spendable attribute points; each point adds 6 to the chosen
+attribute: 12 allocated attribute stats per level instead of vanilla's 8.
+The gain applies to spent attribute points generally, including quest-earned
+points; quest reward point counts are unchanged. Skill points, mastery gains,
+XP equations, health/energy increments and the DLC 100/55 caps are preserved.
+Only four fields in the effective DLC `playerlevels.dbr` change.
+This does not edit character saves or explicitly grant points for past levels;
+existing-character recalculation is unverified. Test a fresh character: level
+once, confirm 2 points, spend one and confirm +6 to the selected attribute.
+
+Player settings are included in normal generation/staging even without
+`--include-spawns`; use the usual full build commands below to retain all mod
+features. Changing JSON requires regenerating, staging, F7 and installing the
+rebuilt `.arz`. `enabled=false` emits the exact effective vanilla player record
+for rollback; removing the config does not remove a previously compiled override.
 
 ## Global pack size
 
@@ -79,7 +108,7 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **807 DBRs + 1 text source**: 100 monster variants with supporting records and 206 pool
+Expect **808 DBRs + 1 text source**: 100 monster variants with supporting records and 206 pool
 overrides. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
@@ -208,9 +237,9 @@ family sources and a successful small playable slice.
 
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
-Python suite has **48 passing tests**. The original Veteran Boar's six-record
+Python suite has **52 passing tests**. The original Veteran Boar's six-record
 regression is byte-identical. 100 variants and 206 pool overrides generate
-807 DBRs plus one English text source.
+808 DBRs plus one English text source.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks

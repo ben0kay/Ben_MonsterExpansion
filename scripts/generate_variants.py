@@ -273,6 +273,15 @@ def configured_plan(family="all", include_spawns=False):
             manifest["global_spawning"] = settings
             manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
             files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    from player_stats import load_settings as load_player_stats, build_player_stats, OUTPUT_RECORD as PLAYER_RECORD
+    player_settings = load_player_stats(REPO)
+    if player_settings is not None:
+        fail_unless(PLAYER_RECORD not in files, "Player stats output collision")
+        files[PLAYER_RECORD] = build_player_stats(player_settings, REFERENCE)
+        manifest = json.loads(files[Path("manifest.json")])
+        manifest["player_stats"] = player_settings
+        manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
+        files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return files
 
 
