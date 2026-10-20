@@ -1,0 +1,4 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+meshEffectNames,records/fx/meshfx/vines_ground_meshfx01.dbr,
+particleEffectNames,records/fx/skillsothergdx1/projectile/vines_ground_flight01_fx.dbr,

@@ -1,0 +1,6 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,0,
+effectFile,fx/particlesystems/creature/pfx_ravagerspawn_01.pfx,
+localOrientFix,1,

@@ -1,0 +1,5 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+effectFile,fx/particlesystems/skillsothergdx1/aoe/pfx_timewarp_purple.pfx,
+localOrientFix,0,

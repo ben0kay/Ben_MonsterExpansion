@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+cameraShakeAmplitude,0.000000,
+cameraShakeDuration,0.000000,
+canBeSoft,0,
+effectFile,fx/particlesystems/skillsothergdx1/itemskills/pfx_consumable_ugdenjuice.pfx,
+localOrientFix,1,

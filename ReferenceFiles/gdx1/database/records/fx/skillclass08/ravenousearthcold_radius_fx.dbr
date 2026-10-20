@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,0,
+decal,records/fx/decals/decal_groundimpact_icy_lrg01.dbr,
+effectFile,fx/particlesystems/skillsclass08/pfx_ravenousearthcold_radius01.pfx,
+localOrientFix,0,

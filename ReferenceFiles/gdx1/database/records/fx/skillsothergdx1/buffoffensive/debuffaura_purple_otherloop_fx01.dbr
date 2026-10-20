@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+cameraShakeAmplitude,0.000000,
+cameraShakeDuration,0.000000,
+canBeSoft,0,
+effectFile,fx/particlesystems/skillsothergdx1/buffoffensive/pfx_debuffaura_purple_other.pfx,
+localOrientFix,0,

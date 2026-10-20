@@ -1,0 +1,8 @@
+templateName,database/templates/fxmesh.tpl,
+Class,FxMesh,
+animationName,fx/meshfx/anm/spikesice01a_attack.anm,
+disturbanceRadius,1.000000,
+fadeOutTime,0.500000,
+meshName,fx/meshfx/spikesice01a.msh,
+speed,1.000000,
+sustainTime,1.000000,

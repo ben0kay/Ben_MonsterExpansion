@@ -1,0 +1,7 @@
+templateName,database/templates/setpiece.tpl,
+Class,SetPiece,
+baseTexture,creatures/enemies/proxytexture_factionteal.tex,
+mesh,creatures/enemies/proxyfaction01.msh,
+placementChance,100.000000,
+pool1,records/proxies/factionspawnsgdx1/setpieceproxies/set_random_beast_tier1_swamp.dbr,
+weight1,100,

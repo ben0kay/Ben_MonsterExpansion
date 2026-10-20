@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,0,
+decal,records/fx/decals/decal_aetherburn_lrg.dbr,
+effectFile,fx/particlesystems/skillsothergdx1/aoe/pfx_aetherconflagrationhuge_01.pfx,
+localOrientFix,1,

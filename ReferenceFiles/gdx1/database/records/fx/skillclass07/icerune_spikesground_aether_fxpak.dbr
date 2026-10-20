@@ -1,0 +1,8 @@
+templateName,database/templates/fxpak.tpl,
+Class,FxPak,
+activateSound,records/sounds/skillsounds/class08/spak_boneharvest_cast_quiet.dbr,
+cameraShakeAmplitude,0.500000,
+cameraShakeDuration,0.000000,
+disturbanceRadius,0.000000,
+meshEffectNames,records/fx/skillclass08/soulscythe_meshfx01.dbr,
+particleEffectNames,records/fx/skillclass08/soulscytheaether_appearance01.dbr,

@@ -1,0 +1,8 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+cameraShakeAmplitude,0.000000,
+cameraShakeDuration,0.000000,
+canBeSoft,0,
+effectFile,fx/particlesystems/skillsothergdx1/quest/pfx_obeliskscripted_flame.pfx,
+emitterType,Standard,
+localOrientFix,1,

@@ -1,0 +1,7 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+canBeSoft,0,
+decal,records/fx/decals/decal_aetherburn_huge.dbr,
+effectFile,fx/particlesystems/skillsothergdx1/attackradius/pfx_aetherialslam_fire_xlg_01.pfx,
+localOrientFix,1,

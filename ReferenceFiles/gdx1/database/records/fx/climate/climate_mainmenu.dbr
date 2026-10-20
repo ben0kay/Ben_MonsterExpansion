@@ -1,0 +1,5 @@
+templateName,database/templates/climate.tpl,
+climate1chance,100,
+climate1dbr,records/fx/climate_weather/mainmenu01.dbr,
+climate1time,Always,
+climate5chance,0,

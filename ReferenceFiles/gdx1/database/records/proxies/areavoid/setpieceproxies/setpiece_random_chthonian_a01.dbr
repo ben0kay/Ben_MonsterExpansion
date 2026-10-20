@@ -1,0 +1,8 @@
+templateName,database/templates/setpiece.tpl,
+Class,SetPiece,
+baseTexture,creatures/enemies/proxytexture_gray.tex,
+mesh,creatures/enemies/voidfiend/voidfiend01.msh,
+placementChance,100.000000,
+pool1,records/proxies/areavoid/setpieceproxies/set_random_chthonian_a01.dbr,
+scale,1.000000,
+weight1,100,

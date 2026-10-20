@@ -1,0 +1,7 @@
+templateName,database/templates/climate.tpl,
+climate1chance,100,
+climate1dbr,records/fx/climate_weather/malmouth_d_debrisash.dbr,
+climate1time,Day,
+climate2chance,100,
+climate2dbr,records/fx/climate_weather/malmouth_n_debrisash.dbr,
+climate2time,Night,

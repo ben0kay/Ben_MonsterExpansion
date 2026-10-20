@@ -1,0 +1,4 @@
+templateName,database/templates/effect.tpl,
+Class,EffectEntity,
+boneList,Bone_R_Weapon;Bone_L_Weapon,
+effectFile,fx/particlesystems/skillsclass07/pfx_auracensure_other_01.pfx,
