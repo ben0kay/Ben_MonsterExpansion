@@ -3,12 +3,91 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
-**Current checkpoint — October 19, 2026:** The original Veteran Boar builds,
-spawns, has verified +30% HP (92 vs 71 at one test level), and has a green glow
-approved by the user. Spawning the vanilla boar proxy selected a custom Veteran,
-confirming the modified pool works. The user has also confirmed a naturally spawned green Veteran zombie in an early
-Lower Crossing house. Frequency and broader map coverage remain unmeasured. The generator is now generic and includes **boars plus starting
-zombies**. An additional **96 audited Veteran variants in 200 pools** are now enabled for the next build/playtest. Python checks: **52 passing tests**.
+## Handoff checkpoint — October 20, 2026
+
+**Active content:** 100 Veteran variants (four original boar/zombie variants plus
+96 discovered variants), 206 pool overrides, 1.5x regular pack-size equation and
+player attributes at 2 spendable points per level / +6 per point to the chosen
+Physique, Cunning or Spirit. Full generation emits **808 DBRs + 1 English text
+source**, plus the manifest. Latest Python suite: **52 passing tests**; generation
+and staging preflight pass. Asset Manager builds and game verification are manual.
+
+**Important unfinished work: the 48 additional candidates from the DLC-aware
+rescan are NOT enabled.** The user wants broad compatible coverage and questioned
+why these remained disabled. They were left as a discovery draft while DLC
+resolution and attribute settings were implemented; this is pending work, not a
+technical requirement to test tiny batches. Next agent should audit and activate
+the compatible expansion candidates, then supply the normal build commands.
+
+### Completed and published
+
+| Work | State / config | GitHub commit |
+| --- | --- | --- |
+| Initial broad Veteran activation | 96 additional sources / 431 selections / 200 pools; shared 20% conversion | `6070aa2c` |
+| Larger regular packs | `config/master.json`, multiplier `1.5`; shared Champion equations unchanged | `dc7b63ce` |
+| DLC-aware tools | GDX2 > GDX1 > base for scanner, validator, generator and shared equation | `26ff3d2b` |
+| Player attributes | `config/player_stats.json`: 2 points per level, 6 per spent point | `5f613028` |
+
+Verified in-game by the user: original Veteran boar spawn/green glow, +30% HP
+(92 vs 71 at one level), Veteran boar selected by the vanilla proxy, a natural
+Veteran zombie in an early Lower Crossing house, and `Walking Dead (Veteran)`
+header with original Aether Corruption subtitle. These observations do not prove
+every new variant, rarity, map placement or current pack multiplier.
+
+The user rebuilt and reported `.arz` increasing from about 1,374 KB to 1,375 KB
+after DLC/attribute work. This is plausible because DLC references are build inputs,
+not bundled into the mod, and the rescan did not activate more enemies. Archive
+size alone is not validation. The 2-point/+6 change and 1.5x packs still need explicit
+in-game confirmation; no successful level-up test has been reported yet.
+
+### Next agent: expansion candidate activation
+
+1. Pull latest main and read `scripts/references.py`, `config/families/`, and
+   `docs/VETERAN_DISCOVERY_REPORT.md`. Reference uploads are under
+   `ReferenceFiles/gdx1/database/records/` and `ReferenceFiles/gdx2/database/records/`.
+2. Reproduce discovery with the command below. Latest result: 6,285 regular
+   entries, 1,170 distinct sources, 442 already mapped selections, **48 new source
+   candidates / 186 selections / 119 pools**, 5,657 review-required entries,
+   zero reference-read errors. Reason counts overlap.
+3. Audit generated pool changes against effective DLC sources: exact 80/20 split,
+   inherited level rules, preserved quotas/counts/Champion fields and existing
+   content. `tests/test_references.py` audits all active pool fields already.
+4. Merge compatible candidates into active configuration. The generated draft
+   uses the same family ID `discovered_veterans` as the active 96-source family:
+   **do not replace the active config with the draft**, or lose prior coverage.
+   Merge new variants/pools, respecting unique output paths and pool ownership.
+   Known-source/new-pool and existing-owned-pool entries remain separate review
+   cases; do not duplicate pool outputs or silently bypass restrictions.
+5. Keep flagged entries excluded. Six missing-dependency entries currently refer
+   to four volcanic sandlizard Hero records and two selections requiring
+   `records/endlessdungeon/skills/special/maggot_passive_a01.dbr`.
+6. Validate, test, generate, publish and give the user the usual stage/F7/install
+   commands. Broad compatible activation is preferred; representative gameplay
+   testing can find exceptions rather than requiring tiny batches by default.
+
+```powershell
+python scripts/discover_veterans.py --write-report --draft-config
+```
+
+### Preferences and remaining features
+
+- Veteran conversion is globally `0.2` in `config/tiers.json`. Current safeguards
+  reject shares >= 0.5; 80% testing would need a deliberate validation update.
+- Agreed future exact-parent rules: Champion -> Elite 33%, Hero -> Ascended 33%,
+  Nemesis -> Apex provisional 10%. These tiers are not implemented. No fallback
+  from Common to Elite; Boss encounters remain preserved.
+- Most new names retain vanilla labels. Only known zombie names have generated
+  `(Veteran)` suffixes. User deferred supplying extracted English `.txt` files;
+  do not block enemy activation on that optional naming work.
+- Green Veteran glow is approved. Shared stats: 1.3 health, 1.08 defensive ability,
+  1.1 physical base passive damage and 1.1 model scale versus each exact parent.
+  Physical passive scaling is not a guarantee of +10% total final damage.
+- Pack-size multiplier changes existing encounters using the shared equation,
+  including special encounters; it does not add map placements. Engine rounding,
+  placement/caps and performance remain gameplay checks.
+- Player stats preserve DLC caps 100/55, skill points, XP and other progression.
+  Both uploaded DLC player-level files are identical. No save edits or explicit
+  retroactive compensation; existing-character recalculation remains unverified.
 
 ## DLC reference priority
 
@@ -27,8 +106,8 @@ GDX1 and GDX2 player-level records match; player attribute settings below now us
 ## Veteran discovery scanner
 
 The scanner is implemented and has been run on the uploaded references:
-**96 new mechanically compatible sources, 431 candidate regular selections,
-200 candidate pools**, plus explicit reasons for excluded/review-required entries.
+**Initial base-reference scan: 96 new mechanically compatible sources, 431 regular selections,
+200 pools**, plus explicit reasons for excluded/review-required entries.
 The reviewed snapshot is now enabled in `config/families/discovered_veterans.json`.
 All 431 substitutions passed a generated-pool comparison: exact 80/20 split,
 inherited level rules, unchanged Champion/count fields and existing mod output.
