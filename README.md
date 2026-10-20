@@ -19,6 +19,42 @@ Generated-pool tests verify unchanged unrelated fields and inherited level rules
 All earlier generated files remain byte-identical; the activation only adds files.
 The new content needs build/install and representative in-game checks.
 
+### Current handoff — Champion → Elite is next
+
+The user authorized implementing **data-driven Champion → Elite conversion**.
+No Elite implementation or activation has been committed yet. In the latest
+session, GitHub reads/writes work, but terminal execution fails with
+"No usable execution environment is available"; no new tests were run.
+The 52-test result above belongs to the previously completed Veteran/DLC/player
+work, not the proposed Elite work.
+
+The existing Elite prototype in `config/tiers.json` specifies, versus its exact
+Champion parent: **1.30 health, 1.18 damage, 1.12 defense and 1.10 model scale**.
+These are prototype settings; damage must be described according to the actual
+supported scaling mechanism, not promised as +18% final damage. Amber
+`#E49A36` is a visual design target; an amber cosmetic effect is not implemented
+or verified. There is no Elite conversion-share field yet.
+
+Next implementation should:
+- Keep shared tier stats, scale, cosmetic source and **33% Champion conversion**
+  in JSON; avoid enemy-specific Python logic.
+- Discover compatible Champion parents across effective **GDX2 > GDX1 > base**
+  records, report exclusions, and generate exact-parent Elite mappings.
+- Inspect actual Champion pool fields and limits before extending generic splitting.
+  Merge changes with existing Veteran-owned pools rather than overwrite them.
+- Preserve unrelated selections, level/eligibility rules, Champion counts and
+  existing encounter restrictions; no Common fallback or Boss conversion.
+- Verify generated pools and regression output, update staging/validation and
+  tests, then activate the compatible set and document actual totals.
+- Preserve all current Veterans, 1.5x packs and player attribute changes in the
+  combined build. No new build commands or output totals exist for Elites yet.
+
+The overhead star discussed in chat marks vanilla **Heroes**, not the Champion
+classification. No custom overhead marker has been requested or implemented.
+Hero → Ascended **33%** and Nemesis → Apex **10% (provisional)** remain later work;
+Nemesis spawning needs its own investigation. Optional English-name extraction
+remains deferred and must not block activation.
+
 ### Completed and published
 
 | Work | State / config | GitHub commit |
@@ -109,8 +145,8 @@ are flagged for merge review rather than overwritten. Extracted English tag file
 are missing; provide a Text_EN directory via `--text-root` for automatic names.
 
 See [scanner instructions and limitations](docs/VETERAN_DISCOVERY.md) and
-[scan snapshot](docs/VETERAN_DISCOVERY_REPORT.md). The enabled snapshot adds 96 variants;
-unresolved names retain their vanilla text, while existing zombie labels remain intact.
+[scan snapshot](docs/VETERAN_DISCOVERY_REPORT.md). The initial enabled snapshot added 96 variants; the DLC merge brings the discovered total to 144 (148 including the four original variants).
+Unresolved names retain their vanilla text, while existing zombie labels remain intact.
 
 ## Player attribute settings
 
@@ -236,7 +272,7 @@ enemy selection, not per pack, and does not transform an already spawned enemy.
 
 | Original selection | Stays original | Replacement | Implementation |
 | --- | ---: | --- | --- |
-| Common | 80% | 20% Veteran | Implemented for mapped boars/zombies |
+| Common | 80% | 20% Veteran | Implemented for 148 mapped variants across 325 pools |
 | Champion | 67% | 33% Elite | Agreed; not implemented |
 | Hero | 67% | 33% Ascended | Agreed; not implemented |
 | Nemesis | 90% | 10% Apex | Provisional agreement; not implemented |
@@ -279,8 +315,9 @@ use compatible extra abilities or altered frequency. Exact balance is provisiona
 respect family/role/difficulty differences rather than a universal flat formula.
 Collision footprint, melee/charge reach, skill radii and FX offsets require real
 field inspection and playtesting; mesh scale does not prove these scale together.
-Do not multiply every range indiscriminately. No bulk generation before reviewed
-family sources and a successful small playable slice.
+Do not multiply every range indiscriminately. Bulk Veteran generation is already enabled after compatibility and pool-data checks.
+For higher tiers, inspect source mechanics and validate generated data before activation;
+representative in-game checks remain necessary for visuals and engine behavior.
 
 ## Implementation phases and next work
 
@@ -308,9 +345,11 @@ The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks
 and larger rarity samples; this is not proof of every map placement or variant.
 
-The discovery scanner and audited 96-variant activation are complete. Next work
-is build/playtesting, English tag resolution and explicit handling of
-existing-pool extensions/finite quotas. All strict tier-parent rules above remain.
+The discovery scanner and 144 discovered-variant activation are complete (148 total
+Veterans). The next authorized implementation is data-driven Champion → Elite at
+33%, as detailed in the current handoff above. Build/playtesting, optional English
+tag resolution and explicit handling of existing-pool extensions/finite quotas
+remain open. All strict tier-parent rules above remain.
 
 ## Local paths and references
 
