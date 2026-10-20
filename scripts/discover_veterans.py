@@ -13,6 +13,7 @@ import sys
 from dbr import DBR, DBRError
 import generate_variants as gen
 from validate_config import reference_path
+from references import records
 
 REPO = Path(__file__).resolve().parents[1]
 OUTPUT = REPO / 'generated/discovery'
@@ -41,8 +42,6 @@ class Index:
             self.cache[record] = values
         return self.cache[record]
 
-    def record(self, path):
-        return 'records/' + path.relative_to(self.root).as_posix()
 
 
 def text_tags(root):
@@ -152,8 +151,7 @@ def discover(reference_root, families, policy, tags=None, tier=None):
     owned = {p['record'] for f in families for p in f['pools']}
     mapped = {(p['record'], m['source_slot']) for f in families for p in f['pools'] for m in p['promotions']}
     proxies, blocked_proxies, errors = defaultdict(list), defaultdict(list), []
-    for path in sorted((index.root / 'proxies').rglob('*.dbr')):
-        record = index.record(path)
+    for record in records(index.root, 'proxies'):
         try:
             data = index.read(record)
         except (ValueError, OSError) as exc:
@@ -165,8 +163,7 @@ def discover(reference_root, families, policy, tags=None, tier=None):
             if re.fullmatch(r'pool\d+', key) and value:
                 target[value].append(record)
     rows, checks = [], {}
-    for path in sorted((index.root / 'proxies/pools').glob('*.dbr')):
-        pool_record = index.record(path)
+    for pool_record in records(index.root, 'proxies'):
         try:
             pool = index.read(pool_record)
             if pool.get('templateName') != 'database/templates/proxypool.tpl':

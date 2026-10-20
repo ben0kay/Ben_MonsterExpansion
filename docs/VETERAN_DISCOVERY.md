@@ -1,3 +1,10 @@
+> DLC update: scanner, validation and generation now resolve GDX2, then GDX1,
+> then base records. Expansion-specific pool namespaces are included. A fresh
+> scan examined 6,285 regular entries / 1,170 sources: 442 existing mappings,
+> 48 new source candidates / 186 selections / 119 pools; zero read errors.
+> Review counts overlap. New candidates remain disabled. See the current snapshot.
+> The older counts below describe the earlier base-only scan.
+
 > Update: the audited 96-source snapshot is now enabled in
 > `config/families/discovered_veterans.json` at the shared 20% conversion share.
 > It adds 200 pools and 431 substitutions. All generated pool fields were compared

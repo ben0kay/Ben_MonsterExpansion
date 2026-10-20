@@ -25,7 +25,8 @@ def load_settings(repo):
 
 
 def build_global_spawn(settings, reference):
-    path = reference / RECORD.removeprefix('records/')
+    from references import resolve
+    path = resolve(RECORD, reference)
     if not path.is_file() or path.is_symlink():
         raise ValueError('Missing/unsafe shared spawn equation')
     original = path.read_text(encoding='utf-8-sig')

@@ -8,7 +8,21 @@ spawns, has verified +30% HP (92 vs 71 at one test level), and has a green glow
 approved by the user. Spawning the vanilla boar proxy selected a custom Veteran,
 confirming the modified pool works. The user has also confirmed a naturally spawned green Veteran zombie in an early
 Lower Crossing house. Frequency and broader map coverage remain unmeasured. The generator is now generic and includes **boars plus starting
-zombies**. An additional **96 audited Veteran variants in 200 pools** are now enabled for the next build/playtest. Python checks: **43 passing tests**.
+zombies**. An additional **96 audited Veteran variants in 200 pools** are now enabled for the next build/playtest. Python checks: **48 passing tests**.
+
+## DLC reference priority
+
+Tools now use **GDX2 > GDX1 > base**, resolving each logical `records/...` path
+from `ReferenceFiles/gdx2/database/records/`, then the corresponding `gdx1`
+folder, then `ReferenceFiles/`. Generated paths keep the original game namespace.
+Discovery includes expansion pool folders and deduplicates overridden records.
+
+All 100 active variants / 206 pools validate with the uploaded DLC records.
+Only the cave half-troll Veteran monster output changes versus the base-only
+build; all other generated content, including pack equations, is identical.
+A fresh scan found **48 additional candidate sources / 119 pools**, not enabled.
+Six entries flag missing/invalid dependencies; see the generated JSON for details.
+Player attributes are still unchanged; GDX1 and GDX2 player-level records match.
 
 ## Veteran discovery scanner
 
@@ -194,7 +208,7 @@ family sources and a successful small playable slice.
 
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
-Python suite has **43 passing tests**. The original Veteran Boar's six-record
+Python suite has **48 passing tests**. The original Veteran Boar's six-record
 regression is byte-identical. 100 variants and 206 pool overrides generate
 807 DBRs plus one English text source.
 

@@ -37,7 +37,8 @@ def reference_path(game_record, reference_root):
     parts = game_record.split("/")
     require(all(p not in ("", ".", "..") for p in parts), f"Unsafe DBR path: {game_record}")
     require(game_record.lower().endswith(".dbr"), f"Not a DBR path: {game_record}")
-    return reference_root.joinpath(*parts[1:])
+    from references import resolve
+    return resolve(game_record, reference_root)
 
 
 def dbr_values(path):
@@ -135,7 +136,7 @@ def check_configs(reference_root=None, repo=REPO):
             for pool in fam["pools"]:
                 record = pool["record"]
                 reference_path(record, root)
-                require(record.startswith("records/proxies/pools/") and record not in pools,
+                require(record.startswith(("records/proxies/pools/", "records/proxies/poolsgdx1/", "records/proxies/poolsgdx2/")) and record not in pools,
                         "Pool must be unique and in regular pools namespace")
                 pools.add(record)
                 require(type(pool.get("enabled")) is bool, "Pool enabled must be boolean")

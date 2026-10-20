@@ -39,8 +39,8 @@ def fail_unless(ok, reason):
 
 def game_location(relative_record):
     """Produce relative path under staged database/. No arbitrary destinations."""
-    source = reference_path(relative_record, REFERENCE)
-    return Path("database") / Path("records") / source.relative_to(REFERENCE)
+    reference_path(relative_record, REFERENCE)
+    return Path("database") / relative_record
 
 
 def read_game_dbr(game_record):
