@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "family_id": "discovered_veterans",
+  "source_classification": "Common",
+  "target_tier": "veteran",
+  "max_pool_slot": 15,
+  "excluded_path_pattern": "(?i)(boss|quest|summon|nemesis|devotion|bounties|factionspawns|setpiece|deathspawn|special|lootdropper|potiondropper|_doa|trap_|training|dummy|pet)|/faction/|/faction_|/p_faction_",
+  "notes": [
+    "Mechanical compatibility does not establish safe map placement or balance.",
+    "Existing family configs and pool ownership are never overwritten.",
+    "Drafts aggregate new candidates into one family so a shared pool is emitted once."
+  ]
+}

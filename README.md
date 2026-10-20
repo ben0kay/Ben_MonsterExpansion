@@ -8,7 +8,30 @@ spawns, has verified +30% HP (92 vs 71 at one test level), and has a green glow
 approved by the user. Spawning the vanilla boar proxy selected a custom Veteran,
 confirming the modified pool works. The user has also confirmed a naturally spawned green Veteran zombie in an early
 Lower Crossing house. Frequency and broader map coverage remain unmeasured. The generator is now generic and includes **boars plus starting
-zombies**, ready for the next build/playtest. Python checks: **28 passing tests**.
+zombies**, ready for the next build/playtest. Python checks: **40 passing tests**.
+
+## Veteran discovery scanner
+
+The scanner is implemented and has been run on the uploaded references:
+**96 new mechanically compatible sources, 431 candidate regular selections,
+200 candidate pools**, plus explicit reasons for excluded/review-required entries.
+The disabled draft validates with our existing configs and dry-runs through the
+actual generator. This is not in-game proof or automatic activation.
+
+```powershell
+python scripts/discover_veterans.py
+python scripts/discover_veterans.py --write-report --draft-config
+```
+
+Default is read-only. Optional reports and a disabled aggregate config go only to
+`generated/discovery/`; active config, DBRs and the playable mod stay unchanged.
+New shared pools are combined once; existing boar/zombie sources and owned pools
+are flagged for merge review rather than overwritten. Extracted English tag files
+are missing; provide a Text_EN directory via `--text-root` for automatic names.
+
+See [scanner instructions and limitations](docs/VETERAN_DISCOVERY.md) and
+[scan snapshot](docs/VETERAN_DISCOVERY_REPORT.md). Next: resolve English names,
+review a small batch, then activate/build/playtest that subset before wider use.
 
 ## Build this version
 
@@ -77,8 +100,7 @@ Veteran baseline: 1.30× health, 1.08× defensive ability, 1.10× physical base-
 passive, 1.10× visible model scale, approved vanilla nature-glow particle. The
 passive adjustment is not a guaranteed 10% increase in final damage. Original
 classification, textures, collision and existing skills remain intact. Zombie
-name labels now use custom tags for `Walking Dead (Veteran)`; runtime label
-verification is pending. Boar names retain their original tags.
+name labels use custom tags for `Walking Dead (Veteran)`, now verified in-game. Boar names retain their original tags.
 Cosmetic skill and initial slots are selected safely without overwriting occupied
 slots. Glow intensity/particle scale controls and exact RGB tint remain unproven.
 
@@ -142,8 +164,8 @@ family sources and a successful small playable slice.
 | ME2 Veteran Boar generation/build/direct test | Passed; approved green visual, HP verified |
 | ME3 boar proxy/pool selection | Passed by user; rarity and natural map coverage still pending |
 | Generic family pipeline + starting zombies | Implemented; natural Veteran zombie observed in an early Lower Crossing house |
-| Generated Veteran zombie name labels | Implemented with Text_EN resource; in-game label check pending |
-| Broader Veteran coverage | Next: automatic read-only discovery and compatibility reporting, then reviewed bulk config generation |
+| Generated Veteran zombie name labels | Passed in-game; correct header and original faction subtitle confirmed |
+| Broader Veteran coverage | Scanner/report and disabled draft implemented: 96 new candidate sources / 200 pools; no new families enabled |
 | Champion → Elite (33%) | Future: inspect Champion selections, preserve limits/eligibility, generate exact-parent variants and test |
 | Hero → Ascended (33%) | Future: preserve named identity/skills and encounter restrictions; no Common/Champion fallback |
 | Nemesis → Apex (10%) | Future: investigate Nemesis activation/spawning before implementing provisional replacement chance |
@@ -152,20 +174,17 @@ family sources and a successful small playable slice.
 
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
-Python suite has **28 passing tests**. The original Veteran Boar's six-record
+Python suite has **40 passing tests**. The original Veteran Boar's six-record
 regression is byte-identical. Four variants and six pool overrides generate
 30 DBRs plus one English text source.
 
-Next immediate checks: verify `Walking Dead (Veteran)` after installing both the
-mod `.arz` and `resources/Text_EN.arc` (resources is beside database, not inside
-it); check movement/death FX and collect a larger rarity sample. A natural
-Lower Crossing house spawn and boar proxy selection are verified, not every
-map placement, every generated variant or every combat stat.
+The user has now verified `Walking Dead (Veteran)` in the header with the green
+glow and original Aether Corruption subtitle. Continue movement/death/combat checks
+and larger rarity samples; this is not proof of every map placement or variant.
 
-Next development pass: discover ordinary sources and their pool references
-automatically, flag unsupported skills/initial slots/finite quotas and special
-encounters, then generate reviewed family configs in batches. Broad generation
-must retain strict tier parents and preserve the current working baseline.
+The discovery scanner and disabled config generation are complete. Next development
+work is reviewed batch activation, English tag resolution and explicit handling of
+existing-pool extensions/finite quotas. All strict tier-parent rules above remain.
 
 ## Local paths and references
 
