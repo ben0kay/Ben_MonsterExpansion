@@ -1,0 +1,4 @@
+templateName,database/templates/templatebase/lootcontainer.tpl,
+Class,FixedItem,
+lootClassification,Boss,
+lootTable,records/interactive/totemloot/totem_loot_b05.dbr,
