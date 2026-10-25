@@ -2,11 +2,12 @@
 from collections import defaultdict
 from fractions import Fraction
 import re
+from math import lcm
 from dbr import DBR
 from validate_config import reference_path, require
 
 # These are fields established by proxypool.tpl, not rarity guesses from filenames.
-GROUPS = {'common': '', 'champion': 'Champion'}
+GROUPS = {'common': '', 'champion': 'Champion', 'hero': 'Champion'}
 RULES = ('levelVarianceEquation', 'minPlayerLevel', 'maxPlayerLevel')
 
 
@@ -25,8 +26,44 @@ def conversion_share(tier):
 
 def selection_group(tier):
     parent = tier['prototype']['parent_tier']
-    require(parent in GROUPS, 'Unsupported pool parent; Hero/Nemesis require a separate policy')
+    require(parent in GROUPS, 'Unsupported pool parent; Nemesis requires a separate policy')
     return GROUPS[parent]
+
+
+def limit_policy_error(data, group, slot, tier, read_record):
+    """Allow a finite Hero quota only when the whole selection group fits it.
+
+    With at most N group draws and a source limit >= N, splitting the entry
+    cannot increase the combined quota. Require the unchanged identity equations;
+    forced group entries could bypass the bound and therefore exclude the pool.
+    """
+    zero = ('', '0', '0.000000')
+    if data.get(f'alwaysSpawn{group}{slot}', '') not in zero:
+        return 'limited_or_forced_entry'
+    raw = data.get(f'limit{group}{slot}', '')
+    if raw in zero:
+        return None
+    policy = tier['prototype'].get('natural_spawns', {}).get('finite_limit_policy')
+    if policy != 'bounded_champion_group' or tier['prototype']['parent_tier'] != 'hero' or group != 'Champion':
+        return 'limited_or_forced_entry'
+    try:
+        limit = int(raw)
+        maximum = int(data['championMax'])
+        minimum = int(data.get('championMin', '0'))
+        if not 0 <= minimum <= maximum <= limit or maximum <= 0:
+            return 'finite_quota_exceeds_supported_group_bound'
+        if any(value not in zero for key, value in data.items()
+               if re.fullmatch(r'alwaysSpawnChampion\d+', key)):
+            return 'forced_champion_group_needs_review'
+        equation = read_record(data['proxyPoolEquation'])
+        if equation.get('templateName') != 'database/templates/proxypoolequation.tpl':
+            return 'unsupported_champion_count_equation'
+        for key in ('championMinEquation', 'championMaxEquation'):
+            if re.sub(r'\s+', '', equation.get(key, '')) != 'poolValue*1':
+                return 'unsupported_champion_count_equation'
+    except (ValueError, KeyError, OSError):
+        return 'unsupported_champion_count_equation'
+    return None
 
 
 def build_pool_override(family, config, tier_by_id, reference_root):
@@ -69,13 +106,13 @@ def build_merged_pool(mappings, tier_by_id, reference_root):
     all_promotions = []
     for group, entries in sorted(groups.items()):
         fractions = {share for _, _, share, _ in entries}
-        require(len(fractions) == 1, 'One conversion share per selection group is supported')
-        share = fractions.pop(); shares[group or 'regular'] = float(share)
-        numerator, denominator = share.numerator, share.denominator
+        shares[group or 'regular'] = float(next(iter(fractions))) if len(fractions) == 1 else sorted(float(x) for x in fractions)
+        denominator = lcm(*(share.denominator for _, _, share, enabled in entries if enabled))
+        require(denominator <= 1000, 'Combined conversion denominator exceeds safe bound')
         slots = [int(re.fullmatch(r'name' + group + r'(\d+)', line.split(',')[0]).group(1))
                  for line in pool.lines if re.fullmatch(r'name' + group + r'(\d+)', line.split(',')[0])]
         sources, destinations, changes = set(), set(), []
-        for entry, variant, _, enabled in entries:
+        for entry, variant, share, enabled in entries:
             a, b = entry['source_slot'], entry['output_slot']
             require(type(a) is int and type(b) is int and 1 <= a <= 15 and 1 <= b <= 15, 'Pool slots must be 1..15')
             require(a not in sources and b not in destinations, 'Duplicate pool mapping across families')
@@ -85,17 +122,19 @@ def build_merged_pool(mappings, tier_by_id, reference_root):
             pattern = r'.*Champion(\d+)' if group else r'(?!.*Champion).*?(\d+)'
             require(not any((m := re.fullmatch(pattern, line.split(',')[0])) and int(m.group(1)) == b
                             for line in pool.lines), f'Destination {group} slot {b} already has fields: {record}')
-            for stem in ('limit', 'alwaysSpawn'):
-                key = f'{stem}{group}{a}'
-                require(not pool._locations(key) or pool.get(key) in ('', '0', '0.000000'),
-                        f'Limited/forced source {record} slot {a} needs a quota-aware policy')
+            data = {line.split(',')[0]: line.split(',')[1] for line in pool.lines if ',' in line}
+            def read_record(record):
+                dbr = DBR.from_file(reference_path(record, reference_root))
+                return {line.split(',')[0]: line.split(',')[1] for line in dbr.lines if ',' in line}
+            error = limit_policy_error(data, group, a, tier_by_id[variant['tier']], read_record)
+            require(error is None, f'{error}: {record} slot {a} needs a quota-aware policy')
             require(not unsupported_slot_fields([line.split(',')[0] for line in pool.lines], group, a),
                     'Unsupported source slot rules need explicit policy')
             fields = {f'name{group}{b}': variant['output_record']}
-            for stem in RULES:
-                if pool._locations(f'{stem}{group}{a}'):
+            for stem in (*RULES, 'limit'):
+                if pool._locations(f'{stem}{group}{a}') and (stem != 'limit' or pool.get(f'{stem}{group}{a}') not in ('', '0', '0.000000')):
                     fields[f'{stem}{group}{b}'] = pool.get(f'{stem}{group}{a}')
-            changes.append((a, b, fields, enabled))
+            changes.append((a, b, fields, enabled, share))
             all_promotions.append(dict(entry, selection_group=group or 'regular'))
         require(not sources & destinations, 'Source and destination slots overlap')
         if not any(enabled for _, _, _, enabled in entries):
@@ -104,10 +143,11 @@ def build_merged_pool(mappings, tier_by_id, reference_root):
         require(all(0 <= w <= 2147483647 // denominator for w in weights.values()), 'Pool weights overflow or are negative')
         for slot, weight in weights.items():
             pool.set(f'weight{group}{slot}', str(weight * denominator))
-        for a, b, fields, enabled in changes:
+        for a, b, fields, enabled, share in changes:
             if not enabled:
                 continue
             require(weights[a] > 0, 'Mapped source must have positive weight')
+            numerator = share.numerator * (denominator // share.denominator)
             pool.set(f'weight{group}{a}', str(weights[a] * (denominator - numerator)))
             fields[f'weight{group}{b}'] = str(weights[a] * numerator)
             if pool.lines and not pool.lines[-1].endswith('\n'):

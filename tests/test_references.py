@@ -68,7 +68,8 @@ class ReferenceTests(unittest.TestCase):
                             expected['weight'+group+a] = str(int(original['weight'+group+a]) * (share.denominator-share.numerator))
                             expected['weight'+group+b] = str(int(original['weight'+group+a]) * share.numerator)
                             expected['name'+group+b] = variants[entry['variant']]['output_record']
-                            for stem in ('levelVarianceEquation', 'minPlayerLevel', 'maxPlayerLevel'):
-                                if stem+group+a in original: expected[stem+group+b] = original[stem+group+a]
+                            for stem in ('levelVarianceEquation', 'minPlayerLevel', 'maxPlayerLevel', 'limit'):
+                                if stem+group+a in original and (stem != 'limit' or original[stem+group+a] not in ('', '0', '0.000000')):
+                                    expected[stem+group+b] = original[stem+group+a]
                     _, output, _ = build_pool_override(family, config, tiers, gen.REFERENCE)
                     self.assertEqual(values(output), expected)

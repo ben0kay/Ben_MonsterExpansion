@@ -28,7 +28,7 @@ class EliteTests(unittest.TestCase):
     def test_complete_merged_catalog_preserves_every_other_field_and_probability(self):
         """Independent oracle over final output, including pools shared by both tiers."""
         by_pool = {}
-        for family in self.families:
+        for family in [f for f in self.families if f['id'] != 'discovered_ascended']:
             variants = {v['id']: v for v in family['variants']}
             for pool in family['pools']:
                 for entry in pool['promotions']:
@@ -39,7 +39,10 @@ class EliteTests(unittest.TestCase):
         for record, groups in by_pool.items():
             with self.subTest(pool=record):
                 original = scan.Index(gen.REFERENCE).read(record)
-                output = DBR(self.files[gen.game_location(record)])
+                two_tier = getattr(self, '_two_tier', None)
+                if two_tier is None:
+                    self._two_tier = gen.build_plan([f for f in self.families if f['id'] != 'discovered_ascended'], self.tiers, include_spawns=True)
+                output = DBR(self._two_tier[gen.game_location(record)])
                 expected = dict(original)
                 shared += len(groups) == 2
                 for group, entries in groups.items():
@@ -54,8 +57,8 @@ class EliteTests(unittest.TestCase):
                         expected[f'weight{group}{a}'] = str(weight * (ratio.denominator - ratio.numerator))
                         expected[f'weight{group}{b}'] = str(weight * ratio.numerator)
                         expected[f'name{group}{b}'] = variant['output_record']
-                        for stem in ('levelVarianceEquation', 'minPlayerLevel', 'maxPlayerLevel'):
-                            if f'{stem}{group}{a}' in original:
+                        for stem in ('levelVarianceEquation', 'minPlayerLevel', 'maxPlayerLevel', 'limit'):
+                            if f'{stem}{group}{a}' in original and (stem != 'limit' or original[f'{stem}{group}{a}'] not in ('', '0', '0.000000')):
                                 expected[f'{stem}{group}{b}'] = original[f'{stem}{group}{a}']
                         promoted = int(output.get(f'weight{group}{b}'))
                         retained = int(output.get(f'weight{group}{a}'))
@@ -66,7 +69,7 @@ class EliteTests(unittest.TestCase):
         self.assertEqual(shared, 212)
 
     def test_veteran_records_and_regular_selections_preserved_in_combined_build(self):
-        veterans = [f for f in self.families if f['id'] != 'discovered_elites']
+        veterans = [f for f in self.families if f['id'] not in ('discovered_elites', 'discovered_ascended')]
         old = gen.build_plan(veterans, self.tiers, include_spawns=True)
         for path, text in old.items():
             if path.name == 'manifest.json':

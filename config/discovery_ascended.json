@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "family_id": "discovered_ascended",
+  "source_classification": "Hero",
+  "target_tier": "ascended",
+  "max_pool_slot": 15,
+  "excluded_path_pattern": "(?i)(boss|quest|summon|nemesis|devotion|bounties|factionspawns|setpiece|deathspawn|special|lootdropper|potiondropper|_doa|trap_|training|dummy|pet)|/faction/|/faction_|/p_faction_",
+  "notes": [
+    "Hero classification required; preserve exact named parent and skills.",
+    "Finite limits require a proven whole-Champion-group bound no greater than the source quota.",
+    "Reserve both Elite and Ascended Champion destinations when merging shared pools."
+  ],
+  "merge_shared_pools": true
+}

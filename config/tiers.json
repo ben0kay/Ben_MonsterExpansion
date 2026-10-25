@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "implementation_status": "configured_veteran_and_elite_families",
+  "implementation_status": "configured_veteran_elite_and_ascended_families",
   "note": "Prototype numbers are starting points for testing, not approved final balance. JSON is build tooling input, not read by Grim Dawn.",
   "ui_color_support": "unverified_in_game",
   "tiers": [
@@ -99,9 +99,17 @@
           "defense": 1.15
         },
         "model_scale_vs_parent": 1.15,
-        "ability_policy": "more_frequent_and_optional_compatible_extra_skill",
+        "ability_policy": "reuse_base_skills_first",
         "visual_intensity": "strong",
-        "spawn_policy": "rare_hero_pool_variant"
+        "spawn_policy": "rare_hero_pool_variant",
+        "natural_spawns": {
+          "conversion_share": 0.33,
+          "finite_limit_policy": "bounded_champion_group"
+        },
+        "cosmetic_aura": {
+          "enabled": true,
+          "effect_source_record": "records/fx/creatures/glowpurple01_large.dbr"
+        }
       }
     },
     {

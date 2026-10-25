@@ -1,6 +1,6 @@
-> **Current catalog (October 25):** 148 Veterans + 124 Elites, 368 merged pools;
-> **2,002 DBRs + 1 text source**. See [Elite pipeline](ELITES.md) for Champion rules
-> and the current README for status. The original boar/zombie examples below remain valid.
+> **Current catalog (October 25):** 148 Veterans + 124 Elites + 137 Ascended, 377 merged pools;
+> **2,833 DBRs + 1 text source**. See [Elite pipeline](ELITES.md) for Champion rules,
+> [Ascended quota policy](ASCENDED.md) and the current README for status. The original boar/zombie examples below remain valid.
 
 > **Name-label update:** Zombie names now generate as `Walking Dead (Veteran)` via one additional text source. Build its asset and install the mod's Text_EN.arc as well as the .arz: [name-label instructions](VETERAN_NAMES.md). A Veteran zombie has now been observed naturally in an early Lower Crossing house. Other coverage and frequency remain unmeasured.
 
@@ -23,8 +23,8 @@ python scripts/prepare_console_test.py --include-spawns
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Default selection is **all enabled families**. Expect **2,002 DBRs + 1 text source**
-plus the generated manifest: 272 variants with six DBRs each, 368 merged pool
+Default selection is **all enabled families**. Expect **2,833 DBRs + 1 text source**
+plus the generated manifest: 409 variants with six DBRs each, 377 merged pool
 overrides, the global pack equation and player progression override. F7 in Asset
 Manager with the custom mod selected; install the rebuilt `.arz`, retain/install
 its Text_EN.arc for custom zombie labels, and restart the Custom Game.
@@ -85,8 +85,8 @@ Do not force tiers into quest bosses/summons to make a test easier.
 
 To add a family, create another JSON with reviewed sources/proxies and unused pool
 slots. Generation, cosmetic assignment and staging contain no family-name/path
-branches. The shared discovery scanner produces disabled drafts; the reviewed Veteran and
-Elite snapshots are explicitly enabled in family JSON. Discovery does not auto-activate new findings.
+branches. The shared discovery scanner produces disabled drafts; the reviewed Veteran, Elite and
+Ascended snapshots are explicitly enabled in family JSON. Discovery does not auto-activate new findings.
 
 The cosmetic helper finds an unused skill slot among the template's 60 slots and
 uses a free `initialSkillName` or `initial2SkillName`. Existing skills/initial

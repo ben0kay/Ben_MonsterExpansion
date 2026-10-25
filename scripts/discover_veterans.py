@@ -14,7 +14,7 @@ from dbr import DBR, DBRError
 import generate_variants as gen
 from validate_config import reference_path
 from references import records
-from natural_spawns import conversion_share, selection_group, unsupported_slot_fields
+from natural_spawns import conversion_share, selection_group, unsupported_slot_fields, limit_policy_error
 
 REPO = Path(__file__).resolve().parents[1]
 OUTPUT = REPO / 'generated/discovery'
@@ -138,12 +138,12 @@ def occupied_regular_slots(data, maximum):
 
 
 def discover(reference_root, families, policy, tags=None, tier=None):
-    expected = {'veteran': 'Common', 'elite': 'Champion'}
+    expected = {'veteran': 'Common', 'elite': 'Champion', 'ascended': 'Hero'}
     if (policy.get('schema_version') != 1 or
             expected.get(policy.get('target_tier')) != policy.get('source_classification')
             or policy.get('max_pool_slot') != 15
             or not re.fullmatch(r'[a-z][a-z0-9_]*', policy.get('family_id', ''))):
-        raise ValueError('Unsupported discovery policy; exact Common/Veteran or Champion/Elite only')
+        raise ValueError('Unsupported discovery policy; exact Common/Veteran, Champion/Elite or Hero/Ascended only')
     tier = tier or next(t for t in json.loads((REPO / "config/tiers.json").read_text())["tiers"]
                         if t["id"] == policy["target_tier"])
     factor = tier["prototype"]["model_scale_vs_parent"]
@@ -179,7 +179,8 @@ def discover(reference_root, families, policy, tags=None, tier=None):
                 int(m.group(1)) for k in pool if (m := re.fullmatch(r'.*Champion(\d+)', k))}
             # Reserve destinations allocated by active mappings in the same namespace.
             for f in families:
-                tier_variants = {v.get('id') for v in f['variants'] if v.get('tier') == policy['target_tier']}
+                tier_variants = {v.get('id') for v in f['variants']
+                                 if {'veteran': '', 'elite': 'Champion', 'ascended': 'Champion'}.get(v.get('tier')) == group}
                 for c in f['pools']:
                     if c['record'] == pool_record:
                         occupied.update(m['output_slot'] for m in c['promotions'] if m.get('variant') in tier_variants)
@@ -207,14 +208,16 @@ def discover(reference_root, families, policy, tags=None, tier=None):
                     if source in known_sources: reasons.append('existing_variant_new_pool_mapping_review')
                     if pool_record in owned and not share_pools: reasons.append('existing_pool_merge_review')
                     if excluded.search(pool_record): reasons.append('special_pool_review')
+                    if not pool_record.startswith(('records/proxies/pools/', 'records/proxies/poolsgdx1/', 'records/proxies/poolsgdx2/')):
+                        reasons.append('unsupported_pool_namespace')
                     if not proxies[pool_record]: reasons.append('no_ordinary_proxy_reference')
                     if blocked_proxies[pool_record]: reasons.append('pool_also_used_by_special_proxy')
                     if not weight_ok: reasons.append('invalid_or_overflow_pool_weights')
                     if 'weight' + group + str(slot) not in pool or int(pool.get('weight' + group + str(slot), '0')) <= 0:
                         reasons.append('zero_or_missing_selection_weight')
-                    if any(pool.get(stem + group + str(slot), '') not in ('', '0', '0.000000')
-                           for stem in ('limit', 'alwaysSpawn')):
-                        reasons.append('limited_or_forced_entry')
+                    limit_error = limit_policy_error(pool, group, slot, tier, index.read)
+                    if limit_error:
+                        reasons.append(limit_error)
                     if unsupported_slot_fields(pool, group, slot):
                         reasons.append('unsupported_slot_rule_fields')
                     if not reasons and not free:
@@ -316,7 +319,7 @@ def main(default_policy=None):
         tags, text_info = text_tags(args.text_root or default_text)
         report = discover(REPO / 'ReferenceFiles', families, policy, tags)
         report['english_text'] = text_info
-        stem = 'elite_coverage' if policy['target_tier'] == 'elite' else 'coverage'
+        stem = {'elite': 'elite_coverage', 'ascended': 'ascended_coverage'}.get(policy['target_tier'], 'coverage')
         outputs = {stem + '.json': json.dumps(report, indent=2, sort_keys=True) + '\n', stem + '.md': markdown(report)}
         if args.draft_config:
             draft = draft_config(report)

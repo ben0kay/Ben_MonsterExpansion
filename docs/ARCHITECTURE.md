@@ -30,9 +30,11 @@ the manifest, and refuses unsafe output paths or unapproved contents. Previously
 compiled records are not automatically deleted: pool rollback emits exact vanilla
 contents and requires another build/install.
 
-Implemented discovery: JSON-selected Common/Veteran and Champion/Elite scans with read-only reports and disabled drafts.
+Implemented discovery: JSON-selected Common/Veteran and Champion/Elite and Hero/Ascended scans with read-only reports and disabled drafts.
 
 Future work: additional reviewed configs;
 quota-aware limited spawn policies; proven particle scale/intensity controls;
 compatible higher-tier abilities, rewards and curated Apex encounters. No blanket
 conversion of quests, summons, loot droppers or special enemies.
+
+Finite Hero quotas are supported only when identity Champion count equations bound the entire group within the source limit. Larger-draw quotas remain excluded; see [Ascended policy](ASCENDED.md).

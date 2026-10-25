@@ -95,6 +95,9 @@ def check_configs(reference_root=None, repo=REPO):
                 value = proto["natural_spawns"].get("conversion_share", proto["natural_spawns"].get("common_conversion_share"))
                 require(type(value) in (int, float) and math.isfinite(value) and 0 < value < .5,
                         "common_conversion_share must be finite, above 0 and below 0.5")
+                quota_policy = proto["natural_spawns"].get("finite_limit_policy")
+                require(quota_policy is None or (quota_policy == "bounded_champion_group" and proto["parent_tier"] == "hero"),
+                        "Unsupported finite-limit policy")
                 ratio = proto["natural_spawns"].get("target_veterans_per_champion", 2.5)
                 require(type(ratio) in (int, float) and math.isfinite(ratio) and ratio > 0,
                         "Ratio target must be finite and positive (reporting only)")

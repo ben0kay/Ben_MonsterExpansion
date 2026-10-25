@@ -1,0 +1,2956 @@
+{
+  "display_name": "Discovered Ascended candidates",
+  "enabled": true,
+  "id": "discovered_ascended",
+  "notes": [
+    "Enabled compatible Hero snapshot; preserve original identity, skills and labels.",
+    "Finite quotas require an identity-equation Champion-group bound within each source limit.",
+    "Multi-draw/forced/special encounters, unsupported setups and occupied slots remain excluded."
+  ],
+  "pools": [
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "ascended_1c05866e0f8351ae"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 3,
+          "variant": "ascended_2cceb289d8d85dba"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 4,
+          "variant": "ascended_5add403f20017802"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "ascended_bc23493de1ead8db"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 6,
+          "variant": "ascended_de9a13c36f322102"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "ascended_ed847be6d0553bec"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_boar_halftrollsonly_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_boar_halftrollsonly_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 2,
+          "variant": "ascended_1c05866e0f8351ae"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 3,
+          "variant": "ascended_2cceb289d8d85dba"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 4,
+          "variant": "ascended_5add403f20017802"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 5,
+          "variant": "ascended_bc23493de1ead8db"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 6,
+          "variant": "ascended_de9a13c36f322102"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 7,
+          "variant": "ascended_ed847be6d0553bec"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_boarice_n.dbr",
+        "records/proxies/area001/beastsalpinewoods_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_boarice_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 2,
+          "variant": "ascended_e7db232ecca2f6ce"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_3bc1915a9e0cad8b"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_b1dd466c265e94e4"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_a5a7f8becca1299d"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_30203c3925c31c6c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/vultures_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_vultures_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 3,
+          "variant": "ascended_9a27e0df7a1f90f6"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 4,
+          "variant": "ascended_304cb18c4321ce85"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "ascended_02be041e55e3c36e"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 6,
+          "variant": "ascended_f071bb80c83a882a"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "ascended_6cb6ba9041a60f5d"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 8,
+          "variant": "ascended_bedf0c16c64dc76a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_wasps_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_wasp_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "ascended_c9b8f3969ff7f539"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_b5d8f7426e7fb931"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_95c96d8ddf60009a"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_d56ffb334d16dea7"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_70dcb993dd0d12f8"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsswamp_highlvl_n.dbr",
+        "records/proxies/area001/beastsswamp_highlvl_random.dbr",
+        "records/proxies/areae/beasts_swamp_mosquito_n.dbr",
+        "records/proxies/areae/beasts_swamp_mosquito_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_beastsswamp_highlvl_mosquito_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "ascended_c9b8f3969ff7f539"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_b5d8f7426e7fb931"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_95c96d8ddf60009a"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_d56ffb334d16dea7"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_70dcb993dd0d12f8"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/beastsswamp_n.dbr",
+        "records/proxies/area001/beastsswamp_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_beastsswamp_mosquito_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "ascended_bb5de85307a7a2f6"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 4,
+          "variant": "ascended_cd40071dee96a586"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 5,
+          "variant": "ascended_69ec89ad8d85731b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/cave_prawn_amb_n.dbr",
+        "records/proxies/area001/cave_prawn_amb_n_delayshort.dbr",
+        "records/proxies/area001/cave_prawn_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_cave_prawn_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 1,
+          "variant": "ascended_f2738f2d4bbf5ca4"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 2,
+          "variant": "ascended_46cb259230747036"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_0051ed37c659b878"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/cave_spidergiant_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_cave_spidergiant_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 4,
+          "variant": "ascended_3b1ed2de8401365f"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_fleshhulk_amb_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_fleshhulkamb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 13,
+          "source_slot": 4,
+          "variant": "ascended_3b1ed2de8401365f"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 5,
+          "variant": "ascended_028ea453b93d0973"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 6,
+          "variant": "ascended_b96cea153b0f6ede"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_portvalbury_fleshhulk_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_portvalbury_fleshhulk_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 13,
+          "source_slot": 4,
+          "variant": "ascended_3b1ed2de8401365f"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 5,
+          "variant": "ascended_028ea453b93d0973"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 6,
+          "variant": "ascended_b96cea153b0f6ede"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_portvalbury_fleshhulk_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_portvalbury_fleshhulk_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 5,
+          "variant": "ascended_9de37c8c4310526a"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 6,
+          "variant": "ascended_fbf0b96550d010c4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_portvalbury_mutants_n.dbr",
+        "records/proxies/area001/corruption_portvalbury_mutants_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_portvalbury_mutants_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_22679701cd404c45"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_0b5c9e9eb6d4bed2"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_baee0d34bb2dfb96"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 7,
+          "variant": "ascended_8f945cf21347966a"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 8,
+          "variant": "ascended_46fd665b839ed8e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_possessed_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_possessed_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_22679701cd404c45"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_0b5c9e9eb6d4bed2"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_baee0d34bb2dfb96"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 7,
+          "variant": "ascended_8f945cf21347966a"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 8,
+          "variant": "ascended_46fd665b839ed8e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_possessedact4_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_possessedact4_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 2,
+          "variant": "ascended_fb65de277729f662"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 3,
+          "variant": "ascended_91e32f0c4074c1c7"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 4,
+          "variant": "ascended_f7d796c444d23f52"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "ascended_71bc97bd1394037d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/harvestman_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_harvestman_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 2,
+          "variant": "ascended_fb65de277729f662"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 3,
+          "variant": "ascended_91e32f0c4074c1c7"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 4,
+          "variant": "ascended_f7d796c444d23f52"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "ascended_71bc97bd1394037d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/harvestman_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_harvestman_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_91097dd330abfa99"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_dea915f656bfb31c"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_f498823ac9c6c3ff"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 7,
+          "variant": "ascended_fff9f18ab8fdd81a"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 8,
+          "variant": "ascended_6e8c931033ce4d65"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/rockgolem_amb_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_rockgolem_amb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_91097dd330abfa99"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_dea915f656bfb31c"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_f498823ac9c6c3ff"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 7,
+          "variant": "ascended_fff9f18ab8fdd81a"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 8,
+          "variant": "ascended_6e8c931033ce4d65"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/rockgolem_amb_solo.dbr"
+      ],
+      "record": "records/proxies/pools/p_rockgolem_amb_solo.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_91097dd330abfa99"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_dea915f656bfb31c"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_f498823ac9c6c3ff"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 7,
+          "variant": "ascended_fff9f18ab8fdd81a"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 8,
+          "variant": "ascended_6e8c931033ce4d65"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastshills_random.dbr",
+        "records/proxies/area001/rockgolem_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_rockgolem_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "ascended_c5dbdbfb473880bb"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 2,
+          "variant": "ascended_3d2edfceab0d1780"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 3,
+          "variant": "ascended_f212a54d90fb9f35"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 4,
+          "variant": "ascended_1f15029899821a6f"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 5,
+          "variant": "ascended_5ccb65545eb63d2b"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 6,
+          "variant": "ascended_8f05b0bc1983e684"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/spidergiant_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_spidergiant_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "ascended_c5dbdbfb473880bb"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 2,
+          "variant": "ascended_3d2edfceab0d1780"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 3,
+          "variant": "ascended_f212a54d90fb9f35"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 4,
+          "variant": "ascended_1f15029899821a6f"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 5,
+          "variant": "ascended_5ccb65545eb63d2b"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 6,
+          "variant": "ascended_8f05b0bc1983e684"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/spidergiant_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_spidergiant_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 3,
+          "variant": "ascended_8994ac6500af1c30"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 4,
+          "variant": "ascended_4c3e1b6686604206"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "ascended_20036b6072e75576"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 6,
+          "variant": "ascended_f130a1f978226f8e"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "ascended_55c7a1af906e1629"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 8,
+          "variant": "ascended_ae8e725063a3b079"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/beastswastes_random.dbr",
+        "records/proxies/area001/randomencounter_oldgrove_n.dbr",
+        "records/proxies/area001/thornedhorror_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_thornedhorror_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 3,
+          "variant": "ascended_8994ac6500af1c30"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 4,
+          "variant": "ascended_4c3e1b6686604206"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "ascended_20036b6072e75576"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 6,
+          "variant": "ascended_f130a1f978226f8e"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "ascended_55c7a1af906e1629"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 8,
+          "variant": "ascended_ae8e725063a3b079"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsburrwitchoutskirts_t.dbr",
+        "records/proxies/area001/thornedhorror_solo.dbr"
+      ],
+      "record": "records/proxies/pools/p_thornedhorror_solo.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "ascended_4e7fd4243140826e"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 3,
+          "variant": "ascended_199f8d4ed4f4e622"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 4,
+          "variant": "ascended_93766982ca820570"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "ascended_5ac5a4b220889792"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 6,
+          "variant": "ascended_afc4d6287bce3199"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "ascended_ce32c651fe5c5b96"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bonerat_amb_t.dbr",
+        "records/proxies/area001/witchgod_bonerat_n.dbr",
+        "records/proxies/area001/witchgod_bonerat_t.dbr",
+        "records/proxies/area001/witchgod_dreeg_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_bonerat_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 2,
+          "variant": "ascended_781e7304a98254d0"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_616879888320958c"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_c10efb3274b874eb"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_0c7ea4f78416a18d"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_b5c899bcb664daa1"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_dreeg_t.dbr",
+        "records/proxies/area001/witchgod_prawn_amb_t.dbr",
+        "records/proxies/area001/witchgod_prawn_n.dbr",
+        "records/proxies/area001/witchgod_prawn_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_prawn_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "ascended_4b1a833ba383210e"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_b0f1eb2820f8864e"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_0be22f709e96cee5"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_de0d436f7ec8fba5"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_9e57ce33b3fb7a87"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 7,
+          "variant": "ascended_db6c12e07bf05ab3"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_raptor_amb_t.dbr",
+        "records/proxies/area001/witchgod_raptor_n.dbr",
+        "records/proxies/area001/witchgod_raptor_t.dbr",
+        "records/proxies/area001/witchgod_solael_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_raptor_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "ascended_427f15363826efb3"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_a1e2c8fa6c45f646"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_63a3c314594b6e80"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_6b77cb378e89476f"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 7,
+          "variant": "ascended_fdf3ecda14582275"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_rifthound_amb_t.dbr",
+        "records/proxies/area001/witchgod_rifthound_n.dbr",
+        "records/proxies/area001/witchgod_rifthound_t.dbr",
+        "records/proxies/area001/witchgod_solael_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_rifthound_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 3,
+          "variant": "ascended_c5dbdbfb473880bb"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 4,
+          "variant": "ascended_3d2edfceab0d1780"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "ascended_f212a54d90fb9f35"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 6,
+          "variant": "ascended_1f15029899821a6f"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "ascended_5ccb65545eb63d2b"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 8,
+          "variant": "ascended_8f05b0bc1983e684"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bysmiel_t.dbr",
+        "records/proxies/area001/witchgod_spider_amb_t.dbr",
+        "records/proxies/area001/witchgod_spider_n.dbr",
+        "records/proxies/area001/witchgod_spider_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_spider_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "ascended_b1588d4346d070c6"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_8008aa5d5d5ab81c"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_7d8665e049a047b3"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_1bd6c6a9d38a7372"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_3e623f6ab4745969"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/worms_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_worms_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "ascended_b1588d4346d070c6"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_8008aa5d5d5ab81c"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_7d8665e049a047b3"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_1bd6c6a9d38a7372"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_3e623f6ab4745969"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/wormdeepdweller_amb_s1_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_wormsdeepdweller_t_amb.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_c2aa995170ccc3f2"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_f143e80520600ea7"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_94066b77d3b02575"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 7,
+          "variant": "ascended_cee956c723408b7d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsalpinewoods_n.dbr",
+        "records/proxies/area001/yeti_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_yeti_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 3,
+          "variant": "ascended_53994a1b92679056"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s2_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_amb_s2_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 3,
+          "variant": "ascended_9de37c8c4310526a"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 4,
+          "variant": "ascended_fbf0b96550d010c4"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "ascended_ed8ab82f6487137b"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "ascended_0242bb8792edd02e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/bonerats-zombies_n.dbr",
+        "records/proxies/area001/zombie_n.dbr",
+        "records/proxies/area001/zombie_n_20m.dbr",
+        "records/proxies/area001/zombie_n_always.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_n_hounds.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 3,
+          "variant": "ascended_9de37c8c4310526a"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 4,
+          "variant": "ascended_fbf0b96550d010c4"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 5,
+          "variant": "ascended_ed8ab82f6487137b"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 6,
+          "variant": "ascended_0242bb8792edd02e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombie_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_t_hounds.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_faf43cf2fe7aacc3"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_372182298cad281f"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_b2d270b715f3ad23"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_31107c82b11d5368"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_ascendants_n.dbr",
+        "records/proxies/areaf/aetherial_ascendants_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialascendants_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_b93dca01452e6643"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_d8d1ba280c4db1a7"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_c65773e33ce66455"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_92758f846bc54a42"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_colossus_amb_n.dbr",
+        "records/proxies/areaf/aetherial_colossus_n.dbr",
+        "records/proxies/areaf/aetherial_colossus_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcolossus_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_f115fae57a7720ba"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_c9b27bf573545296"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_373a10785a82ef11"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_84c636630011995d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_amb_n.dbr",
+        "records/proxies/areaf/aetherials_amb_n.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_ambn.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 2,
+          "variant": "ascended_84c636630011995d"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_f115fae57a7720ba"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_c9b27bf573545296"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_373a10785a82ef11"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_cold.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_cold.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 2,
+          "variant": "ascended_84c636630011995d"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_f115fae57a7720ba"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_c9b27bf573545296"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_373a10785a82ef11"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_fire.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_fire.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 2,
+          "variant": "ascended_84c636630011995d"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_f115fae57a7720ba"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_c9b27bf573545296"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_373a10785a82ef11"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_lightning.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_lightning.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 3,
+          "variant": "ascended_f115fae57a7720ba"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 4,
+          "variant": "ascended_c9b27bf573545296"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "ascended_373a10785a82ef11"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "ascended_84c636630011995d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_n.dbr",
+        "records/proxies/areaf/aetherial_corruption_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_c3c89eb858fe9cf8"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_4f09e485a75e8fb9"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_0ca84a12529cdfb2"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_ccf101a94226f99c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_fleshshaper_n.dbr",
+        "records/proxies/areaf/aetherial_fleshshaper_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialfleshshaper_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 4,
+          "variant": "ascended_204b89723610a6e1"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "ascended_1dd5f391b3dee32f"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 6,
+          "variant": "ascended_16be8f61f22ce0e5"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "ascended_4216e579d886bb02"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 8,
+          "variant": "ascended_c26d2a895e31189d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_gazer_n.dbr",
+        "records/proxies/areaf/aetherial_gazer_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialgazerb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_2ac3a54cd31b2e71"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_38e337ca793005d5"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_98379fa593a101c7"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_dee9897ce4cc9d6a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/human_wendigo_mix_n.dbr",
+        "records/proxies/areae/human_wendigo_n.dbr",
+        "records/proxies/areae/human_wendigo_rand.dbr",
+        "records/proxies/areae/human_wendigo_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_humanwendigo_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_b3c5be7f2d1fd3b2"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_8294058370c27b22"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_59a30d07baa149af"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 7,
+          "variant": "ascended_8c9a908b7539a4fe"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/yetiswamp_n.dbr",
+        "records/proxies/areae/yetiswamp_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_yetiswamp_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_f731a13f9c20e5f9"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_e93e77d1ed76850d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialarmor_amb_delayshort.dbr",
+        "records/proxies/areag/celestialarmor_amb_n.dbr",
+        "records/proxies/areag/celestialarmor_n.dbr",
+        "records/proxies/areag/celestialarmor_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialarmor_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_13279f775c1fdec9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialgryphon_n.dbr",
+        "records/proxies/areag/celestialgryphon_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialgryphon_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_13279f775c1fdec9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialgryphon_rand.dbr",
+        "records/proxies/areag/celestialgryphon_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialgryphon_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 4,
+          "variant": "ascended_d274d22e98d42d11"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "ascended_dadb30ff359f8f5b"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "ascended_7026cb9536e2706e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialmummy_amb_delayshort.dbr",
+        "records/proxies/areag/celestialmummy_amb_n.dbr",
+        "records/proxies/areag/celestialmummy_n.dbr",
+        "records/proxies/areag/celestialmummy_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialmummy_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_f731a13f9c20e5f9"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_e93e77d1ed76850d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_fire.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_fire.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_f731a13f9c20e5f9"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_e93e77d1ed76850d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_ice.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_ice.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_f731a13f9c20e5f9"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_e93e77d1ed76850d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_lightning.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_lightning.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_f731a13f9c20e5f9"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_e93e77d1ed76850d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_amb_delayshort.dbr",
+        "records/proxies/areag/eldritcharmor_amb_fire.dbr",
+        "records/proxies/areag/eldritcharmor_amb_ice.dbr",
+        "records/proxies/areag/eldritcharmor_amb_lightning.dbr",
+        "records/proxies/areag/eldritcharmor_amb_n.dbr",
+        "records/proxies/areag/eldritcharmor_n.dbr",
+        "records/proxies/areag/eldritcharmor_rand.dbr",
+        "records/proxies/areag/eldritchwraith_amb_n.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 3,
+          "variant": "ascended_3509e573409f24e3"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 4,
+          "variant": "ascended_c1481dfe772ec8b7"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/groblesand+viper_n.dbr",
+        "records/proxies/areag/groblesand+viper_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_groblesand+viper_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_3509e573409f24e3"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_c1481dfe772ec8b7"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_f56a216cbd84a562"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_05455d2e48624f4b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/groblesand+viper_n.dbr",
+        "records/proxies/areag/groblesand_n.dbr",
+        "records/proxies/areag/groblesand_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_groblesand_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_3a86a3a7c1708592"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_17ad72d6f4a89efd"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "ascended_bedebb522dc5acda"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphon_n.dbr",
+        "records/proxies/areag/beast_gryphon_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphon_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_3a86a3a7c1708592"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_17ad72d6f4a89efd"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "ascended_bedebb522dc5acda"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphon_rand.dbr",
+        "records/proxies/areag/beast_gryphon_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphon_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_13279f775c1fdec9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphonstone_n.dbr",
+        "records/proxies/areag/beast_gryphonstone_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphonstone_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_13279f775c1fdec9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphonstone_rand.dbr",
+        "records/proxies/areag/beast_gryphonstone_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphonstone_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 3,
+          "variant": "ascended_78df5181aaf4624a"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 4,
+          "variant": "ascended_32e35e3a9dd1ab8e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/korvaakhuman_mix_n.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_korvaakhuman+ascended_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_78df5181aaf4624a"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_32e35e3a9dd1ab8e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/korvaakhuman_n.dbr",
+        "records/proxies/areag/korvaakhuman_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_korvaakhuman_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_d274d22e98d42d11"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_dadb30ff359f8f5b"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 6,
+          "variant": "ascended_7026cb9536e2706e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/mummy_amb_delayshort.dbr",
+        "records/proxies/areag/mummy_amb_n.dbr",
+        "records/proxies/areag/mummy_n.dbr",
+        "records/proxies/areag/mummy_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_mummy_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 2,
+          "variant": "ascended_e7db232ecca2f6ce"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 3,
+          "variant": "ascended_3bc1915a9e0cad8b"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 4,
+          "variant": "ascended_b1dd466c265e94e4"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 5,
+          "variant": "ascended_a5a7f8becca1299d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_vulture_n.dbr",
+        "records/proxies/areag/beast_vulture_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_vulture_n.dbr"
+    }
+  ],
+  "schema_version": 2,
+  "variants": [
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b93dca01452e6643",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b93dca01452e6643.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialcolossus_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_d8d1ba280c4db1a7",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_d8d1ba280c4db1a7.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialcolossus_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c65773e33ce66455",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c65773e33ce66455.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialcolossus_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_92758f846bc54a42",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_92758f846bc54a42.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialcolossus_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f115fae57a7720ba",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f115fae57a7720ba.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialcorruption_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c9b27bf573545296",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c9b27bf573545296.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialcorruption_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_373a10785a82ef11",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_373a10785a82ef11.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialcorruption_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_84c636630011995d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_84c636630011995d.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialcorruption_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c3c89eb858fe9cf8",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c3c89eb858fe9cf8.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialfleshshaper_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_4f09e485a75e8fb9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_4f09e485a75e8fb9.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialfleshshaper_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_0ca84a12529cdfb2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_0ca84a12529cdfb2.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialfleshshaper_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_ccf101a94226f99c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_ccf101a94226f99c.dbr",
+      "source_record": "records/creatures/enemies/hero/aetherialfleshshaper_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_1c05866e0f8351ae",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_1c05866e0f8351ae.dbr",
+      "source_record": "records/creatures/enemies/hero/boar_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_2cceb289d8d85dba",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_2cceb289d8d85dba.dbr",
+      "source_record": "records/creatures/enemies/hero/boar_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_5add403f20017802",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_5add403f20017802.dbr",
+      "source_record": "records/creatures/enemies/hero/boar_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_bc23493de1ead8db",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_bc23493de1ead8db.dbr",
+      "source_record": "records/creatures/enemies/hero/boar_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_de9a13c36f322102",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_de9a13c36f322102.dbr",
+      "source_record": "records/creatures/enemies/hero/boar_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_ed847be6d0553bec",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_ed847be6d0553bec.dbr",
+      "source_record": "records/creatures/enemies/hero/boar_h06.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_4e7fd4243140826e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_4e7fd4243140826e.dbr",
+      "source_record": "records/creatures/enemies/hero/bonerat_melee_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_199f8d4ed4f4e622",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_199f8d4ed4f4e622.dbr",
+      "source_record": "records/creatures/enemies/hero/bonerat_melee_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_93766982ca820570",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_93766982ca820570.dbr",
+      "source_record": "records/creatures/enemies/hero/bonerat_melee_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_afc4d6287bce3199",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_afc4d6287bce3199.dbr",
+      "source_record": "records/creatures/enemies/hero/bonerat_melee_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_ce32c651fe5c5b96",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_ce32c651fe5c5b96.dbr",
+      "source_record": "records/creatures/enemies/hero/bonerat_melee_h06.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_5ac5a4b220889792",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_5ac5a4b220889792.dbr",
+      "source_record": "records/creatures/enemies/hero/bonerat_ranged_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f731a13f9c20e5f9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f731a13f9c20e5f9.dbr",
+      "source_record": "records/creatures/enemies/hero/eldritcharmor_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_e93e77d1ed76850d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_e93e77d1ed76850d.dbr",
+      "source_record": "records/creatures/enemies/hero/eldritcharmor_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_3b1ed2de8401365f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_3b1ed2de8401365f.dbr",
+      "source_record": "records/creatures/enemies/hero/fleshhulk_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_028ea453b93d0973",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_028ea453b93d0973.dbr",
+      "source_record": "records/creatures/enemies/hero/fleshhulk_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b96cea153b0f6ede",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b96cea153b0f6ede.dbr",
+      "source_record": "records/creatures/enemies/hero/fleshhulk_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_204b89723610a6e1",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_204b89723610a6e1.dbr",
+      "source_record": "records/creatures/enemies/hero/gazer_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_1dd5f391b3dee32f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_1dd5f391b3dee32f.dbr",
+      "source_record": "records/creatures/enemies/hero/gazer_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_16be8f61f22ce0e5",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_16be8f61f22ce0e5.dbr",
+      "source_record": "records/creatures/enemies/hero/gazer_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_4216e579d886bb02",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_4216e579d886bb02.dbr",
+      "source_record": "records/creatures/enemies/hero/gazer_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c26d2a895e31189d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c26d2a895e31189d.dbr",
+      "source_record": "records/creatures/enemies/hero/gazer_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_91097dd330abfa99",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_91097dd330abfa99.dbr",
+      "source_record": "records/creatures/enemies/hero/golemrock_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_dea915f656bfb31c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_dea915f656bfb31c.dbr",
+      "source_record": "records/creatures/enemies/hero/golemrock_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f498823ac9c6c3ff",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f498823ac9c6c3ff.dbr",
+      "source_record": "records/creatures/enemies/hero/golemrock_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_fff9f18ab8fdd81a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_fff9f18ab8fdd81a.dbr",
+      "source_record": "records/creatures/enemies/hero/golemrock_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_6e8c931033ce4d65",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_6e8c931033ce4d65.dbr",
+      "source_record": "records/creatures/enemies/hero/golemrock_h06.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_3509e573409f24e3",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_3509e573409f24e3.dbr",
+      "source_record": "records/creatures/enemies/hero/groblesand_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c1481dfe772ec8b7",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c1481dfe772ec8b7.dbr",
+      "source_record": "records/creatures/enemies/hero/groblesand_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f56a216cbd84a562",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f56a216cbd84a562.dbr",
+      "source_record": "records/creatures/enemies/hero/groblesand_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_05455d2e48624f4b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_05455d2e48624f4b.dbr",
+      "source_record": "records/creatures/enemies/hero/groblesand_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_3a86a3a7c1708592",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_3a86a3a7c1708592.dbr",
+      "source_record": "records/creatures/enemies/hero/gryphon_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_17ad72d6f4a89efd",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_17ad72d6f4a89efd.dbr",
+      "source_record": "records/creatures/enemies/hero/gryphon_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_bedebb522dc5acda",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_bedebb522dc5acda.dbr",
+      "source_record": "records/creatures/enemies/hero/gryphon_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_13279f775c1fdec9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_13279f775c1fdec9.dbr",
+      "source_record": "records/creatures/enemies/hero/gryphonstone_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_fb65de277729f662",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_fb65de277729f662.dbr",
+      "source_record": "records/creatures/enemies/hero/harvestman_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_91e32f0c4074c1c7",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_91e32f0c4074c1c7.dbr",
+      "source_record": "records/creatures/enemies/hero/harvestman_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f7d796c444d23f52",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f7d796c444d23f52.dbr",
+      "source_record": "records/creatures/enemies/hero/harvestman_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_71bc97bd1394037d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_71bc97bd1394037d.dbr",
+      "source_record": "records/creatures/enemies/hero/harvestman_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_faf43cf2fe7aacc3",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_faf43cf2fe7aacc3.dbr",
+      "source_record": "records/creatures/enemies/hero/human_ascended_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_372182298cad281f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_372182298cad281f.dbr",
+      "source_record": "records/creatures/enemies/hero/human_ascended_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b2d270b715f3ad23",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b2d270b715f3ad23.dbr",
+      "source_record": "records/creatures/enemies/hero/human_ascended_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_31107c82b11d5368",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_31107c82b11d5368.dbr",
+      "source_record": "records/creatures/enemies/hero/human_ascended_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_78df5181aaf4624a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_78df5181aaf4624a.dbr",
+      "source_record": "records/creatures/enemies/hero/human_korvaak_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_32e35e3a9dd1ab8e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_32e35e3a9dd1ab8e.dbr",
+      "source_record": "records/creatures/enemies/hero/human_korvaak_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_46fd665b839ed8e9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_46fd665b839ed8e9.dbr",
+      "source_record": "records/creatures/enemies/hero/human_possessed_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_22679701cd404c45",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_22679701cd404c45.dbr",
+      "source_record": "records/creatures/enemies/hero/human_possessed_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_0b5c9e9eb6d4bed2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_0b5c9e9eb6d4bed2.dbr",
+      "source_record": "records/creatures/enemies/hero/human_possessed_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_baee0d34bb2dfb96",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_baee0d34bb2dfb96.dbr",
+      "source_record": "records/creatures/enemies/hero/human_possessed_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_8f945cf21347966a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_8f945cf21347966a.dbr",
+      "source_record": "records/creatures/enemies/hero/human_possessed_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_2ac3a54cd31b2e71",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_2ac3a54cd31b2e71.dbr",
+      "source_record": "records/creatures/enemies/hero/human_wendigo_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_38e337ca793005d5",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_38e337ca793005d5.dbr",
+      "source_record": "records/creatures/enemies/hero/human_wendigo_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_98379fa593a101c7",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_98379fa593a101c7.dbr",
+      "source_record": "records/creatures/enemies/hero/human_wendigo_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_dee9897ce4cc9d6a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_dee9897ce4cc9d6a.dbr",
+      "source_record": "records/creatures/enemies/hero/human_wendigo_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c9b8f3969ff7f539",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c9b8f3969ff7f539.dbr",
+      "source_record": "records/creatures/enemies/hero/mosquitogiant_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b5d8f7426e7fb931",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b5d8f7426e7fb931.dbr",
+      "source_record": "records/creatures/enemies/hero/mosquitogiant_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_95c96d8ddf60009a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_95c96d8ddf60009a.dbr",
+      "source_record": "records/creatures/enemies/hero/mosquitogiant_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_d56ffb334d16dea7",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_d56ffb334d16dea7.dbr",
+      "source_record": "records/creatures/enemies/hero/mosquitogiant_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_70dcb993dd0d12f8",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_70dcb993dd0d12f8.dbr",
+      "source_record": "records/creatures/enemies/hero/mosquitogiant_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_d274d22e98d42d11",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_d274d22e98d42d11.dbr",
+      "source_record": "records/creatures/enemies/hero/mummy_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_dadb30ff359f8f5b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_dadb30ff359f8f5b.dbr",
+      "source_record": "records/creatures/enemies/hero/mummy_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_7026cb9536e2706e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_7026cb9536e2706e.dbr",
+      "source_record": "records/creatures/enemies/hero/mummy_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_781e7304a98254d0",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_781e7304a98254d0.dbr",
+      "source_record": "records/creatures/enemies/hero/prawn_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_616879888320958c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_616879888320958c.dbr",
+      "source_record": "records/creatures/enemies/hero/prawn_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c10efb3274b874eb",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c10efb3274b874eb.dbr",
+      "source_record": "records/creatures/enemies/hero/prawn_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_0c7ea4f78416a18d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_0c7ea4f78416a18d.dbr",
+      "source_record": "records/creatures/enemies/hero/prawn_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b5c899bcb664daa1",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b5c899bcb664daa1.dbr",
+      "source_record": "records/creatures/enemies/hero/prawn_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_bb5de85307a7a2f6",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_bb5de85307a7a2f6.dbr",
+      "source_record": "records/creatures/enemies/hero/prawncave_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_cd40071dee96a586",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_cd40071dee96a586.dbr",
+      "source_record": "records/creatures/enemies/hero/prawncave_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_69ec89ad8d85731b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_69ec89ad8d85731b.dbr",
+      "source_record": "records/creatures/enemies/hero/prawncave_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_4b1a833ba383210e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_4b1a833ba383210e.dbr",
+      "source_record": "records/creatures/enemies/hero/raptor_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b0f1eb2820f8864e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b0f1eb2820f8864e.dbr",
+      "source_record": "records/creatures/enemies/hero/raptor_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_0be22f709e96cee5",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_0be22f709e96cee5.dbr",
+      "source_record": "records/creatures/enemies/hero/raptor_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_de0d436f7ec8fba5",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_de0d436f7ec8fba5.dbr",
+      "source_record": "records/creatures/enemies/hero/raptor_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_9e57ce33b3fb7a87",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_9e57ce33b3fb7a87.dbr",
+      "source_record": "records/creatures/enemies/hero/raptor_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_db6c12e07bf05ab3",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_db6c12e07bf05ab3.dbr",
+      "source_record": "records/creatures/enemies/hero/raptor_h06.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_427f15363826efb3",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_427f15363826efb3.dbr",
+      "source_record": "records/creatures/enemies/hero/rifthound_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_a1e2c8fa6c45f646",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_a1e2c8fa6c45f646.dbr",
+      "source_record": "records/creatures/enemies/hero/rifthound_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_63a3c314594b6e80",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_63a3c314594b6e80.dbr",
+      "source_record": "records/creatures/enemies/hero/rifthound_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_6b77cb378e89476f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_6b77cb378e89476f.dbr",
+      "source_record": "records/creatures/enemies/hero/rifthound_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_fdf3ecda14582275",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_fdf3ecda14582275.dbr",
+      "source_record": "records/creatures/enemies/hero/rifthound_h06.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f2738f2d4bbf5ca4",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f2738f2d4bbf5ca4.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_cave_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_46cb259230747036",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_46cb259230747036.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_cave_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_0051ed37c659b878",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_0051ed37c659b878.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_cave_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c5dbdbfb473880bb",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c5dbdbfb473880bb.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_3d2edfceab0d1780",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_3d2edfceab0d1780.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f212a54d90fb9f35",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f212a54d90fb9f35.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_1f15029899821a6f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_1f15029899821a6f.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_5ccb65545eb63d2b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_5ccb65545eb63d2b.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_8f05b0bc1983e684",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_8f05b0bc1983e684.dbr",
+      "source_record": "records/creatures/enemies/hero/spider_h06.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_8994ac6500af1c30",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_8994ac6500af1c30.dbr",
+      "source_record": "records/creatures/enemies/hero/thornedhorror_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_4c3e1b6686604206",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_4c3e1b6686604206.dbr",
+      "source_record": "records/creatures/enemies/hero/thornedhorror_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_20036b6072e75576",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_20036b6072e75576.dbr",
+      "source_record": "records/creatures/enemies/hero/thornedhorror_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f130a1f978226f8e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f130a1f978226f8e.dbr",
+      "source_record": "records/creatures/enemies/hero/thornedhorror_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_55c7a1af906e1629",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_55c7a1af906e1629.dbr",
+      "source_record": "records/creatures/enemies/hero/thornedhorror_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_ae8e725063a3b079",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_ae8e725063a3b079.dbr",
+      "source_record": "records/creatures/enemies/hero/thornedhorror_h06.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_e7db232ecca2f6ce",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_e7db232ecca2f6ce.dbr",
+      "source_record": "records/creatures/enemies/hero/vulture_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_3bc1915a9e0cad8b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_3bc1915a9e0cad8b.dbr",
+      "source_record": "records/creatures/enemies/hero/vulture_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b1dd466c265e94e4",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b1dd466c265e94e4.dbr",
+      "source_record": "records/creatures/enemies/hero/vulture_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_a5a7f8becca1299d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_a5a7f8becca1299d.dbr",
+      "source_record": "records/creatures/enemies/hero/vulture_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_30203c3925c31c6c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_30203c3925c31c6c.dbr",
+      "source_record": "records/creatures/enemies/hero/vulture_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_9a27e0df7a1f90f6",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_9a27e0df7a1f90f6.dbr",
+      "source_record": "records/creatures/enemies/hero/waspgiant_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_304cb18c4321ce85",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_304cb18c4321ce85.dbr",
+      "source_record": "records/creatures/enemies/hero/waspgiant_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_02be041e55e3c36e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_02be041e55e3c36e.dbr",
+      "source_record": "records/creatures/enemies/hero/waspgiant_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f071bb80c83a882a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f071bb80c83a882a.dbr",
+      "source_record": "records/creatures/enemies/hero/waspgiant_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_6cb6ba9041a60f5d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_6cb6ba9041a60f5d.dbr",
+      "source_record": "records/creatures/enemies/hero/waspgiant_h06.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_bedf0c16c64dc76a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_bedf0c16c64dc76a.dbr",
+      "source_record": "records/creatures/enemies/hero/waspgiant_h07.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b1588d4346d070c6",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b1588d4346d070c6.dbr",
+      "source_record": "records/creatures/enemies/hero/worm_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_8008aa5d5d5ab81c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_8008aa5d5d5ab81c.dbr",
+      "source_record": "records/creatures/enemies/hero/worm_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_7d8665e049a047b3",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_7d8665e049a047b3.dbr",
+      "source_record": "records/creatures/enemies/hero/worm_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_1bd6c6a9d38a7372",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_1bd6c6a9d38a7372.dbr",
+      "source_record": "records/creatures/enemies/hero/worm_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_3e623f6ab4745969",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_3e623f6ab4745969.dbr",
+      "source_record": "records/creatures/enemies/hero/worm_h05.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_c2aa995170ccc3f2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_c2aa995170ccc3f2.dbr",
+      "source_record": "records/creatures/enemies/hero/yeti_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_f143e80520600ea7",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_f143e80520600ea7.dbr",
+      "source_record": "records/creatures/enemies/hero/yeti_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_94066b77d3b02575",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_94066b77d3b02575.dbr",
+      "source_record": "records/creatures/enemies/hero/yeti_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_cee956c723408b7d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_cee956c723408b7d.dbr",
+      "source_record": "records/creatures/enemies/hero/yeti_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_b3c5be7f2d1fd3b2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b3c5be7f2d1fd3b2.dbr",
+      "source_record": "records/creatures/enemies/hero/yetiswamp_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_8294058370c27b22",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_8294058370c27b22.dbr",
+      "source_record": "records/creatures/enemies/hero/yetiswamp_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_59a30d07baa149af",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_59a30d07baa149af.dbr",
+      "source_record": "records/creatures/enemies/hero/yetiswamp_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_8c9a908b7539a4fe",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_8c9a908b7539a4fe.dbr",
+      "source_record": "records/creatures/enemies/hero/yetiswamp_h04.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_53994a1b92679056",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_53994a1b92679056.dbr",
+      "source_record": "records/creatures/enemies/hero/zombie_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_9de37c8c4310526a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_9de37c8c4310526a.dbr",
+      "source_record": "records/creatures/enemies/hero/zombiehound_h01.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_fbf0b96550d010c4",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_fbf0b96550d010c4.dbr",
+      "source_record": "records/creatures/enemies/hero/zombiehound_h02.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_ed8ab82f6487137b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_ed8ab82f6487137b.dbr",
+      "source_record": "records/creatures/enemies/hero/zombiehound_h03.dbr",
+      "tier": "ascended"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Hero",
+      "id": "ascended_0242bb8792edd02e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_0242bb8792edd02e.dbr",
+      "source_record": "records/creatures/enemies/hero/zombiehound_h04.dbr",
+      "tier": "ascended"
+    }
+  ]
+}
