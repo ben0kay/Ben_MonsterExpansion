@@ -67,6 +67,9 @@ def check_configs(reference_root=None, repo=REPO):
             build_player_stats(player_settings, reference_root)
             from devotion import build_shrines
             build_shrines(player_settings.get("devotion"), reference_root)
+        from player_skills import load_settings as load_skills, build_skills
+        if reference_root is not None:
+            build_skills(load_skills(repo), reference_root)
         root = reference_root or repo / "ReferenceFiles"
         catalog = load_json(repo / "config/tiers.json")
         require(catalog.get("schema_version") == 1, "Unsupported tier schema")

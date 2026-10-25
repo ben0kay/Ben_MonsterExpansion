@@ -3,11 +3,23 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
+## Occultist / Arcanist playthrough pass 1
+
+Player skill overrides are now included in the shared generation/staging pipeline.
+All uploaded mastery exclusives become stackable. Aether Ray, Devastation, Doom
+Bolt, Maiven's Sphere and Occultist pets receive configurable rank progression
+buffs. Familiar/Hellhound limits rise to two each at rank 8. Blood of Dreeg and
+Mirror become sustained toggles, with Mirror's protection reduced accordingly.
+Settings: `config/player_skills.json`; see [exact values, tuning and
+playthrough checks](docs/PLAYER_SKILLS.md). This is a data-validated first pass;
+Asset Manager compilation and game testing remain manual. Existing monster-tier,
+attribute and pack settings are retained. Devotion remains prepared but disabled.
+
 ## Handoff checkpoint — October 25, 2026
 
 **Active content:** **148 Veterans + 124 Elites + 137 Ascended**, with **377
 merged pool overrides**, 1.5x regular pack size and player attributes at 2 points
-per level / +6 per spent point. Full generation emits **2,833 DBRs + 1 English
+per level / +6 per spent point. Full generation, including the skill pass above, emits **2,973 DBRs + 1 English
 text source**, plus its manifest. Asset Manager builds and game verification are
 manual. The previous full-suite checkpoint was **63 passing tests**, including
 quota and combined-pool checks, before the Devotion preparation below. Generation/
@@ -256,7 +268,7 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **2,833 DBRs + 1 text source**: 409 monster variants with supporting records and 377 merged pool
+Expect **2,973 DBRs + 1 text source** (including 80 player-skill overrides): 409 monster variants with supporting records and 377 merged pool
 overrides. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
@@ -430,5 +442,4 @@ staged/compiled records. See the current guide before rolling back.
 Research actual records/templates → establish mechanism → implement minimal
 reversible change → test/build/playtest → record only verified results. No invented
 DBR fields, speculative PFX patches, vanilla archive edits or unrelated player
-balance changes. Player level/devotion/pet proposals discussed separately are not
-implemented by this monster-family pass.
+balance changes. Player progression and skill work is documented separately above.

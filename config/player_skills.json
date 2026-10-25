@@ -1,0 +1,793 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "records": [
+    {
+      "record": "records/skills/playerclass01/stancedefensive.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass01/stanceoffensive.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass03/possession1.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass05/mindovermatter1.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass05/mindovermatter2.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass06/primalbond01.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass06/stormcaller1.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass07/auracensure1_buff.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass07/auraconviction1_buff.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass08/masterofdeath1.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass08/reaper1.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass09/divinemandate1.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass09/pathofthethree1.dbr",
+      "set": {
+        "exclusiveSkill": "0"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass05/aetherray1.dbr",
+      "set": {
+        "beamThickness": "2.0",
+        "maxRange": "22"
+      },
+      "curves": {
+        "offensiveAetherMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveFireMax": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveFireMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/aetherray2.dbr",
+      "set": {},
+      "curves": {
+        "offensiveLightningMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveSlowLightningMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/devastation.dbr",
+      "set": {
+        "skillActiveDuration": "8",
+        "skillTargetRadius": "8",
+        "projectileExplosionRadius": "3.5",
+        "projectileLaunchNumber": "3"
+      },
+      "curves": {
+        "offensiveAetherMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveFireMax": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveFireMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/doombolt1.dbr",
+      "set": {
+        "skillTargetRadius": "4.5"
+      },
+      "curves": {
+        "offensiveChaosMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveLifeMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "skillCooldownTime": {
+          "ranks": 22,
+          "add_per_rank": -0.04
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/sphereofprotection1.dbr",
+      "set": {},
+      "curves": {
+        "damageAbsorptionPercent": {
+          "add": 1,
+          "add_per_rank": 0.15,
+          "cap": 38
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/summon_raven1.dbr",
+      "set": {
+        "petLimit": "1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a01.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 10
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a02.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 12
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a03.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 14
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a04.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 16
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a05.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 18
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a06.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 20
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a07.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 22
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a08.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 24
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a09.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 26
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a10.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 28
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a11.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 30
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a12.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 32
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a13.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 34
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a14.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 36
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a15.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 38
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a16.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 40
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a17.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 42
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a18.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 44
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a19.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 46
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a20.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 48
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a21.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 50
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a22.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 52
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a23.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 54
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a24.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 56
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a25.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 58
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_raven_a26.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 60
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/petskill_raven_innate1.dbr",
+      "set": {},
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass03/pets/petskill_raven_stormorb1.dbr",
+      "set": {},
+      "curves": {
+        "offensiveLightningMax": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveLightningMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveSlowLightningMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/summon_hellhound1.dbr",
+      "set": {
+        "petLimit": "1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a01.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 10
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a02.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 12
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a03.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 14
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a04.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 16
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a05.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 18
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a06.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 20
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a07.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 22
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a08.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 24
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a09.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 26
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a10.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 28
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a11.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 30
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a12.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 32
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a13.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 34
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a14.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 36
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a15.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 38
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a16.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 40
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a17.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 42
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a18.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 44
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a19.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 46
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a20.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 48
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a21.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 50
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a22.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 52
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a23.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 54
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a24.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 56
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a25.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 58
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/pet_hellhound_a26.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "add": 60
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/petskill_hellhound_breathefire.dbr",
+      "set": {},
+      "curves": {
+        "offensiveChaosMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveFireMax": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveFireMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveSlowFireMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/petskill_hellhound_fireclaw.dbr",
+      "set": {},
+      "curves": {
+        "offensiveChaosMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveFireMax": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensiveFireMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pets/petskill_hellhound_innate1.dbr",
+      "set": {},
+      "curves": {
+        "offensiveFireMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensivePhysicalMax": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        },
+        "offensivePhysicalMin": {
+          "multiplier": 1.15,
+          "multiplier_per_rank": 0.015
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/bloodofdreeg1.dbr",
+      "set": {
+        "templateName": "database/templates/skill_buffradiustoggled.tpl",
+        "Class": "Skill_BuffRadiusToggled"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass03/bloodofdreeg1_buff.dbr",
+      "set": {
+        "skillActiveDuration": "0",
+        "skillLifePercent": "0",
+        "skillManaCost": "0",
+        "skillCooldownTime": "0",
+        "characterManaLimitReserve": "100"
+      },
+      "curves": {
+        "characterLifeRegen": {
+          "multiplier": 1.2,
+          "multiplier_per_rank": 0.01
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/arcaneshield.dbr",
+      "set": {
+        "templateName": "database/templates/skill_buffselftoggled.tpl",
+        "Class": "Skill_BuffSelfToggled",
+        "skillActiveDuration": "0",
+        "skillCooldownTime": "0",
+        "skillManaCost": "0",
+        "characterManaLimitReserve": "150"
+      },
+      "curves": {
+        "damageAbsorptionPercent": {
+          "multiplier": 0,
+          "ranks": 22,
+          "add": 8,
+          "add_per_rank": 0.5,
+          "cap": 20
+        }
+      }
+    }
+  ]
+}
