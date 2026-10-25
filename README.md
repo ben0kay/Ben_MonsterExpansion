@@ -3,57 +3,49 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
-## Handoff checkpoint — October 20, 2026
+## Handoff checkpoint — October 25, 2026
 
-**Active content:** 148 Veteran variants (four original boar/zombie variants plus
-144 discovered variants), 325 pool overrides, 1.5x regular pack-size equation and
-player attributes at 2 spendable points per level / +6 per point to the chosen
-Physique, Cunning or Spirit. Full generation emits **1,215 DBRs + 1 English text
-source**, plus the manifest. Latest Python suite: **52 passing tests**. Asset
-Manager builds and game verification are manual.
+**Active content:** 148 Veteran variants and **124 Elite variants**, with **368
+merged pool overrides**, 1.5x regular pack size and player attributes at 2 points
+per level / +6 per spent point. Full generation emits **2,002 DBRs + 1 English
+text source**, plus its manifest. Asset Manager builds and game verification are
+manual. **57 Python tests pass**, and full generation/staging preflight passes.
+The terminal environment is working again.
 
-**DLC candidates are now enabled:** the additional 48 sources / 186 selections /
-119 pools have been merged into the existing discovered family, preserving all
-prior variants and pool mappings. All use the shared 20% Veteran conversion.
-Generated-pool tests verify unchanged unrelated fields and inherited level rules.
-All earlier generated files remain byte-identical; the activation only adds files.
-The new content needs build/install and representative in-game checks.
+### Champion → Elite implemented
 
-### Current handoff — Champion → Elite is next
+The shared discovery/generation pipeline now supports exact **Champion → Elite
+33%** conversion, configured in JSON. The activation adds **124 sources / 382
+eligible Champion selections / 255 pools** across effective GDX2 > GDX1 > base
+references. Of those pools, 212 already had Veteran mappings; the generator merges
+both groups into one override per pool. It adds 43 new pool paths.
 
-The user authorized implementing **data-driven Champion → Elite conversion**.
-No Elite implementation or activation has been committed yet. In the latest
-session, GitHub reads/writes work, but terminal execution fails with
-"No usable execution environment is available"; no new tests were run.
-The 52-test result above belongs to the previously completed Veteran/DLC/player
-work, not the proposed Elite work.
+Elite settings in `config/tiers.json`: **1.30 health, 1.18 physical base-passive
+damage, 1.12 defensive ability and 1.10 model scale**, relative to each exact
+Champion parent. Original classification, abilities and skill timing remain.
+No Common fallback, Hero promotion or Boss conversion is enabled.
 
-The existing Elite prototype in `config/tiers.json` specifies, versus its exact
-Champion parent: **1.30 health, 1.18 damage, 1.12 defense and 1.10 model scale**.
-These are prototype settings; damage must be described according to the actual
-supported scaling mechanism, not promised as +18% final damage. Amber
-`#E49A36` is a visual design target; an amber cosmetic effect is not implemented
-or verified. There is no Elite conversion-share field yet.
+The cosmetic preset uses vanilla `goldenglow01_large01.dbr` through the same
+stat-free attachment pipeline as Veterans. Golden glow is provisional for the
+amber design target; exact appearance/color still needs in-game confirmation.
+Names keep vanilla labels until optional English tag files are supplied.
 
-Next implementation should:
-- Keep shared tier stats, scale, cosmetic source and **33% Champion conversion**
-  in JSON; avoid enemy-specific Python logic.
-- Discover compatible Champion parents across effective **GDX2 > GDX1 > base**
-  records, report exclusions, and generate exact-parent Elite mappings.
-- Inspect actual Champion pool fields and limits before extending generic splitting.
-  Merge changes with existing Veteran-owned pools rather than overwrite them.
-- Preserve unrelated selections, level/eligibility rules, Champion counts and
-  existing encounter restrictions; no Common fallback or Boss conversion.
-- Verify generated pools and regression output, update staging/validation and
-  tests, then activate the compatible set and document actual totals.
-- Preserve all current Veterans, 1.5x packs and player attribute changes in the
-  combined build. No new build commands or output totals exist for Elites yet.
+Pool checks cover exact 67/33 conditional weight splits, unchanged unrelated
+selection probabilities, inherited level restrictions, unchanged Champion count
+settings and preserved Veteran regular selections. Limited/forced entries,
+special encounters, unsupported damage setups and full slots remain excluded
+with reasons. Every previous monster/support record remains byte-identical;
+existing pool changes are confined to the Champion selection weights/new slots.
 
-The overhead star discussed in chat marks vanilla **Heroes**, not the Champion
-classification. No custom overhead marker has been requested or implemented.
-Hero → Ascended **33%** and Nemesis → Apex **10% (provisional)** remain later work;
-Nemesis spawning needs its own investigation. Optional English-name extraction
-remains deferred and must not block activation.
+See [Elite pipeline and testing](docs/ELITES.md) and
+[activation discovery snapshot](docs/ELITE_DISCOVERY_REPORT.md). The scanner is
+read-only by default; optional drafts are disabled and must not replace active
+family configs. The new Elites are data-validated, not yet verified in-game.
+
+Next: build/install the combined mod and check representative Elite appearance,
+combat and natural selections. Hero → Ascended **33%**, Nemesis → Apex **10%
+(provisional)**, higher-tier abilities/rewards and optional English names remain
+future work. The overhead star marks vanilla Heroes; no custom marker is added.
 
 ### Completed and published
 
@@ -87,14 +79,14 @@ selections needing `records/endlessdungeon/skills/special/maggot_passive_a01.dbr
 
 Re-running discovery is optional and read-only; generated drafts are disabled and
 must never replace the active aggregate family. The active catalog now has 628
-mapped regular selections (442 original + 186 added). No higher tiers are enabled.
+mapped regular selections (442 original + 186 added). Elites are now enabled; Ascended and Apex are not.
 
 ### Preferences and remaining features
 
 - Veteran conversion is globally `0.2` in `config/tiers.json`. Current safeguards
   reject shares >= 0.5; 80% testing would need a deliberate validation update.
 - Agreed future exact-parent rules: Champion -> Elite 33%, Hero -> Ascended 33%,
-  Nemesis -> Apex provisional 10%. These tiers are not implemented. No fallback
+  Nemesis -> Apex provisional 10%. Elite is implemented; Ascended/Apex are not. No fallback
   from Common to Elite; Boss encounters remain preserved.
 - Most new names retain vanilla labels. Only known zombie names have generated
   `(Veteran)` suffixes. User deferred supplying extracted English `.txt` files;
@@ -116,7 +108,7 @@ from `ReferenceFiles/gdx2/database/records/`, then the corresponding `gdx1`
 folder, then `ReferenceFiles/`. Generated paths keep the original game namespace.
 Discovery includes expansion pool folders and deduplicates overridden records.
 
-All 148 active variants / 325 pools validate with the uploaded DLC records.
+All 272 active variants / 368 pools validate with the uploaded DLC records.
 The DLC resolver initially changed only the cave half-troll Veteran output.
 The later 48-source activation adds new content while preserving all earlier files.
 The DLC-aware scan found **48 additional sources / 119 pools**, now enabled.
@@ -207,7 +199,7 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **1,215 DBRs + 1 text source**: 148 monster variants with supporting records and 325 pool
+Expect **2,002 DBRs + 1 text source**: 272 monster variants with supporting records and 368 merged pool
 overrides. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
@@ -243,11 +235,11 @@ game.Spawn "records/proxies/area001/beasts_boar_n.dbr"
 
 | Location | Responsibility |
 | --- | --- |
-| `config/tiers.json` | Shared stats, model scale, cosmetic preset and Common conversion share |
+| `config/tiers.json` | Shared stats, model scale, cosmetic presets and Veteran/Elite conversion shares |
 | `config/families/boar.json` | Two source boars, generated variants and one reviewed pool |
 | `config/families/zombie.json` | Starter/normal zombie variants and five reviewed early pools |
 | `scripts/generate_variants.py` | Generic variant/support record generation and manifest |
-| `scripts/natural_spawns.py` | Generic regular-slot weight splitting and level-rule inheritance |
+| `scripts/natural_spawns.py` | Merged regular/Champion weight splitting and level-rule inheritance |
 | `scripts/prepare_console_test.py` | Stage exactly the freshly validated generated plan |
 | `scripts/validate_config.py` | Validate config, source records, proxy references and pool mappings |
 | `scripts/preview_variants.py` | Read-only generation preview |
@@ -273,7 +265,7 @@ enemy selection, not per pack, and does not transform an already spawned enemy.
 | Original selection | Stays original | Replacement | Implementation |
 | --- | ---: | --- | --- |
 | Common | 80% | 20% Veteran | Implemented for 148 mapped variants across 325 pools |
-| Champion | 67% | 33% Elite | Agreed; not implemented |
+| Champion | 67% | 33% Elite | Implemented for 124 mapped variants in 255 pools |
 | Hero | 67% | 33% Ascended | Agreed; not implemented |
 | Nemesis | 90% | 10% Apex | Provisional agreement; not implemented |
 
@@ -287,8 +279,8 @@ The earlier 2.5 Veterans-per-Champion target is superseded as the governing
 spawn rule by these per-parent conversion percentages; the current Common split
 is still 20%. Existing config may retain the old target as reporting metadata.
 Limited/forced entries, loot droppers, summons, corpses and scripted encounters
-remain excluded pending explicit policies. Current code only splits mapped
-regular Common entries; the other three conversions require implementation.
+remain excluded pending explicit policies. Current code splits mapped regular Common and Champion-classified Champion entries;
+Hero and Nemesis conversions require separate implementation.
 Pool overrides affect encounters resolving those exact paths.
 
 ## Tier hierarchy and design
@@ -329,7 +321,7 @@ representative in-game checks remain necessary for visuals and engine behavior.
 | Generic family pipeline + starting zombies | Implemented; natural Veteran zombie observed in an early Lower Crossing house |
 | Generated Veteran zombie name labels | Passed in-game; correct header and original faction subtitle confirmed |
 | Broader Veteran coverage | 144 discovered variants enabled across 319 additional pools; build/runtime testing pending |
-| Champion → Elite (33%) | Future: inspect Champion selections, preserve limits/eligibility, generate exact-parent variants and test |
+| Champion → Elite (33%) | Implemented: 124 exact-parent variants / 382 selections / 255 pools; build/runtime checks pending |
 | Hero → Ascended (33%) | Future: preserve named identity/skills and encounter restrictions; no Common/Champion fallback |
 | Nemesis → Apex (10%) | Future: investigate Nemesis activation/spawning before implementing provisional replacement chance |
 | Higher-tier visuals/abilities/rewards | Pending evidence, minimal prototypes and playtesting |
@@ -337,17 +329,17 @@ representative in-game checks remain necessary for visuals and engine behavior.
 
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
-Python suite has **52 passing tests**. The original Veteran Boar's six-record
-regression is byte-identical. 148 variants and 325 pool overrides generate
-1,215 DBRs plus one English text source.
+Python suite has **57 passing tests**. The original Veteran Boar's six-record
+regression is byte-identical. 272 variants and 368 merged pool overrides generate
+2,002 DBRs plus one English text source.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks
 and larger rarity samples; this is not proof of every map placement or variant.
 
 The discovery scanner and 144 discovered-variant activation are complete (148 total
-Veterans). The next authorized implementation is data-driven Champion → Elite at
-33%, as detailed in the current handoff above. Build/playtesting, optional English
+Veterans). Champion → Elite at 33% is now implemented, as detailed in the current handoff
+above; representative in-game checks are next. Build/playtesting, optional English
 tag resolution and explicit handling of existing-pool extensions/finite quotas
 remain open. All strict tier-parent rules above remain.
 

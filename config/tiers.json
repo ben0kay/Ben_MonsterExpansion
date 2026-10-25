@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "implementation_status": "configured_veteran_families",
+  "implementation_status": "configured_veteran_and_elite_families",
   "note": "Prototype numbers are starting points for testing, not approved final balance. JSON is build tooling input, not read by Grim Dawn.",
   "ui_color_support": "unverified_in_game",
   "tiers": [
@@ -64,9 +64,16 @@
           "defense": 1.12
         },
         "model_scale_vs_parent": 1.1,
-        "ability_policy": "increase_compatible_skill_frequency_and_optional_extra_skill",
+        "ability_policy": "reuse_base_skills_first",
         "visual_intensity": "noticeable",
-        "spawn_policy": "champion_pool_variant"
+        "spawn_policy": "champion_pool_variant",
+        "natural_spawns": {
+          "conversion_share": 0.33
+        },
+        "cosmetic_aura": {
+          "enabled": true,
+          "effect_source_record": "records/fx/creatures/goldenglow01_large01.dbr"
+        }
       }
     },
     {

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "family_id": "discovered_elites",
+  "source_classification": "Champion",
+  "target_tier": "elite",
+  "max_pool_slot": 15,
+  "excluded_path_pattern": "(?i)(boss|quest|summon|nemesis|devotion|bounties|factionspawns|setpiece|deathspawn|special|lootdropper|potiondropper|_doa|trap_|training|dummy|pet)|/faction/|/faction_|/p_faction_",
+  "notes": [
+    "Champion classification required even inside Champion selections; Heroes are excluded.",
+    "Independent Champion slots allow merging with existing Veteran pools.",
+    "Limited/forced entries and special encounters remain excluded."
+  ],
+  "merge_shared_pools": true
+}

@@ -1,0 +1,5446 @@
+{
+  "display_name": "Discovered Elite candidates",
+  "enabled": true,
+  "id": "discovered_elites",
+  "notes": [
+    "Activated after shared-generator compatibility checks and full pool invariant tests.",
+    "Original names retained until English tags are supplied.",
+    "Golden vanilla glow is a provisional amber visual; in-game confirmation required."
+  ],
+  "pools": [
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_75bbb288ac65b5d4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_boar_halftrollsonly_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_boar_halftrollsonly_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_75bbb288ac65b5d4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_boar_halftrollsonly_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_boar_halftrollsonly_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_75bbb288ac65b5d4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_boar_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_boar_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_75bbb288ac65b5d4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_boar_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_boar_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_4c3689c20e8eb3a1"
+        },
+        {
+          "output_slot": 5,
+          "source_slot": 2,
+          "variant": "elite_0c4b9c2f8accb6f3"
+        },
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "elite_6547a814ed7e15c9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/bonerats_e.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_prawn_e.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 2,
+          "variant": "elite_0c4b9c2f8accb6f3"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 3,
+          "variant": "elite_6547a814ed7e15c9"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 9,
+          "variant": "elite_4c3689c20e8eb3a1"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_prawn_amb_n.dbr",
+        "records/proxies/area001/beasts_prawn_amb_n_delayshort.dbr",
+        "records/proxies/area001/beasts_prawn_n.dbr",
+        "records/proxies/area001/bonerats-zombies_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_prawn_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 2,
+          "variant": "elite_0c4b9c2f8accb6f3"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 3,
+          "variant": "elite_6547a814ed7e15c9"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 9,
+          "variant": "elite_4c3689c20e8eb3a1"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_prawn_amb_t.dbr",
+        "records/proxies/area001/beasts_prawn_amb_t_delayshort.dbr",
+        "records/proxies/area001/beasts_prawn_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_prawn_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 1,
+          "variant": "elite_2a7519ae27a166e0"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 2,
+          "variant": "elite_99aa10f4bda2b4b1"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 3,
+          "variant": "elite_c3c18bf1df483477"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/slitha_amb_s1_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_slitha_amb_s1_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_cb13c4c02d3e400c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_wasps_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_wasp_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_cb13c4c02d3e400c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beasts_wasps_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_beasts_wasp_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_80ce920837e17f9c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsswamp_highlvl_n.dbr",
+        "records/proxies/area001/beastsswamp_highlvl_random.dbr",
+        "records/proxies/areae/beasts_swamp_mosquito_n.dbr",
+        "records/proxies/areae/beasts_swamp_mosquito_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_beastsswamp_highlvl_mosquito_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_80ce920837e17f9c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsswamp_highlvl_random.dbr",
+        "records/proxies/area001/beastsswamp_highlvl_t.dbr",
+        "records/proxies/areae/beasts_swamp_mosquito_random.dbr",
+        "records/proxies/areae/beasts_swamp_mosquito_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_beastsswamp_highlvl_mosquito_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_82d545012d562de6"
+        },
+        {
+          "output_slot": 4,
+          "source_slot": 2,
+          "variant": "elite_2dd7f4b35162895a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsswamp_highlvl_random.dbr",
+        "records/proxies/area001/beastsswamp_highlvl_troll_n.dbr",
+        "records/proxies/area001/beastsswamp_highlvl_troll_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_beastsswamp_highlvl_troll_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_82d545012d562de6"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_78c180ac956de172"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 3,
+          "variant": "elite_e75091db72366577"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsswamp_highlvl_random.dbr",
+        "records/proxies/area001/beastsswamp_highlvl_troll_random.dbr",
+        "records/proxies/area001/beastsswamp_highlvl_troll_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_beastsswamp_highlvl_troll_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_36c44adaca8e52df"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/beastsswamp_n.dbr",
+        "records/proxies/area001/beastsswamp_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_beastsswamp_mosquito_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_36c44adaca8e52df"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsburrwitchoutskirts_n.dbr",
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/beastsswamp_random.dbr",
+        "records/proxies/area001/beastsswamp_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_beastsswamp_mosquito_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 5,
+          "source_slot": 4,
+          "variant": "elite_b6409e48d83cdcd2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/cave_spidergiant_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_cave_spidergiant_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 5,
+          "source_slot": 4,
+          "variant": "elite_b6409e48d83cdcd2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/cave_spidergiant_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_cave_spidergiant_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 5,
+          "variant": "elite_1569027256bb0728"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/cave_trollhalf+worms_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_cave_trollhalf+worms_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 4,
+          "variant": "elite_2eda6ded4dea691c"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_1569027256bb0728"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/cave_trollhalf+worms_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_cave_trollhalf+worms_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 4,
+          "variant": "elite_2eda6ded4dea691c"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_1569027256bb0728"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/cave_trollhalf_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_cave_trollhalf_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 4,
+          "variant": "elite_2eda6ded4dea691c"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_1569027256bb0728"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/cave_trollhalf_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_cave_trollhalf_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 1,
+          "variant": "elite_4f41ab826df6c4a0"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 2,
+          "variant": "elite_5873654f617ad391"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 3,
+          "variant": "elite_915754bd38b72953"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 5,
+          "variant": "elite_32f726e7f41f4d7a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_areac_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultista_areac_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_96bba63a43f7ade9"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "elite_c9a573e4bda5e3e2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultista_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 1,
+          "variant": "elite_4f41ab826df6c4a0"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 2,
+          "variant": "elite_5873654f617ad391"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 3,
+          "variant": "elite_915754bd38b72953"
+        },
+        {
+          "output_slot": 15,
+          "source_slot": 5,
+          "variant": "elite_32f726e7f41f4d7a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_areac_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistb_areac_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_96bba63a43f7ade9"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "elite_c9a573e4bda5e3e2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_96bba63a43f7ade9"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "elite_c9a573e4bda5e3e2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistc_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_96bba63a43f7ade9"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "elite_c9a573e4bda5e3e2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistd_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 3,
+          "variant": "elite_f232a083ac2fdc7c"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 5,
+          "variant": "elite_32f726e7f41f4d7a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_areac_t_humansonly.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistonlya_areac_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 3,
+          "variant": "elite_f232a083ac2fdc7c"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 5,
+          "variant": "elite_32f726e7f41f4d7a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_areac_t_humansonlysmall.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistonlya_areac_tsm.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "elite_c9a573e4bda5e3e2"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "elite_29441fbcac456b37"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_t_humansonly.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistonlya_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 3,
+          "variant": "elite_f232a083ac2fdc7c"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 5,
+          "variant": "elite_32f726e7f41f4d7a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_areac_t_humansonly.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistonlyb_areac_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 3,
+          "variant": "elite_f232a083ac2fdc7c"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 5,
+          "variant": "elite_32f726e7f41f4d7a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_areac_t_humansonlysmall.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistonlyb_areac_tsm.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "elite_c9a573e4bda5e3e2"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "elite_29441fbcac456b37"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_t_humansonly.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistonlyb_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "elite_c9a573e4bda5e3e2"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "elite_29441fbcac456b37"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_t_humansonly.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistonlyc_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 5,
+          "variant": "elite_c9a573e4bda5e3e2"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 6,
+          "variant": "elite_29441fbcac456b37"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_cultist_t_humansonly.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_cultistonlyd_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 1,
+          "variant": "elite_fe8dfa7db4bc5d21"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_devourer_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_devourer_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 1,
+          "variant": "elite_fe8dfa7db4bc5d21"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_devourer_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_devourer_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 1,
+          "variant": "elite_3c003741bb3b9a20"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_dreadguards+leeches_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_dreadguards+leeches_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_3c003741bb3b9a20"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_dreadguards_necropolis.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_dreadguards_necropolis.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 1,
+          "variant": "elite_3c003741bb3b9a20"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_dreadguards_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_dreadguards_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 1,
+          "variant": "elite_fe8dfa7db4bc5d21"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_fiends_amb_n.dbr",
+        "records/proxies/area001/chthonic_fiends_amb_n_delayshort.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_fiends_amb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 1,
+          "variant": "elite_fe8dfa7db4bc5d21"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_fiends_amb_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_fiends_amb_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_628519ae16745cf2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_leeches_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_leeches_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_628519ae16745cf2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_leeches_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_leeches_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_074a862899455636"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_obsidiandefiler_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_obsidiandefiler_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_074a862899455636"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_obsidiandefiler_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_obsidiandefiler_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_074a862899455636"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/chthonic_obsidiandefiler_xhighhero_always.dbr"
+      ],
+      "record": "records/proxies/pools/p_chthonic_obsidiandefiler_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_aaab78269cb89603"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_possessed_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_possessed_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_aaab78269cb89603"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_possessed_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_possessed_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_aaab78269cb89603"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_possessed_xhighhero_always.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_possessed_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_aaab78269cb89603"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_possessedact4_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_possessedact4_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_aaab78269cb89603"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_fleshhulk_n.dbr",
+        "records/proxies/area001/corruption_fleshhulk_t.dbr",
+        "records/proxies/area001/corruption_portvalbury_burning_n.dbr",
+        "records/proxies/area001/corruption_portvalbury_burning_t.dbr",
+        "records/proxies/area001/corruption_portvalbury_fleshhulk_n.dbr",
+        "records/proxies/area001/corruption_portvalbury_fleshhulk_t.dbr",
+        "records/proxies/area001/corruption_portvalbury_mutants_n.dbr",
+        "records/proxies/area001/corruption_possessedact4_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_corruption_possessedact4_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 7,
+          "variant": "elite_cea34c77235e184f"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/dermapteran+worms_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_dermapteran+worms_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 7,
+          "variant": "elite_cea34c77235e184f"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/dermapteran+worms_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_dermapteran+worms_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 7,
+          "variant": "elite_cea34c77235e184f"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 8,
+          "variant": "elite_00cc690de064b085"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/dermapteran_always.dbr",
+        "records/proxies/area001/dermapteran_n.dbr",
+        "records/proxies/area001/dermapteran_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_dermapteran_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 7,
+          "variant": "elite_cea34c77235e184f"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 8,
+          "variant": "elite_00cc690de064b085"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/dermapteran_small.dbr"
+      ],
+      "record": "records/proxies/pools/p_dermapteran_small.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 7,
+          "variant": "elite_cea34c77235e184f"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 8,
+          "variant": "elite_00cc690de064b085"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/dermapteran_always.dbr",
+        "records/proxies/area001/dermapteran_random.dbr",
+        "records/proxies/area001/dermapteran_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_dermapteran_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 7,
+          "variant": "elite_cea34c77235e184f"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 8,
+          "variant": "elite_00cc690de064b085"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/dermapteran_xhighhero.dbr"
+      ],
+      "record": "records/proxies/pools/p_dermapteran_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 8,
+          "variant": "elite_10ab03343d35eb5d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/corruption_portvalbury_trollranged_n.dbr",
+        "records/proxies/area001/corruption_portvalbury_trollranged_t.dbr",
+        "records/proxies/area001/corruption_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_gazer_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_a2e433adc38ed7b5"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/groblea+b_always.dbr",
+        "records/proxies/area001/groblea+b_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_groblea_melee_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_a2e433adc38ed7b5"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/groblea+b_always.dbr",
+        "records/proxies/area001/groblea+b_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_groblea_ranged_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_f668283b8a5e7226"
+        },
+        {
+          "output_slot": 5,
+          "source_slot": 2,
+          "variant": "elite_f668283b8a5e7226"
+        },
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "elite_9a254a0d79b79073"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/grobled_dranghoul_always.dbr",
+        "records/proxies/area001/grobled_dranghoul_random.dbr"
+      ],
+      "record": "records/proxies/pools/p_grobled_dranghoul_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_6782788efc8d78e2"
+        },
+        {
+          "output_slot": 5,
+          "source_slot": 2,
+          "variant": "elite_6782788efc8d78e2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/harpy_amb_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_harpy_amb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_6782788efc8d78e2"
+        },
+        {
+          "output_slot": 5,
+          "source_slot": 2,
+          "variant": "elite_6782788efc8d78e2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/harpy_amb_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_harpy_amb_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_6782788efc8d78e2"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 7,
+          "variant": "elite_6782788efc8d78e2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/harpy_amb_xt.dbr"
+      ],
+      "record": "records/proxies/pools/p_harpy_amb_xt.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_de132a6bf4ad8c33"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 7,
+          "variant": "elite_de132a6bf4ad8c33"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/harpy_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_harpy_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_de132a6bf4ad8c33"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 7,
+          "variant": "elite_de132a6bf4ad8c33"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/harpy_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_harpy_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_de132a6bf4ad8c33"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 7,
+          "variant": "elite_de132a6bf4ad8c33"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/harpy_xhighhero.dbr"
+      ],
+      "record": "records/proxies/pools/p_harpy_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 10,
+          "variant": "elite_d148d69dbdecf907"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_aether_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_aether_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 10,
+          "variant": "elite_d148d69dbdecf907"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_aether_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_aether_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 10,
+          "variant": "elite_d148d69dbdecf907"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_aether_xhighhero_always.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_aether_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "elite_e738711292c91198"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_532b4ceff5eb3ebe"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlawa_s1_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_convict_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "elite_e738711292c91198"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_532b4ceff5eb3ebe"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlawa_s2_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_convict_n2.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 10,
+          "variant": "elite_d148d69dbdecf907"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_aether_n.dbr",
+        "records/proxies/area001/humanoutlaw_aether_xhighhero_always.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_meleeaether_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 10,
+          "variant": "elite_d148d69dbdecf907"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_aether_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_meleeaether_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "elite_e738711292c91198"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_532b4ceff5eb3ebe"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlawa_s1_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_meleeconvict_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "elite_e738711292c91198"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 4,
+          "variant": "elite_3d74fee24663f7af"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 5,
+          "variant": "elite_532b4ceff5eb3ebe"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlawa_s2_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_meleeconvict_n2.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 10,
+          "variant": "elite_d148d69dbdecf907"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_aether_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_rangedaether_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 10,
+          "variant": "elite_d148d69dbdecf907"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_aether_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_rangedaether_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 1,
+          "variant": "elite_59184935db26d904"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_aether_xhighhero_always.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_rangedaether_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "elite_e738711292c91198"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_532b4ceff5eb3ebe"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlawa_s1_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_rangedconvict_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 3,
+          "variant": "elite_e738711292c91198"
+        },
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_532b4ceff5eb3ebe"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlawa_s2_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_rangedconvict_n2.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 3,
+          "variant": "elite_a8533a58fb314994"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_wightmire_s1_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_wightmire_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 3,
+          "variant": "elite_a8533a58fb314994"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/humanoutlaw_wightmire_s2_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_humanoutlaw_wightmire_n2.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 7,
+          "variant": "elite_563e1dee341ceb8b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/spidergiant_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_spidergiant_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 7,
+          "variant": "elite_563e1dee341ceb8b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/spidergiant_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_spidergiant_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_a5d497dd75effc50"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsforest_random.dbr",
+        "records/proxies/area001/beastswastes_random.dbr",
+        "records/proxies/area001/randomencounter_oldgrove_n.dbr",
+        "records/proxies/area001/thornedhorror_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_thornedhorror_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_de74d6ea80563332"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsburrwitchoutskirts_t.dbr",
+        "records/proxies/area001/thornedhorror_solo.dbr"
+      ],
+      "record": "records/proxies/pools/p_thornedhorror_solo.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_1e3506acf75a99fc"
+        },
+        {
+          "output_slot": 4,
+          "source_slot": 2,
+          "variant": "elite_d37182c6ed9ce88b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/troll_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_troll_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_1e3506acf75a99fc"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 2,
+          "variant": "elite_2671fb516fb5971d"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 3,
+          "variant": "elite_cf72d86758c7b765"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/troll_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_troll_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "elite_75bbb288ac65b5d4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/trollhalf+boars_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_trollhalf+boars_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 12,
+          "source_slot": 5,
+          "variant": "elite_2275140fbdb4e306"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 6,
+          "variant": "elite_2671fb516fb5971d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/trollhalf+trolls_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_trollhalf+trolls_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "elite_2275140fbdb4e306"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_2671fb516fb5971d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/aetherialprisoners.dbr"
+      ],
+      "record": "records/proxies/pools/p_trollhalf_cages.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "elite_2275140fbdb4e306"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_2671fb516fb5971d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/trollhalf_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_trollhalf_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "elite_2275140fbdb4e306"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_2671fb516fb5971d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/trollhalf_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_trollhalf_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "elite_2275140fbdb4e306"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_2671fb516fb5971d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/trollhalf_xhighhero.dbr"
+      ],
+      "record": "records/proxies/pools/p_trollhalf_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "elite_6e379781772d9774"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_78c180ac956de172"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/trollhalfswamp_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_trollhalfswamp_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 5,
+          "variant": "elite_6e379781772d9774"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 6,
+          "variant": "elite_78c180ac956de172"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/trollhalfswamp_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_trollhalfswamp_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 1,
+          "variant": "elite_f941894747320a4b"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 2,
+          "variant": "elite_b24c6e44a4954030"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 3,
+          "variant": "elite_bb3fa43b8c19713b"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 7,
+          "variant": "elite_0b75eeffb9d52447"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_ghost_amb_n.dbr",
+        "records/proxies/area001/undead_ghost_amb_n_delaylong.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_ghosts_amb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 1,
+          "variant": "elite_f941894747320a4b"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 2,
+          "variant": "elite_b24c6e44a4954030"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 3,
+          "variant": "elite_bb3fa43b8c19713b"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 7,
+          "variant": "elite_0b75eeffb9d52447"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_ghost_amb_t.dbr",
+        "records/proxies/area001/undead_ghost_amb_t_delaylong.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_ghosts_amb_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_f941894747320a4b"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 2,
+          "variant": "elite_b24c6e44a4954030"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 3,
+          "variant": "elite_bb3fa43b8c19713b"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "elite_0b75eeffb9d52447"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_ghosts_highhero_nightonly.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_ghosts_highhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_f941894747320a4b"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 2,
+          "variant": "elite_b24c6e44a4954030"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 3,
+          "variant": "elite_bb3fa43b8c19713b"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "elite_0b75eeffb9d52447"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_ghosts_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_ghosts_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_f941894747320a4b"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 2,
+          "variant": "elite_b24c6e44a4954030"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 3,
+          "variant": "elite_bb3fa43b8c19713b"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 7,
+          "variant": "elite_0b75eeffb9d52447"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_ghosts_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_ghosts_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_fcd9afb178b81ad8"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 2,
+          "variant": "elite_8ceb6820c9b5e7dc"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_ghouls_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_ghouls_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_fcd9afb178b81ad8"
+        },
+        {
+          "output_slot": 10,
+          "source_slot": 2,
+          "variant": "elite_8ceb6820c9b5e7dc"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_ghouls_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_ghouls_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_13f6b1452f21b0c6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_skeletongolem_amb_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletongolem_amb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_13f6b1452f21b0c6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undeadskeletongolem_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletongolem_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_13f6b1452f21b0c6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undeadskeletongolem_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletongolem_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_bc0df16d290fe352"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 2,
+          "variant": "elite_c323cb9a565fbbd6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_skeleton_amb_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletons_amb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 13,
+          "source_slot": 1,
+          "variant": "elite_bc0df16d290fe352"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 2,
+          "variant": "elite_13f6b1452f21b0c6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_skeleton_amb_t.dbr",
+        "records/proxies/area001/undead_skeleton_amb_t_delaylong.dbr",
+        "records/proxies/area001/undead_skeleton_amb_t_delayshort.dbr",
+        "records/proxies/area001/undead_skeletongolem_amb_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletons_amb_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 13,
+          "source_slot": 1,
+          "variant": "elite_bc0df16d290fe352"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 2,
+          "variant": "elite_13f6b1452f21b0c6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undead_skeleton_amb_xhighhero.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletons_amb_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_bc0df16d290fe352"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 2,
+          "variant": "elite_c323cb9a565fbbd6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undeadskeletonsa_s1_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletons_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_bc0df16d290fe352"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 2,
+          "variant": "elite_c323cb9a565fbbd6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undeadskeletonsa_s1_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletons_n_ranged.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 13,
+          "source_slot": 1,
+          "variant": "elite_bc0df16d290fe352"
+        },
+        {
+          "output_slot": 14,
+          "source_slot": 2,
+          "variant": "elite_13f6b1452f21b0c6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/undeadskeletonsa_xhighhero.dbr"
+      ],
+      "record": "records/proxies/pools/p_undead_skeletons_xhighhero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_58464e09710e2b7e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bonerat_amb_t.dbr",
+        "records/proxies/area001/witchgod_bonerat_n.dbr",
+        "records/proxies/area001/witchgod_bonerat_t.dbr",
+        "records/proxies/area001/witchgod_dreeg_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_bonerat_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_58464e09710e2b7e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bonerat_amb_t.dbr",
+        "records/proxies/area001/witchgod_bonerat_n.dbr",
+        "records/proxies/area001/witchgod_bonerat_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_bonerat_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 2,
+          "variant": "elite_4c946c1327533b0a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bysmiel_t.dbr",
+        "records/proxies/area001/witchgod_hellhound_amb_t.dbr",
+        "records/proxies/area001/witchgod_spider_amb_t.dbr",
+        "records/proxies/area001/witchgod_trio_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_bysmiel_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 2,
+          "source_slot": 1,
+          "variant": "elite_f90ce9e195b0eaae"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bysmiel_t.dbr",
+        "records/proxies/area001/witchgod_hellhound_amb_t.dbr",
+        "records/proxies/area001/witchgod_hellhound_n.dbr",
+        "records/proxies/area001/witchgod_hellhound_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_hellhound_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 2,
+          "source_slot": 1,
+          "variant": "elite_f90ce9e195b0eaae"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bysmiel_t.dbr",
+        "records/proxies/area001/witchgod_hellhound_amb_t.dbr",
+        "records/proxies/area001/witchgod_hellhound_n.dbr",
+        "records/proxies/area001/witchgod_hellhound_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_hellhound_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_3aafbf0a3ad2a944"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_raptor_amb_t.dbr",
+        "records/proxies/area001/witchgod_rifthound_amb_t.dbr",
+        "records/proxies/area001/witchgod_solael_t.dbr",
+        "records/proxies/area001/witchgod_trio_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_solael_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_4c946c1327533b0a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bysmiel_t.dbr",
+        "records/proxies/area001/witchgod_spider_amb_t.dbr",
+        "records/proxies/area001/witchgod_spider_n.dbr",
+        "records/proxies/area001/witchgod_spider_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_spider_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 9,
+          "source_slot": 1,
+          "variant": "elite_4c946c1327533b0a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_bysmiel_t.dbr",
+        "records/proxies/area001/witchgod_spider_amb_t.dbr",
+        "records/proxies/area001/witchgod_spider_n.dbr",
+        "records/proxies/area001/witchgod_spider_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_spider_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 5,
+          "variant": "elite_3aafbf0a3ad2a944"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/witchgod_trio_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_witchgod_trio_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_65fec2941a5558a8"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/worms_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_worms_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_65fec2941a5558a8"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/worms_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_worms_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_7e76213c0c2c04e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/wormdeepdweller_amb_s1_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_wormsdeepdweller_t_amb.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_0c6fde7510948705"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsalpinewoods_n.dbr",
+        "records/proxies/area001/yeti_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_yeti_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_0c6fde7510948705"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/beastsalpinewoods_t.dbr",
+        "records/proxies/area001/copy of yeti_t.dbr",
+        "records/proxies/area001/yeti_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_yeti_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_363a31c64cd2ec90"
+        },
+        {
+          "output_slot": 5,
+          "source_slot": 2,
+          "variant": "elite_59d1da795708da44"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s1_e.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_amb_s1_e.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_363a31c64cd2ec90"
+        },
+        {
+          "output_slot": 4,
+          "source_slot": 2,
+          "variant": "elite_59d1da795708da44"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s1_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_amb_s1_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_363a31c64cd2ec90"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_59d1da795708da44"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s1_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_amb_s1_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_363a31c64cd2ec90"
+        },
+        {
+          "output_slot": 5,
+          "source_slot": 2,
+          "variant": "elite_59d1da795708da44"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s2_e.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_amb_s2_e.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_363a31c64cd2ec90"
+        },
+        {
+          "output_slot": 4,
+          "source_slot": 2,
+          "variant": "elite_59d1da795708da44"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s2_n.dbr",
+        "records/proxies/area001/zombie_amb_s2_n_delayed.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_amb_s2_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_363a31c64cd2ec90"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_59d1da795708da44"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombie_amb_s2_t.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombie_amb_s2_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_363a31c64cd2ec90"
+        },
+        {
+          "output_slot": 4,
+          "source_slot": 2,
+          "variant": "elite_59d1da795708da44"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/area001/zombieburning_amb_s2_n.dbr"
+      ],
+      "record": "records/proxies/pools/p_zombieburning_amb_s2_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_e89d75ea1af6bf37"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_ascendants_n.dbr",
+        "records/proxies/areaf/aetherial_ascendants_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialascendants_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_e89d75ea1af6bf37"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_ascendants_rand.dbr",
+        "records/proxies/areaf/aetherial_ascendants_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialascendants_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_7fcc47f7c0379af4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_bloater_n.dbr",
+        "records/proxies/areaf/aetherial_bloater_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialbloater_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_7fcc47f7c0379af4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_bloater_rand.dbr",
+        "records/proxies/areaf/aetherial_bloater_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialbloater_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_2a76a9925f8b94a2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_colossus_amb_n.dbr",
+        "records/proxies/areaf/aetherial_colossus_n.dbr",
+        "records/proxies/areaf/aetherial_colossus_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcolossus_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_2a76a9925f8b94a2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_colossus_amb_solo.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcolossus_solo.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_2a76a9925f8b94a2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_colossus_amb_t.dbr",
+        "records/proxies/areaf/aetherial_colossus_amb_t_delayshort.dbr",
+        "records/proxies/areaf/aetherial_colossus_rand.dbr",
+        "records/proxies/areaf/aetherial_colossus_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcolossus_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_2a76a9925f8b94a2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_colossus_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcolossus_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_40141f08f66128ea"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "elite_68d8e596d8d8a54a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_amb_n.dbr",
+        "records/proxies/areaf/aetherials_amb_n.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_ambn.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_40141f08f66128ea"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "elite_68d8e596d8d8a54a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_amb_t.dbr",
+        "records/proxies/areaf/aetherials_amb_t.dbr",
+        "records/proxies/areaf/aetherials_amb_t_delaylong.dbr",
+        "records/proxies/areaf/aetherials_amb_t_delayshort.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_ambt.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 1,
+          "variant": "elite_68d8e596d8d8a54a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_cold.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_cold.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 1,
+          "variant": "elite_68d8e596d8d8a54a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_fire.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_fire.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 1,
+          "variant": "elite_68d8e596d8d8a54a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_lightning.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_lightning.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_40141f08f66128ea"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "elite_68d8e596d8d8a54a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_n.dbr",
+        "records/proxies/areaf/aetherial_corruption_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_40141f08f66128ea"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "elite_68d8e596d8d8a54a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_corruption_rand.dbr",
+        "records/proxies/areaf/aetherial_corruption_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialcorruption_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_40141f08f66128ea"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_fleshshaper_n.dbr",
+        "records/proxies/areaf/aetherial_fleshshaper_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialfleshshaper_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_40141f08f66128ea"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_fleshshaper_rand.dbr",
+        "records/proxies/areaf/aetherial_fleshshaper_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialfleshshaper_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_40141f08f66128ea"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_fleshshaper_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialfleshshaper_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 1,
+          "variant": "elite_1ad53b9eb1089d9d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_gazer_n.dbr",
+        "records/proxies/areaf/aetherial_gazer_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialgazerb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 1,
+          "variant": "elite_1ad53b9eb1089d9d"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_gazer_rand.dbr",
+        "records/proxies/areaf/aetherial_gazer_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialgazerb_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 15,
+          "source_slot": 3,
+          "variant": "elite_7fcc47f7c0379af4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_horde_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialhorde_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_7fcc47f7c0379af4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_imp_n.dbr",
+        "records/proxies/areaf/aetherial_imp_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialimp_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 1,
+          "variant": "elite_7fcc47f7c0379af4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areaf/aetherial_imp_rand.dbr",
+        "records/proxies/areaf/aetherial_imp_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_aetherialimp_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_1abc89c8f6754605"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_basilisk_n.dbr",
+        "records/proxies/areae/beasts_basilisk_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastbasilisk_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_1abc89c8f6754605"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_basilisk_rand.dbr",
+        "records/proxies/areae/beasts_basilisk_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastbasilisk_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_256a19508049ffea"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_basiliskaether_n.dbr",
+        "records/proxies/areae/beasts_basiliskaether_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastbasiliskaether_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_256a19508049ffea"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_basiliskaether_rand.dbr",
+        "records/proxies/areae/beasts_basiliskaether_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastbasiliskaether_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_6afda4136500d964"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_basiliskchaos_n.dbr",
+        "records/proxies/areae/beasts_basiliskchaos_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastbasiliskchaos_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_6afda4136500d964"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_basiliskchaos_rand.dbr",
+        "records/proxies/areae/beasts_basiliskchaos_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastbasiliskchaos_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 4,
+          "variant": "elite_5d42e160b7ba9c8b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_wendigo_n.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastwendigo+wraith_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 4,
+          "variant": "elite_5d42e160b7ba9c8b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_wendigo_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastwendigo+wraith_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_e8e7c0a3c0425b0c"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_05d6ef6c36844ab7"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_wendigo_n.dbr",
+        "records/proxies/areae/beasts_wendigo_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastwendigo_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_e8e7c0a3c0425b0c"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_05d6ef6c36844ab7"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_wendigo_rand.dbr",
+        "records/proxies/areae/beasts_wendigo_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastwendigo_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_e8e7c0a3c0425b0c"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_05d6ef6c36844ab7"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_wendigo_n_sm_low%.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastwendigo_t_sm.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_e8e7c0a3c0425b0c"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_05d6ef6c36844ab7"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_wendigo_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_beastwendigo_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_586a1720dc216502"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_boarchaos_n.dbr",
+        "records/proxies/areae/beasts_boarchaos_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_boarchaos_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_586a1720dc216502"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/beasts_boarchaos_rand.dbr",
+        "records/proxies/areae/beasts_boarchaos_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_boarchaos_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_487aa54012e398c1"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthonians_amb_n.dbr",
+        "records/proxies/areavoid/chthonians_n.dbr",
+        "records/proxies/areavoid/chthonians_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonian_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_487aa54012e398c1"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthoniansnorylok_amb_n.dbr",
+        "records/proxies/areavoid/chthoniansnorylok_n.dbr",
+        "records/proxies/areavoid/chthoniansnorylok_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonian_norylok_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_487aa54012e398c1"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthoniansnorylok_amb_t.dbr",
+        "records/proxies/areavoid/chthoniansnorylok_amb_t_delaylong.dbr",
+        "records/proxies/areavoid/chthoniansnorylok_amb_t_delayshort.dbr",
+        "records/proxies/areavoid/chthoniansnorylok_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonian_norylok_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 14,
+          "source_slot": 1,
+          "variant": "elite_487aa54012e398c1"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthonians_amb_t.dbr",
+        "records/proxies/areavoid/chthonians_amb_t_delaylong.dbr",
+        "records/proxies/areavoid/chthonians_amb_t_delayshort.dbr",
+        "records/proxies/areavoid/chthonians_rand.dbr",
+        "records/proxies/areavoid/chthonians_t.dbr",
+        "records/proxies/areavoid/chthoniansnorylok_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonian_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_946f491a99bdee68"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthonian_rylok_amb_n.dbr",
+        "records/proxies/areavoid/chthonian_rylok_n.dbr",
+        "records/proxies/areavoid/chthonian_rylok_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonianrylok_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_946f491a99bdee68"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthonian_rylok_amb_t.dbr",
+        "records/proxies/areavoid/chthonian_rylok_amb_t_delaylong.dbr",
+        "records/proxies/areavoid/chthonian_rylok_amb_t_delayshort.dbr",
+        "records/proxies/areavoid/chthonian_rylok_rand.dbr",
+        "records/proxies/areavoid/chthonian_rylok_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonianrylok_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_946f491a99bdee68"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthonian_rylok_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonianrylok_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 1,
+          "variant": "elite_10b15fe650fb4a8b"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 2,
+          "variant": "elite_e758151fa4df5688"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 8,
+          "variant": "elite_628519ae16745cf2"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 9,
+          "variant": "elite_c7a192a4422e850c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthonian_servitor_amb_n.dbr",
+        "records/proxies/areavoid/chthonian_servitor_amb_t.dbr",
+        "records/proxies/areavoid/chthonian_servitor_amb_t_delaylong.dbr",
+        "records/proxies/areavoid/chthonian_servitor_amb_t_delayshort.dbr",
+        "records/proxies/areavoid/chthonian_servitor_n.dbr",
+        "records/proxies/areavoid/chthonian_servitor_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonianservitor_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 1,
+          "variant": "elite_10b15fe650fb4a8b"
+        },
+        {
+          "output_slot": 11,
+          "source_slot": 2,
+          "variant": "elite_e758151fa4df5688"
+        },
+        {
+          "output_slot": 12,
+          "source_slot": 8,
+          "variant": "elite_628519ae16745cf2"
+        },
+        {
+          "output_slot": 13,
+          "source_slot": 9,
+          "variant": "elite_c7a192a4422e850c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areavoid/chthonian_servitor_rand.dbr",
+        "records/proxies/areavoid/chthonian_servitor_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_chthonianservitor_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_37e96f4b28bbef81"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/human_wendigo_mix_n.dbr",
+        "records/proxies/areae/human_wendigo_n.dbr",
+        "records/proxies/areae/human_wendigo_rand.dbr",
+        "records/proxies/areae/human_wendigo_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_humanwendigo_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_37e96f4b28bbef81"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/human_wendigo_mix_t.dbr",
+        "records/proxies/areae/human_wendigo_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_humanwendigo_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_5d42e160b7ba9c8b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/spirit_wraith_amb_n.dbr",
+        "records/proxies/areae/spirit_wraith_amb_n_delayshort.dbr",
+        "records/proxies/areae/spirit_wraith_n.dbr",
+        "records/proxies/areae/spirit_wraith_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_spiritwraith_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_5d42e160b7ba9c8b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/spirit_wraith_amb_t.dbr",
+        "records/proxies/areae/spirit_wraith_rand.dbr",
+        "records/proxies/areae/spirit_wraith_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_spiritwraith_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_0dab2eb379af8473"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/thornedhorroraether_n.dbr",
+        "records/proxies/areae/thornedhorroraether_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_thornedhorroraether_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_0dab2eb379af8473"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/thornedhorroraether_rand.dbr",
+        "records/proxies/areae/thornedhorroraether_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_thornedhorroraether_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_50c9801f8181c2e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/yetiswamp_n.dbr",
+        "records/proxies/areae/yetiswamp_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_yetiswamp_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_50c9801f8181c2e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/yetiswamp_rand.dbr",
+        "records/proxies/areae/yetiswamp_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_yetiswamp_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_0f86b32f89ebd2ef"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/yetiswampchaos_n.dbr",
+        "records/proxies/areae/yetiswampchaos_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_yetiswampchthonic_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 4,
+          "source_slot": 1,
+          "variant": "elite_0f86b32f89ebd2ef"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areae/yetiswampchaos_rand.dbr",
+        "records/proxies/areae/yetiswampchaos_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx1/p_yetiswampchthonic_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_80153672865e4675"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 7,
+          "variant": "elite_1ad206c85a40ed42"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_beetle_amb_n.dbr",
+        "records/proxies/areag/beast_beetle_amb_n_delayshort.dbr",
+        "records/proxies/areag/beast_beetle_n.dbr",
+        "records/proxies/areag/beast_beetle_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_beetle_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_80153672865e4675"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 7,
+          "variant": "elite_1ad206c85a40ed42"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_beetle_amb_t.dbr",
+        "records/proxies/areag/beast_beetle_amb_t_delaylong.dbr",
+        "records/proxies/areag/beast_beetle_rand.dbr",
+        "records/proxies/areag/beast_beetle_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_beetle_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_80153672865e4675"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 7,
+          "variant": "elite_1ad206c85a40ed42"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_beetlemaw_amb_n.dbr",
+        "records/proxies/areag/beast_beetlemaw_amb_n_delayshort.dbr",
+        "records/proxies/areag/beast_beetlemaw_amb_t_delaylong.dbr",
+        "records/proxies/areag/beast_beetlemaw_n.dbr",
+        "records/proxies/areag/beast_beetlemaw_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_beetlemaw_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_80153672865e4675"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 7,
+          "variant": "elite_1ad206c85a40ed42"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_beetlemaw_amb_t.dbr",
+        "records/proxies/areag/beast_beetlemaw_rand.dbr",
+        "records/proxies/areag/beast_beetlemaw_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_beetlemaw_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_921a8c37ee8dd988"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialarmor_amb_delayshort.dbr",
+        "records/proxies/areag/celestialarmor_amb_n.dbr",
+        "records/proxies/areag/celestialarmor_n.dbr",
+        "records/proxies/areag/celestialarmor_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialarmor_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_921a8c37ee8dd988"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialarmor_amb_t.dbr",
+        "records/proxies/areag/celestialarmor_rand.dbr",
+        "records/proxies/areag/celestialarmor_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialarmor_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_6537fe53c92808e4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialgryphon_n.dbr",
+        "records/proxies/areag/celestialgryphon_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialgryphon_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_6537fe53c92808e4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialgryphon_rand.dbr",
+        "records/proxies/areag/celestialgryphon_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialgryphon_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_7a8dab750eb847f3"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "elite_b27fb3a0cdd4e575"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialhound_n.dbr",
+        "records/proxies/areag/celestialhound_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialhound_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_7a8dab750eb847f3"
+        },
+        {
+          "output_slot": 8,
+          "source_slot": 2,
+          "variant": "elite_b27fb3a0cdd4e575"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialhound_rand.dbr",
+        "records/proxies/areag/celestialhound_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialhound_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_67bcbe563b6ca8d2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialleech_n.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialleech_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_67bcbe563b6ca8d2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialleech_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialleech_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_f7e0d03a4d0c0312"
+        },
+        {
+          "output_slot": 4,
+          "source_slot": 2,
+          "variant": "elite_fe5efe0139aa41c4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestiallizard_n.dbr",
+        "records/proxies/areag/celestiallizard_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestiallizard_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_f7e0d03a4d0c0312"
+        },
+        {
+          "output_slot": 4,
+          "source_slot": 2,
+          "variant": "elite_fe5efe0139aa41c4"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestiallizard_rand.dbr",
+        "records/proxies/areag/celestiallizard_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestiallizard_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_ba08232f95f9681c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialmummy_amb_delayshort.dbr",
+        "records/proxies/areag/celestialmummy_amb_n.dbr",
+        "records/proxies/areag/celestialmummy_n.dbr",
+        "records/proxies/areag/celestialmummy_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialmummy_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_ba08232f95f9681c"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/celestialmummy_amb_t.dbr",
+        "records/proxies/areag/celestialmummy_rand.dbr",
+        "records/proxies/areag/celestialmummy_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_celestialmummy_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_2cc5620c6811612a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_fire.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_fire.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_2cc5620c6811612a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_ice.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_ice.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_2cc5620c6811612a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_lightning.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_lightning.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_2cc5620c6811612a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_amb_delayshort.dbr",
+        "records/proxies/areag/eldritcharmor_amb_fire.dbr",
+        "records/proxies/areag/eldritcharmor_amb_ice.dbr",
+        "records/proxies/areag/eldritcharmor_amb_lightning.dbr",
+        "records/proxies/areag/eldritcharmor_amb_n.dbr",
+        "records/proxies/areag/eldritcharmor_n.dbr",
+        "records/proxies/areag/eldritcharmor_rand.dbr",
+        "records/proxies/areag/eldritchwraith_amb_n.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_2cc5620c6811612a"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritcharmor_amb_t.dbr",
+        "records/proxies/areag/eldritcharmor_rand.dbr",
+        "records/proxies/areag/eldritcharmor_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritcharmor_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_44955318bff1243f"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_c10cd39076b0675f"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritchhound_n.dbr",
+        "records/proxies/areag/eldritchhound_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritchhound_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_44955318bff1243f"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_c10cd39076b0675f"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritchhound_rand.dbr",
+        "records/proxies/areag/eldritchhound_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritchhound_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_44955318bff1243f"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_c10cd39076b0675f"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritchhound_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritchhound_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_d32de6c132856999"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_9d0b7ae5b4d452ef"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritchlizard_n.dbr",
+        "records/proxies/areag/eldritchlizard_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritchlizard_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_d32de6c132856999"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_9d0b7ae5b4d452ef"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritchlizard_rand.dbr",
+        "records/proxies/areag/eldritchlizard_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritchlizard_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_d32de6c132856999"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_9d0b7ae5b4d452ef"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritchlizard_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritchlizard_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_825d84bac5bff1ce"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritchwraith_amb_n_delayshort.dbr",
+        "records/proxies/areag/eldritchwraith_n.dbr",
+        "records/proxies/areag/eldritchwraith_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritchwraith_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_825d84bac5bff1ce"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/eldritchwraith_amb_t.dbr",
+        "records/proxies/areag/eldritchwraith_rand.dbr",
+        "records/proxies/areag/eldritchwraith_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_eldritchwraith_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 13,
+          "source_slot": 1,
+          "variant": "elite_8a7b8f6de1deba46"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/groblesand+viper_n.dbr",
+        "records/proxies/areag/groblesand+viper_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_groblesand+viper_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 13,
+          "source_slot": 1,
+          "variant": "elite_8a7b8f6de1deba46"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/groblesand+viper_rand.dbr",
+        "records/proxies/areag/groblesand+viper_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_groblesand+viper_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_8a7b8f6de1deba46"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/groblesand+viper_n.dbr",
+        "records/proxies/areag/groblesand_n.dbr",
+        "records/proxies/areag/groblesand_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_groblesand_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_8a7b8f6de1deba46"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/groblesand_rand.dbr",
+        "records/proxies/areag/groblesand_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_groblesand_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_35ceef0d664d5ed6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphon_amb_n.dbr",
+        "records/proxies/areag/beast_gryphon_amb_n_always.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphon_amb_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 3,
+          "source_slot": 1,
+          "variant": "elite_35ceef0d664d5ed6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphon_amb_n_delayshort.dbr",
+        "records/proxies/areag/beast_gryphon_amb_t.dbr",
+        "records/proxies/areag/beast_gryphon_amb_t_always.dbr",
+        "records/proxies/areag/beast_gryphon_amb_t_delaylong.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphon_amb_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_00c97a886cede2e6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphon_n.dbr",
+        "records/proxies/areag/beast_gryphon_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphon_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_00c97a886cede2e6"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphon_rand.dbr",
+        "records/proxies/areag/beast_gryphon_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphon_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_d1d543cafe9dbfa2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphonstone_n.dbr",
+        "records/proxies/areag/beast_gryphonstone_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphonstone_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_d1d543cafe9dbfa2"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_gryphonstone_rand.dbr",
+        "records/proxies/areag/beast_gryphonstone_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_gryphonstone_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 1,
+          "variant": "elite_a8364503d5ba37e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/korvaakhuman_mix_n.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_korvaakhuman+ascended_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 10,
+          "source_slot": 1,
+          "variant": "elite_a8364503d5ba37e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/korvaakhuman_mix_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_korvaakhuman+ascended_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_a8364503d5ba37e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/korvaakhuman_n.dbr",
+        "records/proxies/areag/korvaakhuman_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_korvaakhuman_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_a8364503d5ba37e9"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/korvaakhuman_rand.dbr",
+        "records/proxies/areag/korvaakhuman_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_korvaakhuman_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_ac447e35504fc57d"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_533f669bd76a89d3"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/korvaakhuman_mix_n.dbr",
+        "records/proxies/areag/korvaakservant_n.dbr",
+        "records/proxies/areag/korvaakservant_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_korvaakservant_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_ac447e35504fc57d"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_533f669bd76a89d3"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/korvaakhuman_mix_t.dbr",
+        "records/proxies/areag/korvaakservant_rand.dbr",
+        "records/proxies/areag/korvaakservant_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_korvaakservant_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_bc2dfb5099753e7e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/mummy_amb_delayshort.dbr",
+        "records/proxies/areag/mummy_amb_n.dbr",
+        "records/proxies/areag/mummy_n.dbr",
+        "records/proxies/areag/mummy_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_mummy_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_bc2dfb5099753e7e"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/mummy_amb_t.dbr",
+        "records/proxies/areag/mummy_rand.dbr",
+        "records/proxies/areag/mummy_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_mummy_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_bdadb8834c9612cc"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_f9219af7f48f8203"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_sandlizard_n.dbr",
+        "records/proxies/areag/beast_sandlizard_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_sandlizard_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_bdadb8834c9612cc"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_f9219af7f48f8203"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_sandlizard_rand.dbr",
+        "records/proxies/areag/beast_sandlizard_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_sandlizard_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_bdadb8834c9612cc"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_f9219af7f48f8203"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_sandlizard_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_sandlizard_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_cac97c852a29cc06"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_961ae327b8a6b09b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_sandlizardvolcanic_n.dbr",
+        "records/proxies/areag/beast_sandlizardvolcanic_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_sandlizardvolcanic_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_cac97c852a29cc06"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_961ae327b8a6b09b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_sandlizardvolcanic_rand.dbr",
+        "records/proxies/areag/beast_sandlizardvolcanic_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_sandlizardvolcanic_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 8,
+          "source_slot": 1,
+          "variant": "elite_cac97c852a29cc06"
+        },
+        {
+          "output_slot": 9,
+          "source_slot": 2,
+          "variant": "elite_961ae327b8a6b09b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_sandlizardvolcanic_xhighhero.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_sandlizardvolcanic_xtrahero.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_4366fb24ba6fceed"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_scorpion_amb_n.dbr",
+        "records/proxies/areag/beast_scorpion_amb_n_delayshort.dbr",
+        "records/proxies/areag/beast_scorpion_n.dbr",
+        "records/proxies/areag/beast_scorpion_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_scorpion_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_4366fb24ba6fceed"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_scorpion_amb_t.dbr",
+        "records/proxies/areag/beast_scorpion_amb_t_delaylong.dbr",
+        "records/proxies/areag/beast_scorpion_rand.dbr",
+        "records/proxies/areag/beast_scorpion_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_scorpion_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 9,
+          "variant": "elite_825d84bac5bff1ce"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/statuebasaltnogryphons_n.dbr",
+        "records/proxies/areag/statuebasaltnogryphons_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_statuebasaltnogryphons_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 9,
+          "variant": "elite_825d84bac5bff1ce"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/statuebasaltnogryphons_rand.dbr",
+        "records/proxies/areag/statuebasaltnogryphons_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_statuebasaltnogryphons_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 9,
+          "variant": "elite_825d84bac5bff1ce"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/statuenogryphons_n.dbr",
+        "records/proxies/areag/statuenogryphons_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_statuenogryphons_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 11,
+          "source_slot": 9,
+          "variant": "elite_825d84bac5bff1ce"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/statuenogryphons_rand.dbr",
+        "records/proxies/areag/statuenogryphons_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_statuenogryphons_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_b64e190ecf7fec8f"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_viper_n.dbr",
+        "records/proxies/areag/beast_viper_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_viper_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 7,
+          "source_slot": 1,
+          "variant": "elite_b64e190ecf7fec8f"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_viper_rand.dbr",
+        "records/proxies/areag/beast_viper_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_viper_t.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 1,
+          "variant": "elite_b150abb71919744b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_vulture_n.dbr",
+        "records/proxies/areag/beast_vulture_rand.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_vulture_n.dbr"
+    },
+    {
+      "enabled": true,
+      "promotions": [
+        {
+          "output_slot": 6,
+          "source_slot": 1,
+          "variant": "elite_b150abb71919744b"
+        }
+      ],
+      "proxy_references": [
+        "records/proxies/areag/beast_vulture_rand.dbr",
+        "records/proxies/areag/beast_vulture_t.dbr"
+      ],
+      "record": "records/proxies/poolsgdx2/p_vulture_t.dbr"
+    }
+  ],
+  "schema_version": 2,
+  "variants": [
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_7fcc47f7c0379af4",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_7fcc47f7c0379af4.dbr",
+      "source_record": "records/creatures/enemies/aetherialbloater_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_2a76a9925f8b94a2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_2a76a9925f8b94a2.dbr",
+      "source_record": "records/creatures/enemies/aetherialcolossus_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_68d8e596d8d8a54a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_68d8e596d8d8a54a.dbr",
+      "source_record": "records/creatures/enemies/aetherialcorruption_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_40141f08f66128ea",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_40141f08f66128ea.dbr",
+      "source_record": "records/creatures/enemies/aetherialimp_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_256a19508049ffea",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_256a19508049ffea.dbr",
+      "source_record": "records/creatures/enemies/basilisk_aether_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_1abc89c8f6754605",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_1abc89c8f6754605.dbr",
+      "source_record": "records/creatures/enemies/basilisk_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_6afda4136500d964",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_6afda4136500d964.dbr",
+      "source_record": "records/creatures/enemies/basilisk_chthonic_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_80153672865e4675",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_80153672865e4675.dbr",
+      "source_record": "records/creatures/enemies/beetle_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_1ad206c85a40ed42",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_1ad206c85a40ed42.dbr",
+      "source_record": "records/creatures/enemies/beetle_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_75bbb288ac65b5d4",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_75bbb288ac65b5d4.dbr",
+      "source_record": "records/creatures/enemies/boar_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_586a1720dc216502",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_586a1720dc216502.dbr",
+      "source_record": "records/creatures/enemies/boar_chthonic_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_58464e09710e2b7e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_58464e09710e2b7e.dbr",
+      "source_record": "records/creatures/enemies/bonerat_witchgod_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonusranged_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_921a8c37ee8dd988",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_921a8c37ee8dd988.dbr",
+      "source_record": "records/creatures/enemies/celestialarmor_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_6537fe53c92808e4",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_6537fe53c92808e4.dbr",
+      "source_record": "records/creatures/enemies/celestialgryphon_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_7a8dab750eb847f3",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_7a8dab750eb847f3.dbr",
+      "source_record": "records/creatures/enemies/celestialhound_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_b27fb3a0cdd4e575",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_b27fb3a0cdd4e575.dbr",
+      "source_record": "records/creatures/enemies/celestialhound_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_67bcbe563b6ca8d2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_67bcbe563b6ca8d2.dbr",
+      "source_record": "records/creatures/enemies/celestialleech_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_f7e0d03a4d0c0312",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_f7e0d03a4d0c0312.dbr",
+      "source_record": "records/creatures/enemies/celestiallizard_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_fe5efe0139aa41c4",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_fe5efe0139aa41c4.dbr",
+      "source_record": "records/creatures/enemies/celestiallizard_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_ba08232f95f9681c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_ba08232f95f9681c.dbr",
+      "source_record": "records/creatures/enemies/celestialmummy_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical00.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_fe8dfa7db4bc5d21",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_fe8dfa7db4bc5d21.dbr",
+      "source_record": "records/creatures/enemies/chthoniandevourer_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_3c003741bb3b9a20",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_3c003741bb3b9a20.dbr",
+      "source_record": "records/creatures/enemies/chthoniandreadguard_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_628519ae16745cf2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_628519ae16745cf2.dbr",
+      "source_record": "records/creatures/enemies/chthonianleech_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_c7a192a4422e850c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_c7a192a4422e850c.dbr",
+      "source_record": "records/creatures/enemies/chthonianleech_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_946f491a99bdee68",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_946f491a99bdee68.dbr",
+      "source_record": "records/creatures/enemies/chthonianrylok_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_10b15fe650fb4a8b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_10b15fe650fb4a8b.dbr",
+      "source_record": "records/creatures/enemies/chthonianservitor_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_e758151fa4df5688",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_e758151fa4df5688.dbr",
+      "source_record": "records/creatures/enemies/chthonianservitor_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical04.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_487aa54012e398c1",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_487aa54012e398c1.dbr",
+      "source_record": "records/creatures/enemies/chthonianservitor_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_cea34c77235e184f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_cea34c77235e184f.dbr",
+      "source_record": "records/creatures/enemies/dermapteran_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_00cc690de064b085",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_00cc690de064b085.dbr",
+      "source_record": "records/creatures/enemies/dermapteran_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_f668283b8a5e7226",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_f668283b8a5e7226.dbr",
+      "source_record": "records/creatures/enemies/dranghoul_warrior_a01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_9a254a0d79b79073",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_9a254a0d79b79073.dbr",
+      "source_record": "records/creatures/enemies/dranghoul_warrior_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonusranged_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_2cc5620c6811612a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_2cc5620c6811612a.dbr",
+      "source_record": "records/creatures/enemies/eldritcharmor_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_44955318bff1243f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_44955318bff1243f.dbr",
+      "source_record": "records/creatures/enemies/eldritchhound_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_c10cd39076b0675f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_c10cd39076b0675f.dbr",
+      "source_record": "records/creatures/enemies/eldritchhound_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_825d84bac5bff1ce",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_825d84bac5bff1ce.dbr",
+      "source_record": "records/creatures/enemies/eldritchwraith_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_10ab03343d35eb5d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_10ab03343d35eb5d.dbr",
+      "source_record": "records/creatures/enemies/gazer_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_1ad53b9eb1089d9d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_1ad53b9eb1089d9d.dbr",
+      "source_record": "records/creatures/enemies/gazerb_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonusranged_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_f941894747320a4b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_f941894747320a4b.dbr",
+      "source_record": "records/creatures/enemies/ghost_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_b24c6e44a4954030",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_b24c6e44a4954030.dbr",
+      "source_record": "records/creatures/enemies/ghost_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_bb3fa43b8c19713b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_bb3fa43b8c19713b.dbr",
+      "source_record": "records/creatures/enemies/ghost_b03.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_0b75eeffb9d52447",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_0b75eeffb9d52447.dbr",
+      "source_record": "records/creatures/enemies/ghost_b04.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_fcd9afb178b81ad8",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_fcd9afb178b81ad8.dbr",
+      "source_record": "records/creatures/enemies/ghoul_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_8ceb6820c9b5e7dc",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_8ceb6820c9b5e7dc.dbr",
+      "source_record": "records/creatures/enemies/ghoul_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_a2e433adc38ed7b5",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_a2e433adc38ed7b5.dbr",
+      "source_record": "records/creatures/enemies/groblea_warrior_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_8a7b8f6de1deba46",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_8a7b8f6de1deba46.dbr",
+      "source_record": "records/creatures/enemies/groblesand_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_00c97a886cede2e6",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_00c97a886cede2e6.dbr",
+      "source_record": "records/creatures/enemies/gryphon_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_35ceef0d664d5ed6",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_35ceef0d664d5ed6.dbr",
+      "source_record": "records/creatures/enemies/gryphon_b01a.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_d1d543cafe9dbfa2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_d1d543cafe9dbfa2.dbr",
+      "source_record": "records/creatures/enemies/gryphonstone_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_de132a6bf4ad8c33",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_de132a6bf4ad8c33.dbr",
+      "source_record": "records/creatures/enemies/harpy_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_6782788efc8d78e2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_6782788efc8d78e2.dbr",
+      "source_record": "records/creatures/enemies/harpy_b01a.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_f90ce9e195b0eaae",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_f90ce9e195b0eaae.dbr",
+      "source_record": "records/creatures/enemies/hellhound_witchgod_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_e89d75ea1af6bf37",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_e89d75ea1af6bf37.dbr",
+      "source_record": "records/creatures/enemies/human_ascended_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_a8364503d5ba37e9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_a8364503d5ba37e9.dbr",
+      "source_record": "records/creatures/enemies/human_korvaak_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_aaab78269cb89603",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_aaab78269cb89603.dbr",
+      "source_record": "records/creatures/enemies/human_possessed_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_37e96f4b28bbef81",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_37e96f4b28bbef81.dbr",
+      "source_record": "records/creatures/enemies/human_wendigo_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_4f41ab826df6c4a0",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_4f41ab826df6c4a0.dbr",
+      "source_record": "records/creatures/enemies/humanchthonic_cultist_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_96bba63a43f7ade9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_96bba63a43f7ade9.dbr",
+      "source_record": "records/creatures/enemies/humanchthonic_cultist_b01_key.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_5873654f617ad391",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_5873654f617ad391.dbr",
+      "source_record": "records/creatures/enemies/humanchthonic_cultist_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_915754bd38b72953",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_915754bd38b72953.dbr",
+      "source_record": "records/creatures/enemies/humanchthonic_cultist_b03.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_32f726e7f41f4d7a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_32f726e7f41f4d7a.dbr",
+      "source_record": "records/creatures/enemies/humanchthonic_cultist_c02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_c9a573e4bda5e3e2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_c9a573e4bda5e3e2.dbr",
+      "source_record": "records/creatures/enemies/humanchthonic_cultistf_b01_key.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_f232a083ac2fdc7c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_f232a083ac2fdc7c.dbr",
+      "source_record": "records/creatures/enemies/humanchthonic_cultistf_b03.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_29441fbcac456b37",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_29441fbcac456b37.dbr",
+      "source_record": "records/creatures/enemies/humanchthonic_cultistf_c01_key.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_d148d69dbdecf907",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_d148d69dbdecf907.dbr",
+      "source_record": "records/creatures/enemies/humanoutlaw_aether_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonusranged_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_59184935db26d904",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_59184935db26d904.dbr",
+      "source_record": "records/creatures/enemies/humanoutlaw_aether_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonusranged_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_3d74fee24663f7af",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_3d74fee24663f7af.dbr",
+      "source_record": "records/creatures/enemies/humanoutlaw_arsonistf_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_e738711292c91198",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_e738711292c91198.dbr",
+      "source_record": "records/creatures/enemies/humanoutlaw_melee_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_532b4ceff5eb3ebe",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_532b4ceff5eb3ebe.dbr",
+      "source_record": "records/creatures/enemies/humanoutlaw_melee_b03.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_a8533a58fb314994",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_a8533a58fb314994.dbr",
+      "source_record": "records/creatures/enemies/humanoutlaw_wightmire_melee_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_ac447e35504fc57d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_ac447e35504fc57d.dbr",
+      "source_record": "records/creatures/enemies/korvaakservant_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_533f669bd76a89d3",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_533f669bd76a89d3.dbr",
+      "source_record": "records/creatures/enemies/korvaakservant_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_36c44adaca8e52df",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_36c44adaca8e52df.dbr",
+      "source_record": "records/creatures/enemies/mosquitogiant_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_80ce920837e17f9c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_80ce920837e17f9c.dbr",
+      "source_record": "records/creatures/enemies/mosquitogiantb_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_bc2dfb5099753e7e",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_bc2dfb5099753e7e.dbr",
+      "source_record": "records/creatures/enemies/mummy_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_074a862899455636",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_074a862899455636.dbr",
+      "source_record": "records/creatures/enemies/obsidiandefiler_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_4c3689c20e8eb3a1",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_4c3689c20e8eb3a1.dbr",
+      "source_record": "records/creatures/enemies/prawn_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_0c4b9c2f8accb6f3",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_0c4b9c2f8accb6f3.dbr",
+      "source_record": "records/creatures/enemies/prawn_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_6547a814ed7e15c9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_6547a814ed7e15c9.dbr",
+      "source_record": "records/creatures/enemies/prawn_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_3aafbf0a3ad2a944",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_3aafbf0a3ad2a944.dbr",
+      "source_record": "records/creatures/enemies/raptor_witchgod_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_bdadb8834c9612cc",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_bdadb8834c9612cc.dbr",
+      "source_record": "records/creatures/enemies/sandlizard_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_f9219af7f48f8203",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_f9219af7f48f8203.dbr",
+      "source_record": "records/creatures/enemies/sandlizard_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_d32de6c132856999",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_d32de6c132856999.dbr",
+      "source_record": "records/creatures/enemies/sandlizard_eldritch_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_9d0b7ae5b4d452ef",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_9d0b7ae5b4d452ef.dbr",
+      "source_record": "records/creatures/enemies/sandlizard_eldritch_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_cac97c852a29cc06",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_cac97c852a29cc06.dbr",
+      "source_record": "records/creatures/enemies/sandlizard_volcanic_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_961ae327b8a6b09b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_961ae327b8a6b09b.dbr",
+      "source_record": "records/creatures/enemies/sandlizard_volcanic_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_4366fb24ba6fceed",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_4366fb24ba6fceed.dbr",
+      "source_record": "records/creatures/enemies/scorpion_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonusranged_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_c323cb9a565fbbd6",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_c323cb9a565fbbd6.dbr",
+      "source_record": "records/creatures/enemies/skeleton_b01_archer.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_bc0df16d290fe352",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_bc0df16d290fe352.dbr",
+      "source_record": "records/creatures/enemies/skeleton_b03_priest.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_13f6b1452f21b0c6",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_13f6b1452f21b0c6.dbr",
+      "source_record": "records/creatures/enemies/skeleton_b04_warlock.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_2a7519ae27a166e0",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_2a7519ae27a166e0.dbr",
+      "source_record": "records/creatures/enemies/slitha_melee_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_99aa10f4bda2b4b1",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_99aa10f4bda2b4b1.dbr",
+      "source_record": "records/creatures/enemies/slitha_shaman_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_c3c18bf1df483477",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_c3c18bf1df483477.dbr",
+      "source_record": "records/creatures/enemies/slitha_shaman_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_4c946c1327533b0a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_4c946c1327533b0a.dbr",
+      "source_record": "records/creatures/enemies/spidergiant_witchgod_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_563e1dee341ceb8b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_563e1dee341ceb8b.dbr",
+      "source_record": "records/creatures/enemies/spidergianta_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_b6409e48d83cdcd2",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_b6409e48d83cdcd2.dbr",
+      "source_record": "records/creatures/enemies/spidergiantb_cave_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_0dab2eb379af8473",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_0dab2eb379af8473.dbr",
+      "source_record": "records/creatures/enemies/thornedhorror_aether_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_a5d497dd75effc50",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_a5d497dd75effc50.dbr",
+      "source_record": "records/creatures/enemies/thornedhorrora_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_de74d6ea80563332",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_de74d6ea80563332.dbr",
+      "source_record": "records/creatures/enemies/thornedhorrora_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_1e3506acf75a99fc",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_1e3506acf75a99fc.dbr",
+      "source_record": "records/creatures/enemies/troll_a01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_d37182c6ed9ce88b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_d37182c6ed9ce88b.dbr",
+      "source_record": "records/creatures/enemies/troll_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical04.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_cf72d86758c7b765",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_cf72d86758c7b765.dbr",
+      "source_record": "records/creatures/enemies/troll_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_82d545012d562de6",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_82d545012d562de6.dbr",
+      "source_record": "records/creatures/enemies/troll_swamp_a01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_2dd7f4b35162895a",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_2dd7f4b35162895a.dbr",
+      "source_record": "records/creatures/enemies/troll_swamp_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_e75091db72366577",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_e75091db72366577.dbr",
+      "source_record": "records/creatures/enemies/troll_swamp_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonusranged_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_2275140fbdb4e306",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_2275140fbdb4e306.dbr",
+      "source_record": "records/creatures/enemies/trollhalf_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_2671fb516fb5971d",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_2671fb516fb5971d.dbr",
+      "source_record": "records/creatures/enemies/trollhalf_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_2eda6ded4dea691c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_2eda6ded4dea691c.dbr",
+      "source_record": "records/creatures/enemies/trollhalf_cave_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_1569027256bb0728",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_1569027256bb0728.dbr",
+      "source_record": "records/creatures/enemies/trollhalf_cave_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonusranged_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_6e379781772d9774",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_6e379781772d9774.dbr",
+      "source_record": "records/creatures/enemies/trollhalfswamp_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebonus_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_78c180ac956de172",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_78c180ac956de172.dbr",
+      "source_record": "records/creatures/enemies/trollhalfswamp_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_b64e190ecf7fec8f",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_b64e190ecf7fec8f.dbr",
+      "source_record": "records/creatures/enemies/viper_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_b150abb71919744b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_b150abb71919744b.dbr",
+      "source_record": "records/creatures/enemies/vulture_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_cb13c4c02d3e400c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_cb13c4c02d3e400c.dbr",
+      "source_record": "records/creatures/enemies/waspgiant_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_e8e7c0a3c0425b0c",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_e8e7c0a3c0425b0c.dbr",
+      "source_record": "records/creatures/enemies/wendigo_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_05d6ef6c36844ab7",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_05d6ef6c36844ab7.dbr",
+      "source_record": "records/creatures/enemies/wendigo_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_7e76213c0c2c04e9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_7e76213c0c2c04e9.dbr",
+      "source_record": "records/creatures/enemies/wormdeepdweller_a01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_65fec2941a5558a8",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_65fec2941a5558a8.dbr",
+      "source_record": "records/creatures/enemies/wormgiant_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical02.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_5d42e160b7ba9c8b",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_5d42e160b7ba9c8b.dbr",
+      "source_record": "records/creatures/enemies/wraith_b01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_0c6fde7510948705",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_0c6fde7510948705.dbr",
+      "source_record": "records/creatures/enemies/yeti_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_0f86b32f89ebd2ef",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_0f86b32f89ebd2ef.dbr",
+      "source_record": "records/creatures/enemies/yeti_chthonic_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical03.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_50c9801f8181c2e9",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_50c9801f8181c2e9.dbr",
+      "source_record": "records/creatures/enemies/yetiswamp_b02.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_363a31c64cd2ec90",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_363a31c64cd2ec90.dbr",
+      "source_record": "records/creatures/enemies/zombie_c01.dbr",
+      "tier": "elite"
+    },
+    {
+      "damage_skill_source_record": "records/skills/nonplayerskills/passive/damagebase_physical01.dbr",
+      "expected_classification": "Champion",
+      "id": "elite_59d1da795708da44",
+      "output_record": "records/creatures/enemies/monsterexpansion/discovered_elites_elite_59d1da795708da44.dbr",
+      "source_record": "records/creatures/enemies/zombie_d01.dbr",
+      "tier": "elite"
+    }
+  ]
+}

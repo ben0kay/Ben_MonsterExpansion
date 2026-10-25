@@ -92,7 +92,7 @@ def check_configs(reference_root=None, repo=REPO):
                 if reference_root is not None:
                     require(path.is_file() and not path.is_symlink(), "Missing/unsafe aura source")
             if "natural_spawns" in proto:
-                value = proto["natural_spawns"]["common_conversion_share"]
+                value = proto["natural_spawns"].get("conversion_share", proto["natural_spawns"].get("common_conversion_share"))
                 require(type(value) in (int, float) and math.isfinite(value) and 0 < value < .5,
                         "common_conversion_share must be finite, above 0 and below 0.5")
                 ratio = proto["natural_spawns"].get("target_veterans_per_champion", 2.5)
@@ -100,7 +100,7 @@ def check_configs(reference_root=None, repo=REPO):
                         "Ratio target must be finite and positive (reporting only)")
         paths = sorted((repo / "config/families").glob("*.json"))
         require(paths, "No families configured")
-        outputs, pools = set(), set()
+        outputs, pools = set(), {}
         for fpath in paths:
             fam = load_json(fpath)
             require(fam.get("schema_version") == 2, "Family schema must be 2")
@@ -118,6 +118,8 @@ def check_configs(reference_root=None, repo=REPO):
                     require(isinstance(name, str) and bool(name) and name.strip() == name and
                             not any(c in name for c in "\r\n=\x00"), "Invalid display_name")
                 require(variant["tier"] in CUSTOM_PARENTS, "Variant must use a custom tier")
+                require(variant["expected_classification"] == CUSTOM_PARENTS[variant["tier"]].capitalize(),
+                        "Variant must use its exact tier parent")
                 for key in ("source_record", "output_record", "damage_skill_source_record"):
                     reference_path(variant[key], root)
                 require(variant["source_record"].startswith("records/creatures/enemies/"), "Wrong monster path")
@@ -140,9 +142,9 @@ def check_configs(reference_root=None, repo=REPO):
             for pool in fam["pools"]:
                 record = pool["record"]
                 reference_path(record, root)
-                require(record.startswith(("records/proxies/pools/", "records/proxies/poolsgdx1/", "records/proxies/poolsgdx2/")) and record not in pools,
-                        "Pool must be unique and in regular pools namespace")
-                pools.add(record)
+                require(record.startswith(("records/proxies/pools/", "records/proxies/poolsgdx1/", "records/proxies/poolsgdx2/")),
+                        "Pool must be in regular pools namespace")
+                pools.setdefault(record, []).append((fam, pool))
                 require(type(pool.get("enabled")) is bool, "Pool enabled must be boolean")
                 require(pool["proxy_references"] and pool["promotions"], "Pool needs proxy evidence and mappings")
                 for proxy in pool["proxy_references"]:
@@ -159,6 +161,10 @@ def check_configs(reference_root=None, repo=REPO):
                 if reference_root is not None:
                     from natural_spawns import build_pool_override
                     build_pool_override(fam, pool, by_id, root)
+        if reference_root is not None:
+            from natural_spawns import build_merged_pool
+            for mappings in pools.values():
+                build_merged_pool(mappings, by_id, root)
     except (ValueError, KeyError, TypeError, OSError, StopIteration, json.JSONDecodeError) as exc:
         errors.append(str(exc))
     return errors

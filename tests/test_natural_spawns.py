@@ -30,29 +30,33 @@ class NaturalSpawnTests(unittest.TestCase):
                 with self.subTest(pool=config['record']):
                     record, text, _ = spawns.build_pool_override(family, config, tiers, gen.REFERENCE)
                     original = DBR.from_file(reference_path(record, gen.REFERENCE)); result = DBR(text)
-                    slots = [int(line.split(',')[0][4:]) for line in original.lines
-                             if re.fullmatch(r'name\d+', line.split(',')[0])]
+                    variants = {v['id']: v for v in family['variants']}
+                    tier = tiers[variants[config['promotions'][0]['variant']]['tier']]
+                    group = spawns.selection_group(tier)
+                    share = spawns.conversion_share(tier)
+                    slots = [int(line.split(',')[0][len('name' + group):]) for line in original.lines
+                             if re.fullmatch(r'name' + group + r'\d+', line.split(',')[0])]
                     mapped = {p['source_slot']: p for p in config['promotions']}
-                    old_total = sum(int(original.get(f'weight{i}')) for i in slots)
+                    old_total = sum(int(original.get(f'weight{group}{i}')) for i in slots)
                     new_slots = slots + [p['output_slot'] for p in config['promotions']]
-                    new_total = sum(int(result.get(f'weight{i}')) for i in new_slots)
+                    new_total = sum(int(result.get(f'weight{group}{i}')) for i in new_slots)
                     for i in slots:
-                        old = int(original.get(f'weight{i}'))
-                        new = int(result.get(f'weight{i}'))
+                        old = int(original.get(f'weight{group}{i}'))
+                        new = int(result.get(f'weight{group}{i}'))
                         if i in mapped:
                             p = mapped[i]; target = p['output_slot']
-                            promoted = int(result.get(f'weight{target}'))
-                            self.assertEqual(Fraction(promoted, new + promoted), Fraction(1, 5))
+                            promoted = int(result.get(f'weight{group}{target}'))
+                            self.assertEqual(Fraction(promoted, new + promoted), share)
                             self.assertEqual(Fraction(new + promoted, new_total), Fraction(old, old_total))
                             for stem in ('levelVarianceEquation', 'minPlayerLevel', 'maxPlayerLevel'):
-                                if original._locations(f'{stem}{i}'):
-                                    self.assertEqual(result.get(f'{stem}{target}'), original.get(f'{stem}{i}'))
+                                if original._locations(f'{stem}{group}{i}'):
+                                    self.assertEqual(result.get(f'{stem}{group}{target}'), original.get(f'{stem}{group}{i}'))
                         else:
                             self.assertEqual(Fraction(new, new_total), Fraction(old, old_total))
                     # Every existing field except regular weight is byte-value identical.
                     for line in original.lines:
                         key = line.split(',')[0]
-                        if not re.fullmatch(r'weight\d+', key):
+                        if not re.fullmatch(r'weight' + group + r'\d+', key):
                             self.assertEqual(result.get(key), original.get(key))
 
     def test_starter_max_level_is_inherited(self):

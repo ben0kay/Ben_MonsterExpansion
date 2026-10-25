@@ -18,7 +18,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 from dbr import DBR, DBRError
-from natural_spawns import build_pool_override
+from natural_spawns import build_pool_override, build_merged_pool
 from validate_config import check_configs, reference_path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -71,7 +71,7 @@ def scaled_series(raw, factor):
     return ";".join(scaled_number(chunk, factor) for chunk in chunks)
 
 
-def build_cosmetic_aura(monster, prototype, prefix):
+def build_cosmetic_aura(monster, prototype, prefix, tier_name="Veteran"):
     """Shared cosmetic attachment: self-only toggle, no inherited combat bonuses.
 
     Evidence: necro_skeleton_b03_priest -> skeleton_priestselfaura uses
@@ -104,9 +104,9 @@ def build_cosmetic_aura(monster, prototype, prefix):
     effect_record = f"records/fx/monsterexpansion/{prefix}_cosmetic_fx.dbr"
     # All keys are established by uploaded templates; no attack radius, damage,
     # stat bonuses, reservation, weapon enchantment, cast animation or sound.
-    skill = DBR("""templateName,database/templates/skill_buffselftoggled.tpl,
+    skill = DBR(f"""templateName,database/templates/skill_buffselftoggled.tpl,
 Class,Skill_BuffSelfToggled,
-FileDescription,Cosmetic Veteran glow - no combat bonuses,
+FileDescription,Cosmetic {tier_name} glow - no combat bonuses,
 instantCast,1,
 notDispelable,1,
 skillMaxLevel,1,
@@ -156,6 +156,8 @@ def build_variant(family, variant, tier):
     if label is not None:
         monster.set("description", display_tag(family, variant))
     proto = tier["prototype"]
+    fail_unless(variant["expected_classification"] == proto["parent_tier"].capitalize(),
+                "Variant must use its exact tier parent")
     stats = proto["stats_vs_parent"]
     target_monster = variant["output_record"]
     prefix = f"{fid}_{variant['id']}"
@@ -203,7 +205,7 @@ def build_variant(family, variant, tier):
     # Preserve original monsterClassification, actorRadius, actorHeight, description,
     # skill timing and spawn references pending in-game compatibility tests.
 
-    aura_files = build_cosmetic_aura(monster, proto, prefix)
+    aura_files = build_cosmetic_aura(monster, proto, prefix, tier["name"])
     result = {
         **aura_files,
         game_location(target_monster): monster.render(),
@@ -216,6 +218,7 @@ def build_variant(family, variant, tier):
 def build_plan(families, tier_by_id, include_spawns=False):
     """One complete manifest per invocation; reject output collisions."""
     files, variants, pools, tags = {}, [], [], {}
+    pool_mappings = {}
     def merge(records):
         fail_unless(not set(files) & set(records), "Duplicate generated output path")
         files.update(records)
@@ -235,9 +238,11 @@ def build_plan(families, tier_by_id, include_spawns=False):
                              "runtime_verified": False})
         if include_spawns:
             for config in family["pools"]:
-                record, text, report = build_pool_override(family, config, tier_by_id, REFERENCE)
-                merge({game_location(record): text})
-                pools.append(report)
+                pool_mappings.setdefault(config['record'], []).append((family, config))
+    for mappings in pool_mappings.values():
+        record, text, report = build_merged_pool(mappings, tier_by_id, REFERENCE)
+        merge({game_location(record): text})
+        pools.append(report)
     fail_unless(files, "No enabled variants selected")
     if tags:
         merge({TEXT_SOURCE: "".join(f"{key}={value}\n" for key, value in sorted(tags.items()))})
@@ -247,7 +252,7 @@ def build_plan(families, tier_by_id, include_spawns=False):
                 "text_source": TEXT_SOURCE.as_posix() if tags else None,
                 "files": sorted(p.as_posix() for p in files),
                 "notes": ["Variant runtime flags default to unverified; see docs for existing boar evidence.",
-                          "Pool conversion share applies only to mapped regular entries, not all enemies.",
+                          "Pool conversion shares apply only to mapped entries within their own selection groups.",
                           "Champion ratios/map coverage, exact tint and collision/reach need playtesting."]}
     files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return files

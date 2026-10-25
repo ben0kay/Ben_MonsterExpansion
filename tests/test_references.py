@@ -46,7 +46,7 @@ class ReferenceTests(unittest.TestCase):
         import re
         from fractions import Fraction
         from dbr import DBR
-        from natural_spawns import build_pool_override
+        from natural_spawns import build_pool_override, selection_group, conversion_share
         families = [json.loads(p.read_text()) for p in (gen.REPO / 'config/families').glob('*.json')]
         tiers = {t['id']: t for t in json.loads((gen.REPO / 'config/tiers.json').read_text())['tiers']}
         def values(text):
@@ -58,15 +58,17 @@ class ReferenceTests(unittest.TestCase):
                     original = values(reference_path(config['record'], gen.REFERENCE).read_text(encoding='utf-8-sig'))
                     expected = dict(original)
                     if config['enabled']:
-                        share = Fraction(str(tiers['veteran']['prototype']['natural_spawns']['common_conversion_share']))
+                        tier = tiers[variants[config['promotions'][0]['variant']]['tier']]
+                        group = selection_group(tier)
+                        share = conversion_share(tier)
                         for key, value in original.items():
-                            if re.fullmatch(r'weight\d+', key): expected[key] = str(int(value) * share.denominator)
+                            if re.fullmatch(r'weight' + group + r'\d+', key): expected[key] = str(int(value) * share.denominator)
                         for entry in config['promotions']:
                             a, b = str(entry['source_slot']), str(entry['output_slot'])
-                            expected['weight'+a] = str(int(original['weight'+a]) * (share.denominator-share.numerator))
-                            expected['weight'+b] = str(int(original['weight'+a]) * share.numerator)
-                            expected['name'+b] = variants[entry['variant']]['output_record']
+                            expected['weight'+group+a] = str(int(original['weight'+group+a]) * (share.denominator-share.numerator))
+                            expected['weight'+group+b] = str(int(original['weight'+group+a]) * share.numerator)
+                            expected['name'+group+b] = variants[entry['variant']]['output_record']
                             for stem in ('levelVarianceEquation', 'minPlayerLevel', 'maxPlayerLevel'):
-                                if stem+a in original: expected[stem+b] = original[stem+a]
+                                if stem+group+a in original: expected[stem+group+b] = original[stem+group+a]
                     _, output, _ = build_pool_override(family, config, tiers, gen.REFERENCE)
                     self.assertEqual(values(output), expected)

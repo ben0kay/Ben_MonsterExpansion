@@ -50,14 +50,14 @@ class DataDrivenTests(unittest.TestCase):
 
     def test_tier_aura_disable_applies_to_both_families(self):
         families, tiers = catalog(); tiers['veteran']['prototype']['cosmetic_aura']['enabled'] = False
-        files = gen.build_plan(families, tiers)
+        files = gen.build_plan([f for f in families if all(v["tier"] == "veteran" for v in f["variants"])], tiers)
         self.assertEqual(len(files), 446)
         self.assertFalse(any('_cosmetic' in str(p) for p in files))
 
     def test_deterministic_plans_and_no_proxy_or_asset_outputs(self):
         first = gen.configured_plan(include_spawns=True)
         self.assertEqual(first, gen.configured_plan(include_spawns=True))
-        self.assertEqual(len(first), 1217)
+        self.assertEqual(len(first), 2004)
         for p in first:
             if p.name != 'manifest.json' and p != gen.TEXT_SOURCE:
                 self.assertTrue(p.as_posix().startswith('database/records/'))

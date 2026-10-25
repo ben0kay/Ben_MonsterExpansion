@@ -14,6 +14,7 @@ from dbr import DBR, DBRError
 import generate_variants as gen
 from validate_config import reference_path
 from references import records
+from natural_spawns import conversion_share, selection_group, unsupported_slot_fields
 
 REPO = Path(__file__).resolve().parents[1]
 OUTPUT = REPO / 'generated/discovery'
@@ -74,7 +75,7 @@ def numeric_series(raw):
         raise ValueError('Invalid numeric damage series')
 
 
-def source_compatibility(index, record, excluded, scale_factor=1.1):
+def source_compatibility(index, record, excluded, scale_factor=1.1, classification="Common"):
     """Mirror the currently supported bio/passive/cosmetic generator operations."""
     if not record.startswith('records/creatures/enemies/') or excluded.search(record):
         return {'reasons': ['special_or_nonordinary_source']}
@@ -82,8 +83,8 @@ def source_compatibility(index, record, excluded, scale_factor=1.1):
         data = index.read(record)
         if data.get('templateName') != 'database/templates/monster.tpl':
             return {'reasons': ['not_monster_template']}
-        if data.get('monsterClassification') != 'Common':
-            return {'reasons': ['not_common']}
+        if data.get('monsterClassification') != classification:
+            return {'reasons': ['not_' + classification.lower()]}
         reasons = []
         if data.get('quest', '') not in ('', '0', '0.000000'):
             reasons.append('quest_marked_source')
@@ -137,19 +138,25 @@ def occupied_regular_slots(data, maximum):
 
 
 def discover(reference_root, families, policy, tags=None, tier=None):
-    if (policy.get('schema_version') != 1 or policy.get('source_classification') != 'Common'
-            or policy.get('target_tier') != 'veteran' or policy.get('max_pool_slot') != 15
+    expected = {'veteran': 'Common', 'elite': 'Champion'}
+    if (policy.get('schema_version') != 1 or
+            expected.get(policy.get('target_tier')) != policy.get('source_classification')
+            or policy.get('max_pool_slot') != 15
             or not re.fullmatch(r'[a-z][a-z0-9_]*', policy.get('family_id', ''))):
-        raise ValueError('Unsupported discovery policy; Common -> Veteran only, template capacity 15')
+        raise ValueError('Unsupported discovery policy; exact Common/Veteran or Champion/Elite only')
     tier = tier or next(t for t in json.loads((REPO / "config/tiers.json").read_text())["tiers"]
                         if t["id"] == policy["target_tier"])
     factor = tier["prototype"]["model_scale_vs_parent"]
-    denominator = Fraction(str(tier["prototype"]["natural_spawns"]["common_conversion_share"])).denominator
+    denominator = conversion_share(tier).denominator
+    group = selection_group(tier)
+    name_pattern = re.compile(r"name" + group + r"(\d+)")
+    share_pools = policy.get("merge_shared_pools", False)
     index = Index(reference_root); tags = tags or {}
     excluded = re.compile(policy['excluded_path_pattern'])
-    known_sources = {v['source_record'] for f in families for v in f['variants']}
+    known_sources = {v['source_record'] for f in families for v in f['variants'] if v.get('tier', policy['target_tier']) == policy['target_tier']}
     owned = {p['record'] for f in families for p in f['pools']}
-    mapped = {(p['record'], m['source_slot']) for f in families for p in f['pools'] for m in p['promotions']}
+    mapped = {(p['record'], m['source_slot']) for f in families for p in f['pools'] for m in p['promotions']
+              if next((v.get('tier', policy['target_tier']) for v in f['variants'] if v.get('id') == m.get('variant')), policy['target_tier']) == policy['target_tier']}
     proxies, blocked_proxies, errors = defaultdict(list), defaultdict(list), []
     for record in records(index.root, 'proxies'):
         try:
@@ -168,20 +175,28 @@ def discover(reference_root, families, policy, tags=None, tier=None):
             pool = index.read(pool_record)
             if pool.get('templateName') != 'database/templates/proxypool.tpl':
                 continue
-            free = sorted(set(range(1, policy['max_pool_slot'] + 1)) - occupied_regular_slots(pool, policy['max_pool_slot']))
+            occupied = occupied_regular_slots(pool, policy['max_pool_slot']) if not group else {
+                int(m.group(1)) for k in pool if (m := re.fullmatch(r'.*Champion(\d+)', k))}
+            # Reserve destinations allocated by active mappings in the same namespace.
+            for f in families:
+                tier_variants = {v.get('id') for v in f['variants'] if v.get('tier') == policy['target_tier']}
+                for c in f['pools']:
+                    if c['record'] == pool_record:
+                        occupied.update(m['output_slot'] for m in c['promotions'] if m.get('variant') in tier_variants)
+            free = sorted(set(range(1, policy['max_pool_slot'] + 1)) - occupied)
             weight_ok = True
             try:
-                regular_slots = [int(k[4:]) for k in pool if re.fullmatch(r'name\d+', k)]
-                weights = [int(pool[f'weight{i}']) for i in regular_slots]
+                regular_slots = [int(m.group(1)) for k in pool if (m := name_pattern.fullmatch(k))]
+                weights = [int(pool[f'weight{group}{i}']) for i in regular_slots]
                 weight_ok = all(0 <= w <= 2147483647 // denominator for w in weights)
             except (ValueError, KeyError):
                 weight_ok = False
-            for key in sorted(pool, key=lambda k: int(k[4:]) if re.fullmatch(r'name\d+', k) else 0):
-                if not re.fullmatch(r'name\d+', key):
+            for key in sorted(pool, key=lambda k: int(name_pattern.fullmatch(k).group(1)) if name_pattern.fullmatch(k) else 0):
+                if not name_pattern.fullmatch(key):
                     continue
-                slot = int(key[4:]); source = pool[key]
+                slot = int(name_pattern.fullmatch(key).group(1)); source = pool[key]
                 if source not in checks:
-                    checks[source] = source_compatibility(index, source, excluded, factor)
+                    checks[source] = source_compatibility(index, source, excluded, factor, policy['source_classification'])
                 check = checks[source]
                 row = {'pool': pool_record, 'source_slot': slot, 'source_record': source,
                        'proxy_references': sorted(set(proxies[pool_record])), **check}
@@ -190,16 +205,18 @@ def discover(reference_root, families, policy, tags=None, tier=None):
                     row.update(status='already_mapped', reasons=[])
                 else:
                     if source in known_sources: reasons.append('existing_variant_new_pool_mapping_review')
-                    if pool_record in owned: reasons.append('existing_pool_merge_review')
+                    if pool_record in owned and not share_pools: reasons.append('existing_pool_merge_review')
                     if excluded.search(pool_record): reasons.append('special_pool_review')
                     if not proxies[pool_record]: reasons.append('no_ordinary_proxy_reference')
                     if blocked_proxies[pool_record]: reasons.append('pool_also_used_by_special_proxy')
                     if not weight_ok: reasons.append('invalid_or_overflow_pool_weights')
-                    if 'weight' + str(slot) not in pool or int(pool.get('weight' + str(slot), '0')) <= 0:
+                    if 'weight' + group + str(slot) not in pool or int(pool.get('weight' + group + str(slot), '0')) <= 0:
                         reasons.append('zero_or_missing_selection_weight')
-                    if any(pool.get(stem + str(slot), '') not in ('', '0', '0.000000')
+                    if any(pool.get(stem + group + str(slot), '') not in ('', '0', '0.000000')
                            for stem in ('limit', 'alwaysSpawn')):
                         reasons.append('limited_or_forced_entry')
+                    if unsupported_slot_fields(pool, group, slot):
+                        reasons.append('unsupported_slot_rule_fields')
                     if not reasons and not free:
                         reasons.append('no_free_pool_slot')
                     row['status'] = 'review_required' if reasons else 'candidate'
@@ -217,7 +234,7 @@ def discover(reference_root, families, policy, tags=None, tier=None):
     reasons = Counter(reason for row in rows for reason in row['reasons'])
     candidates = [row for row in rows if row['status'] == 'candidate']
     return {'schema_version': 1, 'policy': policy, 'summary': {
-        'regular_entries_examined': len(rows), 'unique_sources_examined': len(checks),
+        'selection_group': group or 'regular', 'regular_entries_examined': len(rows), 'unique_sources_examined': len(checks),
         'candidate_entries': len(candidates), 'candidate_sources': len({r['source_record'] for r in candidates}),
         'candidate_pools': len({r['pool'] for r in candidates}),
         'already_mapped_entries': sum(r['status'] == 'already_mapped' for r in rows),
@@ -233,10 +250,10 @@ def draft_config(report):
     for row in report['entries']:
         if row['status'] != 'candidate': continue
         source = row['source_record']
-        vid = 'veteran_' + hashlib.sha256(source.encode()).hexdigest()[:16]
+        vid = report['policy']['target_tier'] + '_' + hashlib.sha256(source.encode()).hexdigest()[:16]
         if source not in variants:
-            variants[source] = {'id': vid, 'tier': 'veteran', 'source_record': source,
-                                'expected_classification': 'Common',
+            variants[source] = {'id': vid, 'tier': report['policy']['target_tier'], 'source_record': source,
+                                'expected_classification': report['policy']['source_classification'],
                                 'output_record': f'records/creatures/enemies/monsterexpansion/{fid}_{vid}.dbr',
                                 'damage_skill_source_record': row['damage_skill_source_record']}
             if 'display_name' in row: variants[source]['display_name'] = row['display_name']
@@ -244,7 +261,7 @@ def draft_config(report):
                                                 'proxy_references': row['proxy_references'], 'promotions': []})
         config['promotions'].append({'source_slot': row['source_slot'], 'variant': vid,
                                      'output_slot': row['output_slot']})
-    return {'schema_version': 2, 'id': fid, 'display_name': 'Discovered Veteran candidates',
+    return {'schema_version': 2, 'id': fid, 'display_name': 'Discovered ' + report['policy']['target_tier'].title() + ' candidates',
             'enabled': False, 'variants': [variants[k] for k in sorted(variants)],
             'pools': [pools[k] for k in sorted(pools)],
             'notes': ['DISABLED DRAFT: review before adding to config/families.',
@@ -254,7 +271,7 @@ def draft_config(report):
 
 def markdown(report):
     summary = report['summary']
-    lines = ['# Veteran discovery report', '', report['warning'], '', '| Metric | Count |', '| --- | ---: |']
+    lines = ['# ' + report['policy']['target_tier'].title() + ' discovery report', '', report['warning'], '', '| Metric | Count |', '| --- | ---: |']
     for key in ('regular_entries_examined', 'unique_sources_examined', 'candidate_sources', 'candidate_entries',
                 'candidate_pools', 'already_mapped_entries', 'review_required_entries', 'read_errors'):
         lines.append(f'| {key} | {summary[key]} |')
@@ -262,7 +279,7 @@ def markdown(report):
     lines += [f'| {key} | {value} |' for key, value in summary['reason_counts'].items()]
     text = report.get('english_text', {})
     lines += ['', f"English files read: {text.get('files_read', 0)}. Unknown names are not invented.",
-              '', '## Candidate sample (first 30 entries)', '', '| Source | Pool / regular slot |', '| --- | --- |']
+              '', '## Candidate sample (first 30 entries)', '', '| Source | Pool / selection slot |', '| --- | --- |']
     for row in [r for r in report['entries'] if r['status'] == 'candidate'][:30]:
         lines.append(f"| {row['source_record']} | {row['pool']} / {row['source_slot']} |")
     return '\n'.join(lines) + '\n'
@@ -281,14 +298,15 @@ def write_outputs(files):
     for filename, text in files.items(): (OUTPUT / filename).write_text(text, encoding='utf-8')
 
 
-def main():
+def main(default_policy=None):
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--policy', type=Path, default=default_policy or REPO / 'config/discovery.json', help='Data-driven discovery policy JSON')
     parser.add_argument('--write-report', action='store_true', help='Write JSON and Markdown under generated/discovery')
     parser.add_argument('--draft-config', action='store_true', help='Also write a disabled draft family, never activate it')
     parser.add_argument('--text-root', type=Path, help='Extracted English tag directory (optional)')
     args = parser.parse_args()
     try:
-        policy = json.loads((REPO / 'config/discovery.json').read_text())
+        policy = json.loads(args.policy.read_text())
         families = [json.loads(p.read_text()) for p in sorted((REPO / 'config/families').glob('*.json'))]
         resources = REPO / 'ReferenceFiles/Resources'
         default_text = next((p for p in sorted(resources.iterdir())
@@ -298,7 +316,8 @@ def main():
         tags, text_info = text_tags(args.text_root or default_text)
         report = discover(REPO / 'ReferenceFiles', families, policy, tags)
         report['english_text'] = text_info
-        outputs = {'coverage.json': json.dumps(report, indent=2, sort_keys=True) + '\n', 'coverage.md': markdown(report)}
+        stem = 'elite_coverage' if policy['target_tier'] == 'elite' else 'coverage'
+        outputs = {stem + '.json': json.dumps(report, indent=2, sort_keys=True) + '\n', stem + '.md': markdown(report)}
         if args.draft_config:
             draft = draft_config(report)
             if not draft['variants']: raise ValueError('No candidates; no empty draft written')
