@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 from dbr import DBR
 from references import resolve
+from devotion import validate_settings
 
 RECORD = 'records/creatures/pc/playerlevels.dbr'
 OUTPUT_RECORD = Path('database') / RECORD
@@ -23,6 +24,7 @@ def load_settings(repo):
     values.extend(gains.values())
     if any(type(value) is not int or value <= 0 for value in values):
         raise ValueError('Player attribute points and gains must be positive integers')
+    validate_settings(settings.get("devotion"))
     return settings
 
 
@@ -35,11 +37,15 @@ def build_player_stats(settings, reference):
         raise ValueError('Wrong player-level template')
     if record.get('maxPlayerLevel') != '100' or record.get('maxDevotionPoints') != '55':
         raise ValueError('Player stats require the verified expansion progression record (100 levels, 55 devotion)')
-    # Check target fields even for rollback. No quest/skill/XP/cap changes.
+    # Check target fields even for rollback. Devotion composes independently below.
     for key in ('characterModifierPoints', *ATTRIBUTES.values()):
         record.get(key)
     if settings['enabled']:
         record.set('characterModifierPoints', str(settings['attribute_points_per_level']))
         for attribute, field in ATTRIBUTES.items():
             record.set(field, str(settings['attribute_gain_per_point'][attribute]))
+    devotion = settings.get("devotion")
+    validate_settings(devotion)
+    if devotion and devotion["enabled"]:
+        record.set("maxDevotionPoints", str(devotion["max_points"]))
     return record.render()

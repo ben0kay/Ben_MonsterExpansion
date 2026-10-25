@@ -6,5 +6,15 @@
     "physique": 6,
     "cunning": 6,
     "spirit": 6
+  },
+  "devotion": {
+    "enabled": false,
+    "points_per_shrine": 2,
+    "max_points": 85,
+    "required_reference_layers": [
+      "base",
+      "gdx1",
+      "gdx2"
+    ]
   }
 }

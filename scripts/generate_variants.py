@@ -283,8 +283,14 @@ def configured_plan(family="all", include_spawns=False):
     if player_settings is not None:
         fail_unless(PLAYER_RECORD not in files, "Player stats output collision")
         files[PLAYER_RECORD] = build_player_stats(player_settings, REFERENCE)
+        from devotion import build_shrines
+        shrine_files, devotion_report = build_shrines(player_settings.get("devotion"), REFERENCE)
+        fail_unless(not set(shrine_files) & set(files), "Devotion shrine output collision")
+        files.update(shrine_files)
         manifest = json.loads(files[Path("manifest.json")])
         manifest["player_stats"] = player_settings
+        if devotion_report is not None:
+            manifest["devotion"] = devotion_report
         manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
         files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return files

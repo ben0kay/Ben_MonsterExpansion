@@ -9,9 +9,36 @@ while retaining the original game's enemies, roles and encounters.
 merged pool overrides**, 1.5x regular pack size and player attributes at 2 points
 per level / +6 per spent point. Full generation emits **2,833 DBRs + 1 English
 text source**, plus its manifest. Asset Manager builds and game verification are
-manual. **63 Python tests pass**, including quota and combined-pool checks;
-generation/staging preflight passes. No new in-game verification is claimed for
+manual. The previous full-suite checkpoint was **63 passing tests**, including
+quota and combined-pool checks, before the Devotion preparation below. Generation/
+staging preflight passed for that active build. Devotion preparation adds **11
+passing focused Devotion/attribute checks** and preserves all existing gameplay DBRs. No new in-game verification is claimed for
 Elites or Ascended.
+
+### Devotion 2 per shrine / cap 85 — prepared, not active
+
+The requested settings are implemented in `config/player_stats.json` under
+`devotion`, but **`enabled` is false pending missing DLC shrine references**.
+The current build still uses vanilla shrine rewards and the 55-point cap.
+
+Upload the complete extracted DLC folders, preserving these repository paths:
+
+- `ReferenceFiles/gdx1/database/records/interactive/`
+- `ReferenceFiles/gdx2/database/records/interactive/`
+
+Only base `interactive` references are present. Enabling the feature now is
+rejected rather than silently using base records in place of unknown DLC overrides.
+Once the references are supplied, enable the shared setting and run the normal
+combined generation/staging/build process. Existing built content remains usable.
+
+The prepared generator sets positive-reward StaticShrine records to 2, preserves
+zero-reward/blank quest shrines and changes only `maxDevotionPoints` to 85 in the
+same effective DLC player record that already carries the 2-point/+6 attributes.
+It preserves shrine costs, XP, loot, difficulty flags and unrelated progression.
+Seven Devotion-specific tests pass against layered fixtures; see
+[Devotion setup and activation](docs/DEVOTION.md). Game behavior, including the
+84-to-85 cap boundary, is unverified. No automatic rewards for completed shrines
+or seven-level milestone system is implemented.
 
 ### Hero → Ascended implemented
 
