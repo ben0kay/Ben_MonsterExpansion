@@ -88,3 +88,16 @@ class DevotionTests(unittest.TestCase):
         manifest = json.loads(files[Path('manifest.json')])
         self.assertIn('database/records/interactive/shared.dbr', manifest['files'])
         self.assertTrue(manifest['devotion']['enabled'])
+
+    def test_active_real_shrines_change_only_reward_and_preserve_effective_dlc_data(self):
+        settings = load_settings(gen.REPO)['devotion']
+        self.assertTrue(settings['enabled'])
+        files, report = build_shrines(settings, gen.REFERENCE)
+        self.assertEqual(report['missing_reference_layers'], [])
+        self.assertEqual(len(files), 60)
+        for path, text in files.items():
+            original = DBR.from_file(resolve(path.as_posix().removeprefix('database/'), gen.REFERENCE))
+            self.assertGreater(int(original.get('devotionPoints')), 0)
+            original.set('devotionPoints', '2')
+            self.assertEqual(text, original.render(), str(path))
+        self.assertFalse(any(p.name in ('_devotionshrine_blank.dbr', 'devotionshrine_mogdrogen.dbr') for p in files))

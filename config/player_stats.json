@@ -8,7 +8,7 @@
     "spirit": 6
   },
   "devotion": {
-    "enabled": false,
+    "enabled": true,
     "points_per_shrine": 2,
     "max_points": 85,
     "required_reference_layers": [

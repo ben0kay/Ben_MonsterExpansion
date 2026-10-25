@@ -2,10 +2,10 @@
 
 The shared pipeline enables **137 exact Hero parents / 241 selections / 63 ordinary
 pools** at **33% conditional replacement**. The combined catalog has **148 Veterans,
-124 Elites and 137 Ascended**, with **377 merged pools**: **2,833 DBRs + 1 text source**.
+124 Elites and 137 Ascended**, with **377 merged pools**: **2,973 DBRs + 1 text source**.
 This activation adds 9 pool paths and changes 54 existing pool overrides. Of the
 241 mapped selections, 240 use the bounded finite-quota policy and one is unrestricted.
-**63 Python tests pass**, including bounded quotas, combined-pool probabilities,
+**77 Python tests pass**, including bounded quotas, combined-pool probabilities,
 independent Elite/Ascended shares, slot reservations and rollback. Full generation
 and staging preflight pass. Representative in-game and multiplayer behavior remains
 unverified.

@@ -3,7 +3,7 @@
 Implemented October 25, 2026 using the shared Veteran pipeline. The enabled
 snapshot has **124 exact Champion parents, 382 selections and 255 pools**.
 The current combined catalog also includes **137 Ascended**: **409 total variants,
-377 merged pools, 2,833 DBRs + 1 text source**. See [Ascended quota policy](ASCENDED.md).
+377 merged pools, 2,973 DBRs + 1 text source**. See [Ascended quota policy](ASCENDED.md).
 Representative in-game verification is pending.
 
 ## Settings and sources

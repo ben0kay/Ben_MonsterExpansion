@@ -13,7 +13,7 @@ Mirror become sustained toggles, with Mirror's protection reduced accordingly.
 Settings: `config/player_skills.json`; see [exact values, tuning and
 playthrough checks](docs/PLAYER_SKILLS.md). This is a data-validated first pass;
 Asset Manager compilation and game testing remain manual. Existing monster-tier,
-attribute and pack settings are retained. Devotion remains prepared but disabled.
+attribute and pack settings are retained. Devotion is enabled at 2 points per shrine with an 85-point cap.
 
 ## Handoff checkpoint — October 25, 2026
 
@@ -21,36 +21,29 @@ attribute and pack settings are retained. Devotion remains prepared but disabled
 merged pool overrides**, 1.5x regular pack size and player attributes at 2 points
 per level / +6 per spent point. Full generation, including the skill pass above, emits **2,973 DBRs + 1 English
 text source**, plus its manifest. Asset Manager builds and game verification are
-manual. The previous full-suite checkpoint was **63 passing tests**, including
-quota and combined-pool checks, before the Devotion preparation below. Generation/
-staging preflight passed for that active build. Devotion preparation adds **11
-passing focused Devotion/attribute checks** and preserves all existing gameplay DBRs. No new in-game verification is claimed for
-Elites or Ascended.
+manual. **77 Python tests pass**, including real shrine preservation, progression,
+monster/pool regressions and the current player-skill checks. Combined generation
+and staging preflight pass. New Devotion, skill, Elite and Ascended runtime behavior
+still requires game verification.
 
-### Devotion 2 per shrine / cap 85 — prepared, not active
+### Devotion 2 per shrine / cap 85 — enabled
 
-The requested settings are implemented in `config/player_stats.json` under
-`devotion`, but **`enabled` is false pending missing DLC shrine references**.
-The current build still uses vanilla shrine rewards and the 55-point cap.
+`config/player_stats.json` now enables **2 Devotion points per restored shrine**
+and an **85-point cap**. The uploaded references contain 30 rewarding base records,
+6 AoM records and 56 FG records; effective GDX2 > GDX1 > base resolution produces
+**60 distinct shrine overrides**. Existing base shrine records use DLC updates
+where present, preserving their costs, XP, loot, quests and difficulty flags.
+Blank/decorative and zero-reward quest shrines remain unchanged.
 
-Upload the complete extracted DLC folders, preserving these repository paths:
+The cap composes with the existing 2-point/+6 attribute changes in the same
+`playerlevels.dbr`. Other progression and existing monster/support/pool/global
+pack records remain unchanged. The combined build emits **2,973 DBRs + 1 text
+source**, plus its manifest. New shrine rewards require build/install and apply
+to subsequently restored shrines; no retroactive reward mechanism is implemented.
 
-- `ReferenceFiles/gdx1/database/records/interactive/`
-- `ReferenceFiles/gdx2/database/records/interactive/`
-
-Only base `interactive` references are present. Enabling the feature now is
-rejected rather than silently using base records in place of unknown DLC overrides.
-Once the references are supplied, enable the shared setting and run the normal
-combined generation/staging/build process. Existing built content remains usable.
-
-The prepared generator sets positive-reward StaticShrine records to 2, preserves
-zero-reward/blank quest shrines and changes only `maxDevotionPoints` to 85 in the
-same effective DLC player record that already carries the 2-point/+6 attributes.
-It preserves shrine costs, XP, loot, difficulty flags and unrelated progression.
-Seven Devotion-specific tests pass against layered fixtures; see
-[Devotion setup and activation](docs/DEVOTION.md). Game behavior, including the
-84-to-85 cap boundary, is unverified. No automatic rewards for completed shrines
-or seven-level milestone system is implemented.
+See [Devotion configuration and verification](docs/DEVOTION.md). In-game behavior,
+including the 84-to-85 cap boundary, still needs verification. The earlier
+one-point-every-seven-levels proposal remains unimplemented.
 
 ### Hero → Ascended implemented
 
@@ -166,8 +159,9 @@ mapped regular selections (442 original + 186 added). Elites and compatible Asce
 - Pack-size multiplier changes existing encounters using the shared equation,
   including special encounters; it does not add map placements. Engine rounding,
   placement/caps and performance remain gameplay checks.
-- Player stats preserve DLC caps 100/55, skill points, XP and other progression.
-  Both uploaded DLC player-level files are identical. No save edits or explicit
+- Player stats preserve the DLC level cap 100, skill points, XP and other progression.
+  Both uploaded DLC player-level files are identical. Devotion now raises the cap
+  to 85; attributes remain 2/+6. No save edits or explicit
   retroactive compensation; existing-character recalculation remains unverified.
 
 ## DLC reference priority
@@ -226,8 +220,9 @@ Each level awards 2 spendable attribute points; each point adds 6 to the chosen
 attribute: 12 allocated attribute stats per level instead of vanilla's 8.
 The gain applies to spent attribute points generally, including quest-earned
 points; quest reward point counts are unchanged. Skill points, mastery gains,
-XP equations, health/energy increments and the DLC 100/55 caps are preserved.
-Only four fields in the effective DLC `playerlevels.dbr` change.
+XP equations, health/energy increments and the DLC level cap 100 are preserved.
+Four attribute fields and the Devotion cap (55 → 85) change in the effective DLC
+`playerlevels.dbr`.
 This does not edit character saves or explicitly grant points for past levels;
 existing-character recalculation is unverified. Test a fresh character: level
 once, confirm 2 points, spend one and confirm +6 to the selected attribute.
@@ -268,8 +263,9 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **2,973 DBRs + 1 text source** (including 80 player-skill overrides): 409 monster variants with supporting records and 377 merged pool
-overrides. **New name-label step:** build the Text_EN source asset and install the
+Expect **2,973 DBRs + 1 text source**: 409 monster variants with supporting records,
+377 merged pools, 60 shrine overrides, 80 player-skill overrides, the global pack
+equation and player progression. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
 reference tree into the mod. See [current build/test and rollback guide](docs/DATA_DRIVEN_FAMILIES.md)
@@ -399,9 +395,9 @@ representative in-game checks remain necessary for visuals and engine behavior.
 
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
-Python suite has **63 passing tests**. The original Veteran Boar's six-record
+Python suite has **77 passing tests**. The original Veteran Boar's six-record
 regression is byte-identical. 409 variants and 377 merged pool overrides generate
-2,833 DBRs plus one English text source.
+2,973 DBRs plus one English text source, including 60 shrine and 80 player-skill overrides.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks

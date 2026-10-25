@@ -1,9 +1,10 @@
 # Devotion rewards and cap
 
-Requested: **2 Devotion points per restored shrine, 85 total maximum**.
-Implementation is prepared but **disabled**, because the uploaded references
-contain no GDX1/GDX2 `interactive` folders. Current playable output retains vanilla
-Devotion rewards and cap; attributes and all monster features remain active.
+**Enabled: 2 Devotion points per restored shrine, 85 total maximum.**
+The uploaded base/AoM/FG references resolve to **60 rewarding shrine records**.
+The combined mod emits **2,973 DBRs + 1 text source**, plus its manifest.
+All existing monster tiers, pack-size and attribute changes remain included.
+Runtime behavior remains unverified.
 
 ## Configuration
 
@@ -11,7 +12,7 @@ Devotion rewards and cap; attributes and all monster features remain active.
 
 ```json
 "devotion": {
-  "enabled": false,
+  "enabled": true,
   "points_per_shrine": 2,
   "max_points": 85,
   "required_reference_layers": ["base", "gdx1", "gdx2"]
@@ -23,33 +24,26 @@ remain 2 points per level and +6 per spent point. Devotion's `max_points` modifi
 `maxDevotionPoints` in the effective DLC `records/creatures/pc/playerlevels.dbr`;
 there is no invented per-level Devotion field or deprecated gameengine cap override.
 
-## Missing inputs and activation
+## Reference coverage and build
 
-Upload the full extracted AoM and FG `interactive` folders to:
+The required base, AoM and FG `interactive` references are now present. Physical
+layer counts are 30 / 6 / 56 rewarding records; overlapping logical paths resolve
+to 60 effective shrines using GDX2 > GDX1 > base priority. The coverage guard
+remains enabled so a missing DLC batch cannot silently fall back to base.
+Counts describe the uploaded extraction, not proof of every possible shrine or map.
 
-```text
-ReferenceFiles/gdx1/database/records/interactive/
-ReferenceFiles/gdx2/database/records/interactive/
-```
-
-Preserve their extracted subfolders and filenames. A few sample records cannot
-establish full coverage. The generator requires rewarding shrine records in each
-configured layer; that gate prevents a missing whole DLC batch from silently
-falling back to base. It does not prove an uploaded batch is complete.
-
-Once both full batches are available, verify coverage, change `enabled` to `true`,
-and use the usual build commands:
+Build with:
 
 ```powershell
+git pull
 python scripts/validate_config.py
 python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
 Then F7, install the rebuilt mod `.arz`, keep the existing Text_EN.arc and restart
-Custom Game. New output counts depend on the supplied shrine records; no active
-Devotion build totals are claimed yet. All monster, pack-size and attribute
-features generate together. JSON settings require rebuilding; they are not live.
+Custom Game. Expect **2,973 DBRs + 1 text source**. JSON edits require rebuilding;
+they are not live settings. All features generate together.
 
 ## Supported changes and preservation
 
@@ -73,7 +67,11 @@ references for rollback. Removing a config does not clean stale compiled DBRs.
 
 ## Verification
 
-Seven focused tests cover reward-only edits, DLC precedence, preserving blank/
+**77 combined Python tests pass**. Generation and staging preflight pass. Devotion changes only the 60 shrine reward
+fields and the player-level cap. Existing monster, pool, pack and 80 player-skill
+overrides are preserved.
+
+Eight Devotion tests cover real uploaded shrine preservation and reward-only edits, DLC precedence, preserving blank/
 zero-reward shrines, missing-reference and symlink rejection, independent attribute/
 cap composition, rollback and inclusion in the generated manifest. Four existing
 attribute tests cover the still-active progression settings.
