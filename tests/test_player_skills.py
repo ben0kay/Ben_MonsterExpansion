@@ -78,6 +78,71 @@ class PlayerSkillTests(unittest.TestCase):
                          DBR.from_file(resolve(entry["record"], gen.REFERENCE)).render())
         self.assertFalse(next(item["changed"] for item in report if item["record"] == entry["record"]))
 
+
+    def test_arcanist_second_pass_is_moderate_and_preserves_original_rank_curves(self):
+        names = {
+            "passive01", "passive02", "passive03", "passive04",
+            "elementalinfusion1_buff", "elementalinfusion2", "elementalinfusion3",
+            "arcanemissile", "arcanemissile2", "arcanemissile3", "arcanemissile4",
+            "skyshard1", "skyshard2", "skyshard3",
+            "razorwind1", "razorwind2", "chillingsurge_buff", "chillingsurge2",
+        }
+        entries = [entry for entry in self.settings["records"]
+                   if entry["record"].rsplit("/", 1)[-1].removesuffix(".dbr") in names
+                   and "/playerclass05/" in entry["record"]]
+        self.assertEqual(len(entries), 18)
+        for entry in entries:
+            name = entry["record"]
+            original = DBR.from_file(resolve(name, gen.REFERENCE))
+            updated = DBR(self.files[Path("database") / name])
+            changed = set(entry.get("curves", {})) | set(entry.get("set", {}))
+            self.assertTrue(changed, name)
+            with self.subTest(record=name):
+                # The rest of the record must remain byte-for-byte the same.
+                baseline = DBR.from_file(resolve(name, gen.REFERENCE))
+                for key in changed:
+                    baseline.set(key, updated.get(key))
+                self.assertEqual(baseline.render(), updated.render())
+                for field, rule in entry.get("curves", {}).items():
+                    source = list(map(float, original.get(field).split(";")))
+                    output = list(map(float, updated.get(field).split(";")))
+                    self.assertEqual(len(source), len(output), (name, field))
+                    factor = rule["multiplier"]
+                    self.assertGreaterEqual(factor, 1.05)
+                    self.assertLessEqual(factor, 1.10)
+                    for old, new in zip(source, output):
+                        self.assertAlmostEqual(new, old * factor, places=5)
+
+    def test_arcanist_offensive_coverage_and_cooldown_are_bounded(self):
+        for name, field, base_first, base_last, factor in (
+            ("skyshard1", "projectileExplosionRadius", 1.4, 3.3, 1.10),
+            ("razorwind1", "skillTargetRadius", 4.2, 5.8, 1.10),
+            ("chillingsurge_buff", "skillTargetRadius", 5.0, 18.0, 1.08),
+        ):
+            record = self.record(f"playerclass05/{name}.dbr")
+            values = list(map(float, record.get(field).split(";")))
+            self.assertAlmostEqual(values[0], base_first * factor)
+            self.assertAlmostEqual(values[-1], base_last * factor)
+        sky = self.record("playerclass05/skyshard1.dbr")
+        self.assertEqual(sky.get("skillCooldownTime"), "2.850000")
+        self.assertEqual(
+            self.record("playerclass05/chillingsurge_buff.dbr").get("skillCooldownTime"),
+            DBR.from_file(resolve("records/skills/playerclass05/chillingsurge_buff.dbr",
+                                  gen.REFERENCE)).get("skillCooldownTime"))
+
+    def test_arcanist_second_pass_record_disable_is_exact_rollback(self):
+        settings = copy.deepcopy(self.settings)
+        targets = {"records/skills/playerclass05/passive01.dbr",
+                   "records/skills/playerclass05/skyshard1.dbr"}
+        for entry in settings["records"]:
+            if entry["record"] in targets:
+                entry["enabled"] = False
+        files, report = build_skills(settings, gen.REFERENCE)
+        for name in targets:
+            self.assertEqual(files[Path("database") / name],
+                             DBR.from_file(resolve(name, gen.REFERENCE)).render())
+            self.assertFalse(next(x["changed"] for x in report if x["record"] == name))
+
     def test_disable_restores_exact_sources(self):
         settings = copy.deepcopy(self.settings)
         settings["enabled"] = False

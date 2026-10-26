@@ -800,6 +800,242 @@
           "cap": 20
         }
       }
+    },
+    {
+      "record": "records/skills/playerclass05/passive01.dbr",
+      "set": {},
+      "curves": {
+        "characterIntelligenceModifier": {
+          "multiplier": 1.08
+        },
+        "characterOffensiveAbilityModifier": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/passive02.dbr",
+      "set": {},
+      "curves": {
+        "characterDefensiveAbility": {
+          "multiplier": 1.08
+        },
+        "characterManaRegen": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/passive03.dbr",
+      "set": {},
+      "curves": {
+        "characterMana": {
+          "multiplier": 1.08
+        },
+        "characterSpellCastSpeedModifier": {
+          "multiplier": 1.05
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/passive04.dbr",
+      "set": {},
+      "curves": {
+        "offensiveAetherMin": {
+          "multiplier": 1.1
+        },
+        "offensiveChaosMin": {
+          "multiplier": 1.1
+        },
+        "offensiveAetherModifier": {
+          "multiplier": 1.08
+        },
+        "offensiveChaosModifier": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/elementalinfusion1_buff.dbr",
+      "set": {},
+      "curves": {
+        "characterManaRegenModifier": {
+          "multiplier": 1.08
+        },
+        "offensiveElementalMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/elementalinfusion2.dbr",
+      "set": {},
+      "curves": {
+        "characterOffensiveAbility": {
+          "multiplier": 1.08
+        },
+        "defensiveAether": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/elementalinfusion3.dbr",
+      "set": {},
+      "curves": {
+        "offensiveCritDamageModifier": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/arcanemissile.dbr",
+      "set": {},
+      "curves": {
+        "offensiveElementalMin": {
+          "multiplier": 1.1
+        },
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/arcanemissile2.dbr",
+      "set": {},
+      "curves": {
+        "offensiveAetherMin": {
+          "multiplier": 1.08
+        },
+        "offensiveAetherMax": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/arcanemissile3.dbr",
+      "set": {},
+      "curves": {
+        "offensiveElementalMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/arcanemissile4.dbr",
+      "set": {},
+      "curves": {
+        "offensiveAetherMin": {
+          "multiplier": 1.08
+        },
+        "offensiveAetherMax": {
+          "multiplier": 1.08
+        },
+        "offensiveElementalMin": {
+          "multiplier": 1.08
+        },
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/skyshard1.dbr",
+      "set": {
+        "skillCooldownTime": "2.850000"
+      },
+      "curves": {
+        "offensiveColdMin": {
+          "multiplier": 1.1
+        },
+        "offensiveLightningMin": {
+          "multiplier": 1.1
+        },
+        "offensiveLightningMax": {
+          "multiplier": 1.1
+        },
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/skyshard2.dbr",
+      "set": {},
+      "curves": {
+        "offensiveSlowColdMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/skyshard3.dbr",
+      "set": {},
+      "curves": {
+        "offensiveLightningMin": {
+          "multiplier": 1.08
+        },
+        "offensiveLightningMax": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/razorwind1.dbr",
+      "set": {},
+      "curves": {
+        "offensiveAetherMin": {
+          "multiplier": 1.1
+        },
+        "offensiveAetherMax": {
+          "multiplier": 1.1
+        },
+        "offensiveFireMin": {
+          "multiplier": 1.1
+        },
+        "offensiveFireMax": {
+          "multiplier": 1.1
+        },
+        "skillTargetRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/razorwind2.dbr",
+      "set": {},
+      "curves": {
+        "offensiveLightningMin": {
+          "multiplier": 1.08
+        },
+        "offensiveSlowFireMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/chillingsurge_buff.dbr",
+      "set": {},
+      "curves": {
+        "offensiveColdMin": {
+          "multiplier": 1.1
+        },
+        "skillTargetRadius": {
+          "multiplier": 1.08
+        },
+        "skillActiveDuration": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass05/chillingsurge2.dbr",
+      "set": {},
+      "curves": {
+        "offensiveSlowColdMin": {
+          "multiplier": 1.08
+        }
+      }
     }
   ]
 }

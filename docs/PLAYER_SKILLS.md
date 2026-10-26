@@ -54,6 +54,57 @@ Attacks, channels, debuffs, ground spells and conditional defensive procs retain
 their activation behaviour. No Necromancer balance changes beyond global
 exclusivity removal. No extra buffs to unspecified skills in this first pass.
 
+## Arcanist pass 2 — moderate passive and offensive buffs
+
+This pass preserves every original rank curve (including overcap ranks), applies
+only 5–10% multipliers to selected numbers, and leaves all other damage types,
+energy costs, skill prerequisites, resist reductions, debuff strengths and pet
+skills unchanged. The global `config/player_skills.json` enabled flag and
+per-record `enabled` flags still support exact vanilla rollback.
+
+### Passive and sustained aura skills
+- Inner Focus (`passive01`): +8% over the native Spirit and Offensive Ability
+  *modifier* curves, per rank.
+- Arcane Will (`passive02`): +8% to native Defensive Ability and energy regen
+  curves. Proc activation, duration, cooldown and damage buff unchanged.
+- Mental Alacrity (`passive03`): +8% to flat energy and +5% to cast-speed
+  bonus curves. Does not change global player cast-speed caps.
+- Fabric of Reality (`passive04`): +10% native flat Aether/Chaos damage
+  and +8% to their percentage damage-bonus curves.
+- Iskandra's Elemental Exchange (`elementalinfusion1_buff`): +8% to energy
+  regeneration bonus and flat elemental damage; reserve costs untouched.
+- Overload (`elementalinfusion2`): +8% to its flat OA and Aether-resistance
+  curves; electrocute/burn/frostburn and reserved energy unchanged.
+- Elemental Balance (`elementalinfusion3`): +8% to its critical damage
+  bonus curve; damage-over-time modifiers unchanged.
+
+### Offensive skills
+- Panetti's Replicating Missile (`arcanemissile`): +10% base flat
+  elemental damage and +10% base explosion radius (0.5 -> 0.55).
+- Distortion, Supercharged and Proliferation
+  (`arcanemissile2/3/4`): +8% to specified flat Aether/elemental
+  damage fields; Proliferation explosion radius +10% (0.3 -> 0.33).
+  Projectile fragment counts, resistance reduction and crowd control unchanged.
+- Trozan's Sky Shard (`skyshard1`): +10% original Cold/Lightning flat
+  damage and original per-rank explosion radius (1.4 -> 1.54 at rank 1,
+  3.3 -> 3.63 at rank 26). Cooldown 3.0 -> 2.85 seconds (-5%);
+  energy cost and targeting unchanged.
+- Frozen Core / Shattered Star (`skyshard2/3`): +8% flat frostburn and
+  Lightning components, respectively; freeze, slow and crit values unchanged.
+- Callidor's Tempest (`razorwind1`): +10% native Aether/Fire flat
+  damage and per-rank target radius (4.2 -> 4.62 at rank 1,
+  5.8 -> 6.38 at rank 26). Inferno (`razorwind2`) gets +8%
+  Lightning and burn components; transmuter remains untouched.
+- Olexra's Flash Freeze (`chillingsurge_buff`): +10% Cold damage,
+  +8% original per-rank radius (5 -> 5.4 at rank 1, 18 -> 19.44
+  at rank 22), +10% original per-rank duration (2 -> 2.2 seconds
+  at rank 1, 6 -> 6.6 at rank 22). Cooldown, freezing/resist stripping unchanged.
+  Absolute Zero (`chillingsurge2`): +8% frostburn component; debuffs unchanged.
+
+**No further changes** to Aether Ray, Disintegration, Devastation, Maiven's
+Sphere, Mirror, Reckless Power, Star Pact, Nullification or Arcanist's mastery bar.
+This is still a build-time data pass; in-game behaviour and UI values need testing.
+
 ## Tuning and rollback
 
 Each record has set (literal DBR values) and curves (numeric rank transforms).
@@ -87,7 +138,7 @@ Check:
 Report skill name, allocated/effective rank, equipment modifiers and what feels
 weak/strong. Those details let us adjust the shared config during the playthrough.
 
-Current full generation expects 2,977 DBRs plus one English text source (81 skill overrides, including the new Sigil record). The Windows build and in-game performance are not yet verified.
+Current full generation expects 2,995 DBRs plus one English text source (99 skill overrides, including the new Sigil record). The Windows build and in-game performance are not yet verified.
 
 Historical validation (prior to the movement/basics/Sigil passes): 76 tests checked. The full run passed 73 and exposed three stale
 file-count expectations after the shrine-reference upload; all three passed on

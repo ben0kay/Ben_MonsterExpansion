@@ -27,6 +27,21 @@ These add only one new game-engine DBR output; both player records remain single
 merged overrides. See [player basics and build/rollback](docs/PLAYER_BASICS.md).
 Asset Manager build and in-game testing remain manual.
 
+## Arcanist passive and offensive balance pass 2
+
+A restrained, rank-preserving Arcanist pass improves seven passive/aura records:
+Inner Focus, Arcane Will, Mental Alacrity, Fabric of Reality, and the Iskandra's
+Elemental Exchange support chain. Modifiers are typically +5–10% to selected
+existing bonuses, not new universal buffs.
+
+Offensive upgrades cover Panetti's Replicating Missile and modifiers,
+Trozan's Sky Shard and modifiers, Callidor's Tempest and Inferno, and Olexra's
+Flash Freeze and Absolute Zero. Most selected damage fields increase by 8–10%;
+area/radius fields by 8–10% while preserving all native rank scaling; Trozan's
+cooldown is 3 -> 2.85 sec. Existing Arcanist pass 1 skills are unchanged.
+See [full list of exact fields](docs/PLAYER_SKILLS.md). GitHub data changes
+still require local tests, staging, Asset Manager F7 and in-game verification.
+
 ## Occultist / Arcanist playthrough pass 1
 
 Player skill overrides are now included in the shared generation/staging pipeline.
@@ -46,7 +61,7 @@ attribute and pack settings are retained. Devotion is enabled at 2 points per sh
 
 **Active content:** **148 Veterans + 124 Elites + 137 Ascended**, with **377
 merged pool overrides**, 1.5x regular pack size and player attributes at 2 points
-per level / +6 per spent point. Full generation, including the skill pass above, emits **2,977 DBRs + 1 English
+per level / +6 per spent point. Full generation, including the skill pass above, emits **2,995 DBRs + 1 English
 text source**, plus its manifest. Asset Manager builds and game verification are
 manual. **77 Python tests passed at the previous checkpoint (new movement/basics tests still need rerunning)**, including real shrine preservation, progression,
 monster/pool regressions and the current player-skill checks. Combined generation
@@ -64,7 +79,7 @@ Blank/decorative and zero-reward quest shrines remain unchanged.
 
 The cap composes with the existing 2-point/+6 attribute changes in the same
 `playerlevels.dbr`. Other progression and existing monster/support/pool/global
-pack records remain unchanged. The combined build emits **2,977 DBRs + 1 text
+pack records remain unchanged. The combined build emits **2,995 DBRs + 1 text
 source**, plus its manifest. New shrine rewards require build/install and apply
 to subsequently restored shrines; no retroactive reward mechanism is implemented.
 
@@ -290,8 +305,8 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **2,977 DBRs + 1 text source**: 409 monster variants with supporting records,
-377 merged pools, 60 shrine overrides, 81 player-skill overrides, the global pack
+Expect **2,995 DBRs + 1 text source**: 409 monster variants with supporting records,
+377 merged pools, 60 shrine overrides, 99 player-skill overrides, the global pack
 equation, player progression, two composed player-character overrides and one game-engine override. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
@@ -424,7 +439,7 @@ The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
 Python suite has **77 previously passing tests (movement/basics tests not yet rerun)**. The original Veteran Boar's six-record
 regression is byte-identical. 409 variants and 377 merged pool overrides generate
-2,977 DBRs plus one English text source, including 60 shrine, 81 player-skill, 2 composed player-character and 1 game-engine overrides.
+2,995 DBRs plus one English text source, including 60 shrine, 99 player-skill, 2 composed player-character and 1 game-engine overrides.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks
