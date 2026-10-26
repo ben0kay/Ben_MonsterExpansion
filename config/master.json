@@ -2,6 +2,6 @@
   "schema_version": 1,
   "monster_spawning": {
     "enabled": true,
-    "pack_size_multiplier": 1.5
+    "pack_size_multiplier": 2
   }
 }
