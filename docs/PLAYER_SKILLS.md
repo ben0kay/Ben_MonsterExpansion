@@ -81,10 +81,16 @@ per-record `enabled` flags still support exact vanilla rollback.
 ### Offensive skills
 - Panetti's Replicating Missile (`arcanemissile`): +10% base flat
   elemental damage and +10% base explosion radius (0.5 -> 0.55).
+  Main missile child-fragment counts are 5 exactly at ranks 1–3 (vanilla 3);
+  5–6 at ranks 4–11 (vanilla 3–4); and 5–7 at ranks 12–26
+  (vanilla 3–5). Both native 26-rank min/max fields are explicitly
+  configured in `config/player_skills.json`, preserving the usual
+  damage/radius improvements and the original single primary projectile.
 - Distortion, Supercharged and Proliferation
   (`arcanemissile2/3/4`): +8% to specified flat Aether/elemental
   damage fields; Proliferation explosion radius +10% (0.3 -> 0.33).
-  Projectile fragment counts, resistance reduction and crowd control unchanged.
+  Proliferation's separate Aether fragment counts, resistance reduction
+  and crowd control remain unchanged.
 - Trozan's Sky Shard (`skyshard1`): +10% original Cold/Lightning flat
   damage and original per-rank explosion radius (1.4 -> 1.54 at rank 1,
   3.3 -> 3.63 at rank 26). Cooldown 3.0 -> 2.85 seconds (-5%);
