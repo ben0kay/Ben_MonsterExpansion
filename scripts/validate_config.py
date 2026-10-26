@@ -71,6 +71,11 @@ def check_configs(reference_root=None, repo=REPO):
         movement_settings = load_movement(repo)
         if movement_settings is not None and reference_root is not None:
             build_player_movement(movement_settings, reference_root)
+        from player_basics import load_settings as load_basics, build_player_basics
+        basics_settings = load_basics(repo)
+        if basics_settings is not None and reference_root is not None:
+            prior = build_player_movement(movement_settings, reference_root)[0] if movement_settings is not None else {}
+            build_player_basics(basics_settings, reference_root, prior)
         from player_skills import load_settings as load_skills, build_skills
         if reference_root is not None:
             build_skills(load_skills(repo), reference_root)

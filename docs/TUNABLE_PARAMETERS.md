@@ -7,16 +7,16 @@ settings need engine or in-game verification before adopting.
 | Parameter | Current reference | Source logical record | Potential mod use |
 | --- | --- | --- | --- |
 | Base player run speed | 0.93 | `creatures/pc/{male,female}pc01.dbr` | **Active** +15% to 1.0695, both sexes |
-| Starting life | 250 | Same player records | Higher health at start (actual total also depends on bio/progression) |
-| Starting mana/energy | 250 | Same player records | Higher energy at start |
+| Starting life | 250 → **300 active** | Same player records | Starting base life; displayed total also depends on bio/progression |
+| Starting mana/energy | 250 → **300 active** | Same player records | Starting base energy |
 | Life regeneration | 1.0 | Same player records | Faster passive recovery; confirm units |
 | Mana regeneration | 1.0 | Same player records | Faster energy recovery; confirm units |
 | Offensive / defensive ability | 65 each | Same player records | Slight starting combat-stat tweaks |
 | Base attack / cast speed | 1.25 each | Same player records | Faster attacks/casting; check animation and cap interactions |
 | Visible character model scale | 1.05 | Same player records | Cosmetic player sizing; reach/collision not verified |
-| Player movement speed cap | 135 | `game/gameengine.dbr` | Allow higher movement-speed bonuses from items/skills |
+| Player movement speed cap | 135 → **145 active** | `game/gameengine.dbr` | Allows higher movement-speed bonuses |
 | Attack / cast speed caps | 200 / 200 | `game/gameengine.dbr` | Allow more speed from gear/skills (balance risk) |
-| Camera distance | min 20, default 36, max 48 | `game/gameengine.dbr` | Zoom farther out; verify camera/visibility in game |
+| Camera distance | min 20, default **36 → 39 active**, max 48 | `game/gameengine.dbr` | Default/reset view; in-game zoom still adjustable |
 | Camera pitch | min 38, default 46, max 52 | `game/gameengine.dbr` | Change camera angle |
 | Potion stack limit | 100 | `game/gameengine.dbr` | Stack more potions |
 | Health increase per level | 20 | `creatures/pc/playerlevels.dbr` | More health from leveling |
@@ -32,7 +32,6 @@ are found in `ReferenceFiles/gdx2/database/records/` in the uploaded data.
 The base `gameengine.dbr` is in `ReferenceFiles/game/`. Always use
 GDX2 > GDX1 > base resolution before generating a new override.
 
-Avoid editing reference files, guessing undocumented fields, or changing
-the engine-wide `gameengine.dbr` as part of an unrelated speed tweak.
-Changing the camera, speed caps, or XP formulas deserves separate config
-and tests. This document only lists *possible* future tweaks.
+Do not edit source reference files. The requested speed cap and camera defaults
+are implemented via a focused reversible game-engine override.
+See [Player basics](PLAYER_BASICS.md). Other changes remain proposals.

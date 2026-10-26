@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "starting_stats": {
+    "enabled": true,
+    "health": 300,
+    "energy": 300
+  },
+  "movement_speed_cap": {
+    "enabled": true,
+    "max_percent": 145
+  },
+  "camera": {
+    "enabled": true,
+    "default_distance": 39
+  }
+}

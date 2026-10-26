@@ -11,13 +11,15 @@
 Their effective DLC records (GDX2 > GDX1 > base) both specify
 `characterRunSpeed,0.930000,`. Generated overrides change **only**
 that field to `characterRunSpeed,1.069500,` (exactly 15% above 0.93).
-Character class, hit points, model scale, animations and every other field
-are preserved byte-for-byte. Only source DBRs are read; generated files
+By itself, the movement generator changes only run speed. The combined build
+composes the separately configured starting health/energy (250 to 300) into
+the same player records without altering class, scale or animations. Only source DBRs are read; generated files
 are staged inside the custom mod rather than changing original game archives.
 
 This is **base run-speed**, not a +15 percentage-point skill/equipment bonus.
-The existing `records/game/gameengine.dbr` setting
-`playerRunSpeedCapMax,135.000000,` is not changed. Actual displayed
+The independently configurable `config/player_basics.json` raises
+`playerRunSpeedCapMax` from 135 to 145 in the game-engine record, without
+altering the base run-speed multiplier. Actual displayed
 character-sheet values, stacking with gear, animation smoothness and
 engine movement behaviour still require a game test.
 
@@ -38,8 +40,8 @@ Set `enabled: false` to generate the exact vanilla DLC records for **both**
 sexes (rollback). Do not simply remove this config to roll back because a
 previously compiled mod might still retain the old player overrides.
 
-No other movement or game-engine parameters are modified. See
-[Tunable parameters](TUNABLE_PARAMETERS.md) for read-only suggestions.
+Camera default distance is also configured to 39 while preserving zoom 20–48.
+See [player basics](PLAYER_BASICS.md) and [tunable parameters](TUNABLE_PARAMETERS.md).
 
 ## Build and verify
 

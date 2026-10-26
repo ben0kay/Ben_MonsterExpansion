@@ -304,6 +304,21 @@ def configured_plan(family="all", include_spawns=False):
         manifest["player_movement_records"] = movement_report
         manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
         files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    from player_basics import load_settings as load_basics, build_player_basics, ENGINE_OUTPUT
+    basics_settings = load_basics(REPO)
+    if basics_settings is not None:
+        # Compose starting life/energy with any pre-existing movement record.
+        prior_players = movement_files if movement_settings is not None else {}
+        basics_files, basics_report = build_player_basics(basics_settings, REFERENCE, prior_players)
+        fail_unless(ENGINE_OUTPUT not in files, "Game-engine output collision")
+        fail_unless(not (set(basics_files) & set(files)) - set(prior_players),
+                    "Unexpected player basics output collision")
+        files.update(basics_files)
+        manifest = json.loads(files[Path("manifest.json")])
+        manifest["player_basics"] = basics_settings
+        manifest["player_basics_records"] = basics_report
+        manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
+        files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     from player_skills import load_settings as load_skills, build_skills
     skill_files, skill_report = build_skills(load_skills(REPO), REFERENCE)
     fail_unless(not set(skill_files) & set(files), "Player skill output collision")
