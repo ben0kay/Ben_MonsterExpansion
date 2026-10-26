@@ -293,6 +293,17 @@ def configured_plan(family="all", include_spawns=False):
             manifest["devotion"] = devotion_report
         manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
         files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    from player_movement import load_settings as load_movement, build_player_movement
+    movement_settings = load_movement(REPO)
+    if movement_settings is not None:
+        movement_files, movement_report = build_player_movement(movement_settings, REFERENCE)
+        fail_unless(not set(movement_files) & set(files), "Player movement output collision")
+        files.update(movement_files)
+        manifest = json.loads(files[Path("manifest.json")])
+        manifest["player_movement"] = movement_settings
+        manifest["player_movement_records"] = movement_report
+        manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
+        files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     from player_skills import load_settings as load_skills, build_skills
     skill_files, skill_report = build_skills(load_skills(REPO), REFERENCE)
     fail_unless(not set(skill_files) & set(files), "Player skill output collision")

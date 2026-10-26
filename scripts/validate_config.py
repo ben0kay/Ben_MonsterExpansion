@@ -67,6 +67,10 @@ def check_configs(reference_root=None, repo=REPO):
             build_player_stats(player_settings, reference_root)
             from devotion import build_shrines
             build_shrines(player_settings.get("devotion"), reference_root)
+        from player_movement import load_settings as load_movement, build_player_movement
+        movement_settings = load_movement(repo)
+        if movement_settings is not None and reference_root is not None:
+            build_player_movement(movement_settings, reference_root)
         from player_skills import load_settings as load_skills, build_skills
         if reference_root is not None:
             build_skills(load_skills(repo), reference_root)

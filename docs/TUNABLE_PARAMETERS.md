@@ -1,0 +1,38 @@
+# More tunable Grim Dawn parameters (read-only catalog)
+
+These values were inspected in the uploaded original/effective DLC DBR records.
+They are **not enabled changes** in this mod unless otherwise noted. Some
+settings need engine or in-game verification before adopting.
+
+| Parameter | Current reference | Source logical record | Potential mod use |
+| --- | --- | --- | --- |
+| Base player run speed | 0.93 | `creatures/pc/{male,female}pc01.dbr` | **Active** +15% to 1.0695, both sexes |
+| Starting life | 250 | Same player records | Higher health at start (actual total also depends on bio/progression) |
+| Starting mana/energy | 250 | Same player records | Higher energy at start |
+| Life regeneration | 1.0 | Same player records | Faster passive recovery; confirm units |
+| Mana regeneration | 1.0 | Same player records | Faster energy recovery; confirm units |
+| Offensive / defensive ability | 65 each | Same player records | Slight starting combat-stat tweaks |
+| Base attack / cast speed | 1.25 each | Same player records | Faster attacks/casting; check animation and cap interactions |
+| Visible character model scale | 1.05 | Same player records | Cosmetic player sizing; reach/collision not verified |
+| Player movement speed cap | 135 | `game/gameengine.dbr` | Allow higher movement-speed bonuses from items/skills |
+| Attack / cast speed caps | 200 / 200 | `game/gameengine.dbr` | Allow more speed from gear/skills (balance risk) |
+| Camera distance | min 20, default 36, max 48 | `game/gameengine.dbr` | Zoom farther out; verify camera/visibility in game |
+| Camera pitch | min 38, default 46, max 52 | `game/gameengine.dbr` | Change camera angle |
+| Potion stack limit | 100 | `game/gameengine.dbr` | Stack more potions |
+| Health increase per level | 20 | `creatures/pc/playerlevels.dbr` | More health from leveling |
+| Energy increase per level | 16 | `creatures/pc/playerlevels.dbr` | More energy from leveling |
+| Skill-point awards per level | `skillModifierPoints` rank array | `creatures/pc/playerlevels.dbr` | Tweak per-level skill-point distribution |
+| Experience curve | `experienceLevelEquation` formula | `creatures/pc/playerlevels.dbr` | Faster/slower leveling (not a constant multiplier) |
+| Devotion point cap | source 55 → mod 85 | `creatures/pc/playerlevels.dbr` | **Already active**, together with 2 points/shrine |
+| Attribute points per level | source 1 → mod 2 | `creatures/pc/playerlevels.dbr` | **Already active** |
+| Attribute gain per spent point | source +8 → mod +6 | `creatures/pc/playerlevels.dbr` | **Already active** |
+
+All logical paths above are relative to `records/`. Player character references
+are found in `ReferenceFiles/gdx2/database/records/` in the uploaded data.
+The base `gameengine.dbr` is in `ReferenceFiles/game/`. Always use
+GDX2 > GDX1 > base resolution before generating a new override.
+
+Avoid editing reference files, guessing undocumented fields, or changing
+the engine-wide `gameengine.dbr` as part of an unrelated speed tweak.
+Changing the camera, speed caps, or XP formulas deserves separate config
+and tests. This document only lists *possible* future tweaks.

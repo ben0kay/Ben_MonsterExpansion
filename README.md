@@ -3,6 +3,17 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
+## Player movement: +15% base run speed
+
+Added config-driven player movement overrides for both male and female characters.
+Their effective DLC base `characterRunSpeed` changes from `0.930000` to
+`1.069500` (+15%). `config/player_movement.json` independently enables,
+tunes or rolls back this modification; vanilla player speed caps, skills and
+other character fields are unchanged. It uses the same validated
+DLC-aware generation/staging pipeline. See [movement tuning and test steps](docs/PLAYER_MOVEMENT.md)
+and [other verified tweakable parameters](docs/TUNABLE_PARAMETERS.md).
+This is committed configuration/code, **not yet built or game-tested**.
+
 ## Occultist / Arcanist playthrough pass 1
 
 Player skill overrides are now included in the shared generation/staging pipeline.
@@ -19,9 +30,9 @@ attribute and pack settings are retained. Devotion is enabled at 2 points per sh
 
 **Active content:** **148 Veterans + 124 Elites + 137 Ascended**, with **377
 merged pool overrides**, 1.5x regular pack size and player attributes at 2 points
-per level / +6 per spent point. Full generation, including the skill pass above, emits **2,973 DBRs + 1 English
+per level / +6 per spent point. Full generation, including the skill pass above, emits **2,975 DBRs + 1 English
 text source**, plus its manifest. Asset Manager builds and game verification are
-manual. **77 Python tests pass**, including real shrine preservation, progression,
+manual. **77 Python tests passed at the previous checkpoint (new movement tests still need rerunning)**, including real shrine preservation, progression,
 monster/pool regressions and the current player-skill checks. Combined generation
 and staging preflight pass. New Devotion, skill, Elite and Ascended runtime behavior
 still requires game verification.
@@ -37,7 +48,7 @@ Blank/decorative and zero-reward quest shrines remain unchanged.
 
 The cap composes with the existing 2-point/+6 attribute changes in the same
 `playerlevels.dbr`. Other progression and existing monster/support/pool/global
-pack records remain unchanged. The combined build emits **2,973 DBRs + 1 text
+pack records remain unchanged. The combined build emits **2,975 DBRs + 1 text
 source**, plus its manifest. New shrine rewards require build/install and apply
 to subsequently restored shrines; no retroactive reward mechanism is implemented.
 
@@ -263,9 +274,9 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **2,973 DBRs + 1 text source**: 409 monster variants with supporting records,
+Expect **2,975 DBRs + 1 text source**: 409 monster variants with supporting records,
 377 merged pools, 60 shrine overrides, 80 player-skill overrides, the global pack
-equation and player progression. **New name-label step:** build the Text_EN source asset and install the
+equation, player progression and 2 character run-speed overrides. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
 reference tree into the mod. See [current build/test and rollback guide](docs/DATA_DRIVEN_FAMILIES.md)
@@ -395,9 +406,9 @@ representative in-game checks remain necessary for visuals and engine behavior.
 
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
-Python suite has **77 passing tests**. The original Veteran Boar's six-record
+Python suite has **77 previously passing tests (movement tests not yet rerun)**. The original Veteran Boar's six-record
 regression is byte-identical. 409 variants and 377 merged pool overrides generate
-2,973 DBRs plus one English text source, including 60 shrine and 80 player-skill overrides.
+2,975 DBRs plus one English text source, including 60 shrine, 80 player-skill and 2 player movement overrides.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks
