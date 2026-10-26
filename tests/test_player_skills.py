@@ -113,6 +113,34 @@ class PlayerSkillTests(unittest.TestCase):
                     for old, new in zip(source, output):
                         self.assertAlmostEqual(new, old * factor, places=5)
 
+    def test_panetti_main_missile_fragment_counts_by_rank(self):
+        missile = self.record("playerclass05/arcanemissile.dbr")
+        minimum = list(map(int, missile.get("projectileFragmentsLaunchNumberMin").split(";")))
+        maximum = list(map(int, missile.get("projectileFragmentsLaunchNumberMax").split(";")))
+        self.assertEqual(minimum, [5] * 26)
+        self.assertEqual(maximum, [5] * 3 + [6] * 8 + [7] * 15)
+        self.assertTrue(all(low <= high for low, high in zip(minimum, maximum)))
+        self.assertEqual(missile.get("skillProjectileNumber"), "1")
+
+        # These counts belong to the base missile, not Proliferation's
+        # separate Aether fragmentation modifier.
+        modifier_name = "records/skills/playerclass05/arcanemissile4.dbr"
+        original = DBR.from_file(resolve(modifier_name, gen.REFERENCE))
+        modifier = self.record("playerclass05/arcanemissile4.dbr")
+        for field in ("projectileFragmentsLaunchNumberMin",
+                      "projectileFragmentsLaunchNumberMax"):
+            self.assertEqual(modifier.get(field), original.get(field))
+
+    def test_panetti_missile_fragment_rollback_restores_vanilla(self):
+        settings = copy.deepcopy(self.settings)
+        name = "records/skills/playerclass05/arcanemissile.dbr"
+        entry = next(x for x in settings["records"] if x["record"] == name)
+        entry["enabled"] = False
+        files, report = build_skills(settings, gen.REFERENCE)
+        self.assertEqual(files[Path("database") / name],
+                         DBR.from_file(resolve(name, gen.REFERENCE)).render())
+        self.assertFalse(next(x["changed"] for x in report if x["record"] == name))
+
     def test_arcanist_offensive_coverage_and_cooldown_are_bounded(self):
         for name, field, base_first, base_last, factor in (
             ("skyshard1", "projectileExplosionRadius", 1.4, 3.3, 1.10),
