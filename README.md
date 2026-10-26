@@ -3,6 +3,20 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
+## Windows pool-preservation test fix
+
+Elite/Ascended regression checks now normalize paths with `as_posix()` before
+matching pool directories and logical record names. Previously, Windows backslashes
+made intentionally edited pools enter the byte-identical non-pool comparison,
+causing a false failure in `test_previous_variants_settings_and_unrelated_fields_preserved`
+and the corresponding Elite check. A regression test runs both checks with
+`PureWindowsPath` keys even on Linux. Gameplay output is unchanged by this fix.
+
+Validation on October 26: config validation passed; all 93 existing Python tests
+passed, plus both new Windows-path regression tests (95 checks total). This
+includes current skills, Devotion, player movement/basics and combined staging.
+Windows Asset Manager compilation and in-game verification remain manual.
+
 ## Player movement: +15% base run speed
 
 Added config-driven player movement overrides for both male and female characters.

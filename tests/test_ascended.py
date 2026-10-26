@@ -55,9 +55,9 @@ class AscendedTests(unittest.TestCase):
         asc_pools = {p['record']: p for p in self.family['pools']}
         for path, text in old.items():
             if path.name == 'manifest.json': continue
-            if '/proxies/pools' not in str(path):
+            if '/proxies/pools' not in path.as_posix():
                 self.assertEqual(self.files[path], text, str(path)); continue
-            record = str(path).removeprefix('database/')
+            record = path.as_posix().removeprefix('database/')
             output = DBR(self.files[path])
             # Previously unmapped Hero source weights may split; all other old fields stay equal.
             promotions = {p['source_slot']: p['output_slot'] for p in asc_pools.get(record, {}).get('promotions', [])}

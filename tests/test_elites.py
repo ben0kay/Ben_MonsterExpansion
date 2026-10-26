@@ -74,7 +74,7 @@ class EliteTests(unittest.TestCase):
         for path, text in old.items():
             if path.name == 'manifest.json':
                 continue
-            if '/proxies/' not in str(path):
+            if '/proxies/' not in path.as_posix():
                 self.assertEqual(self.files[path], text, str(path))
             else:
                 now = DBR(self.files[path])
