@@ -70,6 +70,9 @@ Trozan's Sky Shard and modifiers, Callidor's Tempest and Inferno, and Olexra's
 Flash Freeze and Absolute Zero. Most selected damage fields increase by 8–10%;
 area/radius fields by 8–10% while preserving all native rank scaling; Trozan's
 cooldown is 3 -> 2.85 sec. Existing Arcanist pass 1 skills are unchanged.
+Panetti's main missile now generates 5 child fragments at ranks 1–3,
+5–6 at ranks 4–11 and 5–7 at ranks 12–26; Proliferation's additional
+Aether fragments remain unchanged.
 See [full list of exact fields](docs/PLAYER_SKILLS.md). GitHub data changes
 still require local tests, staging, Asset Manager F7 and in-game verification.
 
