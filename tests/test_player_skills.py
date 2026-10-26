@@ -46,6 +46,38 @@ class PlayerSkillTests(unittest.TestCase):
         self.assertLessEqual(max(map(float, mirror.get("damageAbsorptionPercent").split(";"))),20)
         self.assertEqual(self.record("playerclass03/bloodofdreeg1_buff.dbr").get("skillLifePercent"), "0")
 
+    def test_sigil_of_consumption_scales_every_radius_rank_and_only_timing(self):
+        name = "records/skills/playerclass03/sigilofdestruction1.dbr"
+        source = DBR.from_file(resolve(name, gen.REFERENCE))
+        result = self.record("playerclass03/sigilofdestruction1.dbr")
+        old_radii = list(map(float, source.get("projectileExplosionRadius").split(";")))
+        new_radii = list(map(float, result.get("projectileExplosionRadius").split(";")))
+        self.assertEqual(len(old_radii), 22)
+        self.assertEqual(len(new_radii), len(old_radii))
+        for old, new in zip(old_radii, new_radii):
+            self.assertAlmostEqual(new, old * 1.15, places=5)
+        self.assertEqual(result.get("skillActiveDuration"), "7.200000")
+        self.assertEqual(result.get("skillCooldownTime"), "2.700000")
+        # The only differences are radius, duration and cooldown.
+        expected = DBR.from_file(resolve(name, gen.REFERENCE))
+        expected.set("projectileExplosionRadius", result.get("projectileExplosionRadius"))
+        expected.set("skillActiveDuration", "7.200000")
+        expected.set("skillCooldownTime", "2.700000")
+        self.assertEqual(result.render(), expected.render())
+        self.assertEqual(result.get("skillManaCost"), source.get("skillManaCost"))
+        self.assertEqual(result.get("offensiveLifeLeechMin"), source.get("offensiveLifeLeechMin"))
+
+    def test_sigil_independent_rollback_restores_original(self):
+        settings = copy.deepcopy(self.settings)
+        entry = next(item for item in settings["records"]
+                     if item["record"] == "records/skills/playerclass03/sigilofdestruction1.dbr")
+        entry["enabled"] = False
+        files, report = build_skills(settings, gen.REFERENCE)
+        record_path = Path("database") / entry["record"]
+        self.assertEqual(files[record_path],
+                         DBR.from_file(resolve(entry["record"], gen.REFERENCE)).render())
+        self.assertFalse(next(item["changed"] for item in report if item["record"] == entry["record"]))
+
     def test_disable_restores_exact_sources(self):
         settings = copy.deepcopy(self.settings)
         settings["enabled"] = False

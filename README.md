@@ -31,9 +31,12 @@ Asset Manager build and in-game testing remain manual.
 
 Player skill overrides are now included in the shared generation/staging pipeline.
 All uploaded mastery exclusives become stackable. Aether Ray, Devastation, Doom
-Bolt, Maiven's Sphere and Occultist pets receive configurable rank progression
+Bolt, Maiven's Sphere, Sigil of Consumption and Occultist pets receive configurable rank progression
 buffs. Familiar/Hellhound limits rise to two each at rank 8. Blood of Dreeg and
 Mirror become sustained toggles, with Mirror's protection reduced accordingly.
+Sigil of Consumption now has +15% radius across all 22 existing ranks,
++20% duration (7.2 sec) and -10% cooldown (2.7 sec), without damage or cost
+changes. This preserves its original progression rather than replacing it.
 Settings: `config/player_skills.json`; see [exact values, tuning and
 playthrough checks](docs/PLAYER_SKILLS.md). This is a data-validated first pass;
 Asset Manager compilation and game testing remain manual. Existing monster-tier,
@@ -43,7 +46,7 @@ attribute and pack settings are retained. Devotion is enabled at 2 points per sh
 
 **Active content:** **148 Veterans + 124 Elites + 137 Ascended**, with **377
 merged pool overrides**, 1.5x regular pack size and player attributes at 2 points
-per level / +6 per spent point. Full generation, including the skill pass above, emits **2,976 DBRs + 1 English
+per level / +6 per spent point. Full generation, including the skill pass above, emits **2,977 DBRs + 1 English
 text source**, plus its manifest. Asset Manager builds and game verification are
 manual. **77 Python tests passed at the previous checkpoint (new movement/basics tests still need rerunning)**, including real shrine preservation, progression,
 monster/pool regressions and the current player-skill checks. Combined generation
@@ -61,7 +64,7 @@ Blank/decorative and zero-reward quest shrines remain unchanged.
 
 The cap composes with the existing 2-point/+6 attribute changes in the same
 `playerlevels.dbr`. Other progression and existing monster/support/pool/global
-pack records remain unchanged. The combined build emits **2,976 DBRs + 1 text
+pack records remain unchanged. The combined build emits **2,977 DBRs + 1 text
 source**, plus its manifest. New shrine rewards require build/install and apply
 to subsequently restored shrines; no retroactive reward mechanism is implemented.
 
@@ -287,8 +290,8 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **2,976 DBRs + 1 text source**: 409 monster variants with supporting records,
-377 merged pools, 60 shrine overrides, 80 player-skill overrides, the global pack
+Expect **2,977 DBRs + 1 text source**: 409 monster variants with supporting records,
+377 merged pools, 60 shrine overrides, 81 player-skill overrides, the global pack
 equation, player progression, two composed player-character overrides and one game-engine override. **New name-label step:** build the Text_EN source asset and install the
 mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
 `.arz` into the installed mod, and restart the Custom Game. Do not compile the
@@ -421,7 +424,7 @@ The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
 Python suite has **77 previously passing tests (movement/basics tests not yet rerun)**. The original Veteran Boar's six-record
 regression is byte-identical. 409 variants and 377 merged pool overrides generate
-2,976 DBRs plus one English text source, including 60 shrine, 80 player-skill, 2 composed player-character and 1 game-engine overrides.
+2,977 DBRs plus one English text source, including 60 shrine, 81 player-skill, 2 composed player-character and 1 game-engine overrides.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
 glow and original Aether Corruption subtitle. Continue movement/death/combat checks

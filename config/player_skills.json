@@ -172,6 +172,18 @@
       }
     },
     {
+      "record": "records/skills/playerclass03/sigilofdestruction1.dbr",
+      "set": {
+        "skillActiveDuration": "7.200000",
+        "skillCooldownTime": "2.700000"
+      },
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
       "record": "records/skills/playerclass05/sphereofprotection1.dbr",
       "set": {},
       "curves": {

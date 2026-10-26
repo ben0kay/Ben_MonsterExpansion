@@ -19,6 +19,13 @@ Never edit ReferenceFiles. No engine build or in-game verification is claimed.
 - Devastation: duration 5 -> 8 seconds, target radius 6.5 -> 8,
   explosion radius 2.8 -> 3.5, projectiles per launch 2 -> 3.
   More projectiles help compensate for the larger area; profile in crowded fights.
+- Sigil of Consumption: each original rank-specific projectileExplosionRadius
+  value is multiplied by 1.15 (rank 1: 3.5 -> 4.025; rank 8: 4.4 -> 5.06;
+  rank 22: 5.5 -> 6.325). The entire 22-rank progression is preserved.
+  Duration 6 -> 7.2 seconds (+20%) and cooldown 3 -> 2.7 seconds (-10%).
+  Damage, life-steal, energy cost, targeting and all other DBR fields remain
+  unchanged. A 15% radius boost corresponds to ~32% greater circle area;
+  this follows the requested radius-based scaling rather than area-only scaling.
 - Doom Bolt: radius 3.5 -> 4.5; recharge 4 seconds minus 0.04 per
   additional rank (3.16 seconds at rank 22).
 - Maiven's Sphere: original absorption plus 1 + 0.15 * (rank - 1)
@@ -80,9 +87,9 @@ Check:
 Report skill name, allocated/effective rank, equipment modifiers and what feels
 weak/strong. Those details let us adjust the shared config during the playthrough.
 
-Generation emits 2,973 DBRs plus one English text source (80 skill overrides).
+Current full generation expects 2,977 DBRs plus one English text source (81 skill overrides, including the new Sigil record). The Windows build and in-game performance are not yet verified.
 
-Validation: 76 tests checked. The full run passed 73 and exposed three stale
+Historical validation (prior to the movement/basics/Sigil passes): 76 tests checked. The full run passed 73 and exposed three stale
 file-count expectations after the shrine-reference upload; all three passed on
 rerun after correcting those expectations. Config validation and combined
 generation pass. Staging idempotence, edit protection and manifest preflight
