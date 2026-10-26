@@ -91,7 +91,7 @@ attribute and pack settings are retained. Devotion is enabled at 2 points per sh
 ## Handoff checkpoint — October 25, 2026
 
 **Active content:** **148 Veterans + 124 Elites + 137 Ascended**, with **377
-merged pool overrides**, 1.5x regular pack size and player attributes at 2 points
+merged pool overrides**, 2.0x regular pack size and player attributes at 2 points
 per level / +6 per spent point. Full generation, including the skill pass above, emits **3,011 DBRs + 1 English
 text source**, plus its manifest. Asset Manager builds and game verification are
 manual. **77 Python tests passed at the previous checkpoint (new movement/basics tests still need rerunning)**, including real shrine preservation, progression,
@@ -187,7 +187,7 @@ names remain future work. The overhead star marks vanilla Heroes; no custom mark
 | Work | State / config | GitHub commit |
 | --- | --- | --- |
 | Initial broad Veteran activation | 96 additional sources / 431 selections / 200 pools; shared 20% conversion | `6070aa2c` |
-| Larger regular packs | `config/master.json`, multiplier `1.5`; shared Champion equations unchanged | `dc7b63ce` |
+| Larger regular packs (initial rollout) | `config/master.json`, originally `1.5` (now `2.0`); shared Champion equations unchanged | `dc7b63ce` |
 | DLC-aware tools | GDX2 > GDX1 > base for scanner, validator, generator and shared equation | `26ff3d2b` |
 | Player attributes | `config/player_stats.json`: 2 points per level, 6 per spent point | `5f613028` |
 
@@ -200,7 +200,7 @@ every new variant, rarity, map placement or current pack multiplier.
 The user rebuilt and reported `.arz` increasing from about 1,374 KB to 1,375 KB
 after DLC/attribute work. This is plausible because DLC references are build inputs,
 not bundled into the mod, and the rescan did not activate more enemies. Archive
-size alone is not validation. The 2-point/+6 change and 1.5x packs still need explicit
+size alone is not validation. The 2-point/+6 change and 2.0x packs still need explicit
 in-game confirmation; no successful level-up test has been reported yet.
 
 ### Next work
@@ -308,7 +308,7 @@ for rollback; removing the config does not remove a previously compiled override
 
 ## Global pack size
 
-`config/master.json` now enables **1.5x regular pack size** through
+`config/master.json` now enables **2.0x regular pack size** through
 `monster_spawning.pack_size_multiplier`. Set `1.0` for vanilla size, `2.0` for
 2x, or `enabled=false` to emit the exact vanilla equation for rollback.
 Settings require generate/stage **with `--include-spawns`**, F7 and reinstalling
