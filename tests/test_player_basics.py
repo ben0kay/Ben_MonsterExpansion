@@ -29,11 +29,11 @@ class PlayerBasicsTests(unittest.TestCase):
                            .replace("characterMana,250.000000,", "characterMana,300.000000,"))
             self.assertEqual(files[Path("database") / name], expected)
         engine = resolve(ENGINE_RECORD, gen.REFERENCE).read_text(encoding="utf-8")
-        expected_engine = (engine.replace("playerRunSpeedCapMax,135.000000,", "playerRunSpeedCapMax,145.000000,")
-                               .replace("CameraDistanceDefault,36.000000,", "CameraDistanceDefault,39.000000,"))
+        expected_engine = engine.replace("playerRunSpeedCapMax,135.000000,", "playerRunSpeedCapMax,145.000000,")
         self.assertEqual(files[ENGINE_OUTPUT], expected_engine)
         self.assertEqual(report["engine"]["camera_min"], "20.000000")
         self.assertEqual(report["engine"]["camera_max"], "48.000000")
+        self.assertEqual(report["engine"]["camera_default"], "36.000000")
 
     def test_independent_disables_restore_original_fields(self):
         settings = copy.deepcopy(self.settings)
@@ -68,6 +68,10 @@ class PlayerBasicsTests(unittest.TestCase):
         manifest = json.loads(files[Path("manifest.json")])
         self.assertIn(ENGINE_OUTPUT.as_posix(), manifest["files"])
         self.assertEqual(manifest["player_basics"]["movement_speed_cap"]["max_percent"], 145)
+        self.assertEqual(manifest["player_basics"]["camera"]["default_distance"], 36)
+        engine_record = DBR(files[ENGINE_OUTPUT])
+        self.assertEqual(engine_record.get("CameraDistanceDefault"), "36.000000")
+        self.assertEqual(engine_record.get("CameraDistanceMax"), "48.000000")
         for name in PLAYER_RECORDS:
             record = DBR(files[Path("database") / name])
             self.assertEqual(record.get("characterRunSpeed"), "1.069500")

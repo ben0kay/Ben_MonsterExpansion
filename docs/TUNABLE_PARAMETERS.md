@@ -16,7 +16,7 @@ settings need engine or in-game verification before adopting.
 | Visible character model scale | 1.05 | Same player records | Cosmetic player sizing; reach/collision not verified |
 | Player movement speed cap | 135 → **145 active** | `game/gameengine.dbr` | Allows higher movement-speed bonuses |
 | Attack / cast speed caps | 200 / 200 | `game/gameengine.dbr` | Allow more speed from gear/skills (balance risk) |
-| Camera distance | min 20, default **36 → 39 active**, max 48 | `game/gameengine.dbr` | Default/reset view; in-game zoom still adjustable |
+| Camera distance | min 20, default **36**, max **48** | `game/gameengine.dbr` | Default restored; in-game zoom remains adjustable |
 | Camera pitch | min 38, default 46, max 52 | `game/gameengine.dbr` | Change camera angle |
 | Potion stack limit | 100 | `game/gameengine.dbr` | Stack more potions |
 | Health increase per level | 20 | `creatures/pc/playerlevels.dbr` | More health from leveling |

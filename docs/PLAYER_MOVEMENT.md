@@ -40,7 +40,7 @@ Set `enabled: false` to generate the exact vanilla DLC records for **both**
 sexes (rollback). Do not simply remove this config to roll back because a
 previously compiled mod might still retain the old player overrides.
 
-Camera default distance is also configured to 39 while preserving zoom 20–48.
+Camera default distance is 36; zoom limits remain 20–48 (maximum 48).
 See [player basics](PLAYER_BASICS.md) and [tunable parameters](TUNABLE_PARAMETERS.md).
 
 ## Build and verify

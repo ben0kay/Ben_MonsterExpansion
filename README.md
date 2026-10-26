@@ -20,8 +20,8 @@ New reversible `config/player_basics.json` settings compose with the earlier +15
 base movement-speed change:
 - **Starting base health and energy: 250 → 300** for male and female players.
 - **Player movement-speed cap: 135% → 145%**, leaving the absolute engine cap unchanged.
-- **Default camera distance: 36 → 39**. Mouse-wheel zoom still works; the
-  minimum (20) and maximum (48) zoom distances are unchanged.
+- **Camera default distance 36; maximum zoom-out 48**. The earlier default 39
+  was reverted. Mouse-wheel zoom still works within the existing 20–48 limits.
 
 These add only one new game-engine DBR output; both player records remain single,
 merged overrides. See [player basics and build/rollback](docs/PLAYER_BASICS.md).

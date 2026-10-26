@@ -4,7 +4,7 @@
 `config/player_basics.json` exposes independently enabled settings for:
 - Starting base health and energy: **250 → 300** each, in male and female player DBRs.
 - Maximum player movement-speed bonus: **135% → 145%**, in `gameengine.dbr`.
-- Default camera distance: **36 → 39**, in `gameengine.dbr`.
+- Default camera distance **36**, with maximum zoom-out **48** (both original values).
 
 The earlier **+15% base run speed** setting is preserved. Both player modifications
 are composed into the same two character records, avoiding conflicting DBR outputs.
@@ -13,8 +13,8 @@ These are base life/energy fields; displayed totals may include progression and 
 ## Camera behaviour
 The camera can still be zoomed manually in-game using the mouse wheel, with
 the usual Num 1 (maximum in), Num 3 (maximum out) and Num 2 (default view)
-key bindings. This mod changes only the default camera distance to 39:
-the original zoom limits `CameraDistanceMin=20` and
+key bindings. The default camera distance is now **36** (restored after a
+brief 39 setting). The zoom limits `CameraDistanceMin=20` and
 `CameraDistanceMax=48` remain unchanged. A saved camera position could
 override the default until the view is reset, so confirm it in-game.
 
