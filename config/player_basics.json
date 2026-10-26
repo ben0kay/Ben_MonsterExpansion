@@ -11,6 +11,6 @@
   },
   "camera": {
     "enabled": true,
-    "default_distance": 39
+    "default_distance": 36
   }
 }
