@@ -105,6 +105,66 @@ per-record `enabled` flags still support exact vanilla rollback.
 Sphere, Mirror, Reckless Power, Star Pact, Nullification or Arcanist's mastery bar.
 This is still a build-time data pass; in-game behaviour and UI values need testing.
 
+## Occultist pass 3 — modest offensive and passive upgrades
+
+This balances 16 newly managed Occultist records and extends the existing
+Possession override without reversing its non-exclusive flag. All numeric
+multipliers apply to each original rank's own value, including overcap ranks,
+not a fixed bonus taken from rank 1. Values are build-time, and need in-game
+verification.
+
+### Offense / debuffs
+- Curse of Frailty (`curse1_buff`): +10% original per-rank radius and
+  +10% original per-rank duration. Rank 1 radius 3 -> 3.3; rank 16
+  11.8 -> 12.98; rank 1 duration 5 -> 5.5 seconds. Slow/other debuffs unchanged.
+- Vulnerability (`curse2`): +5% relative to original negative
+  Chaos, Elemental, Vitality and Poison/Acid resistance values. For example,
+  -21 becomes -22.05 at rank 8, preserving the native 20-rank curve.
+  Defensive Ability reduction is unchanged. Percent displays may round.
+- Bloody Pox (`pox1_buff`): infection duration 5 -> 5.5 seconds,
+  and +8% native flat Vitality and Bleeding damage at every rank.
+- Wasting (`pox2`): +8% flat Vitality damage; enemy OA penalty unchanged.
+- Black Death (`pox3`): +10% native Poison DoT field;
+  confusion chance and duration unchanged.
+- Dreeg's Evil Eye (`evileye1`): +10% original poison/acid damage
+  fields and base projectile explosion radius 0.5 -> 0.55.
+- Focused Gaze (`evileye1b`): 4 -> 3.8 second cooldown (-5%);
+  damage multiplier, projectile FX and mana cost untouched.
+- Blood Burst (`evileye2`): +10% original per-rank explosion radius.
+  Rank 1 0.5 -> 0.55; rank 22 3 -> 3.3.
+- Terrifying Gaze (`evileye3`): +8% flat Vitality damage; poison
+  modifiers, stun, confusion and critical damage left unchanged.
+- Vile Eruption (`evileye4`): **only max fragment count** +1 from
+  rank 12 onward, based on the native integer curve (e.g. rank 12 max
+  7 -> 8, rank 22 max 8 -> 9). Ranks 1-11, minimum fragments,
+  projectiles and explosion radius are untouched.
+- Destruction (`sigilofdestruction2`): +8% original flat Chaos/Fire
+  damage values per rank, while retaining the previously updated main Sigil
+  (7.2s, 2.7s cooldown, +15% per-rank radius).
+
+### Passives / buffs
+- Solael's Witchfire (`witchfire1`): +5% to its native attack-speed
+  bonus curve, +8% to flat Chaos damage. Flat Defensive Ability unchanged.
+- Second Rite (`witchfire2`): +8% to the Chaos damage bonus and
+  +5% to the critical damage bonus. Vitality resistance unchanged.
+- Aspect of the Guardian (`bloodofdreeg2`): +5% to the original
+  physical resistance curve. Poison resistance and Blood of Dreeg's
+  earlier sustained toggle stay unchanged.
+- Possession (`possession1`): +8% relative Chaos/Vitality damage
+  bonus and Vitality damage-over-time bonus curves. Non-exclusive
+  `exclusiveSkill=0` remains. Chaos resistance unchanged.
+- Bonds of Bysmiel (`bondsofbysmiel1_petbonus`): +8% *relative*
+  to the original pet-health bonus curve, not +8 percentage points.
+- Manipulation (`bondsofbysmiel2_petbonus`): +5% relative native
+  pet total-damage and total-speed bonuses; no pet counts changed.
+
+Not part of this pass: Occultist mastery-bar attributes, Familiar/Hellhound
+Mend Flesh, Storm Spirit, Hellfire or Lightning Strike pet abilities.
+Existing Doom Bolt, Summon Familiar, Summon Hellhound and Blood of Dreeg
+main-buff rules remain untouched. For each new record, setting
+`enabled: false` restores the exact effective original DBR after regeneration;
+Possession is still a single record with its prior exclusivity override.
+
 ## Tuning and rollback
 
 Each record has set (literal DBR values) and curves (numeric rank transforms).
@@ -138,7 +198,7 @@ Check:
 Report skill name, allocated/effective rank, equipment modifiers and what feels
 weak/strong. Those details let us adjust the shared config during the playthrough.
 
-Current full generation expects 2,995 DBRs plus one English text source (99 skill overrides, including the new Sigil record). The Windows build and in-game performance are not yet verified.
+Current full generation expects 3,011 DBRs plus one English text source (115 skill overrides, including the new Sigil record). The Windows build and in-game performance are not yet verified.
 
 Historical validation (prior to the movement/basics/Sigil passes): 76 tests checked. The full run passed 73 and exposed three stale
 file-count expectations after the shrine-reference upload; all three passed on

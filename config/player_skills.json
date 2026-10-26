@@ -21,7 +21,17 @@
       "set": {
         "exclusiveSkill": "0"
       },
-      "curves": {}
+      "curves": {
+        "offensiveChaosModifier": {
+          "multiplier": 1.08
+        },
+        "offensiveLifeModifier": {
+          "multiplier": 1.08
+        },
+        "offensiveSlowLifeModifier": {
+          "multiplier": 1.08
+        }
+      }
     },
     {
       "record": "records/skills/playerclass05/mindovermatter1.dbr",
@@ -1034,6 +1044,182 @@
       "curves": {
         "offensiveSlowColdMin": {
           "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/curse1_buff.dbr",
+      "set": {},
+      "curves": {
+        "skillTargetRadius": {
+          "multiplier": 1.1
+        },
+        "skillActiveDuration": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/curse2.dbr",
+      "set": {},
+      "curves": {
+        "defensiveChaos": {
+          "multiplier": 1.05
+        },
+        "defensiveElementalResistance": {
+          "multiplier": 1.05
+        },
+        "defensiveLife": {
+          "multiplier": 1.05
+        },
+        "defensivePoison": {
+          "multiplier": 1.05
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pox1_buff.dbr",
+      "set": {},
+      "curves": {
+        "offensiveLifeMin": {
+          "multiplier": 1.08
+        },
+        "offensiveSlowBleedingMin": {
+          "multiplier": 1.08
+        },
+        "skillActiveDuration": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pox2.dbr",
+      "set": {},
+      "curves": {
+        "offensiveLifeMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/pox3.dbr",
+      "set": {},
+      "curves": {
+        "offensiveSlowPoisonMin": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/evileye1.dbr",
+      "set": {},
+      "curves": {
+        "offensivePoisonMin": {
+          "multiplier": 1.1
+        },
+        "offensiveSlowPoisonMin": {
+          "multiplier": 1.1
+        },
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/evileye1b.dbr",
+      "set": {
+        "skillCooldownTime": "3.800000"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass03/evileye2.dbr",
+      "set": {},
+      "curves": {
+        "explosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/evileye3.dbr",
+      "set": {},
+      "curves": {
+        "offensiveLifeMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/evileye4.dbr",
+      "set": {
+        "projectileFragmentsLaunchNumberMax": "4;4;4;4;5;5;5;5;6;6;6;8;8;8;8;8;8;9;9;9;9;9"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass03/sigilofdestruction2.dbr",
+      "set": {},
+      "curves": {
+        "offensiveChaosMin": {
+          "multiplier": 1.08
+        },
+        "offensiveFireMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/witchfire1.dbr",
+      "set": {},
+      "curves": {
+        "characterAttackSpeedModifier": {
+          "multiplier": 1.05
+        },
+        "offensiveChaosMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/witchfire2.dbr",
+      "set": {},
+      "curves": {
+        "offensiveChaosModifier": {
+          "multiplier": 1.08
+        },
+        "offensiveCritDamageModifier": {
+          "multiplier": 1.05
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/bloodofdreeg2.dbr",
+      "set": {},
+      "curves": {
+        "defensivePhysical": {
+          "multiplier": 1.05
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/bondsofbysmiel1_petbonus.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass03/bondsofbysmiel2_petbonus.dbr",
+      "set": {},
+      "curves": {
+        "offensiveTotalDamageModifier": {
+          "multiplier": 1.05
+        },
+        "characterTotalSpeedModifier": {
+          "multiplier": 1.05
         }
       }
     }

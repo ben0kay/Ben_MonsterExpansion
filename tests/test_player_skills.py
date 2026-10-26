@@ -143,6 +143,77 @@ class PlayerSkillTests(unittest.TestCase):
                              DBR.from_file(resolve(name, gen.REFERENCE)).render())
             self.assertFalse(next(x["changed"] for x in report if x["record"] == name))
 
+
+    def test_occultist_offensive_passive_pass_has_exact_record_field_diffs(self):
+        names = {
+            "curse1_buff", "curse2", "pox1_buff", "pox2", "pox3",
+            "evileye1", "evileye1b", "evileye2", "evileye3", "evileye4",
+            "sigilofdestruction2", "witchfire1", "witchfire2",
+            "bloodofdreeg2", "bondsofbysmiel1_petbonus",
+            "bondsofbysmiel2_petbonus", "possession1",
+        }
+        entries = [entry for entry in self.settings["records"]
+                   if entry["record"].startswith("records/skills/playerclass03/")
+                   and entry["record"].rsplit("/", 1)[-1].removesuffix(".dbr") in names]
+        self.assertEqual(len(entries), 17)  # 16 new records + existing Possession
+        for entry in entries:
+            name = entry["record"]
+            source = DBR.from_file(resolve(name, gen.REFERENCE))
+            new = DBR(self.files[Path("database") / name])
+            changed = set(entry.get("set", {})) | set(entry.get("curves", {}))
+            with self.subTest(record=name):
+                expected = DBR.from_file(resolve(name, gen.REFERENCE))
+                for key in changed:
+                    expected.set(key, new.get(key))
+                self.assertEqual(new.render(), expected.render())
+                for field, rule in entry.get("curves", {}).items():
+                    original = list(map(float, source.get(field).split(";")))
+                    output = list(map(float, new.get(field).split(";")))
+                    self.assertEqual(len(output), len(original), field)
+                    self.assertGreaterEqual(rule["multiplier"], 1.05)
+                    self.assertLessEqual(rule["multiplier"], 1.10)
+                    for before, after in zip(original, output):
+                        self.assertAlmostEqual(after, before * rule["multiplier"], places=5)
+        self.assertEqual(self.record("playerclass03/possession1.dbr").get("exclusiveSkill"), "0")
+
+    def test_occultist_skill_coverage_duration_cooldowns_and_fragments(self):
+        curse = self.record("playerclass03/curse1_buff.dbr")
+        self.assertAlmostEqual(float(curse.get("skillTargetRadius").split(";")[0]), 3.3)
+        self.assertAlmostEqual(float(curse.get("skillTargetRadius").split(";")[15]), 12.98)
+        self.assertAlmostEqual(float(curse.get("skillActiveDuration").split(";")[0]), 5.5)
+        self.assertEqual(self.record("playerclass03/pox1_buff.dbr").get("skillActiveDuration"), "5.500000")
+        self.assertEqual(self.record("playerclass03/evileye1b.dbr").get("skillCooldownTime"), "3.800000")
+        self.assertEqual(self.record("playerclass03/evileye1.dbr").get("projectileExplosionRadius"), "0.550000")
+        fragments_name = "records/skills/playerclass03/evileye4.dbr"
+        original = DBR.from_file(resolve(fragments_name, gen.REFERENCE))
+        new = self.record("playerclass03/evileye4.dbr")
+        old_max = list(map(int, original.get("projectileFragmentsLaunchNumberMax").split(";")))
+        new_max = list(map(int, new.get("projectileFragmentsLaunchNumberMax").split(";")))
+        self.assertEqual(len(old_max), 22)
+        self.assertEqual(new_max[:11], old_max[:11])
+        self.assertEqual(new_max[11:], [value + 1 for value in old_max[11:]])
+        self.assertEqual(new.get("projectileFragmentsLaunchNumberMin"),
+                         original.get("projectileFragmentsLaunchNumberMin"))
+        self.assertEqual(self.record("playerclass03/sigilofdestruction1.dbr").get("skillActiveDuration"),
+                         "7.200000")  # Previous Sigil pass untouched.
+        self.assertEqual(self.record("playerclass03/bloodofdreeg1_buff.dbr").get("skillLifePercent"), "0")
+
+    def test_occultist_new_skill_individual_rollback(self):
+        settings = copy.deepcopy(self.settings)
+        chosen = {
+            "records/skills/playerclass03/curse1_buff.dbr",
+            "records/skills/playerclass03/evileye4.dbr",
+            "records/skills/playerclass03/bondsofbysmiel1_petbonus.dbr",
+        }
+        for entry in settings["records"]:
+            if entry["record"] in chosen:
+                entry["enabled"] = False
+        files, report = build_skills(settings, gen.REFERENCE)
+        for name in chosen:
+            self.assertEqual(files[Path("database") / name],
+                             DBR.from_file(resolve(name, gen.REFERENCE)).render())
+            self.assertFalse(next(item["changed"] for item in report if item["record"] == name))
+
     def test_disable_restores_exact_sources(self):
         settings = copy.deepcopy(self.settings)
         settings["enabled"] = False
