@@ -20,6 +20,15 @@ rollback to 100. Enemy/world level scaling and high-level loot are **not**
 extended by this change; level 101+ behavior needs an in-game test after F7.
 See [level-cap implementation, caveats, build and rollback](docs/PLAYER_LEVEL_CAP.md).
 
+## Future tier encounter mechanics — design notes
+
+[Codex feasibility plan: Veteran/Elite/Ascended rage, reinforcements,
+elemental retaliation and Champion/Hero spawn frequency](docs/TIER_ENCOUNTER_MECHANICS_IDEAS.md).
+This is **design-only**; no rage, summoning, counterattack or spawn-chance
+changes are activated yet. The note documents engine/DBR evidence,
+feasibility boundaries, quota/slot safeguards and short implementation
+milestones TM0–TM6. The first proposed step is a read-only compatibility audit.
+
 ## Variant XP reward bonuses
 
 Veterans, Elites and Ascended now have increased per-enemy XP inputs, aiming for
