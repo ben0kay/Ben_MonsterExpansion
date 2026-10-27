@@ -307,8 +307,7 @@ External corroboration (context, not a substitute for inspecting repo):
 - Lightweight in-game test matrix:
   1. Spawn known Vanilla Dranghoul and confirm it is unchanged.
   2. Spawn one modified Elite and confirm a single rage at ~30% HP.
-  3. Spawn one Veteran with and one without rage to verify its
-     low-HP behaviour before adding probability mechanics.
+  3. Veteran rage is shelved; no Veteran rage/probability tests for now.
   4. Spawn on-hit counterattack prototype; confirm proc/cooldown/VFX
      without excessive effects from DoTs or multi-hit attacks.
   5. Spawn reinforcements, verify enemy faction, damage, XP/loot
@@ -340,17 +339,18 @@ External corroboration (context, not a substitute for inspecting repo):
 8. **TM6:** finish enable/disable switches, short regression coverage,
    documentation and in-game verification.
 
-**Priority recommendation:** do **TM0 → TM1a → TM2** first. These are
-the most visible, most directly DBR-supported improvements. TM3
-low-health-specific summoning and the precise TM1b per-spawn chance
-should stay **explicitly experimental** until proven, and the two
-spawn-rate changes must be scoped around Ascended's existing shared
-Champion-pool quota safeguards.
+**Current priority:** regenerate/stage/build the single-Elite TM1a
+prototype and visually confirm it triggers once at 30% HP. Only then
+consider TM2 (one on-hit counterattack) or TM3 (one capped summoner)
+separately. Veteran rage and Champion/Hero spawn-rate increases are
+deferred by user choice. A wider Elite rollout still requires a
+compatibility census and bounded pool/skill-slot checks.
 
 ## Note for Codex
 
-This is a **design backlog**, not authorization to implement every
-milestone at once. Before editing, explain the selected milestone,
+TM1a is **implemented only for the identified Elite boar**.
+The remainder is a **design backlog**, not authorization to implement
+every milestone at once. Before editing, explain the selected milestone,
 current repo state, affected records, which mechanics are confirmed
 versus hypothetical, and minimal test plan. Use `dev` only, push
 there, and leave `main` intact.
