@@ -14,6 +14,23 @@ covered. Toggle per tier with `prototype.experience_reward.enabled` in
 unchanged. Regenerate/stage and rebuild to activate; game XP checks remain pending.
 See [XP implementation and rollback](docs/ENEMY_XP.md).
 
+## +20% summoned-pet HP — Occultist and skeletons
+
+The Familiar and Hellhound now gain **20% more HP relative to their previously
+modded intrinsic health scaling** across all 26 summon ranks each. Their
+actor-level health modifiers change from +10% at rank 1 / +60% at rank 26
+to +32% / +92%, preserving native rank progression.
+
+Skeletons summoned through the added Nightblade Raise Skeletons line now also
+gain **20% more intrinsic HP**, using a single rank-preserving override of the
+shared Necromancer skeleton base-scaling passive. This affects **Necromancer's
+original skeleton summons as well**, because they use the same pet skill.
+Blade Spirits are invulnerable, so they do not need an HP boost. No other
+game-wide or equipment-granted pet families are modified.
+
+See [pet HP method, scope and rollback](docs/PLAYER_SKILLS.md). These are
+committed changes on `dev`, not yet compiled or verified in-game.
+
 ## Nightblade rank-preserving balance pass
 
 For the Nightblade + Occultist playthrough, 18 existing Nightblade skill/pet
@@ -44,7 +61,8 @@ bottom row while preserving horizontal positions, ordering and branch offsets.
 Starting summon burst and base cap are now **4**. Undead Legion adds its native
 **+1 to +7** capacity: total cap **5 at rank 1**, **9 at rank 12**, **11 at
 rank 22**. Its cooldown/cost reductions and Will of the Crypt's pet bonuses
-retain native curves. Existing Necromancer skills and pets are unchanged.
+retain native curves. Original Necromancer summon skills and caps are unchanged; a separate shared
+pet-base-scaling override now also grants their skeletons +20% intrinsic HP.
 
 Configure in `config/nightblade_skeletons.json`. Disabling the feature and
 regenerating, replacement-staging and rebuilding restores the original tree,
