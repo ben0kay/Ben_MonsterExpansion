@@ -6,8 +6,12 @@
 - Maximum player movement-speed bonus: **135% → 145%**, in `gameengine.dbr`.
 - Default camera distance **36**, with maximum zoom-out **48** (both original values).
 
-The earlier **+15% base run speed** setting is preserved. Both player modifications
-are composed into the same two character records, avoiding conflicting DBR outputs.
+The earlier **+15% base run speed** setting is preserved. Player movement
+and starting stats are composed into the same two character records. The
+independent **maximum level 150** setting from `config/player_stats.json`
+is applied to those already-composed actor DBRs **last**, changing only
+`maxLevel` and avoiding duplicate DBR outputs. See
+[Player level cap](PLAYER_LEVEL_CAP.md).
 These are base life/energy fields; displayed totals may include progression and other stats.
 
 ## Camera behaviour
