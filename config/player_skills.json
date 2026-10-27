@@ -216,7 +216,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 10
+          "add": 32
         }
       }
     },
@@ -225,7 +225,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 12
+          "add": 34.4
         }
       }
     },
@@ -234,7 +234,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 14
+          "add": 36.8
         }
       }
     },
@@ -243,7 +243,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 16
+          "add": 39.2
         }
       }
     },
@@ -252,7 +252,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 18
+          "add": 41.6
         }
       }
     },
@@ -261,7 +261,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 20
+          "add": 44
         }
       }
     },
@@ -270,7 +270,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 22
+          "add": 46.4
         }
       }
     },
@@ -279,7 +279,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 24
+          "add": 48.8
         }
       }
     },
@@ -288,7 +288,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 26
+          "add": 51.2
         }
       }
     },
@@ -297,7 +297,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 28
+          "add": 53.6
         }
       }
     },
@@ -306,7 +306,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 30
+          "add": 56
         }
       }
     },
@@ -315,7 +315,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 32
+          "add": 58.4
         }
       }
     },
@@ -324,7 +324,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 34
+          "add": 60.8
         }
       }
     },
@@ -333,7 +333,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 36
+          "add": 63.2
         }
       }
     },
@@ -342,7 +342,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 38
+          "add": 65.6
         }
       }
     },
@@ -351,7 +351,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 40
+          "add": 68
         }
       }
     },
@@ -360,7 +360,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 42
+          "add": 70.4
         }
       }
     },
@@ -369,7 +369,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 44
+          "add": 72.8
         }
       }
     },
@@ -378,7 +378,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 46
+          "add": 75.2
         }
       }
     },
@@ -387,7 +387,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 48
+          "add": 77.6
         }
       }
     },
@@ -396,7 +396,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 50
+          "add": 80
         }
       }
     },
@@ -405,7 +405,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 52
+          "add": 82.4
         }
       }
     },
@@ -414,7 +414,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 54
+          "add": 84.8
         }
       }
     },
@@ -423,7 +423,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 56
+          "add": 87.2
         }
       }
     },
@@ -432,7 +432,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 58
+          "add": 89.6
         }
       }
     },
@@ -441,7 +441,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 60
+          "add": 92
         }
       }
     },
@@ -480,7 +480,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 10
+          "add": 32
         }
       }
     },
@@ -489,7 +489,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 12
+          "add": 34.4
         }
       }
     },
@@ -498,7 +498,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 14
+          "add": 36.8
         }
       }
     },
@@ -507,7 +507,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 16
+          "add": 39.2
         }
       }
     },
@@ -516,7 +516,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 18
+          "add": 41.6
         }
       }
     },
@@ -525,7 +525,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 20
+          "add": 44
         }
       }
     },
@@ -534,7 +534,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 22
+          "add": 46.4
         }
       }
     },
@@ -543,7 +543,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 24
+          "add": 48.8
         }
       }
     },
@@ -552,7 +552,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 26
+          "add": 51.2
         }
       }
     },
@@ -561,7 +561,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 28
+          "add": 53.6
         }
       }
     },
@@ -570,7 +570,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 30
+          "add": 56
         }
       }
     },
@@ -579,7 +579,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 32
+          "add": 58.4
         }
       }
     },
@@ -588,7 +588,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 34
+          "add": 60.8
         }
       }
     },
@@ -597,7 +597,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 36
+          "add": 63.2
         }
       }
     },
@@ -606,7 +606,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 38
+          "add": 65.6
         }
       }
     },
@@ -615,7 +615,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 40
+          "add": 68
         }
       }
     },
@@ -624,7 +624,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 42
+          "add": 70.4
         }
       }
     },
@@ -633,7 +633,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 44
+          "add": 72.8
         }
       }
     },
@@ -642,7 +642,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 46
+          "add": 75.2
         }
       }
     },
@@ -651,7 +651,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 48
+          "add": 77.6
         }
       }
     },
@@ -660,7 +660,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 50
+          "add": 80
         }
       }
     },
@@ -669,7 +669,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 52
+          "add": 82.4
         }
       }
     },
@@ -678,7 +678,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 54
+          "add": 84.8
         }
       }
     },
@@ -687,7 +687,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 56
+          "add": 87.2
         }
       }
     },
@@ -696,7 +696,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 58
+          "add": 89.6
         }
       }
     },
@@ -705,7 +705,7 @@
       "set": {},
       "curves": {
         "characterLifeModifier": {
-          "add": 60
+          "add": 92
         }
       }
     },
@@ -1223,6 +1223,16 @@
         },
         "characterTotalSpeedModifier": {
           "multiplier": 1.05
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass08/pets/petskill_skeleton_basescaling.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "multiplier": 1.2,
+          "add": 20
         }
       }
     },
