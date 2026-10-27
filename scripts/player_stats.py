@@ -24,6 +24,33 @@ def validate_level_cap(settings):
     return cap
 
 
+
+def validate_skill_points(settings):
+    """Validate optional contiguous, level-based skill-point award ranges."""
+    schedule = settings.get('skill_points_per_level')
+    if schedule is None:
+        return None
+    if (not isinstance(schedule, dict) or set(schedule) != {'enabled', 'ranges'}
+            or type(schedule['enabled']) is not bool
+            or not isinstance(schedule['ranges'], list)
+            or not schedule['ranges']):
+        raise ValueError('Invalid skill-point schedule')
+    next_level = 2  # Index zero in skillModifierPoints awards level 2.
+    for bracket in schedule['ranges']:
+        if (not isinstance(bracket, dict)
+                or set(bracket) != {'start_level', 'end_level', 'points'}
+                or any(type(bracket[key]) is not int for key in bracket)
+                or bracket['start_level'] != next_level
+                or not next_level <= bracket['end_level'] <= 200
+                or not 1 <= bracket['points'] <= 20):
+            raise ValueError('Skill-point ranges must be contiguous from level 2')
+        next_level = bracket['end_level'] + 1
+    cap = validate_level_cap(settings)
+    if schedule['enabled'] and cap and cap['enabled'] and next_level <= cap['max_level']:
+        raise ValueError('Skill-point ranges must cover the configured level cap')
+    return schedule
+
+
 def load_settings(repo):
     path = repo / 'config/player_stats.json'
     if not path.exists():
@@ -40,6 +67,7 @@ def load_settings(repo):
         raise ValueError('Player attribute points and gains must be positive integers')
     validate_settings(settings.get("devotion"))
     validate_level_cap(settings)
+    validate_skill_points(settings)
     return settings
 
 
@@ -59,6 +87,18 @@ def build_player_stats(settings, reference):
         record.set('characterModifierPoints', str(settings['attribute_points_per_level']))
         for attribute, field in ATTRIBUTES.items():
             record.set(field, str(settings['attribute_gain_per_point'][attribute]))
+    # Skill-point awards are independent of attribute, devotion, and cap toggles.
+    schedule = validate_skill_points(settings)
+    if schedule and schedule['enabled']:
+        native_awards = record.get('skillModifierPoints').split(';')
+        awards = list(native_awards)
+        for bracket in schedule['ranges']:
+            for level in range(bracket['start_level'], bracket['end_level'] + 1):
+                index = level - 2
+                if index >= len(awards):
+                    raise ValueError('Skill-point schedule exceeds original award table')
+                awards[index] = str(bracket['points'])
+        record.set('skillModifierPoints', ';'.join(awards))
     devotion = settings.get("devotion")
     validate_settings(devotion)
     if devotion and devotion["enabled"]:
