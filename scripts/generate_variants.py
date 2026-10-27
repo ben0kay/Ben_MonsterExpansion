@@ -9,7 +9,6 @@ Only generated/MonsterExpansion/ is written and it is Git-ignored. No Grim Dawn
 build, Asset Manager invocation or reach fixes. --include-spawns opts into ME3.
 """
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -21,7 +20,6 @@ from pathlib import Path
 from dbr import DBR, DBRError
 from enemy_rewards import apply_experience_reward
 from natural_spawns import build_pool_override, build_merged_pool
-from references import records as reference_records
 from validate_config import check_configs, reference_path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -196,45 +194,6 @@ def build_low_health_rage(monster, prototype, family_id, variant_id, prefix):
 
 
 
-def build_native_hero_rage(hero_tier):
-    """Override native Hero actor DBRs, not Ascended copies, in all reference layers.
-
-    This scans extracted DBRs at build time; no rediscovery of eligible Ascended
-    or modifications to Hero spawn pools are needed. Quest Hero-class creatures
-    also qualify if they use the standard Monster DBR template.
-    """
-    rage = hero_tier.get("low_health_rage")
-    if not rage or not rage["enabled"]:
-        return {}, {"enabled": False, "discovered": 0, "modified": 0, "skipped": []}
-    files, skipped, discovered = {}, [], 0
-    for record in reference_records(REFERENCE, "creatures/enemies"):
-        source = read_game_dbr(record)
-        if (not source._locations("monsterClassification") or
-                source.get("monsterClassification") != "Hero"):
-            continue
-        discovered += 1
-        if (not source._locations("templateName") or
-                source.get("templateName") != "database/templates/monster.tpl" or
-                not source._locations("Class") or source.get("Class") != "Monster"):
-            skipped.append({"record": record, "reason": "unsupported_actor_template"})
-            continue
-        monster = DBR(source.render())
-        prefix = "nativehero_" + hashlib.sha256(record.encode("utf-8")).hexdigest()[:16]
-        rage_files = build_low_health_rage(monster, {"low_health_rage": rage},
-                                            "hero", record, prefix)
-        if not rage_files:
-            reason = "already_has_low_health_skill" if has_low_health_skill(source) else "no_free_skill_slot"
-            skipped.append({"record": record, "reason": reason})
-            continue
-        actor_path = game_location(record)
-        fail_unless(actor_path not in files and not set(rage_files) & set(files),
-                    "Duplicate native Hero rage output path: " + record)
-        files[actor_path] = monster.render()
-        files.update(rage_files)
-    return files, {"enabled": True, "discovered": discovered,
-                   "modified": len(files) // 2, "skipped": skipped}
-
-
 def display_tag(family, variant):
     return f"tagBME_{family['id']}_{variant['id']}"
 
@@ -375,17 +334,6 @@ def configured_plan(family="all", include_spawns=False):
     fail_unless(families, f"No configured family: {family}")
     tiers = json.loads((REPO / "config/tiers.json").read_text(encoding="utf-8"))["tiers"]
     files = build_plan(families, {t["id"]: t for t in tiers}, include_spawns)
-    if family == "all":
-        # Independent vanilla Hero overrides; leave Ascended variant actors
-        # and their exact-parent pool weight splits untouched.
-        heroes = next(t for t in tiers if t["id"] == "hero")
-        hero_files, hero_report = build_native_hero_rage(heroes)
-        fail_unless(not set(files) & set(hero_files), "Hero rage output collided with another mod record")
-        files.update(hero_files)
-        manifest = json.loads(files[Path("manifest.json")])
-        manifest["native_hero_rage"] = hero_report
-        manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
-        files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     if include_spawns:
         from global_spawns import load_settings, build_global_spawn, OUTPUT_RECORD
         settings = load_settings(REPO)
