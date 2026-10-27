@@ -31,11 +31,28 @@ game-wide or equipment-granted pet families are modified.
 See [pet HP method, scope and rollback](docs/PLAYER_SKILLS.md). These are
 committed changes on `dev`, not yet compiled or verified in-game.
 
+## Phantasmal Blades — more blades, range, size and damage
+
+Phantasmal Blades gains **one additional projectile at every rank**:
+4 at ranks 1–7, 5 at 8–15, 6 at 16–23, and 7 at 24–26.
+The original projectile FX record is now configured to travel
+**20 instead of 16 metres** and use **0.90 instead of 0.75 model scale**
+(+20% visual size). Pierce/Bleeding damage changes from the previous
++15% to **+25% relative to vanilla** per original rank. Extra projectile
+hits can raise effective damage further; native weapon damage, mana costs,
+cooldown, projectile spread and skill modifiers remain unchanged.
+
+Both the skill DBR and class-specific FX DBR are independently reversible
+records in `config/player_skills.json` and are regenerated/staged by the
+existing pipeline. No source `ReferenceFiles` were modified. See
+[exact values, tests and rollback](docs/NIGHTBLADE_BALANCE.md).
+Committed to `dev`; Asset Manager compilation and in-game validation pending.
+
 ## Nightblade rank-preserving balance pass
 
 For the Nightblade + Occultist playthrough, 18 existing Nightblade skill/pet
 records have configurable improvements in `config/player_skills.json`.
-Selected offensive, passive, and pet damage/heal curves increase by **15%**;
+Selected offensive, passive, and pet damage/heal curves increase by **15%** (except Phantasmal Blades, now +25%);
 Ring of Steel, Veil of Shadow, Blade Trap and Amarasta's Blade Burst area
 increase by **20%**. Blade Burst has +15% Cold/Frostburn damage at every rank,
 with cooldown shortened from 1.8 to 1.5 seconds.
