@@ -109,6 +109,63 @@ class EliteTests(unittest.TestCase):
         effect = DBR(self.files[Path(f'database/records/fx/monsterexpansion/{prefix}_cosmetic_fx.dbr')])
         self.assertEqual(effect.get('effectFile'), 'fx/particlesystems/creature/pfx_goldenglow01_large.pfx')
 
+    def test_single_elite_boar_low_health_rage_is_opt_in_and_reversible(self):
+        target = next(v for v in self.elites["variants"]
+                      if v["source_record"] == "records/creatures/enemies/boar_b01.dbr")
+        prefix = self.elites["id"] + "_" + target["id"]
+        monster = DBR(self.files[gen.game_location(target["output_record"])])
+        original = gen.read_game_dbr(target["source_record"])
+        source_skills = {original.get(f"skillName{n}")
+                         for n in range(1, 61) if original._locations(f"skillName{n}")}
+        generated_skills = {monster.get(f"skillName{n}")
+                            for n in range(1, 61) if monster._locations(f"skillName{n}")}
+        # Existing attacks remain; the source damage passive is intentionally cloned.
+        source_skills.remove(target["damage_skill_source_record"])
+        self.assertTrue(source_skills <= generated_skills)
+        self.assertIn(f"{prefix}_cosmetic.dbr", monster.get("initialSkillName"))
+        rage_path = f"records/skills/nonplayerskills/monsterexpansion/{prefix}_rage.dbr"
+        self.assertEqual(monster.get("skillName8"), rage_path)
+        self.assertEqual(monster.get("skillLevel8"), "1")
+        rage = DBR(self.files[gen.game_location(rage_path)])
+        self.assertEqual(rage.get("templateName"),
+                         "database/templates/skill_passiveonlifebuffself.tpl")
+        self.assertEqual(rage.get("Class"), "Skill_PassiveOnLifeBuffSelf")
+        for key, value in (("lifeMonitorPercent", 30),
+                           ("skillActiveDuration", 12),
+                           ("skillCooldownTime", 180),
+                           ("offensiveTotalDamageModifier", 15),
+                           ("characterRunSpeedModifier", 10)):
+            self.assertAlmostEqual(float(rage.get(key)), value)
+        self.assertEqual(rage.get("skillActivatedAuraName"),
+                         "records/fx/skillsother/buff/dranghoul_laststand_selfloop_fx01.dbr")
+        for bad in ("skillSpecialAnimationName", "skillActivatedSound",
+                    "defensiveStun", "damageAbsorption", "damageAbsorptionPercent"):
+            self.assertFalse(rage._locations(bad), bad)
+        self.assertEqual(
+            len([p for p in self.files if p.name.endswith("_rage.dbr")]), 1)
+
+        tiers = copy.deepcopy(self.tiers)
+        tiers["elite"]["prototype"]["low_health_rage"]["enabled"] = False
+        rollback = gen.build_variant(self.elites, target, tiers["elite"])
+        self.assertNotIn(gen.game_location(rage_path), rollback)
+        restored = DBR(rollback[gen.game_location(target["output_record"])])
+        self.assertFalse(any("_rage.dbr" in x for x in restored.lines))
+        self.assertEqual(restored.get("skillName5"), original.get("skillName5"))
+        self.assertEqual(restored.get("skillName6"), original.get("skillName6"))
+
+    def test_rage_is_not_attached_to_other_elites_veterans_or_ascended(self):
+        own = [p for p in self.files if p.name.endswith("_rage.dbr")]
+        self.assertEqual(len(own), 1)
+        files = self.files
+        for family in self.families:
+            for variant in family["variants"]:
+                if family["id"] == "discovered_elites" and variant["id"] == "elite_75bbb288ac65b5d4":
+                    continue
+                monster = DBR(files[gen.game_location(variant["output_record"])])
+                self.assertFalse(any("_rage.dbr" in line for line in monster.lines
+                                     if line.startswith("skillName")),
+                                 variant["output_record"])
+
     def test_conflicting_shared_mappings_rejected_and_disabling_elites_keeps_veterans(self):
         elite_pool = next(p for p in self.elites['pools'] if any(p['record'] == q['record'] for f in self.families if f != self.elites for q in f['pools']))
         others = [(f, p) for f in self.families if f != self.elites for p in f['pools'] if p['record'] == elite_pool['record']]
