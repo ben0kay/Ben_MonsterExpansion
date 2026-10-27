@@ -20,5 +20,25 @@
   "level_cap": {
     "enabled": true,
     "max_level": 150
+  },
+  "skill_points_per_level": {
+    "enabled": true,
+    "ranges": [
+      {
+        "start_level": 2,
+        "end_level": 60,
+        "points": 3
+      },
+      {
+        "start_level": 61,
+        "end_level": 100,
+        "points": 2
+      },
+      {
+        "start_level": 101,
+        "end_level": 150,
+        "points": 1
+      }
+    ]
   }
 }
