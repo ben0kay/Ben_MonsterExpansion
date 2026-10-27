@@ -1258,18 +1258,28 @@
     },
     {
       "record": "records/skills/playerclass04/phantomblade.dbr",
-      "set": {},
+      "set": {
+        "projectileLaunchNumber": "4;4;4;4;4;4;4;5;5;5;5;5;5;5;5;6;6;6;6;6;6;6;6;7;7;7"
+      },
       "curves": {
         "offensivePierceMin": {
-          "multiplier": 1.15
+          "multiplier": 1.25
         },
         "offensivePierceMax": {
-          "multiplier": 1.15
+          "multiplier": 1.25
         },
         "offensiveSlowBleedingMin": {
-          "multiplier": 1.15
+          "multiplier": 1.25
         }
       }
+    },
+    {
+      "record": "records/fx/skillclass04/phantomblade1_projectile_fx01.dbr",
+      "set": {
+        "projectileDistance": "20.000000",
+        "scale": "0.900000"
+      },
+      "curves": {}
     },
     {
       "record": "records/skills/playerclass04/shadowstrike.dbr",
