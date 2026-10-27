@@ -96,15 +96,34 @@ def check_configs(reference_root=None, repo=REPO):
         by_id = {t["id"]: t for t in tiers}
         for i, tier in enumerate(tiers, 1):
             require(tier["order"] == i and HEX.fullmatch(tier["color_hex"]), "Invalid tier order/color")
-            rage = tier.get("low_health_rage") if tier["id"] == "hero" else tier.get("prototype", {}).get("low_health_rage")
+            if tier["id"] not in CUSTOM_PARENTS:
+                require(tier["origin"] == "vanilla" and "prototype" not in tier,
+                        "Vanilla tier overrides are not supported")
+                continue
+            proto = tier["prototype"]
+            require(tier["origin"] == "custom" and proto["parent_tier"] == CUSTOM_PARENTS[tier["id"]],
+                    "Wrong custom parent")
+            for value in [proto["model_scale_vs_parent"], *proto["stats_vs_parent"].values()]:
+                require(type(value) in (int, float) and math.isfinite(value) and value > 1,
+                        "Tier multipliers must be finite and exceed 1")
+            from enemy_rewards import validate_settings as validate_reward_settings
+            validate_reward_settings(proto.get("experience_reward"))
+            aura = proto.get("cosmetic_aura", {"enabled": False})
+            require(type(aura.get("enabled")) is bool, "Aura enabled must be boolean")
+            if aura["enabled"]:
+                path = reference_path(aura["effect_source_record"], root)
+                require(str(aura["effect_source_record"]).startswith("records/fx/"), "Aura must reference FX")
+                if reference_root is not None:
+                    require(path.is_file() and not path.is_symlink(), "Missing/unsafe aura source")
+            rage = proto.get("low_health_rage")
             if rage is not None:
                 allowed = {"enabled", "variant_ids", "target_mode", "health_threshold_percent",
                            "active_duration_seconds", "cooldown_seconds",
                            "total_damage_bonus_percent", "run_speed_bonus_percent",
                            "aura_effect_record"}
-                require(tier["id"] in ("elite", "hero") and isinstance(rage, dict) and
+                require(tier["id"] in ("elite", "ascended") and isinstance(rage, dict) and
                         set(rage) == allowed and type(rage["enabled"]) is bool,
-                        "Low-health rage must be an Elite/Hero-only explicit config")
+                        "Low-health rage must be an Elite/Ascended-only explicit config")
                 require(rage["target_mode"] in ("all", "selected"), "Unknown rage selection mode")
                 ids = rage["variant_ids"]
                 require(isinstance(ids, list) and len(ids) == len(set(ids)) and
@@ -130,25 +149,6 @@ def check_configs(reference_root=None, repo=REPO):
                     require(effect_path.is_file() and not effect_path.is_symlink() and
                             dbr_values(effect_path).get("templateName") == "database/templates/effect.tpl",
                             "Rage aura must be an existing effect DBR")
-            if tier["id"] not in CUSTOM_PARENTS:
-                require(tier["origin"] == "vanilla" and "prototype" not in tier,
-                        "Vanilla tier overrides are not supported")
-                continue
-            proto = tier["prototype"]
-            require(tier["origin"] == "custom" and proto["parent_tier"] == CUSTOM_PARENTS[tier["id"]],
-                    "Wrong custom parent")
-            for value in [proto["model_scale_vs_parent"], *proto["stats_vs_parent"].values()]:
-                require(type(value) in (int, float) and math.isfinite(value) and value > 1,
-                        "Tier multipliers must be finite and exceed 1")
-            from enemy_rewards import validate_settings as validate_reward_settings
-            validate_reward_settings(proto.get("experience_reward"))
-            aura = proto.get("cosmetic_aura", {"enabled": False})
-            require(type(aura.get("enabled")) is bool, "Aura enabled must be boolean")
-            if aura["enabled"]:
-                path = reference_path(aura["effect_source_record"], root)
-                require(str(aura["effect_source_record"]).startswith("records/fx/"), "Aura must reference FX")
-                if reference_root is not None:
-                    require(path.is_file() and not path.is_symlink(), "Missing/unsafe aura source")
             if "natural_spawns" in proto:
                 value = proto["natural_spawns"].get("conversion_share", proto["natural_spawns"].get("common_conversion_share"))
                 require(type(value) in (int, float) and math.isfinite(value) and 0 < value < .5,
@@ -222,18 +222,19 @@ def check_configs(reference_root=None, repo=REPO):
                 if reference_root is not None:
                     from natural_spawns import build_pool_override
                     build_pool_override(fam, pool, by_id, root)
-        # Opt-in prototype must reference a currently enabled Elite, not a
-        # stale discovery draft or a variant absent from the active catalog.
-        elite_rage = by_id["elite"]["prototype"].get("low_health_rage")
-        if elite_rage and elite_rage["enabled"] and elite_rage["target_mode"] == "selected":
-            targets = {f"{fam['id']}:{variant['id']}"
-                       for fpath in paths
-                       for fam in [load_json(fpath)]
-                       if fam["enabled"]
-                       for variant in fam["variants"]
-                       if variant["tier"] == "elite"}
-            require(set(elite_rage["variant_ids"]) <= targets,
-                    "Rage prototype target must be in active Elite variants")
+        # Selected-rage mode is only for explicitly enabled custom variants.
+        active_variant_ids = {tier_id: set() for tier_id in ("elite", "ascended")}
+        for fpath in paths:
+            fam = load_json(fpath)
+            if fam["enabled"]:
+                for variant in fam["variants"]:
+                    if variant["tier"] in active_variant_ids:
+                        active_variant_ids[variant["tier"]].add(f"{fam['id']}:{variant['id']}")
+        for tier_id in ("elite", "ascended"):
+            rage = by_id[tier_id]["prototype"].get("low_health_rage")
+            if rage and rage["enabled"] and rage["target_mode"] == "selected":
+                require(set(rage["variant_ids"]) <= active_variant_ids[tier_id],
+                        "Rage target must be an active " + tier_id + " variant")
         if reference_root is not None:
             from natural_spawns import build_merged_pool
             for mappings in pools.values():
