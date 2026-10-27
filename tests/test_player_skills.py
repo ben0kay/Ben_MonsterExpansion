@@ -49,19 +49,35 @@ class PlayerSkillTests(unittest.TestCase):
                 self.assertEqual(actual.render(), expected.render())
                 self.assertEqual(source.get("characterLife"), actual.get("characterLife"))
 
-    def test_all_skeleton_types_share_20_percent_health_scaling_and_rollback(self):
+    def test_all_skeleton_types_share_health_and_damage_scaling_and_rollback(self):
         name = "records/skills/playerclass08/pets/petskill_skeleton_basescaling.dbr"
         source = DBR.from_file(resolve(name, gen.REFERENCE))
         output = DBR(self.files[Path("database") / name])
-        a = [float(x) for x in source.get("characterLifeModifier").split(";")]
-        b = [float(x) for x in output.get("characterLifeModifier").split(";")]
-        self.assertEqual(len(a), 26)
-        self.assertEqual(len(b), len(a))
-        for old, new in zip(a, b):
-            self.assertAlmostEqual((100 + new) / (100 + old), 1.20, places=6)
+
+        # Additive percentage-point bonuses in the source are not the same
+        # as a relative 20% HP / 15% damage increase.
+        for field, multiplier in (("characterLifeModifier", 1.20),
+                                  ("offensiveTotalDamageModifier", 1.15)):
+            native = [float(x) for x in source.get(field).split(";")]
+            modded = [float(x) for x in output.get(field).split(";")]
+            self.assertEqual(len(native), 26)
+            self.assertEqual(len(modded), len(native))
+            for old, new in zip(native, modded):
+                self.assertAlmostEqual((100 + new) / (100 + old),
+                                       multiplier, places=6)
         expected = DBR.from_file(resolve(name, gen.REFERENCE))
-        expected.set("characterLifeModifier", output.get("characterLifeModifier"))
+        for field in ("characterLifeModifier", "offensiveTotalDamageModifier"):
+            expected.set(field, output.get(field))
         self.assertEqual(output.render(), expected.render())
+
+        # All four skeleton variants, including caster and advanced skeletons,
+        # use the same base-scaling passive at both ends of the rank curve.
+        for rank in (1, 26):
+            for suffix in ("", "b", "c", "d"):
+                actor = ("records/skills/playerclass08/pets/"
+                         f"skeleton_{rank:02}{suffix}.dbr")
+                native_pet = DBR.from_file(resolve(actor, gen.REFERENCE))
+                self.assertEqual(native_pet.get("skillName1"), name)
 
         settings = copy.deepcopy(self.settings)
         next(e for e in settings["records"] if e["record"] == name)["enabled"] = False
