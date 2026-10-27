@@ -21,8 +21,11 @@ streaks when its HP dropped below the threshold).
 The 124 and 137 values are catalog sizes, **not guaranteed counts of
 new rage assignments**. A variant inheriting an existing native low-HP
 ability will retain that ability without an extra rage skill. Others
-with no free ordinary skill slot are skipped. These cases can be
-audited against generated monster records and tests.
+with no free ordinary skill slot are skipped. These cases can be audited in the generation output
+`generated/MonsterExpansion/manifest.json` under
+`rage_coverage.elite` and `rage_coverage.ascended`, which report
+`targeted`, `attached`, `inherited_low_health`, and
+`no_free_slot` counts.
 
 ## Configuration
 
