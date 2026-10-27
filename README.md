@@ -8,8 +8,10 @@ while retaining the original game's enemies, roles and encounters.
 `config/player_stats.json` raises the Ashes of Malmouth/GDX2 maximum player
 level from **100 to 150**, composing `maxPlayerLevel=150` in the shared
 `playerlevels.dbr` and `maxLevel=150` in both male/female player actors.
-The original 199-entry skill-point array covers level 150, so skill-point
-awards remain vanilla (**1 per level from 91 onward**); the existing
+The existing 199-entry skill-point table covers level 150. Skill point
+awards now follow **3 per level at 2–60, 2 at 61–100, and 1 at 101–150**:
+**307 skill points by level 150** rather than 287 under the original
+expansion table at the same cap (+20). The existing
 **2 attribute points per level / +6 per point**, **2 devotion points
 per shrine / cap 85**, starting stats and movement edits are preserved.
 
@@ -342,8 +344,11 @@ mapped regular selections (442 original + 186 added). Elites and compatible Asce
 - Pack-size multiplier changes existing encounters using the shared equation,
   including special encounters; it does not add map placements. Engine rounding,
   placement/caps and performance remain gameplay checks.
-- Player stats now raise the DLC level cap from 100 to **150** while
-  preserving the native skill-point table, XP equation and other progression.
+- Player stats now raise the DLC level cap from 100 to **150**,
+  with configurable skill-point progression of 3 / 2 / 1 at levels
+  2–60 / 61–100 / 101–150, for **307 level-up skill points** (+20 vs
+  the original award table extended to level 150). The native XP equation,
+  mastery requirements and other progression are preserved.
   Both uploaded DLC player-level files are identical. Devotion remains capped
   at 85 and attributes remain 2/+6. Player actor maxLevel fields are composed
   with run speed and starting stats; no saves are edited. This newer level-cap
@@ -397,6 +402,14 @@ Unresolved names retain their vanilla text, while existing zombie labels remain 
   "schema_version": 1,
   "enabled": true,
   "level_cap": { "enabled": true, "max_level": 150 },
+  "skill_points_per_level": {
+    "enabled": true,
+    "ranges": [
+      { "start_level": 2, "end_level": 60, "points": 3 },
+      { "start_level": 61, "end_level": 100, "points": 2 },
+      { "start_level": 101, "end_level": 150, "points": 1 }
+    ]
+  },
   "attribute_points_per_level": 2,
   "attribute_gain_per_point": { "physique": 6, "cunning": 6, "spirit": 6 }
 }
@@ -405,11 +418,14 @@ Unresolved names retain their vanilla text, while existing zombie labels remain 
 Each level awards 2 spendable attribute points; each point adds 6 to the chosen
 attribute: 12 allocated attribute stats per level instead of vanilla's 8.
 The gain applies to spent attribute points generally, including quest-earned
-points; quest reward point counts are unchanged. Skill-point awards, mastery
-requirements, XP equations and health/energy increments are preserved.
-Four attribute fields, the Devotion cap (55 → 85), and the player level cap
-(100 → 150) change in the effective DLC `playerlevels.dbr`, plus both
-male/female actor `maxLevel` fields.
+points; quest reward point counts are unchanged. Skill-point awards
+change to 3/2/1 for levels 2–60 / 61–100 / 101–150, granting
+**307 total level-up points** instead of 287 under the former progression
+at level 150 (the original game, capped at 100, grants 237).
+Mastery requirements, XP equations and health/energy increments are unchanged.
+Four attribute fields, the Devotion cap (55 → 85), the `skillModifierPoints`
+array, and player level cap (100 → 150) change in the effective DLC
+`playerlevels.dbr`, plus both male/female actor `maxLevel` fields.
 This does not edit character saves or explicitly grant points for past levels;
 existing-character recalculation is unverified. Test a fresh character: level
 once, confirm 2 points, spend one and confirm +6 to the selected attribute.
@@ -418,8 +434,10 @@ Player settings are included in normal generation/staging even without
 `--include-spawns`; use the usual full build commands below to retain all mod
 features. Changing JSON requires regenerating, staging, F7 and installing the
 rebuilt `.arz`. To restore native cap while preserving other tweaks,
-set `level_cap.enabled=false`. Full vanilla player-level rollback requires
-also disabling the attribute and devotion sections. Removing the config alone
+set `level_cap.enabled=false`. To restore native skill-point awards
+only, set `skill_points_per_level.enabled=false`. Full vanilla player-level
+rollback requires also disabling the attribute and devotion sections.
+Removing the config alone
 does not remove a previously compiled override.
 
 ## Global pack size
