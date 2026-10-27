@@ -19,6 +19,7 @@ settings need engine or in-game verification before adopting.
 | Camera distance | min 20, default **36**, max **48** | `game/gameengine.dbr` | Default restored; in-game zoom remains adjustable |
 | Camera pitch | min 38, default 46, max 52 | `game/gameengine.dbr` | Change camera angle |
 | Potion stack limit | 100 | `game/gameengine.dbr` | Stack more potions |
+| Maximum player level | native 100 → **150 active** | `creatures/pc/playerlevels.dbr` and `creatures/pc/{male,female}pc01.dbr` | Configurable cap up to 200; world/monster scaling is separate |
 | Health increase per level | 20 | `creatures/pc/playerlevels.dbr` | More health from leveling |
 | Energy increase per level | 16 | `creatures/pc/playerlevels.dbr` | More energy from leveling |
 | Skill-point awards per level | `skillModifierPoints` rank array | `creatures/pc/playerlevels.dbr` | Tweak per-level skill-point distribution |
@@ -34,4 +35,6 @@ GDX2 > GDX1 > base resolution before generating a new override.
 
 Do not edit source reference files. The requested speed cap and camera defaults
 are implemented via a focused reversible game-engine override.
-See [Player basics](PLAYER_BASICS.md). Other changes remain proposals.
+The player level 150 cap is independently configured and composed into existing
+player DBRs. See [Player basics](PLAYER_BASICS.md) and
+[Player level cap](PLAYER_LEVEL_CAP.md). Other changes remain proposals.
