@@ -1225,6 +1225,215 @@
           "multiplier": 1.05
         }
       }
+    },
+    {
+      "record": "records/skills/playerclass04/phantomblade.dbr",
+      "set": {},
+      "curves": {
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        },
+        "offensivePierceMax": {
+          "multiplier": 1.15
+        },
+        "offensiveSlowBleedingMin": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/shadowstrike.dbr",
+      "set": {},
+      "curves": {
+        "offensiveColdMin": {
+          "multiplier": 1.15
+        },
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        },
+        "skillCooldownTime": {
+          "multiplier": 0.85
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/ringofsteel.dbr",
+      "set": {},
+      "curves": {
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        },
+        "skillTargetRadius": {
+          "multiplier": 1.2
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/nightbladeenchant1.dbr",
+      "set": {},
+      "curves": {
+        "skillActiveDuration": {
+          "multiplier": 1.2
+        },
+        "skillLifePercent": {
+          "multiplier": 1.15
+        },
+        "characterLifeRegen": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/veilofshadows1_buff.dbr",
+      "set": {},
+      "curves": {
+        "skillTargetRadius": {
+          "multiplier": 1.2
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/bladetrap1_buff.dbr",
+      "set": {},
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.2
+        },
+        "skillActiveDuration": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/summon_bladespirit.dbr",
+      "set": {
+        "petLimit": "2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;4;4;4;4;4;4;4;4;5;5;5",
+        "petBurstSpawn": "2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;4;4;4;4;4;4;4;4;5;5;5"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass04/pets/petskill_bladeswarm_bladeaura1.dbr",
+      "set": {},
+      "curves": {
+        "offensiveColdMin": {
+          "multiplier": 1.15
+        },
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        },
+        "offensiveSlowBleedingMin": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/pets/petskill_showerofblades1.dbr",
+      "set": {},
+      "curves": {
+        "offensiveColdMin": {
+          "multiplier": 1.15
+        },
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        },
+        "offensiveSlowBleedingMin": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/passive1.dbr",
+      "set": {},
+      "curves": {
+        "defensiveProtection": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/passive2.dbr",
+      "set": {},
+      "curves": {
+        "characterDexterityModifier": {
+          "multiplier": 1.15
+        },
+        "offensiveSlowBleedingModifier": {
+          "multiplier": 1.15
+        },
+        "offensiveLifeModifier": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/passive3.dbr",
+      "set": {},
+      "curves": {
+        "offensiveColdModifier": {
+          "multiplier": 1.15
+        },
+        "offensivePoisonModifier": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/wpattack0.dbr",
+      "set": {},
+      "curves": {
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        },
+        "offensivePierceModifier": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/wpattack1.dbr",
+      "set": {},
+      "curves": {
+        "offensivePhysicalMin": {
+          "multiplier": 1.15
+        },
+        "offensivePhysicalMax": {
+          "multiplier": 1.15
+        },
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/wpattack2.dbr",
+      "set": {},
+      "curves": {
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/wpattack3.dbr",
+      "set": {},
+      "curves": {
+        "offensivePierceMin": {
+          "multiplier": 1.15
+        },
+        "offensiveSlowBleedingMin": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass04/wpattack5.dbr",
+      "set": {},
+      "curves": {
+        "offensiveColdMin": {
+          "multiplier": 1.15
+        }
+      }
     }
   ]
 }
