@@ -1,6 +1,7 @@
-"""Deterministic player-skill overrides from effective DLC references."""
+"""Deterministic player-skill and class FX overrides from effective DLC references."""
 import json
 import math
+import re
 from pathlib import Path
 from dbr import DBR
 from references import resolve
@@ -19,8 +20,12 @@ def build_skills(settings, reference):
     files, report = {}, []
     for entry in settings["records"]:
         name = entry["record"]
-        if not name.startswith("records/skills/playerclass"):
-            raise ValueError("Player skill override outside mastery namespace")
+        # Skill projectile effects are DBRs in records/fx/skillclassXX.
+        # Keep this narrow; do not turn the skill patcher into an arbitrary DBR editor.
+        is_mastery_skill = name.startswith("records/skills/playerclass")
+        is_class_fx = re.fullmatch(r"records/fx/skillclass[0-9]{2}/[a-z0-9_]+\\.dbr", name) is not None
+        if not (is_mastery_skill or is_class_fx):
+            raise ValueError("Player skill override outside mastery/class-FX namespace")
         if type(entry.get("enabled", True)) is not bool:
             raise ValueError("Invalid skill enabled flag")
         for rule in entry.get("curves", {}).values():
