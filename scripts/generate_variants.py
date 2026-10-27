@@ -155,23 +155,24 @@ def build_low_health_rage(monster, prototype, family_id, variant_id, prefix):
     # Each field is established by Dranghoul/Chthonian low-life native skills.
     # Avoid Dranghoul-specific Roar animations and sounds on unrelated actors.
     skill_record = f"records/skills/nonplayerskills/monsterexpansion/{prefix}_rage.dbr"
-    text = (
-        "templateName,database/templates/skill_passiveonlifebuffself.tpl,\\n"
-        "Class,Skill_PassiveOnLifeBuffSelf,\\n"
-        "FileDescription,MonsterExpansion Elite low-health rage test,\\n"
-        "skillMaxLevel,1,\\n"
-        f"lifeMonitorPercent,{rage['health_threshold_percent']:.6f},\\n"
-        f"skillActiveDuration,{rage['active_duration_seconds']:.6f},\\n"
-        f"skillCooldownTime,{rage['cooldown_seconds']:.6f},\\n"
-        f"offensiveTotalDamageModifier,{rage['total_damage_bonus_percent']:.6f},\\n"
-        f"characterRunSpeedModifier,{rage['run_speed_bonus_percent']:.6f},\\n"
-        f"skillActivatedAuraName,{rage['aura_effect_record']},\\n"
-    ).replace("\\\\n", "\\n")
+    fields = [
+        ("templateName", "database/templates/skill_passiveonlifebuffself.tpl"),
+        ("Class", "Skill_PassiveOnLifeBuffSelf"),
+        ("FileDescription", "MonsterExpansion Elite low-health rage test"),
+        ("skillMaxLevel", "1"),
+        ("lifeMonitorPercent", f"{rage['health_threshold_percent']:.6f}"),
+        ("skillActiveDuration", f"{rage['active_duration_seconds']:.6f}"),
+        ("skillCooldownTime", f"{rage['cooldown_seconds']:.6f}"),
+        ("offensiveTotalDamageModifier", f"{rage['total_damage_bonus_percent']:.6f}"),
+        ("characterRunSpeedModifier", f"{rage['run_speed_bonus_percent']:.6f}"),
+        ("skillActivatedAuraName", rage["aura_effect_record"]),
+    ]
+    skill_text = "\n".join(f"{key},{value}," for key, value in fields) + "\n"
     if monster.lines and not monster.lines[-1].endswith("\n"):
         monster.lines[-1] += "\n"
     monster.lines.append(f"skillName{slot},{skill_record},\n")
     monster.lines.append(f"skillLevel{slot},1,\n")
-    return {game_location(skill_record): DBR(text).render()}
+    return {game_location(skill_record): DBR(skill_text).render()}
 
 
 def display_tag(family, variant):
