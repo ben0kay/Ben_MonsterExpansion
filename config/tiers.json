@@ -38,6 +38,9 @@
           "common_conversion_share": 0.2,
           "target_veterans_per_champion": 2.5,
           "calibration_status": "conversion_share_exact_ratio_unmeasured"
+        },
+        "experience_reward": {
+          "enabled": true
         }
       }
     },
@@ -73,6 +76,9 @@
         "cosmetic_aura": {
           "enabled": true,
           "effect_source_record": "records/fx/creatures/goldenglow01_large01.dbr"
+        },
+        "experience_reward": {
+          "enabled": true
         }
       }
     },
@@ -109,6 +115,9 @@
         "cosmetic_aura": {
           "enabled": true,
           "effect_source_record": "records/fx/creatures/glowpurple01_large.dbr"
+        },
+        "experience_reward": {
+          "enabled": true
         }
       }
     },

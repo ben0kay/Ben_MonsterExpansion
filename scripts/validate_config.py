@@ -98,6 +98,8 @@ def check_configs(reference_root=None, repo=REPO):
             for value in [proto["model_scale_vs_parent"], *proto["stats_vs_parent"].values()]:
                 require(type(value) in (int, float) and math.isfinite(value) and value > 1,
                         "Tier multipliers must be finite and exceed 1")
+            from enemy_rewards import validate_settings as validate_reward_settings
+            validate_reward_settings(proto.get("experience_reward"))
             aura = proto.get("cosmetic_aura", {"enabled": False})
             require(type(aura.get("enabled")) is bool, "Aura enabled must be boolean")
             if aura["enabled"]:

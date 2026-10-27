@@ -3,6 +3,17 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
+## Variant XP reward bonuses
+
+Veterans, Elites and Ascended now have increased per-enemy XP inputs, aiming for
+approximately **+30%, +30% and +40% kill XP** relative to their exact parents.
+The generator reuses each tier's HP multiplier and adjusts the existing XP-formula
+input; final XP still depends on difficulty/levels/rounding. All 409 variants are
+covered. Toggle per tier with `prototype.experience_reward.enabled` in
+`config/tiers.json`. Originals, global XP formulas and reward eligibility remain
+unchanged. Regenerate/stage and rebuild to activate; game XP checks remain pending.
+See [XP implementation and rollback](docs/ENEMY_XP.md).
+
 ## Windows pool-preservation test fix
 
 Elite/Ascended regression checks now normalize paths with `as_posix()` before
@@ -469,7 +480,7 @@ representative in-game checks remain necessary for visuals and engine behavior.
 The generic generator, safe skill/initial-slot allocation, exact Common weight
 splitting, validated staging and name-text generation are implemented; the latest
 Python suite has **77 previously passing tests (movement/basics tests not yet rerun)**. The original Veteran Boar's six-record
-regression is byte-identical. 409 variants and 377 merged pool overrides generate
+regression remains byte-identical with the new XP policy disabled; enabled XP intentionally changes the monster's experiencePoints field. 409 variants and 377 merged pool overrides generate
 3,011 DBRs plus one English text source, including 60 shrine, 115 player-skill, 2 composed player-character and 1 game-engine overrides.
 
 The user has now verified `Walking Dead (Veteran)` in the header with the green
