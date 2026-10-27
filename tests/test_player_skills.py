@@ -28,7 +28,46 @@ class PlayerSkillTests(unittest.TestCase):
             self.assertEqual(limit[:7], ["1"]*7)
             self.assertEqual(limit[7:], ["2"]*19)
             for rank in (1, 8, 26):
-                self.assertEqual(float(self.record(f"playerclass03/pets/pet_{pet}_a{rank:02}.dbr").get("characterLifeModifier")), 10+2*(rank-1))
+                old_health_bonus = 10 + 2*(rank-1)
+                expected = 20 + 1.2 * old_health_bonus
+                self.assertAlmostEqual(
+                    float(self.record(f"playerclass03/pets/pet_{pet}_a{rank:02}.dbr").get("characterLifeModifier")),
+                    expected)
+
+    def test_all_52_occultist_pet_ranks_gain_20_percent_effective_health(self):
+        for pet in ("raven", "hellhound"):
+            for rank in range(1, 27):
+                logical = f"records/skills/playerclass03/pets/pet_{pet}_a{rank:02}.dbr"
+                actual = DBR(self.files[Path("database") / logical])
+                source = DBR.from_file(resolve(logical, gen.REFERENCE))
+                old_bonus = 10 + 2 * (rank - 1)
+                new_bonus = float(actual.get("characterLifeModifier"))
+                # Compare HP multipliers, not just percent-point bonuses.
+                self.assertAlmostEqual((100 + new_bonus) / (100 + old_bonus), 1.20)
+                expected = DBR.from_file(resolve(logical, gen.REFERENCE))
+                expected.set("characterLifeModifier", actual.get("characterLifeModifier"))
+                self.assertEqual(actual.render(), expected.render())
+                self.assertEqual(source.get("characterLife"), actual.get("characterLife"))
+
+    def test_all_skeleton_types_share_20_percent_health_scaling_and_rollback(self):
+        name = "records/skills/playerclass08/pets/petskill_skeleton_basescaling.dbr"
+        source = DBR.from_file(resolve(name, gen.REFERENCE))
+        output = DBR(self.files[Path("database") / name])
+        a = [float(x) for x in source.get("characterLifeModifier").split(";")]
+        b = [float(x) for x in output.get("characterLifeModifier").split(";")]
+        self.assertEqual(len(a), 26)
+        self.assertEqual(len(b), len(a))
+        for old, new in zip(a, b):
+            self.assertAlmostEqual((100 + new) / (100 + old), 1.20, places=6)
+        expected = DBR.from_file(resolve(name, gen.REFERENCE))
+        expected.set("characterLifeModifier", output.get("characterLifeModifier"))
+        self.assertEqual(output.render(), expected.render())
+
+        settings = copy.deepcopy(self.settings)
+        next(e for e in settings["records"] if e["record"] == name)["enabled"] = False
+        files, report = build_skills(settings, gen.REFERENCE)
+        self.assertEqual(files[Path("database") / name], source.render())
+        self.assertFalse(next(e["changed"] for e in report if e["record"] == name))
 
     def test_damage_curve_scales_more_with_investment(self):
         name = "records/skills/playerclass05/aetherray1.dbr"
