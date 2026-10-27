@@ -3,6 +3,21 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
+## Player maximum level 150 — enabled
+
+`config/player_stats.json` raises the Ashes of Malmouth/GDX2 maximum player
+level from **100 to 150**, composing `maxPlayerLevel=150` in the shared
+`playerlevels.dbr` and `maxLevel=150` in both male/female player actors.
+The original 199-entry skill-point array covers level 150, so skill-point
+awards remain vanilla (**1 per level from 91 onward**); the existing
+**2 attribute points per level / +6 per point**, **2 devotion points
+per shrine / cap 85**, starting stats and movement edits are preserved.
+
+The level-cap toggle is separate from attribute/devo settings and supports
+rollback to 100. Enemy/world level scaling and high-level loot are **not**
+extended by this change; level 101+ behavior needs an in-game test after F7.
+See [level-cap implementation, caveats, build and rollback](docs/PLAYER_LEVEL_CAP.md).
+
 ## Variant XP reward bonuses
 
 Veterans, Elites and Ascended now have increased per-enemy XP inputs, aiming for
@@ -327,10 +342,12 @@ mapped regular selections (442 original + 186 added). Elites and compatible Asce
 - Pack-size multiplier changes existing encounters using the shared equation,
   including special encounters; it does not add map placements. Engine rounding,
   placement/caps and performance remain gameplay checks.
-- Player stats preserve the DLC level cap 100, skill points, XP and other progression.
-  Both uploaded DLC player-level files are identical. Devotion now raises the cap
-  to 85; attributes remain 2/+6. No save edits or explicit
-  retroactive compensation; existing-character recalculation remains unverified.
+- Player stats now raise the DLC level cap from 100 to **150** while
+  preserving the native skill-point table, XP equation and other progression.
+  Both uploaded DLC player-level files are identical. Devotion remains capped
+  at 85 and attributes remain 2/+6. Player actor maxLevel fields are composed
+  with run speed and starting stats; no saves are edited. This newer level-cap
+  feature is unverified in-game; see [level-cap notes](docs/PLAYER_LEVEL_CAP.md).
 
 ## DLC reference priority
 
@@ -379,6 +396,7 @@ Unresolved names retain their vanilla text, while existing zombie labels remain 
 {
   "schema_version": 1,
   "enabled": true,
+  "level_cap": { "enabled": true, "max_level": 150 },
   "attribute_points_per_level": 2,
   "attribute_gain_per_point": { "physique": 6, "cunning": 6, "spirit": 6 }
 }
@@ -387,10 +405,11 @@ Unresolved names retain their vanilla text, while existing zombie labels remain 
 Each level awards 2 spendable attribute points; each point adds 6 to the chosen
 attribute: 12 allocated attribute stats per level instead of vanilla's 8.
 The gain applies to spent attribute points generally, including quest-earned
-points; quest reward point counts are unchanged. Skill points, mastery gains,
-XP equations, health/energy increments and the DLC level cap 100 are preserved.
-Four attribute fields and the Devotion cap (55 → 85) change in the effective DLC
-`playerlevels.dbr`.
+points; quest reward point counts are unchanged. Skill-point awards, mastery
+requirements, XP equations and health/energy increments are preserved.
+Four attribute fields, the Devotion cap (55 → 85), and the player level cap
+(100 → 150) change in the effective DLC `playerlevels.dbr`, plus both
+male/female actor `maxLevel` fields.
 This does not edit character saves or explicitly grant points for past levels;
 existing-character recalculation is unverified. Test a fresh character: level
 once, confirm 2 points, spend one and confirm +6 to the selected attribute.
@@ -398,8 +417,10 @@ once, confirm 2 points, spend one and confirm +6 to the selected attribute.
 Player settings are included in normal generation/staging even without
 `--include-spawns`; use the usual full build commands below to retain all mod
 features. Changing JSON requires regenerating, staging, F7 and installing the
-rebuilt `.arz`. `enabled=false` emits the exact effective vanilla player record
-for rollback; removing the config does not remove a previously compiled override.
+rebuilt `.arz`. To restore native cap while preserving other tweaks,
+set `level_cap.enabled=false`. Full vanilla player-level rollback requires
+also disabling the attribute and devotion sections. Removing the config alone
+does not remove a previously compiled override.
 
 ## Global pack size
 
