@@ -3,6 +3,25 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
+## Planned: Raise Skeletons added to Nightblade (not Arcanist)
+
+A new [Codex implementation plan](docs/NIGHTBLADE_RAISE_SKELETONS_PLAN.md)
+covers phases **SK0–SK5** to attach the original Necromancer **Raise
+Skeletons / Undead Legion / Will of the Crypt** skill line to **Nightblade
+(`playerclass04`)**, for a planned **Nightblade + Occultist** playthrough.
+The new line must be added without replacing or changing any original
+Nightblade skills, while preserving vanilla skeleton mechanics, costs and
+progression. The plan includes dependency/UI inspection, new skill records,
+mastery slots and buttons, deterministic generation/staging, reversible
+configuration and focused tests.
+
+**Proposal only — not implemented or game-tested.** Nightblade currently
+has 35 skill-tree entries; the shared template has up to 60 slots, but UI
+layout/runtime support for additional skill entries must be verified in SK0.
+Current Nightblade skills have no dedicated balance overrides yet; any
+future Nightblade enhancements are a separate review. Work must target
+`dev`, not `main`.
+
 ## Windows pool-preservation test fix
 
 Elite/Ascended regression checks now normalize paths with `as_posix()` before
