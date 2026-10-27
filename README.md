@@ -1,684 +1,387 @@
 # Grim Dawn — Ben MonsterExpansion
 
-Expand Grim Dawn's monster families with reusable, config-driven tier variants,
-while retaining the original game's enemies, roles and encounters.
+**Current project handoff — October 27, 2026 | Working branch: `dev`**
 
-## Player maximum level 150 — enabled
+A data-driven **Grim Dawn + Ashes of Malmouth + Forgotten Gods** custom-game mod.
+The goal is to make an otherwise familiar playthrough **denser, longer, more varied
+and more exciting**: distinctive tiers of stronger enemies, eventually with
+their own combat mechanics; slightly enhanced mastery skills and pets; and
+more flexible character progression. **Preserve the original monsters,
+encounters, loot and game feel rather than replacing the campaign or making
+everything wildly overpowered.**
 
-`config/player_stats.json` raises the Ashes of Malmouth/GDX2 maximum player
-level from **100 to 150**, composing `maxPlayerLevel=150` in the shared
-`playerlevels.dbr` and `maxLevel=150` in both male/female player actors.
-The existing 199-entry skill-point table covers level 150. Skill point
-awards now follow **3 per level at 2–60, 2 at 61–100, and 1 at 101–150**:
-**307 skill points by level 150** rather than 287 under the original
-expansion table at the same cap (+20). The existing
-**2 attribute points per level / +6 per point**, **2 devotion points
-per shrine / cap 85**, starting stats and movement edits are preserved.
+> **Start here for future chats/Codex.** This README is the authoritative
+> *high-level direction and status summary*. Check the current JSON and
+> generators before editing, and use the linked technical docs for exact DBR
+> fields, tests and limitations. **Make all edits/commits to `dev`**, never
+> `main` unless explicitly requested. The [previous long-form README is
+> archived](docs/README_HISTORY_2026-10-27.md).
 
-The level-cap toggle is separate from attribute/devo settings and supports
-rollback to 100. Enemy/world level scaling and high-level loot are **not**
-extended by this change; level 101+ behavior needs an in-game test after F7.
-See [level-cap implementation, caveats, build and rollback](docs/PLAYER_LEVEL_CAP.md).
+## 1. Vision and design decisions
 
-## Low-health rage — compatible Elite and Ascended variants
+- Build **new enemy variants**, not engine-level monster classifications:
+  **Common → Veteran → Champion → Elite → Hero → Ascended → Boss →
+  Nemesis → Apex**. Veteran, Elite and Ascended are implemented;
+  **Apex remains an unimplemented concept**.
+- Let variants retain their *exact original parent*, skills, class,
+  eligibility, faction/role and recognizable silhouette. Increase their
+  relative stats, physical model size, visual identity and eventual **combat
+  behaviour**. Don't indiscriminately rewrite all monsters or scripted bosses.
+- **The next design focus is an additional ability for Ascended enemies**,
+  beyond the low-health rage already configured. Native on-hit elemental
+  counterattacks and **capped reinforcement summons** are leading ideas.
+  Prototype on one compatible Ascended first; choose and approve the precise
+  ability/tuning before bulk activation. Avoid runaway summon loops/FX spam.
+- Most upgrades should feel **noticeably better, not absurdly overpowered**:
+  moderate damage, radius, cooldown and duration adjustments; retain native
+  per-rank curves. The mod is also used for an **Occultist + Nightblade
+  (Witch Hunter)** playthrough, with previous Occultist/Arcanist upgrades.
+- **Shelved:** random 20% Veteran rage. **Deferred:** +10–15% more natural
+  Champions or Heroes until observed normal encounter frequency warrants it.
+  Keep vanilla Hero monsters independent of **custom Ascended**.
+- Use **config-driven, independently reversible** changes. Read actual DBRs
+  and native templates first. Add mechanics through existing supported game
+  skills where possible, not invented fields, patched binaries or new AI.
 
-Following the successful single-Elite-boar rage visual test,
-the red Last Stand-style low-health rage is now enabled for all
-**compatible custom Elite (124 catalog variants)** and
-**custom Ascended (137 catalog variants)**. The generator uses
-their already reviewed family configs; **no new discovery scan**
-or original-Hero actor override is required.
+## 2. Enemy tiers and natural encounters
 
-Both tier settings in `config/tiers.json` (`Elite.prototype.low_health_rage`
-and `Ascended.prototype.low_health_rage`) independently enable:
-**30% remaining HP** trigger, **12s duration**, **180s cooldown**,
-**+15% total-damage modifier**, **+10% movement speed**, and
-the same red visual FX previously observed on the Elite boar.
-No inherited skills, Dranghoul-specific Roar/sounds, extreme CC
-resistances or absorption bonuses are replaced or copied.
+| Tier | Origin / parent | Current catalog | Relative health | Physical base-damage passive* | Defensive ability | Model scale | Visual identity |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Veteran | Custom from Common | **148** | 1.30× | 1.10× | 1.08× | 1.10× | Green glow |
+| Elite | Custom from Champion | **124** | 1.30× | 1.18× | 1.12× | 1.10× | Amber / golden glow |
+| Ascended | Custom from Hero | **137** | 1.40× | 1.22× | 1.15× | 1.15× | Violet / purple glow |
+| Apex | Proposed from Nemesis | **Not implemented** | 1.50× proposed | 1.25× proposed | 1.20× proposed | 1.20× proposed | Crimson/pink concept |
 
-If a source already has a native low-health skill, the generator
-preserves it instead of assigning a duplicate; if an ordinary skill
-slot is full, rage is skipped. Consequently, the exact number of
-new rage skills may be below the 124+137 catalog total. **Vanilla
-Hero monsters, Veterans, Champions, Bosses and Nemeses are untouched.**
-Natural spawn weights, 2× regular pack sizes and
-33% eligible Champion→Elite/Hero→Ascended conversions are unchanged.
+*The generator scales an existing **physical base-damage skill**, not
+necessarily the monster's final total damage. Each multiplier is applied
+to that variant's **own exact parent**, not cumulatively to other custom
+tiers. These are not new `monsterClassification` values. Original
+Common, Champion, Hero, Boss and Nemesis types remain present.
 
-The tier-wide rollout is **committed but not yet built/tested in-game**.
-Build with `python scripts/validate_config.py`, then
-`python scripts/generate_variants.py --include-spawns --write --replace-generated`,
-`python scripts/prepare_console_test.py --include-spawns --stage --replace-staged`
-and Asset Manager F7.
+**Current natural selection mechanics:**
 
-See [tier rage controls and gameplay tests](docs/TIER_RAGE.md) and
-[future encounter mechanic ideas](docs/TIER_ENCOUNTER_MECHANICS_IDEAS.md).
-Veteran rage, reinforcements, elemental counterattacks and additional
-Champion/Hero spawn frequency remain deferred.
+| Eligible original parent selection | Stays vanilla | Custom replacement | Current scope |
+| --- | ---: | ---: | --- |
+| Common | 80% | **20% Veteran** | Reviewed regular pool entries |
+| Champion | 67% | **33% Elite** | Reviewed Champion entries |
+| Hero | 67% | **33% Ascended** | Reviewed Hero entries with finite-quota safeguards |
+| Nemesis | 100% | Apex idea: 10% someday | **Not implemented** |
 
-## Variant XP reward bonuses
+- **409 configured custom variants**, using **377 merged pool overrides**
+  at the previous catalog checkpoint. Elite coverage: 382 eligible selections
+  in 255 pools; Ascended: 241 selections in 63 pools. These counts are
+  catalog snapshots, not a claim of complete map coverage.
+- `config/master.json`: **2× regular monster pack count** through
+  `spawnMinEquation` / `spawnMaxEquation`; the original Champion-group
+  chance and Champion count equations are **unchanged**. This can explain
+  more naturally encountered Veterans; it does not directly multiply
+  Champion/Hero spawns. Existing encounters receive more ordinary enemies,
+  not extra map placements.
+- `scripts/natural_spawns.py` splits **existing source weights**
+  conditionally; it does not upgrade creatures after they spawn.
+  Common selections and Champion/Hero selections use separate groups.
+  Ascended preserves finite Hero quotas where demonstrably safe; special,
+  forced, scripted or unsupported pools are intentionally excluded.
+- Variant XP inputs target approximately **+30% Veteran**, **+30% Elite**,
+  **+40% Ascended** relative to their parents. Actual XP depends on native
+  XP formulas, level, difficulty and rounding. Original loot, enemy XP
+  eligibility and global reward formulas are not intentionally changed.
+- The existing **discovery scanners and reviewed family JSON catalogs** are
+  reusable. To add an ability to already-enabled Elites or Ascended, **do
+  not rescan their parent monsters**; extend the shared generator/config.
+  An optional new scan is for finding *new* supported families/pools.
 
-Veterans, Elites and Ascended now have increased per-enemy XP inputs, aiming for
-approximately **+30%, +30% and +40% kill XP** relative to their exact parents.
-The generator reuses each tier's HP multiplier and adjusts the existing XP-formula
-input; final XP still depends on difficulty/levels/rounding. All 409 variants are
-covered. Toggle per tier with `prototype.experience_reward.enabled` in
-`config/tiers.json`. Originals, global XP formulas and reward eligibility remain
-unchanged. Regenerate/stage and rebuild to activate; game XP checks remain pending.
-See [XP implementation and rollback](docs/ENEMY_XP.md).
+### Implemented low-health rage
 
-## Summoned pet boosts — +20% HP and +15% skeleton damage
+The single **Elite boar** rage prototype was visibly confirmed by the
+user in-game: red Last Stand-like streaks appeared when the enemy was
+almost dead. That same ability is now **configured for all compatible
+custom Elites and custom Ascended** (not original vanilla Heroes).
 
-The Familiar and Hellhound now gain **20% more HP relative to their previously
-modded intrinsic health scaling** across all 26 summon ranks each. Their
-actor-level health modifiers change from +10% at rank 1 / +60% at rank 26
-to +32% / +92%, preserving native rank progression.
+| Setting | Elite | Ascended |
+| --- | ---: | ---: |
+| Activation threshold | Below 30% HP | Below 30% HP |
+| Duration | 12 seconds | 12 seconds |
+| Cooldown | 180 seconds | 180 seconds |
+| Total-damage modifier | +15% | +15% |
+| Run-speed modifier | +10% | +10% |
+| Visual FX | Red Dranghoul Last Stand particle | Same |
 
-Skeletons summoned through the added Nightblade Raise Skeletons line now also
-gain **20% more intrinsic HP** and **+15% base-scaling total damage**, using
-one rank-preserving override of the shared Necromancer skeleton passive.
-Both modifiers retain the native 26-rank progression. This also affects
-**Necromancer's original skeleton summons**, because they use the same pet
-skill; final damage can vary with additional pet buffs and equipment.
-Blade Spirits are invulnerable, so they do not need an HP boost. No other
-game-wide or equipment-granted pet families are modified.
+`config/tiers.json` controls `prototype.low_health_rage` separately
+for Elite and Ascended; both are currently `enabled=true` with
+`target_mode="all"`. The generator adds a **new native
+`Skill_PassiveOnLifeBuffSelf`** to a free ordinary skill slot, preserves
+the tier's cosmetic glow and inherited attacks, **skips** actors that
+already have a native low-health skill, and does not overwrite occupied
+slots. No Dranghoul-specific roar/sound or extra absorption is copied.
 
-See [pet HP method, scope and rollback](docs/PLAYER_SKILLS.md). These are
-committed changes on `dev`, not yet compiled or verified in-game.
+**Important status:** The **one Elite boar** was tested successfully,
+not the full 124+137 rollout. The bulk config/generator is committed;
+regenerate/build and test representative families. The generated
+manifest reports `rage_coverage.elite` and `rage_coverage.ascended`,
+including attachment/skipped counts. [Technical scope and tests](docs/TIER_RAGE.md).
 
-## Phantasmal Blades — more blades, range, size and damage
+## 3. Player progression and game-wide quality-of-life
 
-Phantasmal Blades gains **one additional projectile at every rank**:
-4 at ranks 1–7, 5 at 8–15, 6 at 16–23, and 7 at 24–26.
-The original projectile FX record is now configured to travel
-**20 instead of 16 metres** and use **0.90 instead of 0.75 model scale**
-(+20% visual size). Pierce/Bleeding damage changes from the previous
-+15% to **+25% relative to vanilla** per original rank. Extra projectile
-hits can raise effective damage further; native weapon damage, mana costs,
-cooldown, projectile spread and skill modifiers remain unchanged.
-
-Both the skill DBR and class-specific FX DBR are independently reversible
-records in `config/player_skills.json` and are regenerated/staged by the
-existing pipeline. No source `ReferenceFiles` were modified. See
-[exact values, tests and rollback](docs/NIGHTBLADE_BALANCE.md).
-Committed to `dev`; Asset Manager compilation and in-game validation pending.
-
-## Nightblade rank-preserving balance pass
-
-For the Nightblade + Occultist playthrough, 18 existing Nightblade skill/pet
-records have configurable improvements in `config/player_skills.json`.
-Selected offensive, passive, and pet damage/heal curves increase by **15%** (except Phantasmal Blades, now +25%);
-Ring of Steel, Veil of Shadow, Blade Trap and Amarasta's Blade Burst area
-increase by **20%**. Blade Burst has +15% Cold/Frostburn damage at every rank,
-with cooldown shortened from 1.8 to 1.5 seconds.
-Shadow Strike cooldown decreases 15% (3.5 -> 2.975 seconds), Pneumatic Burst
-duration increases 20% (60 -> 72 seconds), and Blade Spirit limit/burst
-progression stays at 2 until rank 15, then improves to 4 at ranks 16–23 and
-5 at ranks 24–26. Existing rank curve lengths are preserved. No Nightblade
-`exclusiveSkill=1` flags were found among the audited skill records; their
-existing non-exclusive behavior remains. Existing Occultist/Arcanist balance
-is retained.
-
-See [complete Nightblade changes, rollback and playthrough checks](docs/NIGHTBLADE_BALANCE.md).
-The skeleton attachment now exposes the full line, described below.
-
-## Nightblade Raise Skeletons — complete skill line
-
-The base summon was confirmed working in-game. The full line now occupies its
-own bottom row: **Raise Skeletons → Undead Legion → Will of the Crypt**,
-at `(246,459)`, `(406,459)`, `(566,459)`, using tree slots **35–37**.
-Existing skill rows are spaced 60 instead of 70 pixels apart, freeing the
-bottom row while preserving horizontal positions, ordering and branch offsets.
-
-Starting summon burst and base cap are now **4**. Undead Legion adds its native
-**+1 to +7** capacity: total cap **5 at rank 1**, **9 at rank 12**, **11 at
-rank 22** (maximum without gear bonuses). Will of the Crypt adds damage/pet
-effects but no extra capacity. Its native bonuses and Undead Legion's
-cooldown/cost reductions are unchanged. The shared skeleton base passive
-grants +20% relative intrinsic HP and +15% relative total-damage scaling to
-skeletons in **both Nightblade and Necromancer**; original Necromancer
-summoning skills and caps remain unchanged.
-
-Configure in `config/nightblade_skeletons.json`. Disabling the feature and
-regenerating, replacement-staging and rebuilding restores the original tree,
-panel and all 31 button positions. All other balance and XP changes are preserved.
-
-See [build steps, layout and validation](docs/NIGHTBLADE_SKELETONS_BUILD.md).
-The full line's UI, modifier behavior and four-skeleton burst still require an
-in-game check after F7; the earlier base-only build was verified by the user.
-Changes target `dev` only.
-
-## Windows pool-preservation test fix
-
-Elite/Ascended regression checks now normalize paths with `as_posix()` before
-matching pool directories and logical record names. Previously, Windows backslashes
-made intentionally edited pools enter the byte-identical non-pool comparison,
-causing a false failure in `test_previous_variants_settings_and_unrelated_fields_preserved`
-and the corresponding Elite check. A regression test runs both checks with
-`PureWindowsPath` keys even on Linux. Gameplay output is unchanged by this fix.
-
-Validation on October 26: config validation passed; all 93 existing Python tests
-passed, plus both new Windows-path regression tests (95 checks total). This
-includes current skills, Devotion, player movement/basics and combined staging.
-Windows Asset Manager compilation and in-game verification remain manual.
-
-## Player movement: +15% base run speed
-
-Added config-driven player movement overrides for both male and female characters.
-Their effective DLC base `characterRunSpeed` changes from `0.930000` to
-`1.069500` (+15%). `config/player_movement.json` independently enables,
-tunes or rolls back this modification; vanilla player speed caps, skills and
-other character fields are unchanged. It uses the same validated
-DLC-aware generation/staging pipeline. See [movement tuning and test steps](docs/PLAYER_MOVEMENT.md)
-and [other verified tweakable parameters](docs/TUNABLE_PARAMETERS.md).
-This is committed configuration/code, **not yet built or game-tested**.
-
-## Starting health/energy, movement cap and camera default
-
-New reversible `config/player_basics.json` settings compose with the earlier +15%
-base movement-speed change:
-- **Starting base health and energy: 250 → 300** for male and female players.
-- **Player movement-speed cap: 135% → 145%**, leaving the absolute engine cap unchanged.
-- **Camera default distance 36; maximum zoom-out 48**. The earlier default 39
-  was reverted. Mouse-wheel zoom still works within the existing 20–48 limits.
-
-These add only one new game-engine DBR output; both player records remain single,
-merged overrides. See [player basics and build/rollback](docs/PLAYER_BASICS.md).
-Asset Manager build and in-game testing remain manual.
-
-## Occultist offensive and passive balance pass 3
-
-Sixteen additional Occultist records are now improved with generally +5-10%
-rank-preserving changes to Curse of Frailty, Vulnerability, Bloody Pox,
-Wasting, Black Death, Dreeg's Evil Eye and modifiers, and Sigil's Destruction
-modifier. Radius/duration changes follow each original rank: Curse +10%
-radius and duration; Blood Burst +10% radius; Pox lasts 5.5 seconds;
-Focused Gaze cooldown 4 -> 3.8 seconds. Vile Eruption adds a single extra
-maximum fragment from rank 12 onward, without increasing early ranks.
-
-Small passive improvements affect Solael's Witchfire, Second Rite, Aspect
-of the Guardian, Bonds of Bysmiel and Manipulation, plus the *existing*
-Possession override (which stays non-exclusive). Summoned pets' individual
-abilities and the Occultist mastery bar are deliberately untouched.
-See [exact Occultist values and rollback](docs/PLAYER_SKILLS.md).
-Local tests, Asset Manager build and in-game verification remain required.
-
-## Arcanist passive and offensive balance pass 2
-
-A restrained, rank-preserving Arcanist pass improves seven passive/aura records:
-Inner Focus, Arcane Will, Mental Alacrity, Fabric of Reality, and the Iskandra's
-Elemental Exchange support chain. Modifiers are typically +5–10% to selected
-existing bonuses, not new universal buffs.
-
-Offensive upgrades cover Panetti's Replicating Missile and modifiers,
-Trozan's Sky Shard and modifiers, Callidor's Tempest and Inferno, and Olexra's
-Flash Freeze and Absolute Zero. Most selected damage fields increase by 8–10%;
-area/radius fields by 8–10% while preserving all native rank scaling; Trozan's
-cooldown is 3 -> 2.85 sec. Existing Arcanist pass 1 skills are unchanged.
-Panetti's main missile now generates 5 child fragments at ranks 1–3,
-5–6 at ranks 4–11 and 5–7 at ranks 12–26; Proliferation's additional
-Aether fragments remain unchanged.
-See [full list of exact fields](docs/PLAYER_SKILLS.md). GitHub data changes
-still require local tests, staging, Asset Manager F7 and in-game verification.
-
-## Occultist / Arcanist playthrough pass 1
-
-Player skill overrides are now included in the shared generation/staging pipeline.
-All uploaded mastery exclusives become stackable. Aether Ray, Devastation, Doom
-Bolt, Maiven's Sphere, Sigil of Consumption and Occultist pets receive configurable rank progression
-buffs. Familiar/Hellhound limits rise to two each at rank 8. Blood of Dreeg and
-Mirror become sustained toggles, with Mirror's protection reduced accordingly.
-Sigil of Consumption now has +15% radius across all 22 existing ranks,
-+20% duration (7.2 sec) and -10% cooldown (2.7 sec), without damage or cost
-changes. This preserves its original progression rather than replacing it.
-Settings: `config/player_skills.json`; see [exact values, tuning and
-playthrough checks](docs/PLAYER_SKILLS.md). This is a data-validated first pass;
-Asset Manager compilation and game testing remain manual. Existing monster-tier,
-attribute and pack settings are retained. Devotion is enabled at 2 points per shrine with an 85-point cap.
-
-## Handoff checkpoint — October 25, 2026
-
-**Active content:** **148 Veterans + 124 Elites + 137 Ascended**, with **377
-merged pool overrides**, 2.0x regular pack size and player attributes at 2 points
-per level / +6 per spent point. Full generation, including the skill pass above, emits **3,011 DBRs + 1 English
-text source**, plus its manifest. Asset Manager builds and game verification are
-manual. **77 Python tests passed at the previous checkpoint (new movement/basics tests still need rerunning)**, including real shrine preservation, progression,
-monster/pool regressions and the current player-skill checks. Combined generation
-and staging preflight pass. New Devotion, skill, Elite and Ascended runtime behavior
-still requires game verification.
-
-### Devotion 2 per shrine / cap 85 — enabled
-
-`config/player_stats.json` now enables **2 Devotion points per restored shrine**
-and an **85-point cap**. The uploaded references contain 30 rewarding base records,
-6 AoM records and 56 FG records; effective GDX2 > GDX1 > base resolution produces
-**60 distinct shrine overrides**. Existing base shrine records use DLC updates
-where present, preserving their costs, XP, loot, quests and difficulty flags.
-Blank/decorative and zero-reward quest shrines remain unchanged.
-
-The cap composes with the existing 2-point/+6 attribute changes in the same
-`playerlevels.dbr`. Other progression and existing monster/support/pool/global
-pack records remain unchanged. The combined build emits **3,011 DBRs + 1 text
-source**, plus its manifest. New shrine rewards require build/install and apply
-to subsequently restored shrines; no retroactive reward mechanism is implemented.
-
-See [Devotion configuration and verification](docs/DEVOTION.md). In-game behavior,
-including the 84-to-85 cap boundary, still needs verification. The earlier
-one-point-every-seven-levels proposal remains unimplemented.
-
-### Hero → Ascended implemented
-
-The shared pipeline now enables **137 exact Hero parents / 241 eligible selections
-/ 63 ordinary pools**, at **33% conditional replacement**. These add 9 pool paths
-and merge into 54 existing pool overrides. Slot allocation reserves Elite and
-Ascended destinations together, so neither tier overwrites the other.
-
-Shared Ascended JSON settings: **1.40 health, 1.22 physical base-passive damage,
-1.15 defensive ability and 1.15 model scale**, relative to each exact Hero parent.
-The cosmetic preset is vanilla `glowpurple01_large.dbr` (provisional violet look).
-Original Hero classification, names, skills/timing and loot setup are retained;
-English `(Ascended)` suffixes remain optional pending extracted text tags.
-
-**Finite Hero quota policy:** split only unrestricted entries or those whose
-whole Champion-group maximum cannot exceed that source's quota, using identity
-Champion min/max equations. Copy the quota and eligibility rules to the variant.
-The total group bound then prevents original + Ascended from exceeding the
-original quota. Larger-draw pools with smaller per-Hero limits, forced entries,
-unknown count equations, special encounters and full/occupied slots stay excluded.
-Monster Totems are outside this ordinary-pool pass. This is data-level validation;
-engine behavior, visuals and multiplayer still require representative game checks.
-
-Elite and Ascended conversion shares can be changed independently in JSON even
-when they use the same Champion selection group; weights use a shared denominator.
-Existing monster/support DBRs, player progression and global pack equations remain
-byte-identical. Pool probabilities and combined quota bounds are checked in tests.
-See [Ascended pipeline](docs/ASCENDED.md) and
-[activation scan](docs/ASCENDED_DISCOVERY_REPORT.md).
-
-### Champion → Elite implemented
-
-The shared discovery/generation pipeline now supports exact **Champion → Elite
-33%** conversion, configured in JSON. The activation adds **124 sources / 382
-eligible Champion selections / 255 pools** across effective GDX2 > GDX1 > base
-references. Of those pools, 212 already had Veteran mappings; the generator merges
-both groups into one override per pool. It adds 43 new pool paths.
-
-Elite settings in `config/tiers.json`: **1.30 health, 1.18 physical base-passive
-damage, 1.12 defensive ability and 1.10 model scale**, relative to each exact
-Champion parent. Original classification, abilities and skill timing remain.
-No Common fallback or Boss conversion is enabled. Hero → Ascended is a separate exact-parent mapping.
-
-The cosmetic preset uses vanilla `goldenglow01_large01.dbr` through the same
-stat-free attachment pipeline as Veterans. Golden glow is provisional for the
-amber design target; exact appearance/color still needs in-game confirmation.
-Names keep vanilla labels until optional English tag files are supplied.
-
-Pool checks cover exact 67/33 conditional weight splits, unchanged unrelated
-selection probabilities, inherited level restrictions, unchanged Champion count
-settings and preserved Veteran regular selections. Limited/forced entries,
-special encounters, unsupported damage setups and full slots remain excluded
-with reasons. Every previous monster/support record remains byte-identical;
-existing pool changes are confined to the Champion selection weights/new slots.
-
-See [Elite pipeline and testing](docs/ELITES.md) and
-[activation discovery snapshot](docs/ELITE_DISCOVERY_REPORT.md). The scanner is
-read-only by default; optional drafts are disabled and must not replace active
-family configs. The new Elites are data-validated, not yet verified in-game.
-
-Next: build/install the combined mod and check representative Elite/Ascended
-appearance, combat and natural selections. Nemesis → Apex **10% (provisional)**,
-broader finite-quota policies, higher-tier abilities/rewards and optional English
-names remain future work. The overhead star marks vanilla Heroes; no custom marker is added.
-
-### Completed and published
-
-| Work | State / config | GitHub commit |
+| Mechanic | Vanilla / expansion baseline | Current mod setting |
 | --- | --- | --- |
-| Initial broad Veteran activation | 96 additional sources / 431 selections / 200 pools; shared 20% conversion | `6070aa2c` |
-| Larger regular packs (initial rollout) | `config/master.json`, originally `1.5` (now `2.0`); shared Champion equations unchanged | `dc7b63ce` |
-| DLC-aware tools | GDX2 > GDX1 > base for scanner, validator, generator and shared equation | `26ff3d2b` |
-| Player attributes | `config/player_stats.json`: 2 points per level, 6 per spent point | `5f613028` |
+| Maximum character level | **100** with DLC | **150** |
+| Skill points reaching levels 2–50 | 3 per level | **3** (to level **60**) |
+| Skill points reaching levels 51–90 | 2 per level | **2** (levels **61–100**) |
+| Skill points reaching levels 91+ | 1 per level | **1** (levels **101–150**) |
+| Total skill points from level-ups at 150 | **287** if native award table extends to 150 | **307** (+20) |
+| Attribute points per character level | 1 | **2** |
+| Physique / Cunning / Spirit per spent point | +8 | **+6** |
+| Devotion points per restored shrine | 1 | **2** |
+| Maximum Devotion points | 55 | **85** |
+| Starting health / energy | 250 / 250 | **300 / 300** |
+| Base run speed (player actor field) | 0.93 | **1.0695** (+15%) |
+| Maximum movement-speed bonus | 135% | **145%** |
+| Camera default / max zoom-out | 36 / 48 | **36 / 48** (kept/reverted) |
 
-Verified in-game by the user: original Veteran boar spawn/green glow, +30% HP
-(92 vs 71 at one level), Veteran boar selected by the vanilla proxy, a natural
-Veteran zombie in an early Lower Crossing house, and `Walking Dead (Veteran)`
-header with original Aether Corruption subtitle. These observations do not prove
-every new variant, rarity, map placement or current pack multiplier.
+Skill-point **exact bands**: levels **2–60 = 3**, **61–100 = 2**,
+**101–150 = 1**; **307 awarded through level 150**, excluding quest
+rewards. The vanilla award table at its original level-100 cap
+awards **237** level-up skill points. Mastery bar costs, native XP-to-level
+equation, health/energy gains per level and quest point counts stay
+unchanged. Current game/world monster level limits and loot progression
+beyond level 100 **have not been extended** and need a separate audit.
 
-The user rebuilt and reported `.arz` increasing from about 1,374 KB to 1,375 KB
-after DLC/attribute work. This is plausible because DLC references are build inputs,
-not bundled into the mod, and the rescan did not activate more enemies. Archive
-size alone is not validation. The 2-point/+6 change and 2.0x packs still need explicit
-in-game confirmation; no successful level-up test has been reported yet.
+Configs are `config/player_stats.json`,
+`config/player_movement.json`, and `config/player_basics.json`.
+Devotion edits apply to **60 distinct effective rewarding shrine DBRs**
+from the provided base/AoM/FG references. Existing quest, shrine cost,
+loot and difficulty conditions are preserved. The level cap is composed
+into both male/female player actors as well as `playerlevels.dbr`.
+These changes are DBR generation/build settings, **not live sliders**.
 
-### Next work
+## 4. Masteries, abilities and pets
 
-The DLC candidate activation is complete. The previous rescan found 48 compatible
-sources / 186 selections / 119 pools; these are now active. Existing-source/new-pool
-and existing-owned-pool extensions remain review cases. Keep limited/forced and
-special entries excluded until explicit policies support them. Six missing-dependency
-entries previously referred to four volcanic sandlizard Hero records and two
-selections needing `records/endlessdungeon/skills/special/maggot_passive_a01.dbr`.
+`config/player_skills.json` contains reversible, **rank-aware** overrides,
+using the effective game DBR fields rather than flattening rank curves.
+It covers Nightblade, Occultist, Arcanist and shared pets (not a universal
+buff to every mastery). All **13 exclusive-skill flags found in the
+uploaded masteries** were cleared for the intended stacking behaviour;
+actual in-game interactions still need testing.
 
-Re-running discovery is optional and read-only; generated drafts are disabled and
-must never replace the active aggregate family. The active catalog now has 628
-mapped regular selections (442 original + 186 added). Elites and compatible Ascended are enabled; Apex is not.
+### Nightblade
 
-### Preferences and remaining features
+- Selected main, modifier, passive and dual-wield skills receive generally
+  **+15%** improvements to their chosen damage/defensive curves;
+  Blade Burst gains +15% Cold/Frostburn, +20% radius and shorter cooldown
+  **1.8 → 1.5 s**.
+- **Phantasmal Blades**: **4 / 5 / 6 / 7 blades** across its four rank
+  bands (one more than original), **+25% Pierce/Bleeding**, projectile
+  range **16 → 20 m**, visible projectile scale **0.75 → 0.90**.
+- **Shadow Strike**: selected damage +15%, cooldown **3.5 → 2.975 s**;
+  **Ring of Steel**, **Veil of Shadow** and **Blade Trap** get about
+  +20% area/radius (Blade Trap also +15% effect duration).
+- **Pneumatic Burst**: duration **60 → 72 s**, enhanced heal/regen;
+  **Blade Spirits**: cap/burst **2** at ranks 1–15, **4** at 16–23,
+  **5** at 24–26, plus +15% to selected attack damage fields.
+  Blade Spirits are already persistent/invulnerable.
 
-- Veteran conversion is globally `0.2` in `config/tiers.json`. Current safeguards
-  reject shares >= 0.5; 80% testing would need a deliberate validation update.
-- Agreed future exact-parent rules: Champion -> Elite 33%, Hero -> Ascended 33%,
-  Nemesis -> Apex provisional 10%. Elite and compatible Ascended are implemented; Apex is not. No fallback
-  from Common to Elite; Boss encounters remain preserved.
-- Most new names retain vanilla labels. Only known zombie names have generated
-  `(Veteran)` suffixes. User deferred supplying extracted English `.txt` files;
-  do not block enemy activation on that optional naming work.
-- Green Veteran glow is approved. Shared stats: 1.3 health, 1.08 defensive ability,
-  1.1 physical base passive damage and 1.1 model scale versus each exact parent.
-  Physical passive scaling is not a guarantee of +10% total final damage.
-- Pack-size multiplier changes existing encounters using the shared equation,
-  including special encounters; it does not add map placements. Engine rounding,
-  placement/caps and performance remain gameplay checks.
-- Player stats now raise the DLC level cap from 100 to **150**,
-  with configurable skill-point progression of 3 / 2 / 1 at levels
-  2–60 / 61–100 / 101–150, for **307 level-up skill points** (+20 vs
-  the original award table extended to level 150). The native XP equation,
-  mastery requirements and other progression are preserved.
-  Both uploaded DLC player-level files are identical. Devotion remains capped
-  at 85 and attributes remain 2/+6. Player actor maxLevel fields are composed
-  with run speed and starting stats; no saves are edited. This newer level-cap
-  feature is unverified in-game; see [level-cap notes](docs/PLAYER_LEVEL_CAP.md).
+### New Nightblade skeleton skill line
 
-## DLC reference priority
+The Necromancer-style line has been **attached to Nightblade's UI**
+in a dedicated bottom horizontal row:
+**Raise Skeletons → Undead Legion → Will of the Crypt**.
+It uses copied mastery skill/button records; original Necromancer
+mastery remains separately available.
 
-Tools now use **GDX2 > GDX1 > base**, resolving each logical `records/...` path
-from `ReferenceFiles/gdx2/database/records/`, then the corresponding `gdx1`
-folder, then `ReferenceFiles/`. Generated paths keep the original game namespace.
-Discovery includes expansion pool folders and deduplicates overridden records.
+- Raise Skeletons summons **4** initially (base summon/cap 3 → 4).
+- Undead Legion retains vanilla additive capacity: **9 skeletons**
+  at its ordinary **12/12 cap**, or **11** at overcapped **22/12**
+  (excluding additional equipment bonuses). Will of the Crypt
+  increases skeleton capabilities, **not** summon count.
+- Shared skeleton scaling gets **+20% relative HP** and **+15%
+  relative total damage**, retaining all 26 native ranks. Because the
+  summoned skeletons use a shared native pet-scaling record, this also
+  improves the **original Necromancer skeletons**.
+- User has confirmed the initial Nightblade skeleton summon/button
+  works in-game; the complete three-skill row, revised count and
+  all modifier effects still need broader runtime confirmation.
 
-All 409 active variants / 377 pools validate with the uploaded DLC records.
-The DLC resolver initially changed only the cave half-troll Veteran output.
-The later 48-source activation adds new content while preserving all earlier files.
-The DLC-aware scan found **48 additional sources / 119 pools**, now enabled.
-Six entries flag missing/invalid dependencies; see the generated JSON for details.
-GDX1 and GDX2 player-level records match; player attribute settings below now use this expansion baseline.
+### Occultist
 
-## Veteran discovery scanner
+- **Familiar and Hellhound** cap rises from one each to **two of
+  each at summon rank 8+**; each pet gets **+20% relative intrinsic
+  HP** compared with the prior modded actor scaling, across 26 ranks.
+- **Sigil of Consumption**: +15% **radius at every rank**, duration
+  **6 → 7.2 s** (+20%), cooldown **3 → 2.7 s** (−10%);
+  original damage/cost curve unchanged. **Curse of Frailty**,
+  Vulnerability, Bloody Pox, Dreeg's Evil Eye and related modifiers
+  have modest targeted buffs (commonly +5–10%).
+- **Doom Bolt** and selected pet/passive skills enhanced; Blood of
+  Dreeg is a sustained toggle. Other pet abilities not explicitly
+  configured remain vanilla.
 
-The scanner is implemented and has been run on the uploaded references:
-**Initial base-reference scan: 96 new mechanically compatible sources, 431 regular selections,
-200 pools**, plus explicit reasons for excluded/review-required entries.
-The reviewed snapshot is now enabled in `config/families/discovered_veterans.json`.
-All 431 substitutions passed a generated-pool comparison: exact 80/20 split,
-inherited level rules, unchanged Champion/count fields and existing mod output.
-The 96 new variants still need in-game testing. Discovery itself remains read-only.
+### Arcanist
+
+- **Aether Ray**: beam range **16 → 22** and thickness **1.25 → 2**;
+  Aether Ray, Disintegration, Devastation and selected offensive
+  skills get rank-scaled damage boosts.
+- **Devastation**: duration **5 → 8 s**, larger area and **2 → 3**
+  projectiles per launch. **Mirror** becomes a moderated sustained
+  toggle; Maiven's Sphere and selected buffs are enhanced.
+- Targeted modest buffs (+5–10% to chosen fields) include Panetti's
+  Replicating Missile, Trozan's Sky Shard, Callidor's Tempest,
+  Olexra's Flash Freeze, Inner Focus, Arcane Will and Iskandra's
+  Elemental Exchange support skills. Skill ranks and original
+  other damage types are otherwise preserved unless explicitly
+  configured.
+
+These mastery changes are intended to be **playable rather than
+overpowered**. Details, actual field names and untouched skills:
+[Nightblade](docs/NIGHTBLADE_BALANCE.md),
+[Nightblade skeleton layout](docs/NIGHTBLADE_SKELETONS_BUILD.md),
+[Occultist/Arcanist and pet tuning](docs/PLAYER_SKILLS.md).
+
+## 5. Verified in game vs configured only
+
+**Observed by the user in-game:**
+- A **Veteran boar** directly spawned with green glow and increased
+  health; the vanilla boar proxy also produced the Veteran variant.
+- A **Veteran zombie** appeared naturally in an early Lower Crossing
+  area; its `Walking Dead (Veteran)` display name and original
+  faction subtitle were observed.
+- Nightblade's initial **Raise Skeletons** button/summon worked.
+- One **Elite boar** exhibited the red Last Stand-style rage effect
+  while at low HP.
+
+**Implemented in repo but not yet comprehensively verified in-game:**
+full natural Elite/Ascended frequency, all tier-wide rage
+attachments, level-101–150 progression and rewards, 2 Devotion
+points/shrine and the 85 cap, mastery balance and shared pet changes,
+the complete Nightblade skeleton UI/cap, all 2× pack behaviours,
+all character speed/stats overrides, multi-family gameplay and
+multiplayer. Earlier focused Python tests passed for certain
+checkpoints; **do not describe newly committed tests as executed
+unless actually run**. Config/commit success alone does not prove
+Asset Manager compilation or game behaviour.
+
+## 6. Next priorities and ideas (not implemented)
+
+1. **Choose one extra Ascended-specific combat ability** beyond the
+   already-configured rage. Candidates:
+   - A **native elemental counterattack** using an existing
+     `Skill_OnHitAttackRadius` with chance/cooldown and suitable FX.
+   - **Capped reinforcements**, ideally themed to the same family.
+     Native summoning is supported; making it activate *only on
+     low HP* is not yet proven. Guard against recursive summoners,
+     excessive monsters, repeated XP or extra loot.
+   Start on one compatible Ascended, with an independent JSON toggle
+   and short in-game test, before applying broadly.
+2. **Rebuild and verify** the full Elite/Ascended rage rollout across
+   several species. Use generated `manifest.json` `rage_coverage`
+   for per-tier assignment/exclusion counts.
+3. **Evaluate** Champion/Hero frequency from actual gameplay.
+   Proposed increases of +10–15% *relative* remain deferred:
+   `championChance` changes Champion-group frequency, while
+   Heroes use weights **within that same group**. More regular
+   monsters from the current 2× setting do not by themselves
+   double Champions.
+4. Audit **level 101–150** world scaling, XP availability and loot.
+   Consider further distinct high-tier powers, restrained rewards,
+   names/FX, and eventually **Apex (Nemesis-derived)** only after
+   investigating its distinct spawn rules. A debug spawn GUI was
+   discussed but **is not implemented**; console spawning exists.
+5. **Do not implement Veteran 20%-chance rage** without an explicit
+   change in direction.
+
+The researched DBR mechanics and proposed phases live in
+[**Tier Encounter Mechanics Ideas — Codex plan**](docs/TIER_ENCOUNTER_MECHANICS_IDEAS.md).
+Only rage has been implemented from that wider ideas plan.
+
+## 7. Architecture, configuration and working rules
+
+| Location | Responsibility |
+| --- | --- |
+| `config/tiers.json` | Tier stat, size, glow, XP, conversion shares and rage settings |
+| `config/families/*.json` | Reviewed actual parents, custom variants, pool promotions and enabled selection |
+| `config/master.json` | 2× regular pack-size multiplier |
+| `config/player_stats.json` | Level cap, skill/attribute points, devotion |
+| `config/player_basics.json`, `config/player_movement.json` | Base player health/energy, speed, camera |
+| `config/player_skills.json`, `config/nightblade_skeletons.json` | Mastery balance and Nightblade skeleton tree |
+| `scripts/discover_veterans.py`, `discover_elites.py`, `discover_ascended.py` | Read-only-by-default family/pool discovery; optional disabled draft configs |
+| `scripts/generate_variants.py` | Compose all variant DBRs, attached skills, player overrides and manifest |
+| `scripts/natural_spawns.py`, `scripts/global_spawns.py` | Safe merged pool weights; global **regular-only** pack size |
+| `scripts/validate_config.py`, `scripts/prepare_console_test.py` | Input/reference checks and guarded staging |
+| `ReferenceFiles/` | **Read-only** extracted game DBRs and templates; never edit/copy wholesale |
+
+**Reference priority:** `ReferenceFiles/gdx2/database/records` >
+`ReferenceFiles/gdx1/database/records` >
+`ReferenceFiles/` (base). Outputs use original logical
+`records/...` paths in the custom mod's `database/`.
+The source **JSON files are build instructions**, not game-time
+configuration. Do not change the original Grim Dawn archive files.
+
+**Development conventions:** Work on `dev` and push there,
+**not `main`**. Preserve existing content and avoid broad unrelated
+refactoring. Prefer deterministic config, correct native template
+fields, exact parent/reference provenance, free skill slots,
+per-feature enable flags, safe rollback and minimal tests.
+Do **not** run lengthy full test suites unless explicitly asked.
+Do not overwrite active family JSON with disabled scanner drafts,
+and never claim runtime success from static inspection alone.
+
+## 8. Local build, install and direct tests
+
+From the local custom mod repository under
+`Working/mods/Ben_MonsterExpansion`:
 
 ```powershell
-python scripts/discover_veterans.py
-python scripts/discover_veterans.py --write-report --draft-config
-```
-
-Default is read-only. Optional reports and a disabled aggregate config go only to
-`generated/discovery/`; active config, DBRs and the playable mod stay unchanged.
-New shared pools are combined once; existing boar/zombie sources and owned pools
-are flagged for merge review rather than overwritten. Extracted English tag files
-are missing; provide a Text_EN directory via `--text-root` for automatic names.
-
-See [scanner instructions and limitations](docs/VETERAN_DISCOVERY.md) and
-[scan snapshot](docs/VETERAN_DISCOVERY_REPORT.md). The initial enabled snapshot added 96 variants; the DLC merge brings the discovered total to 144 (148 including the four original variants).
-Unresolved names retain their vanilla text, while existing zombie labels remain intact.
-
-## Player attribute settings
-
-`config/player_stats.json` controls attribute progression:
-
-```json
-{
-  "schema_version": 1,
-  "enabled": true,
-  "level_cap": { "enabled": true, "max_level": 150 },
-  "skill_points_per_level": {
-    "enabled": true,
-    "ranges": [
-      { "start_level": 2, "end_level": 60, "points": 3 },
-      { "start_level": 61, "end_level": 100, "points": 2 },
-      { "start_level": 101, "end_level": 150, "points": 1 }
-    ]
-  },
-  "attribute_points_per_level": 2,
-  "attribute_gain_per_point": { "physique": 6, "cunning": 6, "spirit": 6 }
-}
-```
-
-Each level awards 2 spendable attribute points; each point adds 6 to the chosen
-attribute: 12 allocated attribute stats per level instead of vanilla's 8.
-The gain applies to spent attribute points generally, including quest-earned
-points; quest reward point counts are unchanged. Skill-point awards
-change to 3/2/1 for levels 2–60 / 61–100 / 101–150, granting
-**307 total level-up points** instead of 287 under the former progression
-at level 150 (the original game, capped at 100, grants 237).
-Mastery requirements, XP equations and health/energy increments are unchanged.
-Four attribute fields, the Devotion cap (55 → 85), the `skillModifierPoints`
-array, and player level cap (100 → 150) change in the effective DLC
-`playerlevels.dbr`, plus both male/female actor `maxLevel` fields.
-This does not edit character saves or explicitly grant points for past levels;
-existing-character recalculation is unverified. Test a fresh character: level
-once, confirm 2 points, spend one and confirm +6 to the selected attribute.
-
-Player settings are included in normal generation/staging even without
-`--include-spawns`; use the usual full build commands below to retain all mod
-features. Changing JSON requires regenerating, staging, F7 and installing the
-rebuilt `.arz`. To restore native cap while preserving other tweaks,
-set `level_cap.enabled=false`. To restore native skill-point awards
-only, set `skill_points_per_level.enabled=false`. Full vanilla player-level
-rollback requires also disabling the attribute and devotion sections.
-Removing the config alone
-does not remove a previously compiled override.
-
-## Global pack size
-
-`config/master.json` now enables **2.0x regular pack size** through
-`monster_spawning.pack_size_multiplier`. Set `1.0` for vanilla size, `2.0` for
-2x, or `enabled=false` to emit the exact vanilla equation for rollback.
-Settings require generate/stage **with `--include-spawns`**, F7 and reinstalling
-the rebuilt `.arz`. Omitting the flag/removing the setting does not undo a
-previously compiled override. This JSON is build input, not a live game setting.
-
-The shared `records/proxies/proxypoolequation_01.dbr` changes only
-`spawnMinEquation` and `spawnMaxEquation`; Champion equations remain byte-identical.
-315 of 326 immediate reference pools use it (538 pool records across the full
-reference tree). Any referencing pool is affected, including special encounters;
-this global override cannot exclude particular pools. It adds monsters at existing
-encounters, not new map placements. Existing limits still apply, and engine
-rounding, placement/caps and actual pack increases need in-game testing.
-Veteran selection remains 20% within eligible mapped selections.
-
-## Build this version
-
-Run in the local repository under `Working/mods/Ben_MonsterExpansion`:
-
-```powershell
-git pull
+git switch dev
+git pull origin dev
 python scripts/validate_config.py
-python -m unittest discover -s tests -v
 python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Expect **3,011 DBRs + 1 text source**: 409 monster variants with supporting records,
-377 merged pools, 60 shrine overrides, 115 player-skill overrides, the global pack
-equation, player progression, two composed player-character overrides and one game-engine override. **New name-label step:** build the Text_EN source asset and install the
-mod’s `resources/Text_EN.arc` alongside its `.arz`; see [Veteran names](docs/VETERAN_NAMES.md). Select the custom mod in Asset Manager, build with F7, copy its rebuilt
-`.arz` into the installed mod, and restart the Custom Game. Do not compile the
-reference tree into the mod. See [current build/test and rollback guide](docs/DATA_DRIVEN_FAMILIES.md)
-and [Windows Asset Manager guide](docs/BUILD_AND_TEST.md).
+Then select the mod in **Grim Dawn Asset Manager**, build with
+**F7**, install the rebuilt `.arz` and preserve/install the
+`resources/Text_EN.arc` needed for custom zombie labels.
+Restart the **Custom Game**. Optional focused tests can be run
+separately; no implicit new-game testing occurs on GitHub.
+**Back up saves** before testing level cap/character progression.
 
-Direct starter zombie test:
-
-```text
-game.Spawn "records/creatures/enemies/monsterexpansion/zombie_veteran_starter_01.dbr"
-```
-
-Early-zombie pool test (new command not yet playtested):
-
-```text
-game.Spawn "records/proxies/area001/zombie_e.dbr"
-```
-
-The existing boar direct-spawn command remains:
+Useful console spawns:
 
 ```text
 game.Spawn "records/creatures/enemies/monsterexpansion/boar_veteran_01.dbr"
+game.Spawn "records/creatures/enemies/monsterexpansion/zombie_veteran_starter_01.dbr"
+game.Spawn "records/creatures/enemies/monsterexpansion/discovered_elites_elite_75bbb288ac65b5d4.dbr"
+game.Spawn "records/creatures/enemies/monsterexpansion/discovered_ascended_ascended_b93dca01452e6643.dbr"
 ```
 
-Keep the underscore before `01`: an earlier failure was a console-path typo,
-not an aura regression. Existing boar proxy test:
+**Important:** When disabling a feature, regenerate **and replace
+staged outputs**; merely removing an entry or omitting
+`--include-spawns` will not remove previously compiled DBRs.
+Stale, unused support files may remain in the staging directory.
+Review the relevant rollback docs and perform clean rebuilds as needed.
 
-```text
-game.Spawn "records/proxies/area001/beasts_boar_n.dbr"
-```
+## 9. Technical docs / further reference
 
-## Data-driven configuration
+- [Tier rage: Elite and Ascended, scope/rollback](docs/TIER_RAGE.md)
+- [Tier combat ability ideas and feasibility for Codex](docs/TIER_ENCOUNTER_MECHANICS_IDEAS.md)
+- [Monster families and generation pipeline](docs/DATA_DRIVEN_FAMILIES.md)
+- [Elite discovery, selection and test](docs/ELITES.md);
+  [Ascended quotas and selection](docs/ASCENDED.md);
+  [Veteran discovery](docs/VETERAN_DISCOVERY.md)
+- [Variant XP rewards](docs/ENEMY_XP.md)
+- [Player level 150 and skill-point progression](docs/PLAYER_LEVEL_CAP.md);
+  [Devotion rewards/cap](docs/DEVOTION.md)
+- [Player starting stats/camera](docs/PLAYER_BASICS.md);
+  [movement](docs/PLAYER_MOVEMENT.md)
+- [Nightblade balance](docs/NIGHTBLADE_BALANCE.md);
+  [Nightblade skeleton attachment](docs/NIGHTBLADE_SKELETONS_BUILD.md);
+  [Occultist/Arcanist/pet skills](docs/PLAYER_SKILLS.md)
+- [Build and install](docs/BUILD_AND_TEST.md);
+  [custom text labels](docs/VETERAN_NAMES.md);
+  [console debug commands](debug/README.md)
+- [Historical long-form README (archived)](docs/README_HISTORY_2026-10-27.md)
 
-| Location | Responsibility |
-| --- | --- |
-| `config/tiers.json` | Shared stats, model scale, cosmetic presets and Veteran/Elite/Ascended conversion shares |
-| `config/families/boar.json` | Two source boars, generated variants and one reviewed pool |
-| `config/families/zombie.json` | Starter/normal zombie variants and five reviewed early pools |
-| `scripts/generate_variants.py` | Generic variant/support record generation and manifest |
-| `scripts/natural_spawns.py` | Merged regular/Champion weight splitting and level-rule inheritance |
-| `scripts/prepare_console_test.py` | Stage exactly the freshly validated generated plan |
-| `scripts/validate_config.py` | Validate config, source records, proxy references and pool mappings |
-| `scripts/preview_variants.py` | Read-only generation preview |
-
-Adding another reviewed family requires JSON, not enemy-specific Python logic.
-Generation defaults to all enabled families. `--family boar` or `--family zombie`
-selects one family; use matching options for generation/staging. The current
-implementation supports ordinary bio/physical-passive cloning, not universal
-ability rewriting or automatic conversion of every monster.
-
-Veteran baseline: 1.30× health, 1.08× defensive ability, 1.10× physical base-damage
-passive, 1.10× visible model scale, approved vanilla nature-glow particle. The
-passive adjustment is not a guaranteed 10% increase in final damage. Original
-classification, textures, collision and existing skills remain intact. Zombie
-name labels use custom tags for `Walking Dead (Veteran)`, now verified in-game. Boar names retain their original tags.
-Cosmetic skill and initial slots are selected safely without overwriting occupied
-slots. Glow intensity/particle scale controls and exact RGB tint remain unproven.
-
-**Agreed spawning policy:** Replace a portion of each eligible original enemy's
-selection weight with a variant derived from that exact source. This is per
-enemy selection, not per pack, and does not transform an already spawned enemy.
-
-| Original selection | Stays original | Replacement | Implementation |
-| --- | ---: | --- | --- |
-| Common | 80% | 20% Veteran | Implemented for 148 mapped variants across 325 pools |
-| Champion | 67% | 33% Elite | Implemented for 124 mapped variants in 255 pools |
-| Hero | 67% | 33% Ascended | Implemented for 137 mapped variants in 63 pools, with bounded quotas |
-| Nemesis | 90% | 10% Apex | Provisional agreement; not implemented |
-
-**Strict parent rules; no cross-tier fallbacks.** Elite must derive from Champion,
-Ascended from Hero, and Apex from Nemesis. If a suitable parent is unavailable,
-skip that variant. Bosses remain unchanged. Preserve source level/faction/quest
-eligibility and encounter counts. Nemesis spawning needs independent investigation;
-do not assume regular pool splitting can be applied to it unchanged.
-
-The earlier 2.5 Veterans-per-Champion target is superseded as the governing
-spawn rule by these per-parent conversion percentages; the current Common split
-is still 20%. Existing config may retain the old target as reporting metadata.
-Forced entries, loot droppers, summons, corpses and scripted encounters remain
-excluded. Limited Hero entries use the bounded-group policy above; other finite
-quotas remain excluded. Current code splits mapped Common, Champion and compatible
-Hero entries. Nemesis conversion needs separate implementation.
-Pool overrides affect encounters resolving those exact paths.
-
-## Tier hierarchy and design
-
-These tiers are monster hierarchy, distinct from Normal/Veteran/Elite/Ultimate
-game difficulty. Custom tiers are separate generated DBRs, not new engine enums.
-
-| Order | Tier | Origin | Target color | Parent / identity |
-| ---: | --- | --- | --- | --- |
-| 1 | Common | Vanilla | Grey `#A4A4A4` | Original baseline |
-| 2 | Veteran | New | Green `#81AF71` | Derived from suitable Common variants |
-| 3 | Champion | Vanilla | Yellow `#D5B743` | Preserve vanilla role; glow not guaranteed |
-| 4 | Elite | New | Amber `#E49A36` | Derived from suitable Champions |
-| 5 | Hero | Vanilla | Orange `#D57832` | Preserve named heroes and skills |
-| 6 | Ascended | New | Violet `#AF69D2` | Selected enhanced Hero variants |
-| 7 | Boss | Vanilla | Purple `#9370C4` | Preserve major encounters |
-| 8 | Nemesis | Vanilla | Red `#D64B51` | Preserve faction threats |
-| 9 | Apex | New | Crimson/Pink `#E94488` | Derived from Nemesis; provisional 10% replacement |
-
-Color values are design targets, not proof of name/health-bar color support.
-The Veteran effect uses the approved vanilla particle without actor tint.
-Higher tiers should be larger relative to suitable parents, stronger and potentially
-use compatible extra abilities or altered frequency. Exact balance is provisional;
-respect family/role/difficulty differences rather than a universal flat formula.
-Collision footprint, melee/charge reach, skill radii and FX offsets require real
-field inspection and playtesting; mesh scale does not prove these scale together.
-Do not multiply every range indiscriminately. Bulk Veteran generation is already enabled after compatibility and pool-data checks.
-For higher tiers, inspect source mechanics and validate generated data before activation;
-representative in-game checks remain necessary for visuals and engine behavior.
-
-## Implementation phases and next work
-
-| Phase | State |
-| --- | --- |
-| ME1 design/config/validation | Complete |
-| ME2 Veteran Boar generation/build/direct test | Passed; approved green visual, HP verified |
-| ME3 boar proxy/pool selection | Passed by user; rarity and natural map coverage still pending |
-| Generic family pipeline + starting zombies | Implemented; natural Veteran zombie observed in an early Lower Crossing house |
-| Generated Veteran zombie name labels | Passed in-game; correct header and original faction subtitle confirmed |
-| Broader Veteran coverage | 144 discovered variants enabled across 319 additional pools; build/runtime testing pending |
-| Champion → Elite (33%) | Implemented: 124 exact-parent variants / 382 selections / 255 pools; build/runtime checks pending |
-| Hero → Ascended (33%) | Implemented: 137 exact Hero variants / 241 selections / 63 pools; bounded finite quotas, runtime checks pending |
-| Nemesis → Apex (10%) | Future: investigate Nemesis activation/spawning before implementing provisional replacement chance |
-| Higher-tier visuals/abilities/rewards | Pending evidence, minimal prototypes and playtesting |
-| Debug hotkey GUI / exact forward spawn | Requested, unimplemented; console only for now |
-
-The generic generator, safe skill/initial-slot allocation, exact Common weight
-splitting, validated staging and name-text generation are implemented; the latest
-Python suite has **77 previously passing tests (movement/basics tests not yet rerun)**. The original Veteran Boar's six-record
-regression is byte-identical with the XP policy disabled; enabled XP intentionally changes experiencePoints. 409 variants and 377 merged pool overrides generate
-3,011 DBRs plus one English text source, including 60 shrine, 115 player-skill, 2 composed player-character and 1 game-engine overrides.
-
-The user has now verified `Walking Dead (Veteran)` in the header with the green
-glow and original Aether Corruption subtitle. Continue movement/death/combat checks
-and larger rarity samples; this is not proof of every map placement or variant.
-
-The discovery scanner and 144 discovered-variant activation are complete (148 total
-Veterans). Champion → Elite and compatible Hero → Ascended at 33% are now implemented,
-as detailed in the current handoff above; representative in-game checks are next. Build/playtesting, optional English
-tag resolution and explicit handling of existing-pool extensions/finite quotas
-remain open. All strict tier-parent rules above remain.
-
-## Local paths and references
-
-- Repository: [ben0kay/Ben_MonsterExpansion](https://github.com/ben0kay/Ben_MonsterExpansion), `main`.
-- Working: `M:\BACKUPS\D_Drive\2025_11_01_D_Drive_Backup_Manual\My Media Content\Modding\Grim Dawn\Working\`
-- Build: sibling `Build\`; repository under `Working\mods\Ben_MonsterExpansion\`.
-- `ReferenceFiles/`: read-only extracted DBRs. `ReferenceFiles/Resources/`: templates,
-  particle assets and textures used to establish supported fields/dependencies.
-- Generated output: `generated/MonsterExpansion/` (ignored). Asset Manager source:
-  repo `database/records/` (ignored). Original extracted game data is never edited.
-
-Rollback a pool by setting its config `enabled=false`, then regenerate/stage with
-`--include-spawns`, rebuild and reinstall: the exact vanilla pool is emitted.
-Skipping/removing a family or omitting pool generation does NOT remove stale
-staged/compiled records. See the current guide before rolling back.
-
-## Documentation and working rules
-
-- [Veteran name labels and new text-archive build step](docs/VETERAN_NAMES.md)
-- [Current generic architecture and tests](docs/DATA_DRIVEN_FAMILIES.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Asset Manager/build/install reference](docs/BUILD_AND_TEST.md)
-- [Earlier ME3 investigation](docs/ME3_NATURAL_SPAWNS.md)
-- [Earlier aura evidence and test](docs/VETERAN_AURA_TEST.md)
-- [Debug commands](debug/README.md)
-- [Original project notes](PROJECT_NOTES.md)
-
-Research actual records/templates → establish mechanism → implement minimal
-reversible change → test/build/playtest → record only verified results. No invented
-DBR fields, speculative PFX patches, vanilla archive edits or unrelated player
-balance changes. Player progression and skill work is documented separately above.
+**Handoff rule:** For any new idea (especially the next Ascended
+ability), **read this overview, inspect the actual current configs/
+generator/DBRs, establish feasibility, then implement the smallest
+reversible change on `dev` and document what was truly tested**.
