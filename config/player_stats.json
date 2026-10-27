@@ -16,5 +16,9 @@
       "gdx1",
       "gdx2"
     ]
+  },
+  "level_cap": {
+    "enabled": true,
+    "max_level": 150
   }
 }
