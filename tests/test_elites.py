@@ -153,62 +153,70 @@ class EliteTests(unittest.TestCase):
         self.assertEqual(restored.get("skillName5"), original.get("skillName5"))
         self.assertEqual(restored.get("skillName6"), original.get("skillName6"))
 
-    def test_rage_covers_compatible_elites_but_not_veteran_or_ascended_variants(self):
-        expected, attached, inherited_low_life = 0, 0, 0
+    def test_all_compatible_elites_and_ascended_receive_rage(self):
+        totals = {"elite": 0, "ascended": 0}
+        assigned = {"elite": 0, "ascended": 0}
+        excluded = {"elite": 0, "ascended": 0}
         for family in self.families:
             for variant in family["variants"]:
                 monster = DBR(self.files[gen.game_location(variant["output_record"])])
-                generated = [monster.get(f"skillName{n}") for n in range(1, 61)
-                             if monster._locations(f"skillName{n}")]
-                rage_names = [x for x in generated
-                              if x.startswith("records/skills/nonplayerskills/monsterexpansion/")
-                              and x.endswith("_rage.dbr")]
-                if variant["tier"] == "elite":
-                    expected += 1
-                    original = gen.read_game_dbr(variant["source_record"])
-                    if gen.has_low_health_skill(original):
-                        inherited_low_life += 1
-                        self.assertEqual(rage_names, [])
+                rage_skills = [monster.get(f"skillName{n}") for n in range(1, 61)
+                               if monster._locations(f"skillName{n}")
+                               and monster.get(f"skillName{n}").endswith("_rage.dbr")]
+                tier = variant["tier"]
+                if tier in totals:
+                    totals[tier] += 1
+                    parent = gen.read_game_dbr(variant["source_record"])
+                    if gen.has_low_health_skill(parent):
+                        excluded[tier] += 1
+                        self.assertFalse(rage_skills, variant["output_record"])
                     else:
-                        self.assertEqual(len(rage_names), 1, variant["output_record"])
-                        attached += 1
-                        ability = DBR(self.files[gen.game_location(rage_names[0])])
-                        self.assertEqual(float(ability.get("lifeMonitorPercent")), 30.0)
+                        assigned[tier] += 1
+                        self.assertEqual(len(rage_skills), 1, variant["output_record"])
+                        buff = DBR(self.files[gen.game_location(rage_skills[0])])
+                        self.assertEqual(float(buff.get("lifeMonitorPercent")), 30.0)
+                        self.assertEqual(float(buff.get("skillActiveDuration")), 12.0)
+                        self.assertEqual(float(buff.get("offensiveTotalDamageModifier")), 15.0)
                 else:
-                    self.assertEqual(rage_names, [], variant["output_record"])
-        self.assertEqual(expected, 124)
-        self.assertEqual(attached + inherited_low_life, expected)
-        self.assertGreater(attached, 0)
+                    self.assertFalse(rage_skills, variant["output_record"])
+        self.assertEqual(totals, {"elite": 124, "ascended": 137})
+        self.assertEqual(sum(totals.values()), 261)
+        for tier in totals:
+            self.assertEqual(assigned[tier] + excluded[tier], totals[tier])
+            self.assertGreater(assigned[tier], 0)
 
-    def test_original_native_hero_rage_cover_and_rollback(self):
-        manifest = json.loads(self.files[Path("manifest.json")])
-        report = manifest["native_hero_rage"]
-        self.assertTrue(report["enabled"])
-        self.assertGreaterEqual(report["discovered"], 137)
-        self.assertGreater(report["modified"], 0)
-        self.assertEqual(report["discovered"],
-                         report["modified"] + len(report["skipped"]))
-        target = "records/creatures/enemies/hero/boar_h01.dbr"
-        original = gen.read_game_dbr(target)
-        self.assertEqual(original.get("monsterClassification"), "Hero")
-        if not gen.has_low_health_skill(original):
-            monster = DBR(self.files[gen.game_location(target)])
-            self.assertEqual(monster.get("monsterClassification"), "Hero")
-            for line in original.lines:
-                key, value = line.split(",")[:2]
-                self.assertEqual(monster.get(key), value, key)
-            assigned = [monster.get(f"skillName{n}") for n in range(1, 61)
-                        if monster._locations(f"skillName{n}")
-                        and "_rage.dbr" in monster.get(f"skillName{n}")]
-            self.assertEqual(len(assigned), 1)
-            skill = DBR(self.files[gen.game_location(assigned[0])])
-            self.assertEqual(float(skill.get("lifeMonitorPercent")), 30)
-            self.assertEqual(float(skill.get("offensiveTotalDamageModifier")), 15)
+    def test_ascended_rage_toggle_rollback_and_no_native_hero_override(self):
         tiers = copy.deepcopy(self.tiers)
-        tiers["hero"]["low_health_rage"]["enabled"] = False
-        disabled, disabled_report = gen.build_native_hero_rage(tiers["hero"])
-        self.assertEqual(disabled, {})
-        self.assertFalse(disabled_report["enabled"])
+        family = next(f for f in self.families if f["id"] == "discovered_ascended")
+        chosen = next(v for v in family["variants"]
+                      if not gen.has_low_health_skill(gen.read_game_dbr(v["source_record"])))
+        parent = gen.read_game_dbr(chosen["source_record"])
+        output_path = gen.game_location(chosen["output_record"])
+        actual = DBR(self.files[output_path])
+        self.assertEqual(actual.get("monsterClassification"), "Hero")
+        expected_rage_path = gen.game_location(
+            f"records/skills/nonplayerskills/monsterexpansion/{family['id']}_{chosen['id']}_rage.dbr")
+        self.assertIn(expected_rage_path, self.files)
+
+        tiers["ascended"]["prototype"]["low_health_rage"]["enabled"] = False
+        rollback = gen.build_variant(family, chosen, tiers["ascended"])
+        self.assertNotIn(expected_rage_path, rollback)
+        restored = DBR(rollback[output_path])
+        self.assertFalse(any("_rage.dbr" in line for line in restored.lines
+                             if line.startswith("skillName")))
+        # The Ascended monster is built from the original Hero's skill set.
+        for slot in range(1, 61):
+            name = f"skillName{slot}"
+            if parent._locations(name):
+                original_skill = parent.get(name)
+                if original_skill != chosen["damage_skill_source_record"]:
+                    self.assertEqual(restored.get(name), original_skill)
+        # There are no original Hero actor overrides in the generated mod.
+        for path in self.files:
+            self.assertFalse(path.as_posix().startswith("database/records/creatures/enemies/hero/"))
+            self.assertNotIn("nativehero_", path.as_posix())
+        manifest = json.loads(self.files[Path("manifest.json")])
+        self.assertNotIn("native_hero_rage", manifest)
 
     def test_conflicting_shared_mappings_rejected_and_disabling_elites_keeps_veterans(self):
         elite_pool = next(p for p in self.elites['pools'] if any(p['record'] == q['record'] for f in self.families if f != self.elites for q in f['pools']))
