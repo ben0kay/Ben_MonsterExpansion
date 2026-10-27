@@ -132,6 +132,48 @@ skillActiveManaCost,0.000000,
             game_location(effect_record): effect.render()}
 
 
+
+def build_low_health_rage(monster, prototype, family_id, variant_id, prefix):
+    """Opt-in one-monster rage prototype using an existing low-health buff class.
+
+    No new scan, original monster replacement, custom animations or initial
+    skill slot; reserve a distinct ordinary skill slot after cosmetic aura.
+    """
+    rage = prototype.get("low_health_rage")
+    if not rage or not rage["enabled"]:
+        return {}
+    if family_id + ":" + variant_id not in rage["variant_ids"]:
+        return {}
+    slot = next((n for n in range(1, 61)
+                 if not monster._locations(f"skillName{n}") and
+                 not monster._locations(f"skillLevel{n}")), None)
+    fail_unless(slot is not None,
+                "No spare skillName/skillLevel slot for rage: " + prefix)
+    fx = read_game_dbr(rage["aura_effect_record"])
+    fail_unless(fx.get("templateName") == "database/templates/effect.tpl",
+                "Rage aura must point to a native effect record")
+    # Each field is established by Dranghoul/Chthonian low-life native skills.
+    # Avoid Dranghoul-specific Roar animations and sounds on unrelated actors.
+    skill_record = f"records/skills/nonplayerskills/monsterexpansion/{prefix}_rage.dbr"
+    text = (
+        "templateName,database/templates/skill_passiveonlifebuffself.tpl,\\n"
+        "Class,Skill_PassiveOnLifeBuffSelf,\\n"
+        "FileDescription,MonsterExpansion Elite low-health rage test,\\n"
+        "skillMaxLevel,1,\\n"
+        f"lifeMonitorPercent,{rage['health_threshold_percent']:.6f},\\n"
+        f"skillActiveDuration,{rage['active_duration_seconds']:.6f},\\n"
+        f"skillCooldownTime,{rage['cooldown_seconds']:.6f},\\n"
+        f"offensiveTotalDamageModifier,{rage['total_damage_bonus_percent']:.6f},\\n"
+        f"characterRunSpeedModifier,{rage['run_speed_bonus_percent']:.6f},\\n"
+        f"skillActivatedAuraName,{rage['aura_effect_record']},\\n"
+    ).replace("\\\\n", "\\n")
+    if monster.lines and not monster.lines[-1].endswith("\n"):
+        monster.lines[-1] += "\n"
+    monster.lines.append(f"skillName{slot},{skill_record},\n")
+    monster.lines.append(f"skillLevel{slot},1,\n")
+    return {game_location(skill_record): DBR(text).render()}
+
+
 def display_tag(family, variant):
     return f"tagBME_{family['id']}_{variant['id']}"
 
@@ -208,8 +250,10 @@ def build_variant(family, variant, tier):
     # skill timing and spawn references pending in-game compatibility tests.
 
     aura_files = build_cosmetic_aura(monster, proto, prefix, tier["name"])
+    rage_files = build_low_health_rage(monster, proto, fid, variant["id"], prefix)
     result = {
         **aura_files,
+        **rage_files,
         game_location(target_monster): monster.render(),
         game_location(bio_record): bio.render(),
         game_location(damage_record): damage.render(),
