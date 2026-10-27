@@ -79,8 +79,8 @@ build with Asset Manager F7 to apply these changes in-game.
 
 Only temporary player-activated buffs in these two masteries are converted.
 Attacks, channels, debuffs, ground spells and conditional defensive procs retain
-their activation behaviour. No Necromancer balance changes beyond global
-exclusivity removal. No extra buffs to unspecified skills in this first pass.
+their activation behaviour. Other than the separate shared skeleton pet-health pass described above, no
+Necromancer player-skill balance changes beyond global exclusivity removal. No extra buffs to unspecified skills in this first pass.
 
 ## Arcanist pass 2 — moderate passive and offensive buffs
 
