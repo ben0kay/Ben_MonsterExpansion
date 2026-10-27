@@ -10,6 +10,21 @@ independent Elite/Ascended shares, slot reservations and rollback. Full generati
 and staging preflight pass. Representative in-game and multiplayer behavior remains
 unverified.
 
+## Original Hero rage vs custom Ascended
+
+The October 27 low-health rage expansion applies to native
+`monsterClassification=Hero` **source actors** and separately to all
+compatible **custom Elite** variants. A Hero actor and its
+**Ascended copy are different DBR records**: only the original Hero
+DBR receives a vanilla-path override in this pass, and the original
+Ascended generation still clones the effective extracted reference
+instead of inheriting that override.
+
+Therefore, **Ascended does not get rage yet**; the user wants to
+explore additional Ascended mechanics separately. No Ascended selection
+weights, stats, cosmetic glows, or 33% Hero→Ascended conversion shares
+are changed. See [TIER_RAGE.md](TIER_RAGE.md).
+
 ## Data-driven settings
 
 The Ascended prototype in `config/tiers.json` controls:
