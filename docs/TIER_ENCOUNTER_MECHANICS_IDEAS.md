@@ -1,8 +1,11 @@
 # MonsterExpansion — Tier Encounter Mechanics & Spawn Frequency Ideas
 
-**Status:** INITIAL PROTOTYPE PARTIALLY IMPLEMENTED (2026-10-27). An opt-in
-30%-HP rage test is configured for one Elite boar on `dev`; all other tier
-mechanics and spawn-frequency changes remain ideas. Designed as a Codex
+**Status:** RAGE CONFIG/GENERATOR IMPLEMENTED (2026-10-27).
+User visually confirmed an Elite boar below 30% HP showing the red
+Last Stand effect. Rage now targets all compatible **custom Elite
+and Ascended** variants on `dev`, not original Hero records.
+The broad rollout awaits a local rebuild and multi-monster checks.
+All other mechanics and spawn-frequency changes remain ideas. Designed as a Codex
 handoff for the existing **`dev`** branch of `ben0kay/Ben_MonsterExpansion`.
 Never write to `main`. Follow the existing README and repository generators;
 keep tests focused and avoid lengthy full-suite runs unless requested.
@@ -31,17 +34,20 @@ Current tier definitions: `config/tiers.json`. Enabled snapshots: 148 Veterans,
 - Veteran rage probability was **explicitly scrapped/deferred** by the user.
   Do not implement a 20% chance or an 80/20 Veteran split. Only revisit on a
   new request.
-- An “always enrages” Elite means the ability is assigned and should activate
-  when it survives dropping to the threshold; overkill or death can bypass it.
-- Only eligible naturally generated variants; **not** original Common/
-  Champion/Hero actors or quest/scripted Boss/Nemesis targets.
+- “Always enrages” means a compatible Elite or custom Ascended
+  is assigned this passive and should activate below the threshold
+  if it survives; overkill/death can bypass it. Existing native
+  low-health skills and slot exhaustion are intentional exclusions.
+- New rage applies only to eligible **custom Elite and Ascended
+  variants**; not vanilla Hero, Common, Champion, Veteran, quest
+  Boss or Nemesis records.
 
 ## Feasibility at a glance
 
 | Proposal | Native DBR evidence | Implementation assessment |
 | --- | --- | --- |
 | Elite rage below 30% HP (100% eligible) | `Skill_PassiveOnLifeBuffSelf` and `lifeMonitorPercent` | **HIGH / low–moderate**: per-tier cloned low-life skill + safe skill-slot assignment; animation/FX/duplicated skills require audit |
-| Ascended rage with stronger effects | Same low-life template + existing aura FX | **HIGH / low–moderate**, with monster compatibility testing |
+| Ascended rage | Same low-life template + existing aura FX | **IMPLEMENTED in generator/config** at the same 30%/12s/+15%/+10% as Elite; broad in-game compatibility still needs testing |
 | Veteran rage at 20% HP, ~20% spawn chance | Low-life template has threshold but **no explicit activation-chance field** in inspected template | **ON HOLD / not authorized**: user has shelved Veteran rage; retain feasibility note only, no implementation |
 | Elite calls Veteran reinforcements | `Skill_SpawnPet` with `petBurstSpawn`, `petLimit`, `spawnObjects` | **HIGH for normal summon / moderate–hard for low-HP gated summon**; faction, target, lifetime, limits, loot, XP, and recursive spawns need testing |
 | Elemental counterattack when struck | `Skill_OnHitAttackRadius`, `onHitActivationChance` | **HIGH / low–moderate** for a simple cooldown-limited proc; choose family-compatible FX/damage types |
@@ -133,7 +139,7 @@ External corroboration (context, not a substitute for inspecting repo):
 - Preserve originals and established DBR namespace / reference precedence
   GDX2 > GDX1 > base. Keep generator deterministic and per-feature toggles.
 
-### TM1 — low-health rage, tier-specific and visual (one-Elite prototype now implemented)
+### TM1 — low-health rage (Elite and custom Ascended rollout configured)
 
 - Create **new namespaced DBRs** such as
   `records/skills/nonplayerskills/monsterexpansion/ben_{tier}_rage.dbr`;
@@ -168,19 +174,21 @@ External corroboration (context, not a substitute for inspecting repo):
   unrelated chances. An alternative of enabling rage on 20% of Variant
   *types* is NOT a 20% per-spawn chance. A true threshold-roll proc would
   require verified alternative native mechanic or script; do not claim it.
-- **Current implementation:** Only `discovered_elites:elite_75bbb288ac65b5d4`
-  (parent `boar_b01.dbr`) gets the rage skill, configured under
-  `config/tiers.json` > Elite `prototype.low_health_rage`.
-  Settings: 30% HP, +15% total damage modifier, +10% movement speed,
-  12-second buff, 180-second cooldown and original Dranghoul Last Stand
-  activated-aura FX. No `Roar` animation, Dranghoul-specific sound or
-  CC-immunity copied. **Actual effect must be tested in-game**.
-  Use `game.Spawn "records/creatures/enemies/monsterexpansion/discovered_elites_elite_75bbb288ac65b5d4.dbr"`
-  after generating/staging/building. To disable just this prototype,
-  set `prototype.low_health_rage.enabled=false` and rebuild.
-- Only prototype on other Elites after confirming correct aura, trigger,
-  duration, cooldown and no animation freeze. Veteran rage is not currently
-  part of the rollout.
+- **Current implementation:** `config/tiers.json` now has
+  `Elite.prototype.low_health_rage` and
+  `Ascended.prototype.low_health_rage` both `enabled=true`,
+  `target_mode=all`. Each applies at **30% HP**, +15% total
+  damage and +10% movement speed for 12 seconds, with 180-second
+  cooldown and the original Dranghoul aura. No `Roar` animation,
+  Dranghoul-specific sound, absorption or CC immunity is copied.
+  **Only the earlier Elite boar has been visually confirmed**.
+- The original Hero parent records stay vanilla. New rage is
+  attached only to the separately generated custom Ascended DBRs.
+  Compatible variants that have a native low-health passive are
+  skipped to prevent duplicate abilities.
+- Both settings can be disabled independently; see
+  [TIER_RAGE.md](TIER_RAGE.md) for complete scope and test instructions.
+  Veteran rage is not currently part of this rollout.
 
 ### TM2 — elemental retaliations
 
@@ -326,8 +334,10 @@ External corroboration (context, not a substitute for inspecting repo):
 
 1. **TM0:** read-only compatibility scan of any subsequent *bulk* target tier;
    initial one-monster prototype uses an already known enabled Elite.
-2. **TM1a (implemented in config/generator):** one **Elite boar** low-life
-   rage prototype only; in-game confirmation still needed.
+2. **TM1a (implemented in config/generator):** low-health rage
+   on all compatible custom Elite and Ascended variants. The
+   original one-Elite boar test was successful; new variants still
+   need gameplay verification.
 3. **TM1b:** Veteran rage **shelved**. Do not implement without a new request.
 4. **TM2:** one on-hit elemental counterattack prototype on a chosen Elite.
 5. **TM3:** one capped Elite→Veteran reinforcement prototype, then
@@ -339,12 +349,12 @@ External corroboration (context, not a substitute for inspecting repo):
 8. **TM6:** finish enable/disable switches, short regression coverage,
    documentation and in-game verification.
 
-**Current priority:** regenerate/stage/build the single-Elite TM1a
-prototype and visually confirm it triggers once at 30% HP. Only then
-consider TM2 (one on-hit counterattack) or TM3 (one capped summoner)
-separately. Veteran rage and Champion/Hero spawn-rate increases are
-deferred by user choice. A wider Elite rollout still requires a
-compatibility census and bounded pool/skill-slot checks.
+**Current priority:** regenerate/stage/build the Elite and Ascended
+rage rollout and check representative different families at 30% HP.
+Only then consider TM2 (elemental retaliation) or TM3
+(capped summoning) separately. Veteran rage and Champion/Hero
+spawn-rate increases remain deferred. No original Hero
+override should be introduced.
 
 ## Note for Codex
 
