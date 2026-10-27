@@ -176,6 +176,72 @@ class PlayerSkillTests(unittest.TestCase):
         self.assertFalse(next(entry["changed"] for entry in report
                               if entry["record"] == name))
 
+    def test_phantasmal_blades_more_projectiles_damage_and_rollback(self):
+        name = "records/skills/playerclass04/phantomblade.dbr"
+        original = DBR.from_file(resolve(name, gen.REFERENCE))
+        updated = self.record("playerclass04/phantomblade.dbr")
+        counts = [4]*7 + [5]*8 + [6]*8 + [7]*3
+        self.assertEqual(len(counts), 26)
+        self.assertEqual(
+            [int(x) for x in updated.get("projectileLaunchNumber").split(";")],
+            counts)
+        native = [int(x) for x in original.get("projectileLaunchNumber").split(";")]
+        self.assertEqual(
+            [a-b for a, b in zip(counts, native)], [1]*26)
+        expected = DBR.from_file(resolve(name, gen.REFERENCE))
+        expected.set("projectileLaunchNumber", updated.get("projectileLaunchNumber"))
+        for field in ("offensivePierceMin", "offensivePierceMax",
+                      "offensiveSlowBleedingMin"):
+            before = [float(x) for x in original.get(field).split(";")]
+            after = [float(x) for x in updated.get(field).split(";")]
+            self.assertEqual(len(before), 26)
+            self.assertEqual(len(after), 26)
+            for old, new in zip(before, after):
+                self.assertAlmostEqual(new, old * 1.25, places=5)
+            expected.set(field, updated.get(field))
+        self.assertEqual(updated.render(), expected.render())
+        self.assertEqual(updated.get("weaponDamagePct"),
+                         original.get("weaponDamagePct"))
+        self.assertEqual(updated.get("projectileLaunchRotation"),
+                         original.get("projectileLaunchRotation"))
+
+        settings = copy.deepcopy(self.settings)
+        next(e for e in settings["records"] if e["record"] == name)["enabled"] = False
+        files, report = build_skills(settings, gen.REFERENCE)
+        self.assertEqual(files[Path("database") / name], original.render())
+        self.assertFalse(next(e["changed"] for e in report if e["record"] == name))
+
+    def test_phantasmal_blades_fx_range_scale_and_rollback(self):
+        name = "records/fx/skillclass04/phantomblade1_projectile_fx01.dbr"
+        original = DBR.from_file(resolve(name, gen.REFERENCE))
+        output = DBR(self.files[Path("database") / name])
+        self.assertEqual(original.get("projectileDistance"), "16.000000")
+        self.assertEqual(original.get("scale"), "0.750000")
+        self.assertEqual(output.get("projectileDistance"), "20.000000")
+        self.assertEqual(output.get("scale"), "0.900000")
+        expected = DBR.from_file(resolve(name, gen.REFERENCE))
+        expected.set("projectileDistance", "20.000000")
+        expected.set("scale", "0.900000")
+        self.assertEqual(output.render(), expected.render())
+
+        settings = copy.deepcopy(self.settings)
+        next(e for e in settings["records"] if e["record"] == name)["enabled"] = False
+        files, report = build_skills(settings, gen.REFERENCE)
+        self.assertEqual(files[Path("database") / name], original.render())
+        self.assertFalse(next(e["changed"] for e in report if e["record"] == name))
+
+    def test_skill_fx_paths_remain_restricted_to_class_fx(self):
+        settings = copy.deepcopy(self.settings)
+        fx = next(e for e in settings["records"]
+                  if e["record"] == "records/fx/skillclass04/phantomblade1_projectile_fx01.dbr")
+        for invalid in ("records/fx/environments/unrelated.dbr",
+                        "records/fx/skillclass04/../unrelated.dbr",
+                        "records/fx/skillclass04/unrelated.txt"):
+            with self.subTest(record=invalid):
+                fx["record"] = invalid
+                with self.assertRaises(ValueError):
+                    build_skills(settings, gen.REFERENCE)
+
     def test_nightblade_specific_radius_cooldown_pets_and_rollback(self):
         ring = self.record("playerclass04/ringofsteel.dbr")
         self.assertAlmostEqual(float(ring.get("skillTargetRadius")), 5.4)
