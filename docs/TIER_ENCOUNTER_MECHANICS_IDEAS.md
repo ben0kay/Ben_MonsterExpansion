@@ -1,7 +1,8 @@
 # MonsterExpansion — Tier Encounter Mechanics & Spawn Frequency Ideas
 
-**Status:** DESIGN / FEASIBILITY INVESTIGATION ONLY (2026-10-27). No mechanics or
-spawn-frequency changes are implemented by this note. Designed as a Codex
+**Status:** INITIAL PROTOTYPE PARTIALLY IMPLEMENTED (2026-10-27). An opt-in
+30%-HP rage test is configured for one Elite boar on `dev`; all other tier
+mechanics and spawn-frequency changes remain ideas. Designed as a Codex
 handoff for the existing **`dev`** branch of `ben0kay/Ben_MonsterExpansion`.
 Never write to `main`. Follow the existing README and repository generators;
 keep tests focused and avoid lengthy full-suite runs unless requested.
@@ -11,9 +12,10 @@ keep tests focused and avoid lengthy full-suite runs unless requested.
 Make the custom **Veteran (Common-derived), Elite (Champion-derived), and
 Ascended (Hero-derived)** enemies feel like distinct threats, not merely
 higher-HP variants. Some should become enraged at low health; some may summon
-reinforcements; others may retaliate with elemental attacks. Slightly increase
-**natural Champion encounter frequency by ~15% relative**, and **natural Hero
-frequency by ~10–15% relative**. Preserve the existing 20% Veteran
+reinforcements; others may retaliate with elemental attacks. **Veteran rage is
+shelved for now**; Champion/Hero spawn-frequency increases are **deferred**
+until in-game Elite/Ascended natural frequency has been assessed. Candidate
+future changes are +10–15% relative Champion and +10–15% Hero frequency. Preserve the existing 20% Veteran
 conditional conversion and 33% Elite/Ascended conditional conversions, subject
 to current pool safeguards. This should increase Elite/Ascended encounters
 organically, without independently jacking up their conversion fractions.
@@ -26,9 +28,9 @@ Current tier definitions: `config/tiers.json`. Enabled snapshots: 148 Veterans,
 - “+15% spawn rate” defaults to a **relative multiplier**, not +15
   percentage points (e.g. 15% chance → **17.25%**, not 30%). Confirm during
   balancing if a different meaning is desired.
-- “Veteran has 20% chance to rage” means ~20% **of spawned Veterans** should
-  be rage-capable and trigger at low health (not 20% of Veteran species/types,
-  and not an unsupported chance field on a low-life buff).
+- Veteran rage probability was **explicitly scrapped/deferred** by the user.
+  Do not implement a 20% chance or an 80/20 Veteran split. Only revisit on a
+  new request.
 - An “always enrages” Elite means the ability is assigned and should activate
   when it survives dropping to the threshold; overkill or death can bypass it.
 - Only eligible naturally generated variants; **not** original Common/
@@ -40,7 +42,7 @@ Current tier definitions: `config/tiers.json`. Enabled snapshots: 148 Veterans,
 | --- | --- | --- |
 | Elite rage below 30% HP (100% eligible) | `Skill_PassiveOnLifeBuffSelf` and `lifeMonitorPercent` | **HIGH / low–moderate**: per-tier cloned low-life skill + safe skill-slot assignment; animation/FX/duplicated skills require audit |
 | Ascended rage with stronger effects | Same low-life template + existing aura FX | **HIGH / low–moderate**, with monster compatibility testing |
-| Veteran rage at 20% HP, ~20% spawn chance | Low-life template has threshold but **no explicit activation-chance field** in inspected template | **PARTIAL / moderate–hard**: a genuine 20%-per-spawn policy requires eligible/noneligible spawn variation or proven alternate engine proc; **do not invent** a `lifeMonitorChance` or `skillChance` DBR property |
+| Veteran rage at 20% HP, ~20% spawn chance | Low-life template has threshold but **no explicit activation-chance field** in inspected template | **ON HOLD / not authorized**: user has shelved Veteran rage; retain feasibility note only, no implementation |
 | Elite calls Veteran reinforcements | `Skill_SpawnPet` with `petBurstSpawn`, `petLimit`, `spawnObjects` | **HIGH for normal summon / moderate–hard for low-HP gated summon**; faction, target, lifetime, limits, loot, XP, and recursive spawns need testing |
 | Elemental counterattack when struck | `Skill_OnHitAttackRadius`, `onHitActivationChance` | **HIGH / low–moderate** for a simple cooldown-limited proc; choose family-compatible FX/damage types |
 | +15% Champion-group chance | `proxypool.tpl` `championChance` field | **HIGH / moderate**: selectively multiply eligible nonzero pool chances by 1.15, clamp ≤100, preserve exclusions; note that this group also contains Heroes |
@@ -131,16 +133,15 @@ External corroboration (context, not a substitute for inspecting repo):
 - Preserve originals and established DBR namespace / reference precedence
   GDX2 > GDX1 > base. Keep generator deterministic and per-feature toggles.
 
-### TM1 — low-health rage, tier-specific and visual
+### TM1 — low-health rage, tier-specific and visual (one-Elite prototype now implemented)
 
 - Create **new namespaced DBRs** such as
   `records/skills/nonplayerskills/monsterexpansion/ben_{tier}_rage.dbr`;
   do not alter the original Dranghoul skill (it is used by vanilla Dranghouls).
   Prefer a simple no-roar self-buff first, using an existing verified aura FX.
 - Proposed starting tuning (**ideas, not commitments**):
-  - Veteran: low-health threshold **20%**, duration **8s**, modest ~+10%
-    total damage, +5% run speed, minimal/short visual FX, rarity
-    **20% of spawned Veterans** (requires separate chance mechanism).
+  - Veteran: **DEFERRED**. Do not implement until specifically requested;
+    20% probability is not an engine-supported low-health DBR field.
   - Elite: low-health threshold **30%**, 100% of compatible Elites
     assigned this skill, duration **12s**, ~+15% damage, +10% speed,
     strong but readable FX. Do **not** automatically add CC immunity.
@@ -157,7 +158,7 @@ External corroboration (context, not a substitute for inspecting repo):
   `skillSpecialAnimationName=Roar` may be missing on beasts/constructs.
   Avoid forced animation, sounds and unsupported FX attachments until
   confirmed on several families.
-- **Veteran 20% issue:** Low-life template alone offers no activation-
+- **Shelved Veteran 20% concept (reference only):** Low-life template alone offers no activation-
   chance field. A supported *spawn-time* approximation is to split
   eligible Veteran weight **80% normal Veteran / 20% rage-capable Veteran**,
   each sharing the same family, loot, stats and Veteran tier identity.
@@ -167,9 +168,19 @@ External corroboration (context, not a substitute for inspecting repo):
   unrelated chances. An alternative of enabling rage on 20% of Variant
   *types* is NOT a 20% per-spawn chance. A true threshold-roll proc would
   require verified alternative native mechanic or script; do not claim it.
-- Prototype on **one** compatible Elite and one compatible Veteran before
-  wide rollout, confirm correct aura, sounds, cooldown, triggering and
-  no unexpected animation freeze.
+- **Current implementation:** Only `discovered_elites:elite_75bbb288ac65b5d4`
+  (parent `boar_b01.dbr`) gets the rage skill, configured under
+  `config/tiers.json` > Elite `prototype.low_health_rage`.
+  Settings: 30% HP, +15% total damage modifier, +10% movement speed,
+  12-second buff, 180-second cooldown and original Dranghoul Last Stand
+  activated-aura FX. No `Roar` animation, Dranghoul-specific sound or
+  CC-immunity copied. **Actual effect must be tested in-game**.
+  Use `game.Spawn "records/creatures/enemies/monsterexpansion/discovered_elites_elite_75bbb288ac65b5d4.dbr"`
+  after generating/staging/building. To disable just this prototype,
+  set `prototype.low_health_rage.enabled=false` and rebuild.
+- Only prototype on other Elites after confirming correct aura, trigger,
+  duration, cooldown and no animation freeze. Veteran rage is not currently
+  part of the rollout.
 
 ### TM2 — elemental retaliations
 
@@ -216,7 +227,10 @@ External corroboration (context, not a substitute for inspecting repo):
 
 ### TM4 — +15% regular Champion-group encounters
 
-- Preserve `config/master.json` existing **2× regular pack size**. Do
+- Preserve `config/master.json` existing **2× regular pack size**. The
+  current generator changes regular `spawnMinEquation` and
+  `spawnMaxEquation` ONLY; Champion count/chance is still vanilla. **User has
+  deferred adding Champion spawn bonuses pending real playtesting.** Do
   NOT multiply the global common-spawn equation or
   `championMinEquation/championMaxEquation` as a shortcut.
 - Independently configured, reversible **relative** multiplier
@@ -311,18 +325,17 @@ External corroboration (context, not a substitute for inspecting repo):
 
 ## Proposed milestone sequence / decision gates
 
-1. **TM0:** read-only compatibility scan and quantitative eligible
-   source-pool census, no data changes.
-2. **TM1a:** one Elite 30%-HP rage prototype and one Veteran 20%-HP
-   rage prototype, with safe family-compatible FX.
-3. **TM1b:** solve or explicitly downgrade Veteran per-spawn 20%
-   chance after investigating pool capacity and trigger engine limits.
+1. **TM0:** read-only compatibility scan of any subsequent *bulk* target tier;
+   initial one-monster prototype uses an already known enabled Elite.
+2. **TM1a (implemented in config/generator):** one **Elite boar** low-life
+   rage prototype only; in-game confirmation still needed.
+3. **TM1b:** Veteran rage **shelved**. Do not implement without a new request.
 4. **TM2:** one on-hit elemental counterattack prototype on a chosen Elite.
 5. **TM3:** one capped Elite→Veteran reinforcement prototype, then
    investigate low-life-specific gating.
-6. **TM4:** audited +15% relative Champion-group chance across
+6. **TM4 (deferred):** audited optional +10–15% relative Champion-group chance across
    eligible ordinary source pools, preserving all existing pool merging.
-7. **TM5:** +10–15% Hero preference by eligible Hero+Ascended weights,
+7. **TM5 (deferred):** +10–15% Hero preference by eligible Hero+Ascended weights,
    retaining 33% Ascended fraction and finite group caps.
 8. **TM6:** finish enable/disable switches, short regression coverage,
    documentation and in-game verification.
