@@ -22,7 +22,7 @@ settings need engine or in-game verification before adopting.
 | Maximum player level | native 100 → **150 active** | `creatures/pc/playerlevels.dbr` and `creatures/pc/{male,female}pc01.dbr` | Configurable cap up to 200; world/monster scaling is separate |
 | Health increase per level | 20 | `creatures/pc/playerlevels.dbr` | More health from leveling |
 | Energy increase per level | 16 | `creatures/pc/playerlevels.dbr` | More energy from leveling |
-| Skill-point awards per level | `skillModifierPoints` rank array | `creatures/pc/playerlevels.dbr` | Tweak per-level skill-point distribution |
+| Skill-point awards per level | vanilla 3 / 2 / 1 at levels 2–50 / 51–90 / 91–150 → **3 / 2 / 1 at 2–60 / 61–100 / 101–150** | `creatures/pc/playerlevels.dbr` | **Active:** 307 points at level 150 vs native table 287 (+20); independent toggle |
 | Experience curve | `experienceLevelEquation` formula | `creatures/pc/playerlevels.dbr` | Faster/slower leveling (not a constant multiplier) |
 | Devotion point cap | source 55 → mod 85 | `creatures/pc/playerlevels.dbr` | **Already active**, together with 2 points/shrine |
 | Attribute points per level | source 1 → mod 2 | `creatures/pc/playerlevels.dbr` | **Already active** |
@@ -35,6 +35,7 @@ GDX2 > GDX1 > base resolution before generating a new override.
 
 Do not edit source reference files. The requested speed cap and camera defaults
 are implemented via a focused reversible game-engine override.
-The player level 150 cap is independently configured and composed into existing
-player DBRs. See [Player basics](PLAYER_BASICS.md) and
+The player level 150 cap and skill-point progression are independently
+configured; character-level max is composed into existing player DBRs.
+See [Player basics](PLAYER_BASICS.md) and
 [Player level cap](PLAYER_LEVEL_CAP.md). Other changes remain proposals.
