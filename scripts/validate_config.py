@@ -69,13 +69,18 @@ def check_configs(reference_root=None, repo=REPO):
             build_shrines(player_settings.get("devotion"), reference_root)
         from player_movement import load_settings as load_movement, build_player_movement
         movement_settings = load_movement(repo)
+        prior_player_files = {}
         if movement_settings is not None and reference_root is not None:
-            build_player_movement(movement_settings, reference_root)
+            prior_player_files, _ = build_player_movement(movement_settings, reference_root)
         from player_basics import load_settings as load_basics, build_player_basics
         basics_settings = load_basics(repo)
         if basics_settings is not None and reference_root is not None:
-            prior = build_player_movement(movement_settings, reference_root)[0] if movement_settings is not None else {}
-            build_player_basics(basics_settings, reference_root, prior)
+            basics_files, _ = build_player_basics(basics_settings, reference_root, prior_player_files)
+            prior_player_files.update(basics_files)
+        if (player_settings is not None and reference_root is not None
+                and player_settings.get("level_cap") is not None):
+            from player_stats import build_player_level_cap
+            build_player_level_cap(player_settings, reference_root, prior_player_files)
         from player_skills import load_settings as load_skills, build_skills
         if reference_root is not None:
             skill_files, _ = build_skills(load_skills(repo), reference_root)
