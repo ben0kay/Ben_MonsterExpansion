@@ -181,9 +181,15 @@ class EliteTests(unittest.TestCase):
                     self.assertFalse(rage_skills, variant["output_record"])
         self.assertEqual(totals, {"elite": 124, "ascended": 137})
         self.assertEqual(sum(totals.values()), 261)
+        manifest = json.loads(self.files[Path("manifest.json")])
         for tier in totals:
             self.assertEqual(assigned[tier] + excluded[tier], totals[tier])
             self.assertGreater(assigned[tier], 0)
+            summary = manifest["rage_coverage"][tier]
+            self.assertEqual(summary["targeted"], totals[tier])
+            self.assertEqual(summary["attached"], assigned[tier])
+            self.assertEqual(summary["inherited_low_health"], excluded[tier])
+            self.assertEqual(summary["no_free_slot"], 0)
 
     def test_ascended_rage_toggle_rollback_and_no_native_hero_override(self):
         tiers = copy.deepcopy(self.tiers)
