@@ -3,6 +3,25 @@
 Expand Grim Dawn's monster families with reusable, config-driven tier variants,
 while retaining the original game's enemies, roles and encounters.
 
+## Nightblade rank-preserving balance pass
+
+For the Nightblade + Occultist playthrough, 17 existing Nightblade skill/pet
+records have configurable improvements in `config/player_skills.json`.
+Selected offensive, passive, and pet damage/heal curves increase by **15%**;
+Ring of Steel, Veil of Shadow and Blade Trap area increase by **20%**.
+Shadow Strike cooldown decreases 15% (3.5 -> 2.975 seconds), Pneumatic Burst
+duration increases 20% (60 -> 72 seconds), and Blade Spirit limit/burst
+progression stays at 2 until rank 15, then improves to 4 at ranks 16–23 and
+5 at ranks 24–26. Existing rank curve lengths are preserved. No Nightblade
+`exclusiveSkill=1` flags were found among the audited skill records; their
+existing non-exclusive behavior remains. Existing Occultist/Arcanist balance
+is retained.
+
+See [complete Nightblade changes, rollback and playthrough checks](docs/NIGHTBLADE_BALANCE.md).
+The Necromancer Raise Skeletons attachment remains a **separate, unimplemented
+plan** below. All changes are committed to `dev`; local validation, Asset
+Manager F7 and in-game testing still need to be performed.
+
 ## Planned: Raise Skeletons added to Nightblade (not Arcanist)
 
 A new [Codex implementation plan](docs/NIGHTBLADE_RAISE_SKELETONS_PLAN.md)
@@ -18,8 +37,8 @@ configuration and focused tests.
 **Proposal only — not implemented or game-tested.** Nightblade currently
 has 35 skill-tree entries; the shared template has up to 60 slots, but UI
 layout/runtime support for additional skill entries must be verified in SK0.
-Current Nightblade skills have no dedicated balance overrides yet; any
-future Nightblade enhancements are a separate review. Work must target
+Nightblade's separate skill-balance changes are already in place; SK0–SK5
+must preserve them while adding the planned skeleton line. Work must target
 `dev`, not `main`.
 
 ## Windows pool-preservation test fix
