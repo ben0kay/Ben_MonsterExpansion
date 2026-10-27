@@ -82,7 +82,7 @@ class PlayerSkillTests(unittest.TestCase):
     def test_nightblade_balance_rank_curves_and_exact_record_diffs(self):
         entries = [entry for entry in self.settings["records"]
                    if entry["record"].startswith("records/skills/playerclass04/")]
-        self.assertEqual(len(entries), 17)
+        self.assertEqual(len(entries), 18)
         for entry in entries:
             name = entry["record"]
             source = DBR.from_file(resolve(name, gen.REFERENCE))
@@ -103,6 +103,39 @@ class PlayerSkillTests(unittest.TestCase):
                 # may be made exclusive by this pass.
                 if source._locations("exclusiveSkill"):
                     self.assertEqual(updated.get("exclusiveSkill"), "0")
+
+    def test_amarastas_blade_burst_preserves_native_rank_curves(self):
+        name = "records/skills/playerclass04/eviscerate1.dbr"
+        source = DBR.from_file(resolve(name, gen.REFERENCE))
+        improved = self.record("playerclass04/eviscerate1.dbr")
+        self.assertEqual(source.get("skillCooldownTime"), "1.800000")
+        self.assertEqual(improved.get("skillCooldownTime"), "1.500000")
+        for field, factor in (
+            ("offensiveColdMin", 1.15),
+            ("offensiveColdMax", 1.15),
+            ("offensiveSlowColdMin", 1.15),
+            ("skillTargetRadius", 1.20),
+        ):
+            original = list(map(float, source.get(field).split(";")))
+            updated = list(map(float, improved.get(field).split(";")))
+            self.assertEqual(len(original), 26, field)
+            self.assertEqual(len(updated), len(original), field)
+            for old, new in zip(original, updated):
+                self.assertAlmostEqual(new, old * factor, places=5)
+        self.assertAlmostEqual(
+            float(improved.get("skillTargetRadius").split(";")[0]), 3.6)
+        self.assertAlmostEqual(
+            float(improved.get("skillTargetRadius").split(";")[-1]), 6.6)
+        for unchanged in ("weaponDamagePct", "offensiveFreezeChance",
+                          "skillManaCost", "skillMaxLevel", "skillUltimateLevel"):
+            self.assertEqual(improved.get(unchanged), source.get(unchanged))
+
+        settings = copy.deepcopy(self.settings)
+        next(entry for entry in settings["records"] if entry["record"] == name)["enabled"] = False
+        files, report = build_skills(settings, gen.REFERENCE)
+        self.assertEqual(files[Path("database") / name], source.render())
+        self.assertFalse(next(entry["changed"] for entry in report
+                              if entry["record"] == name))
 
     def test_nightblade_specific_radius_cooldown_pets_and_rollback(self):
         ring = self.record("playerclass04/ringofsteel.dbr")
