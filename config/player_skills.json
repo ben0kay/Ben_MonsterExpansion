@@ -1227,6 +1227,26 @@
       }
     },
     {
+      "record": "records/skills/playerclass04/eviscerate1.dbr",
+      "set": {
+        "skillCooldownTime": "1.500000"
+      },
+      "curves": {
+        "offensiveColdMin": {
+          "multiplier": 1.15
+        },
+        "offensiveColdMax": {
+          "multiplier": 1.15
+        },
+        "offensiveSlowColdMin": {
+          "multiplier": 1.15
+        },
+        "skillTargetRadius": {
+          "multiplier": 1.2
+        }
+      }
+    },
+    {
       "record": "records/skills/playerclass04/phantomblade.dbr",
       "set": {},
       "curves": {
