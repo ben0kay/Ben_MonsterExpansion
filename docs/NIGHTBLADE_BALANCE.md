@@ -7,6 +7,8 @@
 
 | Skill record / actual skill | Changed field(s) | Change |
 | --- | --- | --- |
+| `eviscerate1` — Amarasta's Blade Burst | `offensiveColdMin`, `offensiveColdMax`, `offensiveSlowColdMin`, `skillTargetRadius` | +15% Cold and Frostburn damage across all 26 native ranks; +20% radius at each rank (3.0 -> 3.6 at rank 1, 5.5 -> 6.6 at rank 26) |
+| `eviscerate1` — Amarasta's Blade Burst | `skillCooldownTime` | 1.8 -> 1.5 sec; weapon damage, freeze chance, energy costs and existing modifiers unchanged |
 | `phantomblade` — Phantasmal Blades | `offensivePierceMin`, `offensivePierceMax`, `offensiveSlowBleedingMin` | +15% at every original rank |
 | `shadowstrike` — Shadow Strike | `offensiveColdMin`, `offensivePierceMin` | +15% at every rank |
 | `shadowstrike` | `skillCooldownTime` | -15%: 3.5 -> 2.975 sec (original follow-up modifiers still work) |
@@ -38,7 +40,7 @@ Notes:
 
 ## Lightweight verification and rebuild
 
-Focused tests were added to `tests/test_player_skills.py` for exact field differences, rank preservation, chosen values, Blade Spirit limit milestones and per-record rollback. They are **committed but not executed** in this GitHub-only edit session; no Asset Manager or in-game testing was performed.
+Focused tests were added to `tests/test_player_skills.py` for exact field differences, rank preservation, chosen values, Blade Spirit limit milestones, Amarasta's Blade Burst damage/radius/cooldown, and per-record rollback. They are **committed but not executed** in this GitHub-only edit session; no Asset Manager or in-game testing was performed.
 
 From an updated local `dev` checkout:
 
@@ -51,4 +53,4 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Then compile with Asset Manager (F7) and test Nightblade + Occultist in a rebuilt custom game. At minimum verify Shadow Strike cooldown, Ring/Trap/Veil radii, Pneumatic Burst duration and heal, Blade Spirit damage/limit, and that existing skills are still present. Continue with the [separate skeleton addition plan](NIGHTBLADE_RAISE_SKELETONS_PLAN.md) when ready.
+Then compile with Asset Manager (F7) and test Nightblade + Occultist in a rebuilt custom game. At minimum verify Shadow Strike and Blade Burst cooldowns, Ring/Trap/Veil/Blade Burst radii, Pneumatic Burst duration and heal, Blade Spirit damage/limit, and that existing skills are still present. Continue with the [separate skeleton addition plan](NIGHTBLADE_RAISE_SKELETONS_PLAN.md) when ready.
