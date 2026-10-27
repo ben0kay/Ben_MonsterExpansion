@@ -42,9 +42,10 @@ game.Spawn "records/creatures/enemies/monsterexpansion/discovered_elites_elite_7
 
 To disable Elite rage independently, set
 `Elite.prototype.low_health_rage.enabled=false`, regenerate,
-replace-stage and F7 rebuild. This also does **not** disable
-the separate native Hero rage feature. See [TIER_RAGE.md](TIER_RAGE.md)
-for the native-Hero scope, manifest report, build instructions,
+replace-stage and F7 rebuild. This does **not** disable
+the separately configured **custom Ascended rage**. Native Heroes
+stay unchanged. See [TIER_RAGE.md](TIER_RAGE.md)
+for Elite/Ascended scope, build instructions, compatibility exclusions,
 rollback caveats and testing notes.
 
 ## Settings and sources
