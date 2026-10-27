@@ -52,21 +52,38 @@ retains its `petSkillName` pointing to the native
 icons, rank curve and tier. It is not copied or retuned. Existing skeleton pets
 are shared with the game. Native tier requirements remain 1/3/5 for the line.
 
-## Shared pet health improvement (separate balance pass)
+## Shared pet health (+20%) and damage (+15%) improvements
 
 The Nightblade-attached Raise Skeletons skills reuse the original
 `playerclass08` skeleton actors and their shared
-`pets/petskill_skeleton_basescaling.dbr` passive. A separate config-driven
-`config/player_skills.json` override now scales that passive's native
-`characterLifeModifier` at all 26 ranks by `1.2 * vanilla + 20`. This
-produces a **1.20x multiplier of the original intrinsic skeleton HP scale**
-(0% -> 20% at rank 1; 175% -> 230% at rank 26) and affects all four
-skeleton variants. It also increases the health of Necromancer's original
-skeletons, since the shared base-scaling skill is used in both masteries.
-All skeleton summon limits, damage, behavior and UI remain unchanged by this
-HP pass. Disabling this record specifically restores native skeleton scaling
-after regeneration, replacement-staging and rebuilding. See
-[PLAYER_SKILLS.md](PLAYER_SKILLS.md).
+`pets/petskill_skeleton_basescaling.dbr` passive. Its separate config-driven
+override in `config/player_skills.json` now adjusts **both** native 26-rank
+curves without changing damage types, attacks, models, summon counts or
+skill-tree modifiers:
+
+- `characterLifeModifier = 1.20 * vanilla + 20`: +20% relative
+  skeleton **base HP scaling** (0% -> 20% at rank 1; 175% -> 230% at rank 26).
+- `offensiveTotalDamageModifier = 1.15 * vanilla + 15`: +15% relative
+  skeleton **base total-damage scaling** (0% -> 15% at rank 1; 365% -> 434.75%
+  at rank 26). A 15% flat increase to the field itself would not produce
+  a +15% relative damage boost when the original modifier is zero;
+  this formula adjusts the `100 + bonus` factor.
+
+The shared passive is referenced by **all four skeleton variants** across
+the rank progression. It is also used by the original Necromancer skeleton
+summons: **both masteries benefit** from the HP and damage improvements.
+Other equipment and pet-skill bonuses can affect final in-game damage, so
+this is a +15% base-scaling adjustment, not a promise of exactly +15% damage
+after every possible stacking interaction.
+
+At fully overcapped Undead Legion rank 22, the Nightblade limit is
+**4 (Raise Skeletons) + 7 (Undead Legion) = 11 concurrent skeletons**,
+with 4 summoned per cast. Will of the Crypt adds combat bonuses, **not**
+summon capacity. Gear-granted bonuses may change the in-game limit.
+
+Disabling the shared passive override restores both health and damage
+scaling to native data after regeneration, replacement-staging and rebuilding.
+See [PLAYER_SKILLS.md](PLAYER_SKILLS.md).
 
 ## Dependency audit
 
