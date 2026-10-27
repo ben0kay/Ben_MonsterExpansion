@@ -52,6 +52,22 @@ retains its `petSkillName` pointing to the native
 icons, rank curve and tier. It is not copied or retuned. Existing skeleton pets
 are shared with the game. Native tier requirements remain 1/3/5 for the line.
 
+## Shared pet health improvement (separate balance pass)
+
+The Nightblade-attached Raise Skeletons skills reuse the original
+`playerclass08` skeleton actors and their shared
+`pets/petskill_skeleton_basescaling.dbr` passive. A separate config-driven
+`config/player_skills.json` override now scales that passive's native
+`characterLifeModifier` at all 26 ranks by `1.2 * vanilla + 20`. This
+produces a **1.20x multiplier of the original intrinsic skeleton HP scale**
+(0% -> 20% at rank 1; 175% -> 230% at rank 26) and affects all four
+skeleton variants. It also increases the health of Necromancer's original
+skeletons, since the shared base-scaling skill is used in both masteries.
+All skeleton summon limits, damage, behavior and UI remain unchanged by this
+HP pass. Disabling this record specifically restores native skeleton scaling
+after regeneration, replacement-staging and rebuilding. See
+[PLAYER_SKILLS.md](PLAYER_SKILLS.md).
+
 ## Dependency audit
 
 The shared tree template declares 60 slots; actual base skill attachment was
