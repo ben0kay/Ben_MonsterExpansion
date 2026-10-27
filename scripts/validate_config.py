@@ -115,6 +115,38 @@ def check_configs(reference_root=None, repo=REPO):
                 require(str(aura["effect_source_record"]).startswith("records/fx/"), "Aura must reference FX")
                 if reference_root is not None:
                     require(path.is_file() and not path.is_symlink(), "Missing/unsafe aura source")
+            rage = proto.get("low_health_rage")
+            if rage is not None:
+                allowed = {"enabled", "variant_ids", "health_threshold_percent",
+                           "active_duration_seconds", "cooldown_seconds",
+                           "total_damage_bonus_percent", "run_speed_bonus_percent",
+                           "aura_effect_record"}
+                require(tier["id"] == "elite" and isinstance(rage, dict) and
+                        set(rage) == allowed and type(rage["enabled"]) is bool,
+                        "Low-health rage prototype must be an Elite-only, explicit config")
+                ids = rage["variant_ids"]
+                require(isinstance(ids, list) and bool(ids) and len(ids) == len(set(ids)) and
+                        all(isinstance(v, str) and re.fullmatch(
+                            r"[a-z][a-z0-9_]*:[a-z][a-z0-9_]*", v) for v in ids),
+                        "Low-health rage target IDs must be unique family:variant names")
+                for field, low, high in (
+                    ("health_threshold_percent", 1, 90),
+                    ("active_duration_seconds", 1, 60),
+                    ("cooldown_seconds", 10, 600),
+                    ("total_damage_bonus_percent", 0, 100),
+                    ("run_speed_bonus_percent", 0, 50),
+                ):
+                    value = rage[field]
+                    require(type(value) in (float, int) and math.isfinite(value) and low <= value <= high,
+                            "Invalid low-health rage " + field)
+                effect = rage["aura_effect_record"]
+                require(isinstance(effect, str) and effect.startswith("records/fx/") and
+                        effect.endswith(".dbr"), "Rage aura must reference an FX DBR")
+                effect_path = reference_path(effect, root)
+                if reference_root is not None:
+                    require(effect_path.is_file() and not effect_path.is_symlink() and
+                            dbr_values(effect_path).get("templateName") == "database/templates/effect.tpl",
+                            "Rage aura must be an existing effect DBR")
             if "natural_spawns" in proto:
                 value = proto["natural_spawns"].get("conversion_share", proto["natural_spawns"].get("common_conversion_share"))
                 require(type(value) in (int, float) and math.isfinite(value) and 0 < value < .5,
@@ -188,6 +220,18 @@ def check_configs(reference_root=None, repo=REPO):
                 if reference_root is not None:
                     from natural_spawns import build_pool_override
                     build_pool_override(fam, pool, by_id, root)
+        # Opt-in prototype must reference a currently enabled Elite, not a
+        # stale discovery draft or a variant absent from the active catalog.
+        elite_rage = by_id["elite"]["prototype"].get("low_health_rage")
+        if elite_rage and elite_rage["enabled"]:
+            targets = {f"{fam['id']}:{variant['id']}"
+                       for fpath in paths
+                       for fam in [load_json(fpath)]
+                       if fam["enabled"]
+                       for variant in fam["variants"]
+                       if variant["tier"] == "elite"}
+            require(set(elite_rage["variant_ids"]) <= targets,
+                    "Rage prototype target must be in active Elite variants")
         if reference_root is not None:
             from natural_spawns import build_merged_pool
             for mappings in pools.values():
