@@ -1,8 +1,4 @@
-"""Clone a native skill line without changing its pets or existing mastery skills.
-
-The initial attachment exposes only the base skill for the SK0 runtime gate.
-Modifier clones remain unreachable until a complete UI layout is verified.
-"""
+"""Attach a cloned skill line and reversible UI layout without forking native pets."""
 import json
 import re
 from pathlib import Path
@@ -27,9 +23,9 @@ def build_attachment(settings, reference):
     """Return deterministic DBRs and a report, including vanilla rollback records."""
     if settings is None:
         return {}, None
-    if set(settings) != {'schema_version', 'enabled', 'tree', 'panel', 'skills'}:
+    if set(settings) != {'schema_version', 'enabled', 'tree', 'panel', 'skills', 'existing_button_positions'}:
         raise ValueError('Unknown mastery attachment configuration fields')
-    if settings['schema_version'] != 1 or type(settings['enabled']) is not bool:
+    if settings['schema_version'] != 2 or type(settings['enabled']) is not bool:
         raise ValueError('Invalid mastery attachment configuration')
     skills = settings['skills']
     if not isinstance(skills, list) or len(skills) != 3:
@@ -54,16 +50,38 @@ def build_attachment(settings, reference):
              if (m := re.match(r'skillName(\d+),[^,\r\n]+', line))]
     next_slot = max(slots) + 1
     buttons = panel.get('tabSkillButtons').split(';')
-    original_buttons = [source(name) for name in buttons if re.fullmatch(r'skill\d+\.dbr', name.rsplit('/', 1)[-1])]
-    # Native icon frames occupy at most 48x48; keep new icons and rank text apart.
-    occupied = [(int(b.get('bitmapPositionX')), int(b.get('bitmapPositionY')))
-                for b in original_buttons]
+    def position(value):
+        if not isinstance(value, list) or len(value) != 2 or any(type(v) is not int for v in value):
+            raise ValueError('Invalid attachment position')
+        x, y = value
+        if not (246 <= x <= 886 and 39 <= y <= 459):
+            raise ValueError('Attachment button outside existing skill layout bounds')
+        return x, y
+
+    original_names = [name for name in buttons
+                      if re.fullmatch(r'skill\d+\.dbr', name.rsplit('/', 1)[-1])]
+    layout = settings['existing_button_positions']
+    if not isinstance(layout, dict) or set(layout) != set(original_names):
+        raise ValueError('Layout must cover exactly the existing mastery skill buttons')
+    occupied = []
+    for name in original_names:
+        button = source(name)
+        x, y = position(layout[name])
+        occupied.append((x, y))
+        if settings['enabled']:
+            button.set('bitmapPositionX', str(x))
+            button.set('bitmapPositionY', str(y))
+        # Always emit originals in disabled mode to undo previously staged moves.
+        emit(name, button)
+    if any(abs(a-c) < 60 and abs(b-d) < 60
+           for i, (a,b) in enumerate(occupied) for c,d in occupied[i+1:]):
+        raise ValueError('Existing mastery buttons overlap after layout changes')
     active = []
     for index, entry in enumerate(skills):
-        if set(entry) != {'source', 'target', 'button_source', 'button_target', 'position', 'visible'}:
+        if set(entry) != {'source', 'target', 'button_source', 'button_target', 'position', 'visible', 'set'}:
             raise ValueError('Unknown attachment skill configuration fields')
-        if type(entry['visible']) is not bool or entry['visible'] != (index == 0):
-            raise ValueError('SK0 gate: expose only the base skill until UI/runtime verification')
+        if entry['visible'] is not True:
+            raise ValueError('Expose the complete skill line together')
         if not entry['target'].startswith('records/skills/playerclass04/ben_'):
             raise ValueError('Attachment skill must use custom Nightblade namespace')
         if not entry['button_target'].startswith('records/ui/skills/class04/skill'):
@@ -75,24 +93,26 @@ def build_attachment(settings, reference):
         button = source(entry['button_source'])
         if button.get('skillName') != entry['source']:
             raise ValueError('UI donor does not point to the requested native skill')
-        position = entry['position']
-        if not isinstance(position, list) or len(position) != 2 or any(type(v) is not int for v in position):
-            raise ValueError('Invalid attachment position')
-        x, y = position
-        if entry['visible']:
-            if not (246 <= x <= 886 and 39 <= y <= 459):
-                raise ValueError('Attachment button outside existing skill layout bounds')
-            if any(abs(x-a) < 64 and abs(y-b) < 64 for a, b in occupied):
-                raise ValueError('Attachment button overlaps an existing button or rank text')
-            occupied.append((x, y))
-        if index == 0:
-            # Hide native connector strips while the two modifiers are not exposed.
-            skill.set('skillConnectionOn', '')
-            skill.set('skillConnectionOff', '')
+        x, y = position(entry['position'])
+        if any(abs(x-a) < 60 and abs(y-b) < 60 for a,b in occupied):
+            raise ValueError('Attachment button overlaps an existing button or rank text')
+        occupied.append((x, y))
+        if index and (y != skills[0]['position'][1] or x != skills[0]['position'][0] + 160*index):
+            raise ValueError('Native connector geometry requires a horizontal line with 160 pixel spacing')
+        edits = entry['set']
+        if not isinstance(edits, dict) or (set(edits) - {'petLimit', 'petBurstSpawn'}) or (index and edits):
+            raise ValueError('Only base summon burst/cap overrides are supported')
+        for key, value in edits.items():
+            if not isinstance(value, str) or not re.fullmatch(r'[1-9][0-9]*', value):
+                raise ValueError('Summon overrides must be positive integer strings')
+            if settings['enabled']:
+                skill.set(key, value)
+        if index == 0 and int(skill.get('petBurstSpawn')) > int(skill.get('petLimit')):
+            raise ValueError('Summon burst exceeds the base cap')
         button.set('skillName', entry['target'])
         button.set('bitmapPositionX', str(x))
         button.set('bitmapPositionY', str(y))
-        # Never retune the skill, copy pets, or redirect the third skill's native petSkillName.
+        # Keep native connectors, modifier curves and the third skill's petSkillName.
         emit(entry['target'], skill)
         emit(entry['button_target'], button)
         if settings['enabled'] and entry['visible']:
@@ -109,5 +129,5 @@ def build_attachment(settings, reference):
     emit(settings['tree'], tree)
     emit(settings['panel'], panel)
     return files, {'enabled': settings['enabled'], 'active_skills': active,
-                   'status': 'base-skill proof of concept; runtime verification pending',
+                   'status': 'complete skill line; layout and modifiers await in-game verification',
                    'cloned_records': [s['target'] for s in skills]}

@@ -1,14 +1,15 @@
 # Planned: Raise Skeletons skill line for Nightblade (SK0–SK5)
 
-**Status:** partial implementation — skill-cloning pipeline and base-only compatibility build; full line and runtime gate pending. **Target branch:** `dev` only (do not push to `main`).
+**Status:** full line implemented in Python generation/staging; base-only casting confirmed in-game by user. Full-line UI/modifier playtest pending. **Target branch:** `dev` only.
+**Approved scope update:** user authorized a bottom row with existing UI rows moved upward, and base summon burst/cap increased from 3 to 4. Undead Legion's additive curve remains vanilla. This supersedes the original coordinate/burst constraints below.
 **Player build:** Nightblade + Occultist. **Scope:** add the complete native Necromancer Raise Skeletons line **to Nightblade**, not Arcanist. No existing Nightblade, Occultist, or Arcanist skills are to be replaced, removed, or retuned by this work.
 
 ## Design contract
 
 - Preserve the original Necromancer Raise Skeletons gameplay: initial summon burst/limit, pet variants, their original rank- and level-scaling, modifiers, cost, cooldown, animations, UI icons, sounds, visual effects, requirements and vanilla text. Use game-provided DLC resources whenever possible; do not fork the skeleton pets unless a proven class-binding dependency makes it necessary.
 - Add **three separately investable Nightblade skills**: Raise Skeletons (base skill), Undead Legion (the `summon_skeleton2` modifier), and Will of the Crypt (the `summon_skeleton3_petmodifier` pet modifier). Confirm game-visible names using the original DLC text tags; do not invent tag names. They should behave as the unmodified Necromancer originals.
-- Keep all existing Nightblade entries and coordinates. Make new additions deterministic, opt-in/rollback capable, DLC-aware and staged with the normal combined monster + skill generator. Do not directly edit `ReferenceFiles/`.
-- Protect previously customized Nightblade balance, Occultist, Arcanist, monster-tier, pack, Devotion and player-stat changes. No extra buff to skeletons in this task. Future Nightblade balance pass is separate.
+- Keep all existing Nightblade skill entries; apply the approved reversible UI row compression. Make new additions deterministic, opt-in/rollback capable, DLC-aware and staged with the normal combined monster + skill generator. Do not directly edit `ReferenceFiles/`.
+- Protect previously customized Nightblade balance, Occultist, Arcanist, monster-tier, pack, Devotion and player-stat changes. Only the approved base burst/cap increase is applied; no pet damage/health buff. Future Nightblade balance pass is separate.
 
 ## Confirmed reference inputs
 
@@ -38,7 +39,7 @@ Current Nightblade `_classtree_class04.dbr` has **34** named entries (1 mastery 
 ## SK1 — data-driven skill cloning
 
 - Extend the existing pipeline (or add a compact dedicated module) to clone the *effective* vanilla Necromancer skill records into uniquely named custom Nightblade records, e.g. `records/skills/playerclass04/ben_raiseskeletons1.dbr`, `ben_raiseskeletons2.dbr`, `ben_raiseskeletons3_petmodifier.dbr`. Use a separate `config/nightblade_skeletons.json` opt-in flag so the feature can be independently disabled.
-- Only adjust fields necessary for the Nightblade attachment and tested internal references. **Do not change** native skill `petBurstSpawn=3`, `petLimit=3`, `skillCooldownTime=18` on the base ability, 16/26 rank progression, the 12/22 modifier rank progression, original energy costs or skeleton class/abilities.
+- Only adjust fields necessary for the Nightblade attachment and tested internal references. Apply the approved `petBurstSpawn=4`, `petLimit=4`; preserve `skillCooldownTime=18` on the base ability, 16/26 rank progression, the 12/22 modifier rank progression, original energy costs or skeleton class/abilities.
 - Preserve original skeleton `spawnObjects*` references and FX paths where these work. For the third skill, check the original `petSkillName` and its rank-link behavior; add the smallest possible extra override only if proven necessary.
 - Validate no unintended damage/timer/pet-stat/AI or other record differences. Avoid duplicating or packaging the entire reference tree.
 
@@ -66,7 +67,7 @@ Current Nightblade `_classtree_class04.dbr` has **34** named entries (1 mastery 
 ## SK5 — lightweight test and gameplay handoff
 
 - Add focused tests for all three outputs, original vs cloned field parity, valid dependency paths, slot/button membership, preserved original Nightblade records, preservation of existing Occultist/Arcanist changes, duplicate-path protection, manifest and rollback. Run only relevant tests plus config validation unless a failure warrants more.
-- Document a manual Asset Manager F7 build and in-game check: select Nightblade + Occultist; find and invest in Raise Skeletons; cast, observe three skeletons; check native summon cap and energy/cooldown; invest in Undead Legion and Will of the Crypt; verify rank/limit/cooldown and effects; check vanilla Nightblade skills, Occultist pets, no broken icons or overlaps; verify disabled rollback. Verify Necromancer remains unaffected in a separate character.
+- Document a manual Asset Manager F7 build and in-game check: select Nightblade + Occultist; find and invest in Raise Skeletons; cast, observe four skeletons; check native summon cap and energy/cooldown; invest in Undead Legion and Will of the Crypt; verify rank/limit/cooldown and effects; check vanilla Nightblade skills, Occultist pets, no broken icons or overlaps; verify disabled rollback. Verify Necromancer remains unaffected in a separate character.
 - Build guidance from repo root:
   ```powershell
   git switch dev
@@ -89,4 +90,9 @@ Nightblade has an **implemented, separate** rank-preserving balance pass in `con
 
 ## Current implementation checkpoint
 
-See [base-only build and SK0 audit](NIGHTBLADE_SKELETONS_BUILD.md). SK1 clones all three native skills; SK2/SK3 currently register/expose only the base for the required runtime gate. SK4 rollback and SK5 focused Python checks are implemented for this limited build. Full modifier UI, propagation and gameplay verification remain pending.
+The base-only compatibility build was confirmed casting correctly by the user.
+The full line is now generated with native connectors, consecutive slots 35–37,
+a clear bottom row, four-skeleton base burst/cap, native additive Undead Legion,
+and untouched Will of the Crypt/pet references. SK1–SK4 code and focused SK5 checks
+are complete; full-line Asset Manager/runtime verification remains manual.
+See [current build](NIGHTBLADE_SKELETONS_BUILD.md).

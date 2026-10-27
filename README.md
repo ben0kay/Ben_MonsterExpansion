@@ -31,31 +31,29 @@ existing non-exclusive behavior remains. Existing Occultist/Arcanist balance
 is retained.
 
 See [complete Nightblade changes, rollback and playthrough checks](docs/NIGHTBLADE_BALANCE.md).
-The separate skeleton attachment now has a base-skill proof of concept, described below.
+The skeleton attachment now exposes the full line, described below.
 
-## Nightblade Raise Skeletons — first playable compatibility build
+## Nightblade Raise Skeletons — complete skill line
 
-`config/nightblade_skeletons.json` enables a native Raise Skeletons button on
-Nightblade at `(246, 249)`, left of Shadow Strike. The original 34 named tree
-entries and all 31 skill buttons remain intact; the summon uses slot **35**.
-Native summon burst/limit **3**, cooldown **18 seconds**, costs, ranks, pet
-variants and scaling are retained. No extra skeleton buffs are included.
+The base summon was confirmed working in-game. The full line now occupies its
+own bottom row: **Raise Skeletons → Undead Legion → Will of the Crypt**,
+at `(246,459)`, `(406,459)`, `(566,459)`, using tree slots **35–37**.
+Existing skill rows are spaced 60 instead of 70 pixels apart, freeing the
+bottom row while preserving horizontal positions, ordering and branch offsets.
 
-All three skill records are cloned through a dedicated configurable attachment
-module. **Only Raise Skeletons is currently exposed.** Undead Legion and Will
-of the Crypt remain unreachable until the SK0 runtime/layout gate is cleared;
-this is not the completed SK0–SK5 line. The base's unused connector strips are
-hidden so they do not run through existing Nightblade skills.
+Starting summon burst and base cap are now **4**. Undead Legion adds its native
+**+1 to +7** capacity: total cap **5 at rank 1**, **9 at rank 12**, **11 at
+rank 22**. Its cooldown/cost reductions and Will of the Crypt's pet bonuses
+retain native curves. Existing Necromancer skills and pets are unchanged.
 
-Imported class08 UI references are included on `dev`. Existing Nightblade,
-Occultist, Arcanist and monster settings are preserved. Set `enabled` to `false`,
-regenerate, replace-stage and rebuild to restore the original Nightblade tree
-and panel; new-only files remain inert and unreachable.
+Configure in `config/nightblade_skeletons.json`. Disabling the feature and
+regenerating, replacement-staging and rebuilding restores the original tree,
+panel and all 31 button positions. All other balance and XP changes are preserved.
 
-See [implementation status and playtest steps](docs/NIGHTBLADE_SKELETONS_BUILD.md)
-and the [full plan](docs/NIGHTBLADE_RAISE_SKELETONS_PLAN.md).
-**Python checks passed; Asset Manager F7 and in-game verification remain manual.**
-Work targets `dev`, not `main`.
+See [build steps, layout and validation](docs/NIGHTBLADE_SKELETONS_BUILD.md).
+The full line's UI, modifier behavior and four-skeleton burst still require an
+in-game check after F7; the earlier base-only build was verified by the user.
+Changes target `dev` only.
 
 ## Windows pool-preservation test fix
 

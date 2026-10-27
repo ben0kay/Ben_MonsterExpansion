@@ -1,25 +1,63 @@
-# Nightblade skeleton compatibility build
+# Nightblade skeleton skill line
 
-This implements the plan's one-skill proof of concept, on `dev` only. It is not
-the full three-button skill line. Requires Ashes of Malmouth and Forgotten Gods.
+Target: `dev`. Requires Ashes of Malmouth and Forgotten Gods. The user confirmed
+that the earlier base button accepts points, hotbar assignment and casting.
+The full bottom-row layout and modifier behavior remain to be checked in-game.
 
-## SK0 findings
+## Current layout and attachment
 
-- Effective Nightblade tree has **34** populated `skillName` fields; its unused
-  `skillLevel35` does not represent a 35th skill. Base summon is appended as
-  `skillName35`. Original duplicates and original 1–34 mappings are preserved.
-- The skill-tree template declares 60 slots, and the UI panel declares an array
-  of buttons. Neither is proof of runtime support for the new entry.
-- Imported Necromancer UI donors are `class08/skill22.dbr` (base), `skill23.dbr`
-  (Undead Legion), `skill24.dbr` (Will of the Crypt). The original tree has this
-  line consecutively at slots 13–15. The third skill is a thin wrapper around
-  `playerclass08/pets/petskill_skeleton_modifier.dbr`; its name, icon, rank curve
-  and tier live in that native pet modifier. Keep that reference unchanged.
-- Existing buttons occupy rows 39, 109, 179, 249, 319, 389 and 459. A base button
-  at **(246,249)** has 160 pixels to Shadow Strike on its right, and 70 pixels
-  to the nearest buttons above/below. It stays inside existing layout bounds.
-  There is no demonstrated free horizontal row for the full native tier 1/3/5
-  line. Its two modifiers must not be silently placed over existing skills.
+The effective Nightblade tree has 34 named entries. Add the base and its two
+modifiers consecutively at slots **35, 36, 37**, matching native Necromancer
+order (originally slots 13–15). No existing skill entry is removed or reordered.
+
+| Skill | UI position | Native UI donor |
+| --- | --- | --- |
+| Raise Skeletons | 246,459 | class08/skill22.dbr |
+| Undead Legion | 406,459 | class08/skill23.dbr |
+| Will of the Crypt | 566,459 | class08/skill24.dbr |
+
+The seven original rows move from 39/109/179/249/319/389/459 to
+39/99/159/219/279/339/399. This frees the original bottom row for skeletons.
+All X coordinates stay unchanged. The three transmuter/branch buttons move with
+their parent rows, keeping their native relative offsets. Native skeleton
+connector strips are restored, with the same horizontal spacing as Necromancer.
+No background artwork or other class UI is changed.
+
+All positions, skill paths and allowed base overrides live in
+`config/nightblade_skeletons.json` (schema 2). `scripts/mastery_attachment.py`
+emits **39 DBRs**: three skill clones, three new buttons, Nightblade tree/panel,
+and all 31 original button overrides. The generic existing generator composes
+these with the rest of the mod and rejects duplicate paths. Reference inputs
+are resolved GDX2 > GDX1 > base; no reference file is modified.
+
+## Summon mechanics
+
+Only the cloned base skill's `petBurstSpawn` and `petLimit` change: **3 → 4**.
+Cooldown remains 18 seconds, with native cost, base ranks 16/26, pet variants,
+weights, scaling and effects. Original Necromancer records remain untouched.
+
+Undead Legion is `Skill_Modifier`; its `petLimit` curve adds capacity to the
+base, rather than replacing it. Keep its native +1 to +7 curve:
+
+| Undead Legion rank | Added capacity | New total cap |
+| --- | --- | --- |
+| Unlearned | 0 | 4 |
+| 1 | 1 | 5 |
+| 12 | 5 | 9 |
+| 22 | 7 | 11 |
+
+Its native cooldown and mana reductions are unchanged. Will of the Crypt
+retains its `petSkillName` pointing to the native
+`playerclass08/pets/petskill_skeleton_modifier.dbr`, which owns its name,
+icons, rank curve and tier. It is not copied or retuned. Existing skeleton pets
+are shared with the game. Native tier requirements remain 1/3/5 for the line.
+
+## Dependency audit
+
+The shared tree template declares 60 slots; actual base skill attachment was
+subsequently confirmed in-game. Native consecutive modifier ordering and UI
+donors are retained. Full modifier propagation still needs a gameplay check.
+
 - Transitive DBR scan reached 178 records. Nine stock references were absent
   from the extraction: `records/controllers/pets/controller_skeleton_normal.dbr`,
   `controller_skeletoncaster_normal.dbr` in the same folder;
@@ -35,33 +73,14 @@ the full three-button skill line. Requires Ashes of Malmouth and Forgotten Gods.
   DLC localization, mesh, texture, animation, sound availability and class-bound
   runtime behavior cannot be verified without the user's installed game.
 
-## Implemented scope
 
-`config/nightblade_skeletons.json` feeds `scripts/mastery_attachment.py`, which
-uses the existing GDX2 > GDX1 > base resolver. It emits eight DBRs: three skill
-clones, three button clones, the Nightblade tree and panel. Only the base skill
-is listed in the active tree and panel. The two modifier clones are unreachable.
-No original class08 skill or pet record is emitted or edited.
+## Build and test
 
-All native skill fields are preserved except the base's two connector texture
-arrays, which are cleared while its modifiers are hidden. Native stats are
-unchanged: initial burst/cap 3, 18-second cooldown, base ranks 16/26, original
-energy cost curve. This build has no Undead Legion cap/cooldown increases and
-no Will of the Crypt bonuses. Existing balance outputs remain byte-identical.
-
-The module rejects overlapping visible buttons, duplicate outputs, unsafe paths,
-wrong UI donors, unsupported tree slots and early exposure of modifier buttons.
-The combined generator rejects collisions with other generated records. Coordinates
-and paths live in config; changing the visible modifier flags intentionally fails
-the compatibility gate until a full layout is implemented.
-
-## Build and test on Windows
-
-From the existing Asset Manager mod checkout:
+From your existing Asset Manager mod checkout:
 
 ```powershell
 git switch dev
-git pull
+git pull origin dev
 python scripts/validate_config.py
 python -m unittest discover -s tests -p test_mastery_attachment.py -v
 python scripts/generate_variants.py --include-spawns --write --replace-generated
@@ -69,28 +88,38 @@ python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
 F7 in Asset Manager, install the rebuilt `.arz` and existing `Text_EN.arc`, and
-restart the custom game. No new text assets are needed for this skill.
+restart the custom game. No new localization assets are needed for the line.
 
-Use a test Nightblade + Occultist character. Look left of Shadow Strike for
-Raise Skeletons; confirm its icon/name/tooltip, spend a point, put it on the
-hotbar and cast. Confirm three skeletons, mana use, 18-second base cooldown,
-replacement at cap, survival, attacks and rank investment. Check all old skills
-and Occultist pets. Also verify the original Necromancer summon still works.
-Report a screenshot of the skill panel and any build errors. This clears the
-runtime gate; the full modifier layout remains the next implementation step.
+On a Nightblade + Occultist test character:
 
-To roll back, set `enabled` false in the config and repeat generation,
-**replacement staging**, F7 and archive installation. The tree/panel become
-exact effective originals, removing all entry points. The output manifest has
-the same eight paths in both modes, so replacement staging overwrites both
-active overrides; unreachable cloned skills/buttons can safely remain. Spent
-points on a removed skill should be refunded on a test save before disabling.
+1. Find all three buttons on the bottom row. Inspect icons, names, connector
+   strips, rank text and all existing skill rows for overlap or clipping.
+2. Cast with the modifiers unlearned: observe four skeletons and base cap four,
+   original mana cost and 18-second cooldown. Recasting replaces pets at cap.
+3. At the required mastery tier, invest in Undead Legion: rank 1 allows five
+   skeletons; recast to fill capacity. Check tooltip cooldown/mana reductions.
+4. Invest in Will of the Crypt: inspect its pet bonuses and verify effects on
+   the summoned skeletons. Verify prerequisites, point refunding and hotbar use.
+5. Check existing Nightblade skills and Occultist pets; test the original
+   Necromancer separately to confirm its original three-skeleton burst/cap.
+
+## Rollback
+
+Set `enabled` false and repeat generation, **replacement staging**, F7 and
+archive installation. Disabled output restores exact effective originals for
+the Nightblade tree, panel, all 31 existing buttons, and the base clone's stats.
+The same 39 paths remain in the manifest, ensuring stale moved-button overrides
+are overwritten. New-only cloned skills/buttons become unreachable. Refund points
+from the added skills on a test save before disabling. Other balance changes,
+including enemy XP, are unaffected.
 
 ## Validation
 
-Config validation and six focused attachment tests pass, including native-field
-parity, pet paths, effective reference selection, original tree/UI preservation,
-bounds/overlap checks, combined manifest membership, existing balance preservation,
-output collision rejection and disabled rollback. Combined generation/preflight
-also pass. No Asset Manager or Grim Dawn runtime is available here. Full SK0–SK5
-completion remains conditional on the runtime gate and a verified modifier layout.
+Config validation and eight focused tests pass: native field parity except the
+two approved summon fields, all pet variant paths, modifier curve parity, tree
+and panel membership, shifted UI field parity, preserved branch offsets, effective
+reference selection, combined manifest/existing balance preservation, collision
+rejection and exact disabled rollback. Combined generation and staging preflight
+pass. No full historical suite was run; no Asset Manager or game runtime is
+available here. User verification of the previous base-only build does not yet
+verify this new full-line layout or modifier propagation.
