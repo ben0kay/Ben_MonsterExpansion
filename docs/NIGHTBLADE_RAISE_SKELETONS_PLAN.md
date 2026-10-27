@@ -8,7 +8,7 @@
 - Preserve the original Necromancer Raise Skeletons gameplay: initial summon burst/limit, pet variants, their original rank- and level-scaling, modifiers, cost, cooldown, animations, UI icons, sounds, visual effects, requirements and vanilla text. Use game-provided DLC resources whenever possible; do not fork the skeleton pets unless a proven class-binding dependency makes it necessary.
 - Add **three separately investable Nightblade skills**: Raise Skeletons (base skill), Undead Legion (the `summon_skeleton2` modifier), and Will of the Crypt (the `summon_skeleton3_petmodifier` pet modifier). Confirm game-visible names using the original DLC text tags; do not invent tag names. They should behave as the unmodified Necromancer originals.
 - Keep all existing Nightblade entries and coordinates. Make new additions deterministic, opt-in/rollback capable, DLC-aware and staged with the normal combined monster + skill generator. Do not directly edit `ReferenceFiles/`.
-- Protect previously customized Occultist, Arcanist, monster-tier, pack, Devotion and player-stat changes. No extra buff to skeletons in this task. Future Nightblade balance pass is separate.
+- Protect previously customized Nightblade balance, Occultist, Arcanist, monster-tier, pack, Devotion and player-stat changes. No extra buff to skeletons in this task. Future Nightblade balance pass is separate.
 
 ## Confirmed reference inputs
 
@@ -24,7 +24,7 @@
 | Templates | `ReferenceFiles/Resources/templates/skilltree.tpl`, `ReferenceFiles/Resources/templates/ingameui/skillpanectrl.tpl` |
 | Generation/staging | `scripts/player_skills.py`, `scripts/generate_variants.py`, `scripts/prepare_console_test.py`, `scripts/validate_config.py` |
 
-Current Nightblade `_classtree_class04.dbr` has **35** named entries (1 mastery bar + 34 indexed skills/links); the shared template provides fields through `skillName60` / `skillLevel60`. The Nightblade `classtable.dbr` has **32 UI references** (1 mastery bar + 31 skill buttons). These counts do **not** prove that three additional UI buttons fit or render. The tree also repeats `wpattack4.dbr` at several existing indexes; preserve these entries and do not renumber to 'clean up' the vanilla layout. Nightblade currently has **no dedicated entries** in `config/player_skills.json`; leave that as-is until a separate Nightblade balance pass.
+Current Nightblade `_classtree_class04.dbr` has **35** named entries (1 mastery bar + 34 indexed skills/links); the shared template provides fields through `skillName60` / `skillLevel60`. The Nightblade `classtable.dbr` has **32 UI references** (1 mastery bar + 31 skill buttons). These counts do **not** prove that three additional UI buttons fit or render. The tree also repeats `wpattack4.dbr` at several existing indexes; preserve these entries and do not renumber to 'clean up' the vanilla layout. Nightblade now has a **separate implemented balance pass** in `config/player_skills.json` (see [Nightblade balance](NIGHTBLADE_BALANCE.md)). SK0–SK5 must preserve and compose with those existing `playerclass04` records rather than overwriting them.
 
 ## SK0 — read-only discovery, compatibility gate
 
@@ -85,4 +85,4 @@ No **mandatory** missing `.dbr` reference files were identified in the current a
 
 ## Future balance pass (not part of SK0–SK5)
 
-Nightblade currently has no explicit skill overrides in `config/player_skills.json`. After the skeleton line is verified, evaluate separate rank-preserving and reversible enhancements for Phantasmal Blades, Shadow Strike, Amarasta's Blade Burst, Ring of Steel, Blade Trap, Pneumatic Burst, Veil of Shadow, Blade Spirit, dual-wield WPS and passives. No changes should be made to these skills until separately approved.
+Nightblade has an **implemented, separate** rank-preserving balance pass in `config/player_skills.json` (see [Nightblade balance](NIGHTBLADE_BALANCE.md)). Keep those existing improvements intact during SK0–SK5. Further tweaks to Amarasta's Blade Burst, modifiers, or other skills should be proposed and approved separately.
