@@ -325,6 +325,11 @@ def configured_plan(family="all", include_spawns=False):
     files.update(skill_files)
     manifest = json.loads(files[Path("manifest.json")])
     manifest["player_skills"] = skill_report
+    from mastery_attachment import load_settings as load_attachment, build_attachment
+    attachment_files, attachment_report = build_attachment(load_attachment(REPO), REFERENCE)
+    fail_unless(not set(attachment_files) & set(files), "Mastery attachment output collision")
+    files.update(attachment_files)
+    manifest["nightblade_skeletons"] = attachment_report
     manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
     files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return files

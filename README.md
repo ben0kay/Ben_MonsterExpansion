@@ -18,28 +18,31 @@ existing non-exclusive behavior remains. Existing Occultist/Arcanist balance
 is retained.
 
 See [complete Nightblade changes, rollback and playthrough checks](docs/NIGHTBLADE_BALANCE.md).
-The Necromancer Raise Skeletons attachment remains a **separate, unimplemented
-plan** below. All changes are committed to `dev`; local validation, Asset
-Manager F7 and in-game testing still need to be performed.
+The separate skeleton attachment now has a base-skill proof of concept, described below.
 
-## Planned: Raise Skeletons added to Nightblade (not Arcanist)
+## Nightblade Raise Skeletons — first playable compatibility build
 
-A new [Codex implementation plan](docs/NIGHTBLADE_RAISE_SKELETONS_PLAN.md)
-covers phases **SK0–SK5** to attach the original Necromancer **Raise
-Skeletons / Undead Legion / Will of the Crypt** skill line to **Nightblade
-(`playerclass04`)**, for a planned **Nightblade + Occultist** playthrough.
-The new line must be added without replacing or changing any original
-Nightblade skills, while preserving vanilla skeleton mechanics, costs and
-progression. The plan includes dependency/UI inspection, new skill records,
-mastery slots and buttons, deterministic generation/staging, reversible
-configuration and focused tests.
+`config/nightblade_skeletons.json` enables a native Raise Skeletons button on
+Nightblade at `(246, 249)`, left of Shadow Strike. The original 34 named tree
+entries and all 31 skill buttons remain intact; the summon uses slot **35**.
+Native summon burst/limit **3**, cooldown **18 seconds**, costs, ranks, pet
+variants and scaling are retained. No extra skeleton buffs are included.
 
-**Proposal only — not implemented or game-tested.** Nightblade currently
-has 35 skill-tree entries; the shared template has up to 60 slots, but UI
-layout/runtime support for additional skill entries must be verified in SK0.
-Nightblade's separate skill-balance changes are already in place; SK0–SK5
-must preserve them while adding the planned skeleton line. Work must target
-`dev`, not `main`.
+All three skill records are cloned through a dedicated configurable attachment
+module. **Only Raise Skeletons is currently exposed.** Undead Legion and Will
+of the Crypt remain unreachable until the SK0 runtime/layout gate is cleared;
+this is not the completed SK0–SK5 line. The base's unused connector strips are
+hidden so they do not run through existing Nightblade skills.
+
+Imported class08 UI references are included on `dev`. Existing Nightblade,
+Occultist, Arcanist and monster settings are preserved. Set `enabled` to `false`,
+regenerate, replace-stage and rebuild to restore the original Nightblade tree
+and panel; new-only files remain inert and unreachable.
+
+See [implementation status and playtest steps](docs/NIGHTBLADE_SKELETONS_BUILD.md)
+and the [full plan](docs/NIGHTBLADE_RAISE_SKELETONS_PLAN.md).
+**Python checks passed; Asset Manager F7 and in-game verification remain manual.**
+Work targets `dev`, not `main`.
 
 ## Windows pool-preservation test fix
 

@@ -78,7 +78,10 @@ def check_configs(reference_root=None, repo=REPO):
             build_player_basics(basics_settings, reference_root, prior)
         from player_skills import load_settings as load_skills, build_skills
         if reference_root is not None:
-            build_skills(load_skills(repo), reference_root)
+            skill_files, _ = build_skills(load_skills(repo), reference_root)
+            from mastery_attachment import load_settings as load_attachment, build_attachment
+            attachment_files, _ = build_attachment(load_attachment(repo), reference_root)
+            require(not set(skill_files) & set(attachment_files), "Mastery attachment output collision")
         root = reference_root or repo / "ReferenceFiles"
         catalog = load_json(repo / "config/tiers.json")
         require(catalog.get("schema_version") == 1, "Unsupported tier schema")

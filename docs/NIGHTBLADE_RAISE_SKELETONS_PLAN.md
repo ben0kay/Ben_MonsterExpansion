@@ -1,6 +1,6 @@
 # Planned: Raise Skeletons skill line for Nightblade (SK0–SK5)
 
-**Status:** proposal / NOT IMPLEMENTED. **Target branch:** `dev` only (do not push to `main`).
+**Status:** partial implementation — skill-cloning pipeline and base-only compatibility build; full line and runtime gate pending. **Target branch:** `dev` only (do not push to `main`).
 **Player build:** Nightblade + Occultist. **Scope:** add the complete native Necromancer Raise Skeletons line **to Nightblade**, not Arcanist. No existing Nightblade, Occultist, or Arcanist skills are to be replaced, removed, or retuned by this work.
 
 ## Design contract
@@ -24,7 +24,7 @@
 | Templates | `ReferenceFiles/Resources/templates/skilltree.tpl`, `ReferenceFiles/Resources/templates/ingameui/skillpanectrl.tpl` |
 | Generation/staging | `scripts/player_skills.py`, `scripts/generate_variants.py`, `scripts/prepare_console_test.py`, `scripts/validate_config.py` |
 
-Current Nightblade `_classtree_class04.dbr` has **35** named entries (1 mastery bar + 34 indexed skills/links); the shared template provides fields through `skillName60` / `skillLevel60`. The Nightblade `classtable.dbr` has **32 UI references** (1 mastery bar + 31 skill buttons). These counts do **not** prove that three additional UI buttons fit or render. The tree also repeats `wpattack4.dbr` at several existing indexes; preserve these entries and do not renumber to 'clean up' the vanilla layout. Nightblade now has a **separate implemented balance pass** in `config/player_skills.json` (see [Nightblade balance](NIGHTBLADE_BALANCE.md)). SK0–SK5 must preserve and compose with those existing `playerclass04` records rather than overwriting them.
+Current Nightblade `_classtree_class04.dbr` has **34** named entries (1 mastery bar + 33 indexed skills/links); `skillLevel35` exists without a matching `skillName35`; the shared template provides fields through `skillName60` / `skillLevel60`. The Nightblade `classtable.dbr` has **32 UI references** (1 mastery bar + 31 skill buttons). These counts do **not** prove that three additional UI buttons fit or render. The tree also repeats `wpattack4.dbr` at several existing indexes; preserve these entries and do not renumber to 'clean up' the vanilla layout. Nightblade now has a **separate implemented balance pass** in `config/player_skills.json` (see [Nightblade balance](NIGHTBLADE_BALANCE.md)). SK0–SK5 must preserve and compose with those existing `playerclass04` records rather than overwriting them.
 
 ## SK0 — read-only discovery, compatibility gate
 
@@ -45,7 +45,7 @@ Current Nightblade `_classtree_class04.dbr` has **35** named entries (1 mastery 
 ## SK2 — Nightblade mastery tree integration
 
 - Build an output override for `database/records/skills/playerclass04/_classtree_class04.dbr` from its effective original.
-- Tentatively append the three new records to **`skillName36`, `skillName37`, `skillName38`** with their matching `skillLevel36–38`, once SK0 verifies these work; keep all original 1–35 mappings and metadata intact.
+- Tentatively append the three new records to **`skillName35`, `skillName36`, `skillName37`** with their matching `skillLevel35–37`, once SK0 verifies these work; keep all original 1–34 mappings and metadata intact.
 - Retain original Necromancer prerequisite/mastery tier behavior as closely as the Nightblade layout permits; verify that modifier ranks attach to the intended base summon, rather than altering existing Nightblade skills.
 - Treat unsupported game hard limits as a stop-and-report blocker, **not** permission to replace a vanilla skill.
 
@@ -81,8 +81,12 @@ Current Nightblade `_classtree_class04.dbr` has **35** named entries (1 mastery 
 
 ## Additional reference files
 
-No **mandatory** missing `.dbr` reference files were identified in the current audit: the base Necromancer skills, skeleton pets, skill FX, Nightblade skill tree/UI records and both templates are present. Optional: the **GDX1 Necromancer class08 UI skill-panel/button records** (e.g. `records/ui/skills/class08/`) if available from your local extraction; they help reproduce the original skeleton-line placement. If SK0 uncovers missing DLC text, texture/animation assets or hard-coded bindings, report the exact filenames instead of guessing.
+No **mandatory** missing `.dbr` reference files were identified in the current audit: the base Necromancer skills, skeleton pets, skill FX, Nightblade skill tree/UI records and both templates are present. The GDX1 class08 UI records have now been imported from the user upload. See [the dependency and placement report](NIGHTBLADE_SKELETONS_BUILD.md) for missing stock dependencies and the runtime gate. If SK0 uncovers missing DLC text, texture/animation assets or hard-coded bindings, report the exact filenames instead of guessing.
 
 ## Future balance pass (not part of SK0–SK5)
 
 Nightblade has an **implemented, separate** rank-preserving balance pass in `config/player_skills.json` (see [Nightblade balance](NIGHTBLADE_BALANCE.md)). Keep those existing improvements intact during SK0–SK5. Further tweaks to Amarasta's Blade Burst, modifiers, or other skills should be proposed and approved separately.
+
+## Current implementation checkpoint
+
+See [base-only build and SK0 audit](NIGHTBLADE_SKELETONS_BUILD.md). SK1 clones all three native skills; SK2/SK3 currently register/expose only the base for the required runtime gate. SK4 rollback and SK5 focused Python checks are implemented for this limited build. Full modifier UI, propagation and gameplay verification remain pending.

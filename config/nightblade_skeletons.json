@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "tree": "records/skills/playerclass04/_classtree_class04.dbr",
+  "panel": "records/ui/skills/class04/classtable.dbr",
+  "skills": [
+    {
+      "source": "records/skills/playerclass08/summon_skeleton1.dbr",
+      "target": "records/skills/playerclass04/ben_raiseskeletons1.dbr",
+      "button_source": "records/ui/skills/class08/skill22.dbr",
+      "button_target": "records/ui/skills/class04/skill32.dbr",
+      "position": [
+        246,
+        249
+      ],
+      "visible": true
+    },
+    {
+      "source": "records/skills/playerclass08/summon_skeleton2.dbr",
+      "target": "records/skills/playerclass04/ben_raiseskeletons2.dbr",
+      "button_source": "records/ui/skills/class08/skill23.dbr",
+      "button_target": "records/ui/skills/class04/skill33.dbr",
+      "position": [
+        406,
+        249
+      ],
+      "visible": false
+    },
+    {
+      "source": "records/skills/playerclass08/summon_skeleton3_petmodifier.dbr",
+      "target": "records/skills/playerclass04/ben_raiseskeletons3_petmodifier.dbr",
+      "button_source": "records/ui/skills/class08/skill24.dbr",
+      "button_target": "records/ui/skills/class04/skill34.dbr",
+      "position": [
+        566,
+        249
+      ],
+      "visible": false
+    }
+  ]
+}
