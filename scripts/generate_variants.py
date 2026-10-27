@@ -321,6 +321,17 @@ def configured_plan(family="all", include_spawns=False):
         manifest["player_basics_records"] = basics_report
         manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
         files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    if player_settings is not None and player_settings.get("level_cap") is not None:
+        # Apply actor maxLevel only after movement and starting-stat composition,
+        # avoiding duplicate player DBRs and preserving every existing field.
+        from player_stats import build_player_level_cap
+        cap_files, cap_report = build_player_level_cap(player_settings, REFERENCE, files)
+        fail_unless(set(cap_files).issubset(files), "Expected pre-existing player actor outputs")
+        files.update(cap_files)
+        manifest = json.loads(files[Path("manifest.json")])
+        manifest["player_level_cap_records"] = cap_report
+        manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
+        files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     from player_skills import load_settings as load_skills, build_skills
     skill_files, skill_report = build_skills(load_skills(REPO), REFERENCE)
     fail_unless(not set(skill_files) & set(files), "Player skill output collision")
