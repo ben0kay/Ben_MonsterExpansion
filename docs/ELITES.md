@@ -6,6 +6,42 @@ The current combined catalog also includes **137 Ascended**: **409 total variant
 377 merged pools, 2,973 DBRs + 1 text source**. See [Ascended quota policy](ASCENDED.md).
 Representative in-game verification is pending.
 
+## One-Elite rage test (October 27)
+
+The existing Champion→Elite discovery and pool mapping **do not need to be
+scanned again**. An opt-in `low_health_rage` configuration under the Elite
+prototype in `config/tiers.json` currently targets **only**
+`discovered_elites:elite_75bbb288ac65b5d4` (source `boar_b01.dbr`).
+During generation, `scripts/generate_variants.py` attaches one additional
+ordinary passive `skillNameN/skillLevelN` to its copied Elite record and
+emits a namespaced `..._rage.dbr`, alongside the pre-existing stat,
+damage and gold-glow DBRs. The original Champion and every other Elite
+are left untouched.
+
+Using the verified native `Skill_PassiveOnLifeBuffSelf` template, the
+prototype applies at **30% HP** for **12 seconds**, with +15% total-damage
+modifier, +10% run-speed modifier, a 180-second cooldown and
+`dranghoul_laststand_selfloop_fx01.dbr` aura. No copied Dranghoul-specific
+roar animation or sound, no CC immunity, no spawn-rate change.
+
+Direct in-game test after regenerating/staging/rebuilding:
+
+```text
+game.Spawn "records/creatures/enemies/monsterexpansion/discovered_elites_elite_75bbb288ac65b5d4.dbr"
+```
+
+Reduce the monster's health gradually to just below 30% (do not kill it
+instantly). Confirm it visibly gains the aura and attacks/moves faster.
+The ability is configured and test assertions committed but **not yet
+verified in-game**; cross-species animation and actual activation still
+require checking. Disable with `low_health_rage.enabled=false`, then
+regenerate, **replace-stage**, F7 rebuild and reinstall. This changes
+only the one variant's assignment, independent of the broader Elite
+catalog and the original pool weights.
+
+Further plans and compatibility cautions:
+[Tier Encounter Mechanics Ideas](TIER_ENCOUNTER_MECHANICS_IDEAS.md).
+
 ## Settings and sources
 
 `config/tiers.json`, Elite prototype:
