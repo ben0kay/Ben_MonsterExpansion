@@ -79,6 +79,71 @@ class PlayerSkillTests(unittest.TestCase):
         self.assertFalse(next(item["changed"] for item in report if item["record"] == entry["record"]))
 
 
+    def test_nightblade_balance_rank_curves_and_exact_record_diffs(self):
+        entries = [entry for entry in self.settings["records"]
+                   if entry["record"].startswith("records/skills/playerclass04/")]
+        self.assertEqual(len(entries), 17)
+        for entry in entries:
+            name = entry["record"]
+            source = DBR.from_file(resolve(name, gen.REFERENCE))
+            updated = DBR(self.files[Path("database") / name])
+            with self.subTest(record=name):
+                baseline = DBR.from_file(resolve(name, gen.REFERENCE))
+                changed = set(entry["set"]) | set(entry["curves"])
+                for field in changed:
+                    baseline.set(field, updated.get(field))
+                self.assertEqual(updated.render(), baseline.render())
+                for field, rule in entry["curves"].items():
+                    original = [float(x) for x in source.get(field).split(";")]
+                    new = [float(x) for x in updated.get(field).split(";")]
+                    self.assertEqual(len(original), len(new))
+                    for old, actual in zip(original, new):
+                        self.assertAlmostEqual(actual, old * rule["multiplier"], places=5)
+                # None of the existing Nightblade records marked as exclusive
+                # may be made exclusive by this pass.
+                if source._locations("exclusiveSkill"):
+                    self.assertEqual(updated.get("exclusiveSkill"), "0")
+
+    def test_nightblade_specific_radius_cooldown_pets_and_rollback(self):
+        ring = self.record("playerclass04/ringofsteel.dbr")
+        self.assertAlmostEqual(float(ring.get("skillTargetRadius")), 5.4)
+        strike = self.record("playerclass04/shadowstrike.dbr")
+        self.assertAlmostEqual(float(strike.get("skillCooldownTime")), 2.975)
+        pneumatic = self.record("playerclass04/nightbladeenchant1.dbr")
+        self.assertAlmostEqual(float(pneumatic.get("skillActiveDuration")), 72)
+        veil = self.record("playerclass04/veilofshadows1_buff.dbr")
+        radii = list(map(float, veil.get("skillTargetRadius").split(";")))
+        self.assertAlmostEqual(radii[0], 3.6)
+        self.assertAlmostEqual(radii[-1], 9.0)
+        trap = self.record("playerclass04/bladetrap1_buff.dbr")
+        source_trap = DBR.from_file(resolve(
+            "records/skills/playerclass04/bladetrap1_buff.dbr", gen.REFERENCE))
+        for field, factor in (("projectileExplosionRadius", 1.20),
+                              ("skillActiveDuration", 1.15)):
+            src = list(map(float, source_trap.get(field).split(";")))
+            new = list(map(float, trap.get(field).split(";")))
+            self.assertEqual(len(src), len(new))
+            for old, actual in zip(src, new):
+                self.assertAlmostEqual(actual, old * factor, places=5)
+
+        spirit = self.record("playerclass04/summon_bladespirit.dbr")
+        limits = list(map(int, spirit.get("petLimit").split(";")))
+        burst = list(map(int, spirit.get("petBurstSpawn").split(";")))
+        self.assertEqual(limits, [2]*15 + [4]*8 + [5]*3)
+        self.assertEqual(burst, limits)
+
+        for name in ("summon_bladespirit",
+                     "pets/petskill_bladeswarm_bladeaura1",
+                     "pets/petskill_showerofblades1"):
+            record = "records/skills/playerclass04/" + name + ".dbr"
+            settings = copy.deepcopy(self.settings)
+            entry = next(x for x in settings["records"] if x["record"] == record)
+            entry["enabled"] = False
+            output, report = build_skills(settings, gen.REFERENCE)
+            self.assertEqual(output[Path("database") / record],
+                             DBR.from_file(resolve(record, gen.REFERENCE)).render())
+            self.assertFalse(next(x["changed"] for x in report if x["record"] == record))
+
     def test_arcanist_second_pass_is_moderate_and_preserves_original_rank_curves(self):
         names = {
             "passive01", "passive02", "passive03", "passive04",
