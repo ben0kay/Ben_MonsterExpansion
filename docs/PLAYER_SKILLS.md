@@ -5,6 +5,21 @@ validation, generation, manifest and staging, alongside existing monster variant
 pack size and attributes. Effective GDX2 > GDX1 > base references are used.
 Never edit ReferenceFiles. No engine build or in-game verification is claimed.
 
+## October 27 — pet health pass (+20% relative)
+
+This pass updates existing pet-actor overrides in `config/player_skills.json` for
+all Familiar and Hellhound ranks and adds one shared Necromancer skeleton
+pet-scaling override. The skeleton buff applies to the attached Nightblade
+Raise Skeletons line and to the original Necromancer summons because they
+reference the same pet skill. The generator remains DLC-aware, configurable
+and reversible; no original `ReferenceFiles` change is made.
+
+Focused tests are committed in `tests/test_player_skills.py` for the
+1.20 health-multiplier ratio at all 52 Occultist actor ranks and all 26
+skeleton scaling ranks, full-field preservation and individual rollback.
+Tests are not executed in this GitHub-only session. Regenerate, stage and
+build with Asset Manager F7 to apply these changes in-game.
+
 ## Active changes
 
 - All 13 exclusive flags found in uploaded mastery records are cleared, including
@@ -34,10 +49,23 @@ Never edit ReferenceFiles. No engine build or in-game verification is claimed.
   One summon per cast; equipment summon-limit bonuses remain untouched and may
   raise the final limit further. These pets already have no summon expiry.
   They can die and must be resummoned, including after a new session as usual.
-- Each pet actor rank gains +10% health modifier at rank 1, +2 percentage
-  points per further rank (+60% at rank 26), added to its original modifier.
-  Pet innate/primary attack damage uses the same damage scaling above.
-  Existing player-level scaling and pet equipment bonuses remain.
+- Familiar and Hellhound actors (all 26 ranks for each) originally received
+  +10% health modifier at rank 1, +2 percentage points per further rank
+  (+60% at rank 26). A subsequent +20% **relative-health** pass multiplies
+  the previously modded actor HP multiplier by 1.20, so those modifiers now
+  run **+32% at rank 1 to +92% at rank 26** (formula: new bonus =
+  20 + 1.2 * previous bonus). This is not merely adding 20 points. Their
+  innate/primary attack damage bonuses are unaffected by this health pass.
+- Nightblade Raise Skeletons uses the original Necromancer skeleton actors:
+  `records/skills/playerclass08/pets/petskill_skeleton_basescaling.dbr`
+  now transforms every native rank's `characterLifeModifier` using
+  `new = 20 + 1.2 * vanilla`, giving +20% relative base-scaling HP across
+  all skeleton variants. Rank 1: 0 -> 20; rank 26: 175 -> 230.
+  **This also buffs Necromancer's original skeletons**, since the pet scaling
+  record is shared; it does not edit Necromancer's player skills, summon
+  caps, pet behavior or damage. Blade Spirit is already invulnerable and
+  receives no meaningful HP increase. Gear-summoned pets and other masteries
+  are not globally modified. Item/mastery pet bonuses may affect final HP.
 - Blood of Dreeg: native radius toggle, 100 energy reserved, duration/cooldown/
   cast cost removed. Regeneration is increased by 1.20 + 0.01 * (rank - 1).
   Its instant percentage heal is removed to avoid repeated healing on toggle
