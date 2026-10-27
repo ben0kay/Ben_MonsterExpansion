@@ -18,6 +18,7 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 from dbr import DBR, DBRError
+from enemy_rewards import apply_experience_reward
 from natural_spawns import build_pool_override, build_merged_pool
 from validate_config import check_configs, reference_path
 
@@ -159,6 +160,7 @@ def build_variant(family, variant, tier):
     fail_unless(variant["expected_classification"] == proto["parent_tier"].capitalize(),
                 "Variant must use its exact tier parent")
     stats = proto["stats_vs_parent"]
+    apply_experience_reward(monster, proto)
     target_monster = variant["output_record"]
     prefix = f"{fid}_{variant['id']}"
     monster_namespace = "records/creatures/enemies/monsterexpansion/"

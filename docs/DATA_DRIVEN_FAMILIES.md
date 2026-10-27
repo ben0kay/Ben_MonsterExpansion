@@ -160,3 +160,11 @@ The user confirmed the boar proxy pool spawned a glowing Veteran after several
 groups. That proves proxy/pool selection, not rarity calibration or every natural
 map placement. New zombies, boar02, refactored pools, combat reach/collision and
 broad map coverage still require in-game checks.
+
+## Variant XP input scaling
+
+The shared generator now applies the optional tier `experience_reward` policy
+before writing each monster. It derives the XP-formula input adjustment from
+the tier's existing health multiplier. See [enemy XP](ENEMY_XP.md) for the formula,
+flags, focused validation and rollback. All other generated variant/support fields
+and pool weights remain unchanged by this feature.

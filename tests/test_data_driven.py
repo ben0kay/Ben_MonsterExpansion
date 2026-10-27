@@ -17,9 +17,11 @@ from test_natural_spawns import catalog
 
 
 class DataDrivenTests(unittest.TestCase):
-    def test_approved_original_boar_six_records_unchanged(self):
+    def test_approved_original_boar_six_records_unchanged_with_xp_disabled(self):
         hashes = json.loads((REPO / 'tests/fixtures/boar_veteran_01_baseline.json').read_text())
-        files = gen.configured_plan(include_spawns=True)
+        families, tiers = catalog()
+        tiers["veteran"]["prototype"]["experience_reward"]["enabled"] = False
+        files = gen.build_plan([f for f in families if f["id"] == "boar"], tiers, include_spawns=True)
         for path, digest in hashes.items():
             self.assertEqual(hashlib.sha256(files[Path(path)].encode()).hexdigest(), digest, path)
 
