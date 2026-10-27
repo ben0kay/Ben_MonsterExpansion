@@ -15,9 +15,10 @@ past 100 still require verification after updating/building the mod locally.
 ```
 
 The cap is independent of the existing `player_stats.enabled` attribute-point
-toggle and `devotion.enabled`. A separate level-cap toggle allows a clean
-rollback without giving up the 2 attribute points per level, +6 per spent point,
-2 Devotion points per shrine, or 85 Devotion cap.
+toggle, `skill_points_per_level.enabled`, and `devotion.enabled`.
+Each section supports independent rollback without giving up the other changes:
+2 attribute points per level, +6 per spent point, 2 Devotion points per shrine,
+85 Devotion cap, and the configured skill-point awards.
 
 Three effective GDX2 > GDX1 > base game fields are patched when enabled:
 
@@ -34,18 +35,44 @@ No original `ReferenceFiles` are edited, no duplicate player actor records
 are emitted, and the generated manifest includes the cap configuration and
 actor-level report.
 
-## Existing progression preserved
+## Skill-point progression — enhanced
 
-- The native 199-entry `skillModifierPoints` table already covers awards up
-  to level 200, including **1 skill point per level from 91 onward**. We do
-  **not** increase mastery/skill points per level in this pass.
+The `skill_points_per_level` configuration in `config/player_stats.json`
+adjusts the native `skillModifierPoints` award array by **level attained**,
+with index 0 being the reward for reaching level 2. The original 199-entry
+array already covers up to level 200. Levels above 150 keep their original
+values, should the maximum level be changed later.
+
+| Level reached | Native award | Mod award | Levels covered | Points awarded by the mod |
+| --- | ---: | ---: | ---: | ---: |
+| 2–50 | 3 | 3 | 49 | 147 |
+| 51–60 | 2 | **3** | 10 | 30 |
+| 61–90 | 2 | 2 | 30 | 60 |
+| 91–100 | 1 | **2** | 10 | 20 |
+| 101–150 | 1 | 1 | 50 | 50 |
+| **Total through level 150** | | | **149** | **307** |
+
+The unmodified source curve totals **237** level-up points through level 100
+and **287** through level 150 if the native award table is kept alongside
+the higher cap. The new curve totals **257** through level 100 and **307**
+through level 150: **20 extra** points, coming entirely from levels 51–60
+and 91–100. Quest rewards and any initial character points are excluded.
+
+`skill_points_per_level.enabled=false` restores the exact native 199-entry
+skill-point array independently, even while the character remains level 150.
+Validation requires contiguous positive-integer reward bands beginning at
+level 2, a per-level award between 1 and 20, and full coverage of the
+configured level cap. No modification to mastery skill ranks is needed.
+
+## Other progression preserved
+
 - Attribute points: **2 per level**; Physique, Cunning and Spirit still
   gain **+6 per spent point**.
 - Original per-level health/energy increments, leveling XP equation,
-  mastery requirements, skill ranks, devotion-point awards and caps
-  remain unchanged (except the separate established mod changes).
-- Settings validate a requested cap between **100 and 200** and verify
-  that the source skill-point table covers the requested level.
+  mastery requirements, skill ranks and devotion-point awards/caps
+  remain unchanged, except for the established existing modifications.
+- Maximum level remains **150**. Cap validation accepts **100 to 200**,
+  bounded by the 199 native skill-award entries.
 
 ## Limitations and checks
 
@@ -81,8 +108,11 @@ on the rebuilt game, rather than assuming the repository commit installs it.
 
 ## Rollback
 
-Set `config/player_stats.json` > `level_cap.enabled` to `false` (or set
-`max_level` to 100), then regenerate, **replacement-stage** and rebuild.
+Set `config/player_stats.json` > `skill_points_per_level.enabled` to
+`false` to restore the original skill-point rewards without changing the
+level 150 cap, attributes or devotion. To restore the native level cap too,
+set `level_cap.enabled` to `false` (or set `max_level` to 100).
+Then regenerate, **replacement-stage** and rebuild.
 Both player actors' `maxLevel` and the shared `maxPlayerLevel` return to
 100 while existing character movement, starting stats, attribute/devo settings
 and other mod functionality remain intact. Do not lower the cap on a save
