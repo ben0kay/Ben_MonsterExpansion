@@ -20,44 +20,41 @@ rollback to 100. Enemy/world level scaling and high-level loot are **not**
 extended by this change; level 101+ behavior needs an in-game test after F7.
 See [level-cap implementation, caveats, build and rollback](docs/PLAYER_LEVEL_CAP.md).
 
-## Low-health rage — all compatible Elites and native Heroes
+## Low-health rage — compatible Elite and Ascended variants
 
-Following the successful in-game Elite boar test, the native low-health
-Last Stand-style rage is now configured for **all compatible custom Elites
-and original Hero-class monster actors** in `dev`. Both use the same
-**30% remaining HP trigger**, **12s duration**, **180s cooldown**,
-**+15% total-damage modifier**, **+10% run speed**, and **red streak/aura**
-from the working boar. The Dranghoul-specific roar/animation and bonus
-crowd-control immunity are not copied.
+Following the successful single-Elite-boar rage visual test,
+the red Last Stand-style low-health rage is now enabled for all
+**compatible custom Elite (124 catalog variants)** and
+**custom Ascended (137 catalog variants)**. The generator uses
+their already reviewed family configs; **no new discovery scan**
+or original-Hero actor override is required.
 
-Both are independently configurable in `config/tiers.json`:
+Both tier settings in `config/tiers.json` (`Elite.prototype.low_health_rage`
+and `Ascended.prototype.low_health_rage`) independently enable:
+**30% remaining HP** trigger, **12s duration**, **180s cooldown**,
+**+15% total-damage modifier**, **+10% movement speed**, and
+the same red visual FX previously observed on the Elite boar.
+No inherited skills, Dranghoul-specific Roar/sounds, extreme CC
+resistances or absorption bonuses are replaced or copied.
 
-- `Elite.prototype.low_health_rage.enabled` — all 124 configured
-  Champion-derived Elite variants, skipping any that already have a
-  native low-health ability or no safe free skill slot.
-- `Hero.low_health_rage.enabled` — all compatible **vanilla Hero**
-  monster records discovered dynamically across the base/GDX1/GDX2
-  `ReferenceFiles/creatures/enemies` tree. A manifest report lists
-  discovered, modified and skipped original Heroes and reasons.
+If a source already has a native low-health skill, the generator
+preserves it instead of assigning a duplicate; if an ordinary skill
+slot is full, rage is skipped. Consequently, the exact number of
+new rage skills may be below the 124+137 catalog total. **Vanilla
+Hero monsters, Veterans, Champions, Bosses and Nemeses are untouched.**
+Natural spawn weights, 2× regular pack sizes and
+33% eligible Champion→Elite/Hero→Ascended conversions are unchanged.
 
-**Ascended is separate from vanilla Hero** and does **not** receive the
-rage in this pass. Neither do Veterans, Champions, Bosses or Nemeses.
-Natural spawn rates and conversions, including 2× regular packs and
-33% Champion→Elite/Hero→Ascended shares, are unchanged. The existing
-elite scanner/catalog is reused; no rescan or individual monster edits.
-
-These bulk modifications are **committed but not yet built/in-game tested**;
-the earlier single-Elite boar test was observed working. Full build:
-`python scripts/validate_config.py`, then
+The tier-wide rollout is **committed but not yet built/tested in-game**.
+Build with `python scripts/validate_config.py`, then
 `python scripts/generate_variants.py --include-spawns --write --replace-generated`,
 `python scripts/prepare_console_test.py --include-spawns --stage --replace-staged`
 and Asset Manager F7.
 
-See [tier rage configuration, coverage limits, testing and rollback]
-(docs/TIER_RAGE.md) and [future encounter mechanic ideas]
-(docs/TIER_ENCOUNTER_MECHANICS_IDEAS.md).
-Veteran rage, reinforcements, elemental retaliation and higher
-Champion/Hero spawn frequency remain **on hold**.
+See [tier rage controls and gameplay tests](docs/TIER_RAGE.md) and
+[future encounter mechanic ideas](docs/TIER_ENCOUNTER_MECHANICS_IDEAS.md).
+Veteran rage, reinforcements, elemental counterattacks and additional
+Champion/Hero spawn frequency remain deferred.
 
 ## Variant XP reward bonuses
 
