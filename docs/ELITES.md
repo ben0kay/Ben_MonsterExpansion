@@ -6,41 +6,46 @@ The current combined catalog also includes **137 Ascended**: **409 total variant
 377 merged pools, 2,973 DBRs + 1 text source**. See [Ascended quota policy](ASCENDED.md).
 Representative in-game verification is pending.
 
-## One-Elite rage test (October 27)
+## Tier-wide Elite rage (October 27)
 
-The existing Champion→Elite discovery and pool mapping **do not need to be
-scanned again**. An opt-in `low_health_rage` configuration under the Elite
-prototype in `config/tiers.json` currently targets **only**
-`discovered_elites:elite_75bbb288ac65b5d4` (source `boar_b01.dbr`).
-During generation, `scripts/generate_variants.py` attaches one additional
-ordinary passive `skillNameN/skillLevelN` to its copied Elite record and
-emits a namespaced `..._rage.dbr`, alongside the pre-existing stat,
-damage and gold-glow DBRs. The original Champion and every other Elite
-are left untouched.
+The previous **single Elite boar prototype** was confirmed visually by the
+user: a red Last Stand-style effect appeared below the health threshold.
+The **same ability is now configured for all eligible generated Elites**.
+No new Champion→Elite scan is necessary; the existing 124 enabled Elite
+variants are generated with the same shared `build_low_health_rage` helper.
 
-Using the verified native `Skill_PassiveOnLifeBuffSelf` template, the
-prototype applies at **30% HP** for **12 seconds**, with +15% total-damage
-modifier, +10% run-speed modifier, a 180-second cooldown and
-`dranghoul_laststand_selfloop_fx01.dbr` aura. No copied Dranghoul-specific
-roar animation or sound, no CC immunity, no spawn-rate change.
+Configured in `config/tiers.json` under
+`Elite.prototype.low_health_rage` (`enabled=true`,
+`target_mode=all`):
 
-Direct in-game test after regenerating/staging/rebuilding:
+- Trigger: **30% remaining HP**
+- Active for **12 seconds**; **180-second cooldown**
+- **+15% total damage**, **+10% run speed**
+- Existing **red Dranghoul Last Stand aura**; no Dranghoul-specific
+  Roar animation, sound or CC immunity
+- The underlying original Champion records, pool selection and
+  **33% Champion→Elite share** remain unchanged.
+
+**Safety:** A new passive is assigned to an unused ordinary
+`skillNameN/skillLevelN` slot after the cosmetic aura. If the
+Champion parent already has a low-health passive, or no ordinary
+skill slot remains, that Elite is skipped rather than overwriting
+inherited behaviour. Exact eligible count needs local generation
+and verification; do not equate 124 configured variants with
+124 new rage assignments without checking output.
+
+The following direct console spawn remains valid:
 
 ```text
 game.Spawn "records/creatures/enemies/monsterexpansion/discovered_elites_elite_75bbb288ac65b5d4.dbr"
 ```
 
-Reduce the monster's health gradually to just below 30% (do not kill it
-instantly). Confirm it visibly gains the aura and attacks/moves faster.
-The ability is configured and test assertions committed but **not yet
-verified in-game**; cross-species animation and actual activation still
-require checking. Disable with `low_health_rage.enabled=false`, then
-regenerate, **replace-stage**, F7 rebuild and reinstall. This changes
-only the one variant's assignment, independent of the broader Elite
-catalog and the original pool weights.
-
-Further plans and compatibility cautions:
-[Tier Encounter Mechanics Ideas](TIER_ENCOUNTER_MECHANICS_IDEAS.md).
+To disable Elite rage independently, set
+`Elite.prototype.low_health_rage.enabled=false`, regenerate,
+replace-stage and F7 rebuild. This also does **not** disable
+the separate native Hero rage feature. See [TIER_RAGE.md](TIER_RAGE.md)
+for the native-Hero scope, manifest report, build instructions,
+rollback caveats and testing notes.
 
 ## Settings and sources
 
