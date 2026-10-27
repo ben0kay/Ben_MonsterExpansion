@@ -10,20 +10,29 @@ independent Elite/Ascended shares, slot reservations and rollback. Full generati
 and staging preflight pass. Representative in-game and multiplayer behavior remains
 unverified.
 
-## Original Hero rage vs custom Ascended
+## Ascended low-health rage — distinct from vanilla Heroes
 
-The October 27 low-health rage expansion applies to native
-`monsterClassification=Hero` **source actors** and separately to all
-compatible **custom Elite** variants. A Hero actor and its
-**Ascended copy are different DBR records**: only the original Hero
-DBR receives a vanilla-path override in this pass, and the original
-Ascended generation still clones the effective extracted reference
-instead of inheriting that override.
+As of October 27, the **same red Last Stand-style rage previously
+confirmed on the Elite boar** is enabled for all compatible
+**custom Ascended** variants from the existing 137-variant catalog.
+**Original Hero-class monsters remain unchanged**. This is an
+important distinction: a custom Ascended is a separate
+`records/creatures/enemies/monsterexpansion/...` actor record,
+not an override of the original Hero.
 
-Therefore, **Ascended does not get rage yet**; the user wants to
-explore additional Ascended mechanics separately. No Ascended selection
-weights, stats, cosmetic glows, or 33% Hero→Ascended conversion shares
-are changed. See [TIER_RAGE.md](TIER_RAGE.md).
+The setting is `config/tiers.json` →
+`Ascended.prototype.low_health_rage`, independently toggleable
+from the Elite setting. It triggers below 30% remaining health,
+lasts 12 seconds with a 180-second cooldown, adds +15% total
+damage and +10% run speed, and uses the same red rage aura.
+If an Ascended parent already has a native low-health passive,
+that existing ability is preserved instead of adding a duplicate.
+Full applied count and different model/family behavior require
+regeneration and in-game checks; 137 is the catalog size.
+
+The original Hero→Ascended selection weights, 33% conditional
+conversion and finite quota safeguards are untouched.
+See [TIER_RAGE.md](TIER_RAGE.md) for implementation, rollback and tests.
 
 ## Data-driven settings
 
