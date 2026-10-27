@@ -284,6 +284,9 @@ def build_variant(family, variant, tier):
 def build_plan(families, tier_by_id, include_spawns=False):
     """One complete manifest per invocation; reject output collisions."""
     files, variants, pools, tags = {}, [], [], {}
+    rage_coverage = {tier: {"targeted": 0, "attached": 0,
+                            "inherited_low_health": 0, "no_free_slot": 0}
+                     for tier in ("elite", "ascended")}
     pool_mappings = {}
     def merge(records):
         fail_unless(not set(files) & set(records), "Duplicate generated output path")
@@ -293,7 +296,23 @@ def build_plan(families, tier_by_id, include_spawns=False):
             continue
         for variant in family["variants"]:
             tier = tier_by_id[variant["tier"]]
-            merge(build_variant(family, variant, tier))
+            output = build_variant(family, variant, tier)
+            merge(output)
+            if variant["tier"] in rage_coverage:
+                rage = tier["prototype"].get("low_health_rage")
+                identity = family["id"] + ":" + variant["id"]
+                if rage and rage["enabled"] and (rage["target_mode"] == "all"
+                        or identity in rage["variant_ids"]):
+                    coverage = rage_coverage[variant["tier"]]
+                    coverage["targeted"] += 1
+                    rage_record = ("records/skills/nonplayerskills/monsterexpansion/"
+                                   + family["id"] + "_" + variant["id"] + "_rage.dbr")
+                    if game_location(rage_record) in output:
+                        coverage["attached"] += 1
+                    elif has_low_health_skill(read_game_dbr(variant["source_record"])):
+                        coverage["inherited_low_health"] += 1
+                    else:
+                        coverage["no_free_slot"] += 1
             label = display_text(variant, tier)
             if label is not None:
                 tag = display_tag(family, variant)
@@ -316,6 +335,7 @@ def build_plan(families, tier_by_id, include_spawns=False):
                 "families": [f["id"] for f in families if f["enabled"]],
                 "include_spawns": include_spawns, "variants": variants, "pools": pools,
                 "text_source": TEXT_SOURCE.as_posix() if tags else None,
+                "rage_coverage": rage_coverage,
                 "files": sorted(p.as_posix() for p in files),
                 "notes": ["Variant runtime flags default to unverified; see docs for existing boar evidence.",
                           "Pool conversion shares apply only to mapped entries within their own selection groups.",
