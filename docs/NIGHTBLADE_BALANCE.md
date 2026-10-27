@@ -9,7 +9,9 @@
 | --- | --- | --- |
 | `eviscerate1` — Amarasta's Blade Burst | `offensiveColdMin`, `offensiveColdMax`, `offensiveSlowColdMin`, `skillTargetRadius` | +15% Cold and Frostburn damage across all 26 native ranks; +20% radius at each rank (3.0 -> 3.6 at rank 1, 5.5 -> 6.6 at rank 26) |
 | `eviscerate1` — Amarasta's Blade Burst | `skillCooldownTime` | 1.8 -> 1.5 sec; weapon damage, freeze chance, energy costs and existing modifiers unchanged |
-| `phantomblade` — Phantasmal Blades | `offensivePierceMin`, `offensivePierceMax`, `offensiveSlowBleedingMin` | +15% at every original rank |
+| `phantomblade` — Phantasmal Blades | `offensivePierceMin`, `offensivePierceMax`, `offensiveSlowBleedingMin` | **+25%** at every native rank instead of previous +15%; no additional multipliers or changes to weapon damage |
+| `phantomblade` — Phantasmal Blades | `projectileLaunchNumber` | +1 blade per rank: **4** at ranks 1–7, **5** at 8–15, **6** at 16–23, **7** at 24–26 |
+| `fx/skillclass04/phantomblade1_projectile_fx01` — Phantasmal Blades FX | `projectileDistance`, `scale` | Travel **16 → 20 m** (+25%); visual scale **0.75 → 0.90** (+20%) |
 | `shadowstrike` — Shadow Strike | `offensiveColdMin`, `offensivePierceMin` | +15% at every rank |
 | `shadowstrike` | `skillCooldownTime` | -15%: 3.5 -> 2.975 sec (original follow-up modifiers still work) |
 | `ringofsteel` — Ring of Steel | `offensivePierceMin` | +15% at every rank |
@@ -32,6 +34,16 @@
 | `wpattack5` — Execution | `offensiveColdMin` | +15% to native curve |
 
 Notes:
+- The Phantasmal Blades upgrade changes **only** its main skill record and the
+  projectile FX DBR (`records/fx/skillclass04/phantomblade1_projectile_fx01.dbr`).
+  Extra blades may increase real damage when several hit the same target.
+  Pierce, Bleeding, weapon-damage progression, mana cost, cooldown, projectile
+  velocity, spread, piercing, trail, hit visuals, and modifiers otherwise
+  remain at their previous or vanilla values.
+- Class-FX overrides are validated under `records/fx/skillclassXX/` by
+  `scripts/player_skills.py`, so the new projectile FX DBR is emitted through
+  the same generated manifest and staged alongside the skill. Independent
+  `"enabled": false` switches exist for the skill and the FX record.
 - `wpattack4` / Nidalla's Hidden Hand is untouched. Proc chance, attack animation, mana costs, crowd control, resists, movement/attack speed caps and damage-conversion mechanics are unchanged.
 - **Blade Spirit is described by the native record as an invincible summoned pet.** Rather than applying meaningless pet HP buffs, this pass improves its damage-skill curves and raises summon counts at the two existing progression milestones. Existing pets and their movement AI are unchanged.
 - All adjusted rank curves use the shared multiplier path in `scripts/player_skills.py` and retain their exact native number of ranks. Existing Occultist, Arcanist, devotion and enemy changes are untouched.
@@ -40,7 +52,7 @@ Notes:
 
 ## Lightweight verification and rebuild
 
-Focused tests were added to `tests/test_player_skills.py` for exact field differences, rank preservation, chosen values, Blade Spirit limit milestones, Amarasta's Blade Burst damage/radius/cooldown, and per-record rollback. They are **committed but not executed** in this GitHub-only edit session; no Asset Manager or in-game testing was performed.
+Focused tests were added to `tests/test_player_skills.py` for exact field differences, rank preservation, chosen values, Blade Spirit limit milestones, Amarasta's Blade Burst damage/radius/cooldown, the Phantasmal Blades projectile-count/size/range changes, class FX path guarding, and per-record rollback. They are **committed but not executed** in this GitHub-only edit session; no Asset Manager or in-game testing was performed.
 
 From an updated local `dev` checkout:
 
@@ -53,4 +65,4 @@ python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Then compile with Asset Manager (F7) and test Nightblade + Occultist in a rebuilt custom game. At minimum verify Shadow Strike and Blade Burst cooldowns, Ring/Trap/Veil/Blade Burst radii, Pneumatic Burst duration and heal, Blade Spirit damage/limit, and that existing skills are still present. Continue with the [separate skeleton addition plan](NIGHTBLADE_RAISE_SKELETONS_PLAN.md) when ready.
+Then compile with Asset Manager (F7) and test Nightblade + Occultist in a rebuilt custom game. At minimum verify Phantasmal Blades has 4 blades at rank 1 (rising to 7 at overcap 24), larger and longer-travelling projectiles, Shadow Strike and Blade Burst cooldowns, Ring/Trap/Veil/Blade Burst radii, Pneumatic Burst duration and heal, Blade Spirit damage/limit, and that existing skills are still present. Continue with the [separate skeleton addition plan](NIGHTBLADE_RAISE_SKELETONS_PLAN.md) when ready.
