@@ -16,10 +16,12 @@ See [XP implementation and rollback](docs/ENEMY_XP.md).
 
 ## Nightblade rank-preserving balance pass
 
-For the Nightblade + Occultist playthrough, 17 existing Nightblade skill/pet
+For the Nightblade + Occultist playthrough, 18 existing Nightblade skill/pet
 records have configurable improvements in `config/player_skills.json`.
 Selected offensive, passive, and pet damage/heal curves increase by **15%**;
-Ring of Steel, Veil of Shadow and Blade Trap area increase by **20%**.
+Ring of Steel, Veil of Shadow, Blade Trap and Amarasta's Blade Burst area
+increase by **20%**. Blade Burst has +15% Cold/Frostburn damage at every rank,
+with cooldown shortened from 1.8 to 1.5 seconds.
 Shadow Strike cooldown decreases 15% (3.5 -> 2.975 seconds), Pneumatic Burst
 duration increases 20% (60 -> 72 seconds), and Blade Spirit limit/burst
 progression stays at 2 until rank 15, then improves to 4 at ranks 16–23 and
