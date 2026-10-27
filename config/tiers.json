@@ -82,15 +82,14 @@
         },
         "low_health_rage": {
           "enabled": true,
-          "variant_ids": [
-            "discovered_elites:elite_75bbb288ac65b5d4"
-          ],
+          "variant_ids": [],
           "health_threshold_percent": 30,
           "active_duration_seconds": 12,
           "cooldown_seconds": 180,
           "total_damage_bonus_percent": 15,
           "run_speed_bonus_percent": 10,
-          "aura_effect_record": "records/fx/skillsother/buff/dranghoul_laststand_selfloop_fx01.dbr"
+          "aura_effect_record": "records/fx/skillsother/buff/dranghoul_laststand_selfloop_fx01.dbr",
+          "target_mode": "all"
         }
       }
     },
@@ -100,7 +99,18 @@
       "order": 5,
       "origin": "vanilla",
       "color_name": "Orange",
-      "color_hex": "#D57832"
+      "color_hex": "#D57832",
+      "low_health_rage": {
+        "enabled": true,
+        "target_mode": "all",
+        "variant_ids": [],
+        "health_threshold_percent": 30,
+        "active_duration_seconds": 12,
+        "cooldown_seconds": 180,
+        "total_damage_bonus_percent": 15,
+        "run_speed_bonus_percent": 10,
+        "aura_effect_record": "records/fx/skillsother/buff/dranghoul_laststand_selfloop_fx01.dbr"
+      }
     },
     {
       "id": "ascended",
