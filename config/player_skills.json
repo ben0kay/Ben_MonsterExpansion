@@ -1233,6 +1233,10 @@
         "characterLifeModifier": {
           "multiplier": 1.2,
           "add": 20
+        },
+        "offensiveTotalDamageModifier": {
+          "multiplier": 1.15,
+          "add": 15
         }
       }
     },
