@@ -250,6 +250,70 @@ def set_or_append(dbr, key, value):
         dbr.lines.append(f"{key},{value},\n")
 
 
+# AI1: exact-source allowlists and reviewable native controller field deltas.
+# These are *build-time* changes to cloned ControllerMonster records, not a new AI.
+AI1_ALLOWED_FIELDS = {
+    "aggressive": {"MaxPursuitDistance", "ChanceToRespondToDistressCall"},
+    "evasive": {"RepositionChance", "randomRepositionChance"},
+    "support": set(),  # Future only, deliberately no support behavior rollout.
+}
+AI1_CHANCE_FIELDS = {"ChanceToRespondToDistressCall", "RepositionChance",
+                     "randomRepositionChance"}
+
+
+def smart_ai_profile(source_record, config):
+    """Exact Hero stem -> role; do not infer AI roles from the monster species."""
+    stem = Path(source_record).stem
+    for role, profile in config["profiles"].items():
+        if stem in profile["hero_stems"]:
+            return role
+    return None
+
+
+def build_smart_ai_controller(monster, proto, source_record, prefix):
+    """Clone native AI controller and apply only limited role-specific DBR deltas."""
+    config = proto.get("smart_ai")
+    if not config or not config["enabled"]:
+        return {}
+    role = smart_ai_profile(source_record, config)
+    if role is None:
+        return {}
+
+    source_controller = monster.get("controller")
+    fail_unless(source_controller.startswith("records/controllers/enemy/") and
+                not source_controller.startswith("records/controllers/enemy/monsterexpansion/"),
+                "AI1 requires an original enemy controller")
+    controller = read_game_dbr(source_controller)
+    fail_unless(controller.get("templateName") ==
+                "database/templates/controllermonster.tpl" and
+                controller.get("Class") == "ControllerMonster",
+                "AI1 source must be a native ControllerMonster")
+    changes = config["profiles"][role]["adjustments"]
+    fail_unless(bool(changes) and set(changes) <= AI1_ALLOWED_FIELDS[role],
+                "AI1 role has no approved behavior adjustments")
+    for field, increment in changes.items():
+        fail_unless(controller._locations(field),
+                    "AI1 source controller missing field: " + field)
+        try:
+            value = Decimal(controller.get(field)) + Decimal(str(increment))
+        except InvalidOperation as exc:
+            raise GenerationError("AI1 controller field is not numeric: " + field) from exc
+        if field in AI1_CHANCE_FIELDS:
+            fail_unless(value == value.to_integral_value() and 0 <= value <= 100,
+                        "AI1 controller chance out of range: " + field)
+            controller.set(field, str(int(value)))
+        else:
+            fail_unless(value.is_finite() and 0 < value <= 150,
+                        "AI1 controller pursuit distance out of range")
+            controller.set(field, f"{value:.6f}")
+
+    record = f"records/controllers/enemy/monsterexpansion/{prefix}_ai.dbr"
+    set_or_append(controller, "FileDescription", "MonsterExpansion AI1 " + role
+                  + " for " + Path(source_record).stem)
+    monster.set("controller", record)
+    return {game_location(record): controller.render()}
+
+
 def build_elemental_retaliation(monster, proto, source_record, prefix):
     """Clone a real on-hit radius skill for one curated Ascended damage theme."""
     config = proto.get("elemental_retaliation")
@@ -390,10 +454,12 @@ def build_variant(family, variant, tier):
     aura_files = build_cosmetic_aura(monster, proto, prefix, tier["name"])
     rage_files = build_low_health_rage(monster, proto, fid, variant["id"], prefix)
     retaliation_files = build_elemental_retaliation(monster, proto, source_record, prefix)
+    smart_ai_files = build_smart_ai_controller(monster, proto, source_record, prefix)
     result = {
         **aura_files,
         **rage_files,
         **retaliation_files,
+        **smart_ai_files,
         game_location(target_monster): monster.render(),
         game_location(bio_record): bio.render(),
         game_location(damage_record): damage.render(),
@@ -410,6 +476,8 @@ def build_plan(families, tier_by_id, include_spawns=False):
     retaliation_coverage = {"ascended": {"mapped": 0, "attached": 0, "native_onhit": 0,
                                           "no_free_slot": 0, "unmapped": 0,
                                           "by_element": {}}}
+    ai_coverage = {"ascended": {"mapped": 0, "attached": 0,
+                                 "unmapped": 0, "by_profile": {}}}
     pool_mappings = {}
     def merge(records):
         fail_unless(not set(files) & set(records), "Duplicate generated output path")
@@ -454,6 +522,20 @@ def build_plan(families, tier_by_id, include_spawns=False):
                             report["native_onhit"] += 1
                         else:
                             report["no_free_slot"] += 1
+            if variant["tier"] == "ascended":
+                settings = tier["prototype"].get("smart_ai")
+                if settings and settings["enabled"]:
+                    report = ai_coverage["ascended"]
+                    role = smart_ai_profile(variant["source_record"], settings)
+                    if role is None:
+                        report["unmapped"] += 1
+                    else:
+                        report["mapped"] += 1
+                        report["by_profile"][role] = report["by_profile"].get(role, 0) + 1
+                        record = ("records/controllers/enemy/monsterexpansion/"
+                                  + family["id"] + "_" + variant["id"] + "_ai.dbr")
+                        if game_location(record) in output:
+                            report["attached"] += 1
             label = display_text(variant, tier)
             if label is not None:
                 tag = display_tag(family, variant)
@@ -478,6 +560,7 @@ def build_plan(families, tier_by_id, include_spawns=False):
                 "text_source": TEXT_SOURCE.as_posix() if tags else None,
                 "rage_coverage": rage_coverage,
                 "retaliation_coverage": retaliation_coverage,
+                "ai_coverage": ai_coverage,
                 "files": sorted(p.as_posix() for p in files),
                 "notes": ["Variant runtime flags default to unverified; see docs for existing boar evidence.",
                           "Pool conversion shares apply only to mapped entries within their own selection groups.",
