@@ -92,7 +92,7 @@ def main():
             count = sum(p.suffix == ".dbr" for p in files)
             print(f"PASS: staged {count} DBRs and {len(files) - count} text source(s). No archives built.")
             if TEXT_SOURCE in files:
-                print("NEW TEXT: Auto-Create Asset for source/Text_EN/tags_benmonsterexpansion.txt in Asset Manager, F7, then install resources/Text_EN.arc AND the .arz. See docs/VETERAN_NAMES.md.")
+                print("NEW TEXT: Auto-Create Asset for source/Text_EN/tags_benmonsterexpansion.txt in Asset Manager, F7, then install resources/Text_EN.arc AND the .arz. See docs/ENEMY_NAMES.md.")
             if not args.include_spawns:
                 print("Existing staged pool overrides are NOT removed. See docs/DATA_DRIVEN_FAMILIES.md for rollback.")
         else:
