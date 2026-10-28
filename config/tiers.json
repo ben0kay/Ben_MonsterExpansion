@@ -140,6 +140,60 @@
           "total_damage_bonus_percent": 15,
           "run_speed_bonus_percent": 10,
           "aura_effect_record": "records/fx/skillsother/buff/dranghoul_laststand_selfloop_fx01.dbr"
+        },
+        "elemental_retaliation": {
+          "enabled": true,
+          "activation_chance_percent": 15,
+          "cooldown_seconds": 8,
+          "radius_meters": 3,
+          "profiles": {
+            "aether": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass05/arcaneblast1_large_radius_fxpak01.dbr",
+              "monster_basenames": [
+                "aetherialcolossus",
+                "aetherialcorruption",
+                "aetherialfleshshaper",
+                "zombiehound"
+              ]
+            },
+            "poison": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/prawn_poisonnova_onhit01.dbr",
+              "radius_effect_record": "records/fx/skillsother/aoe/poisonnova_fxpak01.dbr",
+              "monster_basenames": [
+                "prawn",
+                "prawncave"
+              ]
+            },
+            "fire": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass05/firetempest1_radius_fxpak01.dbr",
+              "monster_basenames": [
+                "rifthound"
+              ]
+            },
+            "cold": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass05/icetempest1_radius_fxpak01.dbr",
+              "monster_basenames": [
+                "yeti"
+              ]
+            },
+            "lightning": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass05/lightningtempest1_radius_fxpak01.dbr",
+              "monster_basenames": [
+                "gazer"
+              ]
+            },
+            "chaos": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass05/chaostempest01_radius_fxpak01.dbr",
+              "monster_basenames": [
+                "thornedhorror"
+              ]
+            }
+          }
         }
       }
     },
