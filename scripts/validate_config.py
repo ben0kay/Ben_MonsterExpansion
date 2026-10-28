@@ -203,6 +203,47 @@ def check_configs(reference_root=None, repo=REPO):
                                         else "offensiveAetherMin")
                         require(";" in dbr_values(source).get(damage_field, ""),
                                 "Retaliation damage source must have a native rank curve")
+            smart_ai = proto.get("smart_ai")
+            if smart_ai is not None:
+                roles = {
+                    "aggressive": {"MaxPursuitDistance", "ChanceToRespondToDistressCall"},
+                    "evasive": {"RepositionChance", "randomRepositionChance"},
+                    "support": set(),  # Prototype does not authorize support changes yet.
+                }
+                chance_fields = {"ChanceToRespondToDistressCall",
+                                 "RepositionChance", "randomRepositionChance"}
+                require(tier["id"] == "ascended" and isinstance(smart_ai, dict)
+                        and set(smart_ai) == {"enabled", "profiles"}
+                        and type(smart_ai["enabled"]) is bool,
+                        "AI1 must be Ascended-only with explicit enable flag")
+                profiles = smart_ai["profiles"]
+                require(isinstance(profiles, dict) and set(profiles) == set(roles),
+                        "AI1 needs aggressive/evasive/support profiles")
+                seen_names = set()
+                for role, entry in profiles.items():
+                    require(isinstance(entry, dict)
+                            and set(entry) == {"hero_stems", "adjustments"},
+                            "AI1 invalid role configuration: " + role)
+                    names, adjustments = entry["hero_stems"], entry["adjustments"]
+                    require(isinstance(names, list) and
+                            all(isinstance(n, str) and
+                                re.fullmatch(r"[a-z][a-z0-9_]*_h[0-9]+[a-z]?", n)
+                                for n in names) and
+                            len(set(names)) == len(names) and
+                            not seen_names.intersection(names),
+                            "AI1 exact Hero stems must be valid and globally unique")
+                    seen_names.update(names)
+                    require(isinstance(adjustments, dict)
+                            and set(adjustments) <= roles[role]
+                            and bool(adjustments) == bool(names),
+                            "AI1 role adjustments require selected Heroes and approved fields")
+                    for field, increment in adjustments.items():
+                        require(type(increment) in (int, float) and
+                                math.isfinite(increment) and 0 < increment <= 20 and
+                                (field not in chance_fields or
+                                 float(increment).is_integer()),
+                                "AI1 adjustment must be a small positive numeric delta")
+
             if "natural_spawns" in proto:
                 value = proto["natural_spawns"].get("conversion_share", proto["natural_spawns"].get("common_conversion_share"))
                 require(type(value) in (int, float) and math.isfinite(value) and 0 < value < .5,
@@ -276,6 +317,50 @@ def check_configs(reference_root=None, repo=REPO):
                 if reference_root is not None:
                     from natural_spawns import build_pool_override
                     build_pool_override(fam, pool, by_id, root)
+        # AI1 targets must be members of enabled, explicitly reviewed Ascended
+        # variants; a source Hero outside the catalog must not be modified.
+        ai = by_id["ascended"]["prototype"].get("smart_ai")
+        if ai:
+            selected_stems = {stem for p in ai["profiles"].values()
+                              for stem in p["hero_stems"]}
+            available_sources = {}
+            for fpath in paths:
+                fam = load_json(fpath)
+                if fam["enabled"]:
+                    for variant in fam["variants"]:
+                        if variant["tier"] == "ascended":
+                            stem = Path(variant["source_record"]).stem
+                            available_sources[stem] = variant["source_record"]
+            require(selected_stems <= set(available_sources),
+                    "AI1 selected source Hero is not an enabled Ascended variant")
+            if reference_root is not None:
+                for role, entry in ai["profiles"].items():
+                    for stem in entry["hero_stems"]:
+                        monster_path = reference_path(available_sources[stem], root)
+                        monster_data = dbr_values(monster_path)
+                        controller_record = monster_data.get("controller", "")
+                        require(controller_record.startswith("records/controllers/enemy/")
+                                and not controller_record.startswith(
+                                    "records/controllers/enemy/monsterexpansion/"),
+                                "AI1 original Hero needs a native enemy controller")
+                        controller_path = reference_path(controller_record, root)
+                        require(controller_path.is_file() and
+                                not controller_path.is_symlink(),
+                                "AI1 missing/unsafe native controller")
+                        ctrl = dbr_values(controller_path)
+                        require(ctrl.get("templateName") ==
+                                "database/templates/controllermonster.tpl" and
+                                ctrl.get("Class") == "ControllerMonster",
+                                "AI1 requires a native ControllerMonster")
+                        for field, increment in entry["adjustments"].items():
+                            require(field in ctrl, "AI1 missing controller field: " + field)
+                            before = float(ctrl[field])
+                            after = before + increment
+                            require(math.isfinite(after) and
+                                    (0 <= after <= 100 if field in
+                                     {"ChanceToRespondToDistressCall", "RepositionChance",
+                                      "randomRepositionChance"} else 0 < after <= 150),
+                                    "AI1 controller adjustment out of native-safe bounds")
         # Selected-rage mode is only for explicitly enabled custom variants.
         active_variant_ids = {tier_id: set() for tier_id in ("elite", "ascended")}
         for fpath in paths:
