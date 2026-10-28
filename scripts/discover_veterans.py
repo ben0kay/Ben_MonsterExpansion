@@ -311,7 +311,9 @@ def main(default_policy=None):
     try:
         policy = json.loads(args.policy.read_text())
         families = [json.loads(p.read_text()) for p in sorted((REPO / 'config/families').glob('*.json'))]
-        resources = REPO / 'ReferenceFiles/Resources'
+        resources = REPO / 'ReferenceFiles/original/Resources'
+        if not resources.is_dir():
+            resources = REPO / 'ReferenceFiles/Resources'  # Legacy extract layout.
         default_text = next((p for p in sorted(resources.iterdir())
                              if p.is_dir() and p.name.casefold() == 'text_en'), resources / 'text_en')
         if args.text_root is not None and not args.text_root.is_dir():
