@@ -150,47 +150,73 @@
             "aether": {
               "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
               "radius_effect_record": "records/fx/skillclass05/arcaneblast1_large_radius_fxpak01.dbr",
-              "monster_basenames": [
-                "aetherialcolossus",
-                "aetherialcorruption",
-                "aetherialfleshshaper",
-                "zombiehound"
+              "hero_stems": [
+                "aetherialcolossus_h04",
+                "aetherialcorruption_h04",
+                "aetherialfleshshaper_h04",
+                "zombiehound_h01",
+                "zombiehound_h03",
+                "zombiehound_h04"
               ]
             },
             "poison": {
               "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/prawn_poisonnova_onhit01.dbr",
               "radius_effect_record": "records/fx/skillsother/aoe/poisonnova_fxpak01.dbr",
-              "monster_basenames": [
-                "prawn",
-                "prawncave"
+              "hero_stems": [
+                "aetherialcorruption_h03",
+                "zombiehound_h02",
+                "prawn_h03",
+                "rifthound_h02",
+                "thornedhorror_h04"
               ]
             },
             "fire": {
               "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
               "radius_effect_record": "records/fx/skillclass05/firetempest1_radius_fxpak01.dbr",
-              "monster_basenames": [
-                "rifthound"
+              "hero_stems": [
+                "aetherialcolossus_h02",
+                "aetherialfleshshaper_h01",
+                "prawn_h05",
+                "rifthound_h01",
+                "rifthound_h04"
               ]
             },
             "cold": {
               "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
               "radius_effect_record": "records/fx/skillclass05/icetempest1_radius_fxpak01.dbr",
-              "monster_basenames": [
-                "yeti"
+              "hero_stems": [
+                "aetherialcorruption_h01",
+                "aetherialfleshshaper_h02",
+                "yeti_h01",
+                "yeti_h02",
+                "yeti_h03",
+                "yeti_h04",
+                "thornedhorror_h06"
               ]
             },
             "lightning": {
               "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
               "radius_effect_record": "records/fx/skillclass05/lightningtempest1_radius_fxpak01.dbr",
-              "monster_basenames": [
-                "gazer"
+              "hero_stems": [
+                "aetherialcolossus_h01",
+                "aetherialfleshshaper_h03",
+                "prawn_h02",
+                "prawn_h04",
+                "gazer_h01",
+                "gazer_h03",
+                "gazer_h04",
+                "gazer_h05"
               ]
             },
             "chaos": {
               "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
               "radius_effect_record": "records/fx/skillclass05/chaostempest01_radius_fxpak01.dbr",
-              "monster_basenames": [
-                "thornedhorror"
+              "hero_stems": [
+                "prawn_h01",
+                "prawncave_h01",
+                "rifthound_h03",
+                "gazer_h02",
+                "thornedhorror_h01"
               ]
             }
           }
