@@ -27,11 +27,12 @@ everything wildly overpowered.**
   eligibility, faction/role and recognizable silhouette. Increase their
   relative stats, physical model size, visual identity and eventual **combat
   behaviour**. Don't indiscriminately rewrite all monsters or scripted bosses.
-- **The next design focus is an additional ability for Ascended enemies**,
-  beyond the low-health rage already configured. Native on-hit elemental
-  counterattacks and **capped reinforcement summons** are leading ideas.
-  Prototype on one compatible Ascended first; choose and approve the precise
-  ability/tuning before bulk activation. Avoid runaway summon loops/FX spam.
+- **Ascended elemental retaliation (TM2) is now configured in the generator**,
+  in addition to existing low-health rage: curated Aether/Poison/Fire/Cold/
+  Lightning/Chaos types can proc a native radius counterattack on hit.
+  The 15% chance is **per qualifying hit**, with an 8s cooldown, not a
+  15% random spawn chance. **No in-game test or Asset Manager build yet.**
+  Capped reinforcement summoning remains a future prototype.
 - Most upgrades should feel **noticeably better, not absurdly overpowered**:
   moderate damage, radius, cooldown and duration adjustments; retain native
   per-rank curves. The mod is also used for an **Occultist + Nightblade
@@ -120,6 +121,27 @@ not the full 124+137 rollout. The bulk config/generator is committed;
 regenerate/build and test representative families. The generated
 manifest reports `rage_coverage.elite` and `rage_coverage.ascended`,
 including attachment/skipped counts. [Technical scope and tests](docs/TIER_RAGE.md).
+
+### Ascended elemental retaliation — TM2 (configured, not tested)
+
+The generator now supports **six themed on-hit elemental counterattacks**
+for **44 explicitly mapped of 137** custom Ascended variants. The mappings
+are source-species allowlists, not automated guesses for every Hero:
+Aether (16), Poison (8), Fire (5), Cold (4), Lightning (5), Chaos (6).
+Each compatible mapped Ascended receives **one** native
+`Skill_OnHitAttackRadius` clone, with **15% proc per qualifying hit**,
+**8-second cooldown**, **3 m radius**, matching native element FX and
+rank-scaled damage. The original Hero stays unchanged; native on-hit passives
+and occupied skills are preserved, so **44 mapped does not guarantee 44
+attached**. Other 93 Ascended are unmapped pending review. Rage remains
+independent, and **its 30%-HP trigger has no activation chance**.
+
+Configuration: `config/tiers.json` ->
+`ascended.prototype.elemental_retaliation`. Generator manifest:
+`retaliation_coverage.ascended` (mapped, attached, native-onhit skip,
+no-free-slot skip, unmapped and elemental counts). **The configuration/code
+is committed to `dev`, but is not yet generated/compiled or confirmed
+in-game.** [TM2 setup and exact test steps](docs/ASCENDED_ELEMENTAL_RETALIATION.md).
 
 ## 3. Player progression and game-wide quality-of-life
 
@@ -251,7 +273,7 @@ overpowered**. Details, actual field names and untouched skills:
 
 **Implemented in repo but not yet comprehensively verified in-game:**
 full natural Elite/Ascended frequency, all tier-wide rage
-attachments, level-101–150 progression and rewards, 2 Devotion
+attachments, new Ascended elemental retaliation (TM2), level-101–150 progression and rewards, 2 Devotion
 points/shrine and the 85 cap, mastery balance and shared pet changes,
 the complete Nightblade skeleton UI/cap, all 2× pack behaviours,
 all character speed/stats overrides, multi-family gameplay and
@@ -260,18 +282,15 @@ checkpoints; **do not describe newly committed tests as executed
 unless actually run**. Config/commit success alone does not prove
 Asset Manager compilation or game behaviour.
 
-## 6. Next priorities and ideas (not implemented)
+## 6. Next priorities and ideas
 
-1. **Choose one extra Ascended-specific combat ability** beyond the
-   already-configured rage. Candidates:
-   - A **native elemental counterattack** using an existing
-     `Skill_OnHitAttackRadius` with chance/cooldown and suitable FX.
-   - **Capped reinforcements**, ideally themed to the same family.
-     Native summoning is supported; making it activate *only on
-     low HP* is not yet proven. Guard against recursive summoners,
-     excessive monsters, repeated XP or extra loot.
-   Start on one compatible Ascended, with an independent JSON toggle
-   and short in-game test, before applying broadly.
+1. **Rebuild and test configured TM2** on at least one Ascended per
+   elemental profile. Verify visuals, damage, chance and cooldown
+   independently from rage. Review the other 93 unmapped species before
+   expanding; do not blanket-assign an inappropriate element.
+   **Future idea:** capped reinforcements, ideally themed to the same
+   family. Low-HP-gated summons remain unproven; prevent recursive
+   summons, repeated loot/XP and FX spam.
 2. **Rebuild and verify** the full Elite/Ascended rage rollout across
    several species. Use generated `manifest.json` `rage_coverage`
    for per-tier assignment/exclusion counts.
@@ -291,13 +310,13 @@ Asset Manager compilation or game behaviour.
 
 The researched DBR mechanics and proposed phases live in
 [**Tier Encounter Mechanics Ideas — Codex plan**](docs/TIER_ENCOUNTER_MECHANICS_IDEAS.md).
-Only rage has been implemented from that wider ideas plan.
+**TM1 (rage) and TM2 (curated elemental on-hit retaliations) are configured** from that plan; TM2 has no native in-game verification yet. Other mechanics remain proposals.
 
 ## 7. Architecture, configuration and working rules
 
 | Location | Responsibility |
 | --- | --- |
-| `config/tiers.json` | Tier stat, size, glow, XP, conversion shares and rage settings |
+| `config/tiers.json` | Tier stat, size, glow, XP, conversion shares, rage and elemental proc settings |
 | `config/families/*.json` | Reviewed actual parents, custom variants, pool promotions and enabled selection |
 | `config/master.json` | 2× regular pack-size multiplier |
 | `config/player_stats.json` | Level cap, skill/attribute points, devotion |
