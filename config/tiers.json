@@ -143,7 +143,7 @@
         },
         "elemental_retaliation": {
           "enabled": true,
-          "activation_chance_percent": 15,
+          "activation_chance_percent": 10,
           "cooldown_seconds": 8,
           "radius_meters": 3,
           "profiles": {
