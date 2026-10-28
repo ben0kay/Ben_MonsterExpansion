@@ -207,13 +207,10 @@ RETALIATION_DAMAGE_FIELDS = {
 
 
 def retaliation_element(source_record, config):
-    """Match an exact native Hero species, never a substring or arbitrary faction."""
-    match = re.fullmatch(r"(.+)_h\d+[a-z]?", Path(source_record).stem)
-    if not match:
-        return None
-    basename = match.group(1)
+    """Match an audited exact Hero record, never a species/faction guess."""
+    stem = Path(source_record).stem
     for element, profile in config["profiles"].items():
-        if basename in profile["monster_basenames"]:
+        if stem in profile["hero_stems"]:
             return element
     return None
 
