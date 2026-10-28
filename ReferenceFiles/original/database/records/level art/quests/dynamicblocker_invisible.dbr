@@ -1,0 +1,7 @@
+templateName,database/templates/navblocker.tpl,
+Class,NavBlocker,
+FileDescription,Used to block pathing for repairable bridges,
+editorMesh,level art/furniture/chair_woodfine01.msh,
+editorScale,1.000000,
+height,3.000000,
+radius,2.500000,
