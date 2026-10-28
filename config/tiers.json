@@ -349,6 +349,33 @@
               ]
             }
           }
+        },
+        "smart_ai": {
+          "enabled": true,
+          "profiles": {
+            "aggressive": {
+              "hero_stems": [
+                "boar_h01"
+              ],
+              "adjustments": {
+                "MaxPursuitDistance": 10,
+                "ChanceToRespondToDistressCall": 10
+              }
+            },
+            "evasive": {
+              "hero_stems": [
+                "gazer_h01"
+              ],
+              "adjustments": {
+                "RepositionChance": 10,
+                "randomRepositionChance": 5
+              }
+            },
+            "support": {
+              "hero_stems": [],
+              "adjustments": {}
+            }
+          }
         }
       }
     },
