@@ -170,15 +170,15 @@ def check_configs(reference_root=None, repo=REPO):
                 for element, settings in profiles.items():
                     require(isinstance(settings, dict) and
                             set(settings) == {"source_skill_record", "radius_effect_record",
-                                              "monster_basenames"},
+                                              "hero_stems"},
                             "Invalid " + element + " retaliation profile")
-                    names = settings["monster_basenames"]
+                    names = settings["hero_stems"]
                     require(isinstance(names, list) and bool(names) and
                             all(isinstance(name, str) and
-                                re.fullmatch(r"[a-z][a-z0-9_]*", name) for name in names) and
+                                re.fullmatch(r"[a-z][a-z0-9_]*_h[0-9]+[a-z]?", name) for name in names) and
                             len(set(names)) == len(names) and
                             not (set(names) & seen_names),
-                            "Retaliation species must be explicit, unique and non-overlapping")
+                            "Retaliation Hero stems must be explicit, unique and non-overlapping")
                     seen_names.update(names)
                     source_name = settings["source_skill_record"]
                     effect_name = settings["radius_effect_record"]
