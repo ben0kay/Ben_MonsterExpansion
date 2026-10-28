@@ -350,14 +350,14 @@ The researched DBR mechanics and proposed phases live in
 | `config/player_basics.json`, `config/player_movement.json` | Base player health/energy, speed, camera |
 | `config/player_skills.json`, `config/nightblade_skeletons.json` | Mastery balance and Nightblade skeleton tree |
 | `scripts/discover_veterans.py`, `discover_elites.py`, `discover_ascended.py` | Read-only-by-default family/pool discovery; optional disabled draft configs |
-| `scripts/generate_variants.py` | Compose all variant DBRs, attached skills, player overrides and manifest |
+| `scripts/generate_variants.py`, `scripts/creature_names.py` | Compose variant DBRs and auto-resolve custom tier labels from original/GDX1/GDX2 English creature tags |
 | `scripts/natural_spawns.py`, `scripts/global_spawns.py` | Safe merged pool weights; global **regular-only** pack size |
 | `scripts/validate_config.py`, `scripts/prepare_console_test.py` | Input/reference checks and guarded staging |
 | `ReferenceFiles/` | **Read-only** extracted game DBRs and templates; never edit/copy wholesale |
 
 **Reference priority:** `ReferenceFiles/gdx2/database/records` >
 `ReferenceFiles/gdx1/database/records` >
-`ReferenceFiles/` (base). Outputs use original logical
+`ReferenceFiles/original/database/records` (base). Outputs use original logical
 `records/...` paths in the custom mod's `database/`.
 The source **JSON files are build instructions**, not game-time
 configuration. Do not change the original Grim Dawn archive files.
@@ -386,7 +386,7 @@ python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 
 Then select the mod in **Grim Dawn Asset Manager**, build with
 **F7**, install the rebuilt `.arz` and preserve/install the
-`resources/Text_EN.arc` needed for custom zombie labels.
+`resources/Text_EN.arc` needed for automatic Veteran/Elite/Ascended labels.
 Restart the **Custom Game**. Optional focused tests can be run
 separately; no implicit new-game testing occurs on GitHub.
 **Back up saves** before testing level cap/character progression.
@@ -424,7 +424,7 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
   [Nightblade skeleton attachment](docs/NIGHTBLADE_SKELETONS_BUILD.md);
   [Occultist/Arcanist/pet skills](docs/PLAYER_SKILLS.md)
 - [Build and install](docs/BUILD_AND_TEST.md);
-  [custom text labels](docs/VETERAN_NAMES.md);
+  [custom tier names](docs/ENEMY_NAMES.md);
   [console debug commands](debug/README.md)
 - [Historical long-form README (archived)](docs/README_HISTORY_2026-10-27.md)
 
