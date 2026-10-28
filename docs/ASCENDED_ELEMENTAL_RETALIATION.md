@@ -15,7 +15,7 @@ cooldown timing still needs in-game testing.
 
 ## Current tuning
 
-- All **curated** Ascended species receive one compatible on-hit retaliation
+- All **curated** Ascended Hero archetypes receive one compatible on-hit retaliation
   skill if they have a free skill slot and no native on-hit radius passive.
 - `activation_chance_percent = 15`, `cooldown_seconds = 8`,
   `radius_meters = 3`.
@@ -32,17 +32,23 @@ cooldown timing still needs in-game testing.
   a matching vanilla radius FX pack. Those four combinations are **new,
   unverified gameplay compositions**, not claims of existing vanilla skills.
 
-## Curated source-species mapping
+## Curated individual-Hero mapping
 
-| Element | Ascended source Hero species | Mapped variants |
+| Element | Example matched Hero archetypes | Mapped variants |
 | --- | --- | ---: |
-| Aether | Aetherial Colossus, Corruption, Fleshshaper; Zombie Hound | 16 |
-| Poison | Prawn, Cave Prawn | 8 |
-| Fire | Rift Hound | 5 |
-| Cold | Yeti | 4 |
-| Lightning | Gazer | 5 |
-| Chaos | Thorned Horror | 6 |
-| **Total** | **44 of 137 configured Ascended variants** | **44** |
+| Aether | Arcane/Timewarped Aetherials, Aether Zombie Hounds | 6 |
+| Poison | Diseased Aetherial, Plague Hound, toxic Prawn, Diseased Thorned Horror | 5 |
+| Fire | Burning Aetherials, fire Rift Hounds, Burning Prawn | 5 |
+| Cold | Coldheart/Frozen Aetherials, frost Yetis, Frozen Thorned Horror | 7 |
+| Lightning | Electrified Aetherials and Prawns, lightning Gazers | 8 |
+| Chaos | Chaos Prawn, Cave Prawn, Rift Hound, Gazer and Thorned Horror | 5 |
+| **Total** | **36 of 137 configured Ascended Hero variants** | **36** |
+
+The allowlist uses **exact Hero source record stems**, e.g.
+`aetherialcolossus_h01` (Electrified → Lightning) and
+`aetherialcolossus_h02` (Burning → Fire); matching all
+`aetherialcolossus` as Aether would be incorrect. Explicitly unmatched
+Vampiric, physical-only and other ambiguous Hero archetypes are left alone.
 
 These are **configured matches, not guaranteed assignments**.
 The generator skips an actor when it inherits a native on-hit radius
@@ -50,7 +56,7 @@ ability or has no vacant ordinary skill slot, reporting the outcome in
 `generated/MonsterExpansion/manifest.json` ->
 `retaliation_coverage.ascended` (`mapped`, `attached`,
 `native_onhit`, `no_free_slot`, `unmapped`, `by_element`).
-The remaining 93 are intentionally unmapped until their actual elemental
+The remaining 101 are intentionally unmapped until their actual elemental
 identity and compatible effects are reviewed. Do not infer an element
 blindly from every monster filename, or add several reactive skills to
 one Hero.
@@ -63,9 +69,9 @@ one Hero.
 - `enabled=false` disables the entire mechanic independently from rage.
 - `activation_chance_percent`, `cooldown_seconds`, `radius_meters`
   control the shared balance.
-- `profiles[element].monster_basenames` is an **exact, reviewed source
-  basename allowlist**, not a substring check. One species can belong to
-  only one profile.
+- `profiles[element].hero_stems` is an **exact, reviewed Hero source
+  record allowlist**, not a species-wide rule. Different Heroes from the
+  same species can belong to different elemental profiles.
 - `profiles[element].source_skill_record` and
   `radius_effect_record` reference native on-hit skills and FX packs.
 - Rebuild with `--replace-generated` and `--replace-staged` when
