@@ -203,7 +203,14 @@ RETALIATION_DAMAGE_FIELDS = {
     "cold": "offensiveColdMin",
     "lightning": "offensiveLightningMin",
     "chaos": "offensiveChaosMin",
+    "vitality": "offensiveLifeMin",
+    "physical": "offensivePhysicalMin",
+    "pierce": "offensivePierceMin",
+    "bleeding": "offensiveSlowBleedingMin",
 }
+# Mixed elemental intentionally splits the native curve among all three elements;
+# Bleeding uses a modest direct impact plus a short native bleeding DoT.
+RETALIATION_SPECIAL_PROFILES = {"bleeding", "elemental"}
 
 
 def retaliation_element(source_record, config):
@@ -244,7 +251,7 @@ def set_or_append(dbr, key, value):
 
 
 def build_elemental_retaliation(monster, proto, source_record, prefix):
-    """Clone a real on-hit radius skill for a curated Ascended elemental type."""
+    """Clone a real on-hit radius skill for one curated Ascended damage theme."""
     config = proto.get("elemental_retaliation")
     if not config or not config["enabled"]:
         return {}
@@ -264,19 +271,33 @@ def build_elemental_retaliation(monster, proto, source_record, prefix):
     effect = read_game_dbr(profile["radius_effect_record"])
     fail_unless(effect.get("templateName") == "database/templates/fxpak.tpl",
                 "Retaliation radius effect must be a native FX pack")
-    # Native Prawn supplies Poison damage; native Aether Obelisk supplies
-    # Aether damage. For other elements MOVE (not duplicate) the Aether damage
-    # rank series to the appropriate real offensive*Min field, keeping original
-    # level scaling. The radius particle is a matching native element FX pack.
+    # Real Prawn on-hit provides Poison; Aether Obelisk provides Aether.
+    # Move, rather than duplicate, its 60-rank damage curve to native fields.
+    # The two composite profiles stay modest: a short physical+bleeding hit,
+    # or three equal shares of Fire/Cold/Lightning for the Arcane archetype.
     source_field = ("offensivePoisonMin" if element == "poison"
                     else "offensiveAetherMin")
-    target_field = RETALIATION_DAMAGE_FIELDS[element]
-    if source_field != target_field:
-        series = skill.get(source_field)
-        fail_unless(";" in series and all(float(x) > 0 for x in series.split(";")),
-                    "Retaliation source lacks a damage rank curve")
+    source_series = skill.get(source_field)
+    fail_unless(";" in source_series and
+                all(float(x) > 0 for x in source_series.split(";")),
+                "Retaliation source lacks a native damage rank curve")
+    if element in RETALIATION_SPECIAL_PROFILES:
         skill.set(source_field, "0.000000")
-        set_or_append(skill, target_field, series)
+        if element == "bleeding":
+            set_or_append(skill, "offensivePhysicalMin",
+                          scaled_series(source_series, Decimal("0.25")))
+            set_or_append(skill, "offensiveSlowBleedingMin",
+                          scaled_series(source_series, Decimal("0.50")))
+            set_or_append(skill, "offensiveSlowBleedingDurationMin", "2.000000")
+            set_or_append(skill, "offensiveSlowBleedingDurationMax", "2.000000")
+        else:  # elemental: one third of the base damage as each element
+            for damage_field in ("offensiveFireMin", "offensiveColdMin",
+                                 "offensiveLightningMin"):
+                set_or_append(skill, damage_field,
+                              scaled_series(source_series, Decimal("0.333333")))
+    elif source_field != RETALIATION_DAMAGE_FIELDS[element]:
+        skill.set(source_field, "0.000000")
+        set_or_append(skill, RETALIATION_DAMAGE_FIELDS[element], source_series)
     skill.set("onHitActivationChance", f"{config['activation_chance_percent']:.6f}")
     skill.set("skillCooldownTime", f"{config['cooldown_seconds']:.6f}")
     skill.set("skillTargetRadius", f"{config['radius_meters']:.6f}")
