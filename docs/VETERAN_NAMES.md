@@ -1,5 +1,8 @@
 # Displaying Walking Dead (Veteran)
 
+> Historical first-name prototype from October 19. The generator now supports
+> automatic names for all custom tiers. See [current enemy-name guide](ENEMY_NAMES.md).
+
 October 19, 2026. The user confirmed a green Veteran zombie appeared naturally
 in an early Lower Crossing house. This verifies at least one opening-area map
 encounter resolves a modified pool. It does not establish all map coverage or
