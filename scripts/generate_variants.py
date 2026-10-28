@@ -19,6 +19,7 @@ from pathlib import Path
 
 from dbr import DBR, DBRError
 from enemy_rewards import apply_experience_reward
+from creature_names import creature_name
 from natural_spawns import build_pool_override, build_merged_pool
 from validate_config import check_configs, reference_path
 
@@ -91,7 +92,9 @@ def build_cosmetic_aura(monster, prototype, prefix, tier_name="Veteran"):
     particle = effect.get("effectFile")
     fail_unless(particle.startswith("fx/") and ".." not in particle.split("/")
                 and "\\" not in particle and particle.endswith(".pfx"), "Unsafe particle path")
-    fail_unless((REFERENCE / "Resources" / particle).is_file(), "Missing particle reference")
+    resource_root = (REFERENCE / "original/Resources" if (REFERENCE / "original/Resources").is_dir()
+                     else REFERENCE / "Resources")
+    fail_unless((resource_root / particle).is_file(), "Missing particle reference")
     # Template supports 60 assigned skills and two initial skills. Preserve every
     # occupied slot; use an available initial slot or fail without overwriting.
     slot = next((n for n in range(1, 61)
@@ -380,8 +383,10 @@ def display_tag(family, variant):
     return f"tagBME_{family['id']}_{variant['id']}"
 
 
-def display_text(variant, tier):
+def display_text(variant, tier, source_tag=None):
     name = variant.get("display_name")
+    if name is None and source_tag is not None:
+        name = creature_name(source_tag, REFERENCE)
     if name is None:
         return None
     fail_unless(isinstance(name, str) and name.strip() == name and bool(name) and
@@ -397,7 +402,7 @@ def build_variant(family, variant, tier):
     fail_unless(monster.get("templateName") == "database/templates/monster.tpl", "Wrong monster template")
     fail_unless(monster.get("monsterClassification") == variant["expected_classification"],
                 "Unexpected source classification")
-    label = display_text(variant, tier)
+    label = display_text(variant, tier, monster.get("description"))
     if label is not None:
         monster.set("description", display_tag(family, variant))
     proto = tier["prototype"]
@@ -470,6 +475,7 @@ def build_variant(family, variant, tier):
 def build_plan(families, tier_by_id, include_spawns=False):
     """One complete manifest per invocation; reject output collisions."""
     files, variants, pools, tags = {}, [], [], {}
+    unresolved_names = []
     rage_coverage = {tier: {"targeted": 0, "attached": 0,
                             "inherited_low_health": 0, "no_free_slot": 0}
                      for tier in ("elite", "ascended")}
@@ -536,11 +542,16 @@ def build_plan(families, tier_by_id, include_spawns=False):
                                   + family["id"] + "_" + variant["id"] + "_ai.dbr")
                         if game_location(record) in output:
                             report["attached"] += 1
-            label = display_text(variant, tier)
+            source_tag = read_game_dbr(variant["source_record"]).get("description")
+            label = display_text(variant, tier, source_tag)
             if label is not None:
                 tag = display_tag(family, variant)
                 fail_unless(tag not in tags, "Duplicate display tag")
                 tags[tag] = label
+            else:
+                unresolved_names.append({"family": family["id"], "variant": variant["id"],
+                                         "source": variant["source_record"],
+                                         "description_tag": source_tag})
             variants.append({"family": family["id"], "variant": variant["id"], "tier": variant["tier"],
                              "source": variant["source_record"], "output": variant["output_record"],
                              "runtime_verified": False})
@@ -558,6 +569,7 @@ def build_plan(families, tier_by_id, include_spawns=False):
                 "families": [f["id"] for f in families if f["enabled"]],
                 "include_spawns": include_spawns, "variants": variants, "pools": pools,
                 "text_source": TEXT_SOURCE.as_posix() if tags else None,
+                "name_coverage": {"named": len(tags), "unresolved": unresolved_names},
                 "rage_coverage": rage_coverage,
                 "retaliation_coverage": retaliation_coverage,
                 "ai_coverage": ai_coverage,
