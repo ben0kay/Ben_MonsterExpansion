@@ -4,7 +4,7 @@
 (TM2) CONFIGURED/IMPLEMENTED IN GENERATOR (2026-10-27).
 User visually confirmed one Elite boar low-health rage; the wider rollout
 is not yet rebuilt or tested. TM2 uses six elemental on-hit profiles for
-36 *individual, audited Hero archetypes*, at 15% on-hit activation chance,
+36 *individual, audited Hero archetypes*, at 10% on-hit activation chance,
 8s cooldown and 3m radius, with no in-game build/test yet. Reinforcements
 (TM3) and spawn-frequency changes (TM4/5) remain proposals.
 See [ASCENDED_ELEMENTAL_RETALIATION.md](ASCENDED_ELEMENTAL_RETALIATION.md). Designed as a Codex
@@ -52,7 +52,7 @@ Current tier definitions: `config/tiers.json`. Enabled snapshots: 148 Veterans,
 | Ascended rage | Same low-life template + existing aura FX | **IMPLEMENTED in generator/config** at the same 30%/12s/+15%/+10% as Elite; broad in-game compatibility still needs testing |
 | Veteran rage at 20% HP, ~20% spawn chance | Low-life template has threshold but **no explicit activation-chance field** in inspected template | **ON HOLD / not authorized**: user has shelved Veteran rage; retain feasibility note only, no implementation |
 | Elite calls Veteran reinforcements | `Skill_SpawnPet` with `petBurstSpawn`, `petLimit`, `spawnObjects` | **HIGH for normal summon / moderate–hard for low-HP gated summon**; faction, target, lifetime, limits, loot, XP, and recursive spawns need testing |
-| Elemental counterattack when struck | `Skill_OnHitAttackRadius`, `onHitActivationChance` | **TM2 CONFIGURED** for 36 individual Ascended Hero archetypes at 15% chance/8s/3m across six elements. Build/gameplay not yet verified; other Hero elements excluded pending audit. |
+| Elemental counterattack when struck | `Skill_OnHitAttackRadius`, `onHitActivationChance` | **TM2 CONFIGURED** for 36 individual Ascended Hero archetypes at 10% chance/8s/3m across six elements. Build/gameplay not yet verified; other Hero elements excluded pending audit. |
 | +15% Champion-group chance | `proxypool.tpl` `championChance` field | **HIGH / moderate**: selectively multiply eligible nonzero pool chances by 1.15, clamp ≤100, preserve exclusions; note that this group also contains Heroes |
 | +10–15% Hero selection | `nameChampionN` includes both Champions and Heroes; weights are `weightChampionN` | **HIGH / moderate–hard**: raise **combined Hero+Ascended selection mass** relative to Champion+Elite, while preserving each Hero's original 67/33 split and group quotas |
 | More living Champion/Hero counts per encounter | `championMin`, `championMax` and their count equations | **CONDITIONAL / high regression risk**: can violate bounded-Hero quota proof. **Do not** casually raise `championMax` or global champion count equations. |
@@ -195,7 +195,7 @@ External corroboration (context, not a substitute for inspecting repo):
 ### TM2 — elemental retaliations
 
 **Current implementation:** `config/tiers.json` controls an independently
-reversible **15% per qualifying hit**, **8s cooldown**, **3m radius**
+reversible **10% per qualifying hit**, **8s cooldown**, **3m radius**
 `Skill_OnHitAttackRadius` clone for **36 exact source Hero archetypes**.
 Aether, Poison, Fire, Cold, Lightning, Chaos have distinct native radius FX
 and matching damage types. It skips monsters with native on-hit radius
