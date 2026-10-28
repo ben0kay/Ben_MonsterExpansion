@@ -27,9 +27,10 @@ everything wildly overpowered.**
   eligibility, faction/role and recognizable silhouette. Increase their
   relative stats, physical model size, visual identity and eventual **combat
   behaviour**. Don't indiscriminately rewrite all monsters or scripted bosses.
-- **Ascended elemental retaliation (TM2) is now configured in the generator**,
-  in addition to existing low-health rage: curated Aether/Poison/Fire/Cold/
-  Lightning/Chaos types can proc a native radius counterattack on hit.
+- **Ascended on-hit retaliation (TM2) is now configured for 135/137**
+  custom variants, in addition to existing low-health rage. Eleven
+  curated types include Aether, Poison/Acid, Fire, Cold, Lightning, Chaos,
+  Vitality, Physical, Pierce, Bleeding and mixed Elemental.
   The 10% chance is **per qualifying hit**, with an 8s cooldown, not a
   10% random spawn chance. **No in-game test or Asset Manager build yet.**
   Capped reinforcement summoning remains a future prototype.
@@ -124,18 +125,20 @@ including attachment/skipped counts. [Technical scope and tests](docs/TIER_RAGE.
 
 ### Ascended elemental retaliation — TM2 (configured, not tested)
 
-The generator now supports **six themed on-hit elemental counterattacks**
-for **36 explicitly mapped of 137** custom Ascended variants. The mappings
-are **individual Hero archetype allowlists**, not automatic species guesses:
-Aether (6), Poison (5), Fire (5), Cold (7), Lightning (8), Chaos (5).
-For example, an Electrified Aetherial Colossus uses Lightning, while
-its Burning Hero counterpart uses Fire.
+The generator now supports **11 themed on-hit burst counterattacks**
+for **135 of 137** custom Ascended variants: the original 36 mappings
+plus 99 additional audited Hero archetypes. **Two Cave Prawns
+(`prawncave_h02` and `prawncave_h03`) are deliberately excluded**:
+they already inherit native `prawn_poisonnova_onhit01`, which remains
+unchanged. Exact individual Hero records determine damage type, not
+creature species alone. New profiles include Vitality, Physical
+shockwave, Pierce, Bleeding and mixed Elemental (Fire/Cold/Lightning).
 Each compatible mapped Ascended receives **one** native
 `Skill_OnHitAttackRadius` clone, with **10% proc per qualifying hit**,
 **8-second cooldown**, **3 m radius**, matching native element FX and
 rank-scaled damage. The original Hero stays unchanged; native on-hit passives
-and occupied skills are preserved, so **36 mapped does not guarantee 36
-attached**. Other 101 Ascended are unmapped pending review. Rage remains
+and occupied skills are preserved, so **135 mapped does not guarantee 135
+attached**. The two Cave Prawns retain their native on-hit skill. Rage remains
 independent, and **its 30%-HP trigger has no activation chance**.
 
 Configuration: `config/tiers.json` ->
@@ -286,10 +289,11 @@ Asset Manager compilation or game behaviour.
 
 ## 6. Next priorities and ideas
 
-1. **Rebuild and test configured TM2** on at least one Ascended per
-   elemental profile. Verify visuals, damage, chance and cooldown
-   independently from rage. Review the other 101 unmapped Hero archetypes before
-   expanding; do not blanket-assign an inappropriate element.
+1. **Rebuild and test configured TM2** on at least one Ascended from
+   each of the eleven burst profiles. Verify visuals, damage, chance and
+   cooldown independently from rage. Confirm two excluded Cave Prawns
+   retain their native on-hit Poison Nova. Review manifest coverage and
+   skip reasons before claiming 135 actual new attachments.
    **Future idea:** capped reinforcements, ideally themed to the same
    family. Low-HP-gated summons remain unproven; prevent recursive
    summons, repeated loot/XP and FX spam.
