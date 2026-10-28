@@ -70,6 +70,19 @@ class ElementalRetaliationTests(unittest.TestCase):
                 if element not in ("aether", "poison"):
                     self.assertEqual(skill.get("offensiveAetherMin"), "0.000000")
 
+    def test_same_monster_species_can_have_different_hero_elements(self):
+        stem = lambda name: "records/creatures/enemies/hero/" + name + ".dbr"
+        self.assertEqual(gen.retaliation_element(stem("aetherialcolossus_h01"),
+                                                 self.config), "lightning")
+        self.assertEqual(gen.retaliation_element(stem("aetherialcolossus_h02"),
+                                                 self.config), "fire")
+        self.assertIsNone(gen.retaliation_element(stem("aetherialcolossus_h03"),
+                                                    self.config))
+        self.assertEqual(gen.retaliation_element(stem("prawn_h03"),
+                                                 self.config), "poison")
+        self.assertEqual(gen.retaliation_element(stem("prawn_h04"),
+                                                 self.config), "lightning")
+
     def test_unmapped_preserved_and_no_unwanted_retaliation(self):
         v = self.variant("boar_h01")
         files = gen.build_variant(self.family, v, self.ascended)
