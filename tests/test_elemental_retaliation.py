@@ -34,7 +34,7 @@ class ElementalRetaliationTests(unittest.TestCase):
         self.assertEqual(skill.get("templateName"),
                          "database/templates/skill_onhitattackradius.tpl")
         self.assertEqual(skill.get("Class"), "Skill_OnHitAttackRadius")
-        self.assertEqual(skill.get("onHitActivationChance"), "15.000000")
+        self.assertEqual(skill.get("onHitActivationChance"), "10.000000")
         self.assertEqual(skill.get("skillCooldownTime"), "8.000000")
         self.assertEqual(skill.get("skillTargetRadius"), "3.000000")
         self.assertEqual(skill.get("radiusEffectName"),
