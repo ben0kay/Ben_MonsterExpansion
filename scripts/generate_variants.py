@@ -208,7 +208,7 @@ RETALIATION_DAMAGE_FIELDS = {
 
 def retaliation_element(source_record, config):
     """Match an exact native Hero species, never a substring or arbitrary faction."""
-    match = re.fullmatch(r"(.+)_h\\d+[a-z]?", Path(source_record).stem)
+    match = re.fullmatch(r"(.+)_h\d+[a-z]?", Path(source_record).stem)
     if not match:
         return None
     basename = match.group(1)
@@ -241,9 +241,9 @@ def set_or_append(dbr, key, value):
     if dbr._locations(key):
         dbr.set(key, value)
     else:
-        if dbr.lines and not dbr.lines[-1].endswith("\\n"):
-            dbr.lines[-1] += "\\n"
-        dbr.lines.append(f"{key},{value},\\n")
+        if dbr.lines and not dbr.lines[-1].endswith("\n"):
+            dbr.lines[-1] += "\n"
+        dbr.lines.append(f"{key},{value},\n")
 
 
 def build_elemental_retaliation(monster, proto, source_record, prefix):
