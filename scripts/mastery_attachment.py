@@ -45,7 +45,10 @@ def build_attachment(settings, reference):
 
     tree, panel = source(settings['tree']), source(settings['panel'])
     # Validate template capacity rather than assuming unused fields are supported.
-    template = (reference / 'Resources/templates/skilltree.tpl').read_text()
+    base_templates = reference / 'original/database/templates'
+    if not base_templates.is_dir():
+        base_templates = reference / 'Resources/templates'  # Legacy extract layout.
+    template = (base_templates / 'skilltree.tpl').read_text(encoding='utf-8-sig')
     slots = [int(m.group(1)) for line in tree.lines
              if (m := re.match(r'skillName(\d+),[^,\r\n]+', line))]
     next_slot = max(slots) + 1
