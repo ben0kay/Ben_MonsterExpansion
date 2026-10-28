@@ -55,8 +55,8 @@ class ElementalRetaliationTests(unittest.TestCase):
         return skill
 
     def test_each_profile_produces_distinct_element_and_native_fx(self):
-        for stem, element in (("aetherialcolossus_h01", "aether"),
-                              ("prawn_h01", "poison"),
+        for stem, element in (("zombiehound_h01", "aether"),
+                              ("prawn_h03", "poison"),
                               ("rifthound_h01", "fire"),
                               ("yeti_h01", "cold"),
                               ("gazer_h01", "lightning"),
