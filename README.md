@@ -30,8 +30,8 @@ everything wildly overpowered.**
 - **Ascended elemental retaliation (TM2) is now configured in the generator**,
   in addition to existing low-health rage: curated Aether/Poison/Fire/Cold/
   Lightning/Chaos types can proc a native radius counterattack on hit.
-  The 15% chance is **per qualifying hit**, with an 8s cooldown, not a
-  15% random spawn chance. **No in-game test or Asset Manager build yet.**
+  The 10% chance is **per qualifying hit**, with an 8s cooldown, not a
+  10% random spawn chance. **No in-game test or Asset Manager build yet.**
   Capped reinforcement summoning remains a future prototype.
 - Most upgrades should feel **noticeably better, not absurdly overpowered**:
   moderate damage, radius, cooldown and duration adjustments; retain native
@@ -131,7 +131,7 @@ Aether (6), Poison (5), Fire (5), Cold (7), Lightning (8), Chaos (5).
 For example, an Electrified Aetherial Colossus uses Lightning, while
 its Burning Hero counterpart uses Fire.
 Each compatible mapped Ascended receives **one** native
-`Skill_OnHitAttackRadius` clone, with **15% proc per qualifying hit**,
+`Skill_OnHitAttackRadius` clone, with **10% proc per qualifying hit**,
 **8-second cooldown**, **3 m radius**, matching native element FX and
 rank-scaled damage. The original Hero stays unchanged; native on-hit passives
 and occupied skills are preserved, so **36 mapped does not guarantee 36
