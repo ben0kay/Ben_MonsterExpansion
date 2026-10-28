@@ -7,7 +7,7 @@ The build-time pipeline is:
 
 1. Validate tier defaults and schema-2 explicit family configs.
 2. Read original monster/bio/physical-passive DBRs, keeping originals unchanged.
-3. Emit namespaced per-variant records, safely attach a stat-free cosmetic self-buff, then independent low-health rage and curated on-hit elemental retaliation where compatible.
+3. Emit namespaced per-variant records, safely attach a stat-free cosmetic self-buff, then independent low-health rage, curated on-hit elemental retaliation, and selectively cloned native AI controllers where compatible.
 4. Optionally merge mappings per pool, splitting regular and Champion weights independently while inheriting source eligibility.
 5. Reject duplicate outputs, unsafe paths, occupied destinations and limited sources.
 6. Produce one deterministic manifest for the selected family set.
@@ -23,6 +23,15 @@ Each actor gets at most one new retaliation skill; existing native on-hit
 radius skills and full ordinary skill slots are skipped. The deterministic
 manifest includes `retaliation_coverage.ascended`; see
 [Ascended elemental retaliation](ASCENDED_ELEMENTAL_RETALIATION.md).
+AI1a is a **two-Ascended-only native ControllerMonster clone** prototype:
+`boar_h01` (pursuit + ally response) and `gazer_h01` (reposition).
+The generator copies their *individual* original `controller` DBRs into
+`records/controllers/enemy/monsterexpansion/`, changes only explicitly
+approved additive fields, and redirects only the generated Ascended actor.
+It reports `ai_coverage.ascended`. The original Hero and all other
+actors keep their existing controllers; the support role/broad rollout
+are deferred. See [AI1 plan and verification](ASCENDED_AI1_BEHAVIOR.md).
+
 Generation and static tests do not establish native FX compatibility or
 gameplay behaviour.
 
