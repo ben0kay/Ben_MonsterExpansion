@@ -125,15 +125,17 @@ including attachment/skipped counts. [Technical scope and tests](docs/TIER_RAGE.
 ### Ascended elemental retaliation — TM2 (configured, not tested)
 
 The generator now supports **six themed on-hit elemental counterattacks**
-for **44 explicitly mapped of 137** custom Ascended variants. The mappings
-are source-species allowlists, not automated guesses for every Hero:
-Aether (16), Poison (8), Fire (5), Cold (4), Lightning (5), Chaos (6).
+for **36 explicitly mapped of 137** custom Ascended variants. The mappings
+are **individual Hero archetype allowlists**, not automatic species guesses:
+Aether (6), Poison (5), Fire (5), Cold (7), Lightning (8), Chaos (5).
+For example, an Electrified Aetherial Colossus uses Lightning, while
+its Burning Hero counterpart uses Fire.
 Each compatible mapped Ascended receives **one** native
 `Skill_OnHitAttackRadius` clone, with **15% proc per qualifying hit**,
 **8-second cooldown**, **3 m radius**, matching native element FX and
 rank-scaled damage. The original Hero stays unchanged; native on-hit passives
-and occupied skills are preserved, so **44 mapped does not guarantee 44
-attached**. Other 93 Ascended are unmapped pending review. Rage remains
+and occupied skills are preserved, so **36 mapped does not guarantee 36
+attached**. Other 101 Ascended are unmapped pending review. Rage remains
 independent, and **its 30%-HP trigger has no activation chance**.
 
 Configuration: `config/tiers.json` ->
@@ -286,7 +288,7 @@ Asset Manager compilation or game behaviour.
 
 1. **Rebuild and test configured TM2** on at least one Ascended per
    elemental profile. Verify visuals, damage, chance and cooldown
-   independently from rage. Review the other 93 unmapped species before
+   independently from rage. Review the other 101 unmapped Hero archetypes before
    expanding; do not blanket-assign an inappropriate element.
    **Future idea:** capped reinforcements, ideally themed to the same
    family. Low-HP-gated summons remain unproven; prevent recursive
