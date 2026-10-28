@@ -33,6 +33,9 @@ everything wildly overpowered.**
   Vitality, Physical, Pierce, Bleeding and mixed Elemental.
   The 10% chance is **per qualifying hit**, with an 8s cooldown, not a
   10% random spawn chance. **No in-game test or Asset Manager build yet.**
+  **AI1 smart enemy prototype is also configured** for one Ascended boar and
+  one Ascended Gazer, with original controllers cloned and only conservative
+  pursuit/ally-response/reposition changes. Local tests/build still pending.
   Capped reinforcement summoning remains a future prototype.
 - Most upgrades should feel **noticeably better, not absurdly overpowered**:
   moderate damage, radius, cooldown and duration adjustments; retain native
@@ -147,6 +150,24 @@ Configuration: `config/tiers.json` ->
 no-free-slot skip, unmapped and elemental counts). **The configuration/code
 is committed to `dev`, but is not yet generated/compiled or confirmed
 in-game.** [TM2 setup and exact test steps](docs/ASCENDED_ELEMENTAL_RETALIATION.md).
+
+### Ascended smarter AI — AI1a (two-enemy prototype)
+
+Two *exact* Ascended Hero sources are assigned original-controller clones:
+`boar_h01` gains +10 pursuit distance and +10 allied distress response,
+while `gazer_h01` gains +10 normal reposition chance and +5 random
+reposition chance. Original high dodge settings, skills, retreat behaviors
+and vanilla controller DBRs stay unchanged. No other Ascended, Elite,
+Veteran, source Hero or boss receives an AI override.
+
+Feature flag: `config/tiers.json` →
+`ascended.prototype.smart_ai.enabled`; generated controllers:
+`records/controllers/enemy/monsterexpansion/*_ai.dbr`.
+Manifest: `ai_coverage.ascended`. The **support role and broader
+rollout remain unimplemented** until the prototypes are tested in-game.
+Focused test: `python -m unittest discover -s tests -p test_ascended_ai.py`.
+**Configured on `dev`; native behavior has not been verified in game.**
+[AI1 notes, staged plan and in-game checklist](docs/ASCENDED_AI1_BEHAVIOR.md).
 
 ## 3. Player progression and game-wide quality-of-life
 
@@ -388,6 +409,7 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
 ## 9. Technical docs / further reference
 
 - [Tier rage: Elite and Ascended, scope/rollback](docs/TIER_RAGE.md)
+- [AI1 Ascended behavior prototypes and later rollout notes](docs/ASCENDED_AI1_BEHAVIOR.md)
 - [Tier combat ability ideas and feasibility for Codex](docs/TIER_ENCOUNTER_MECHANICS_IDEAS.md)
 - [Monster families and generation pipeline](docs/DATA_DRIVEN_FAMILIES.md)
 - [Elite discovery, selection and test](docs/ELITES.md);
