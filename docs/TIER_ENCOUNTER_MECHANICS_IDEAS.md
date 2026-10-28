@@ -1,11 +1,13 @@
 # MonsterExpansion — Tier Encounter Mechanics & Spawn Frequency Ideas
 
-**Status:** RAGE CONFIG/GENERATOR IMPLEMENTED (2026-10-27).
-User visually confirmed an Elite boar below 30% HP showing the red
-Last Stand effect. Rage now targets all compatible **custom Elite
-and Ascended** variants on `dev`, not original Hero records.
-The broad rollout awaits a local rebuild and multi-monster checks.
-All other mechanics and spawn-frequency changes remain ideas. Designed as a Codex
+**Status:** RAGE (TM1) AND CURATED ASCENDED ELEMENTAL COUNTERATTACKS
+(TM2) CONFIGURED/IMPLEMENTED IN GENERATOR (2026-10-27).
+User visually confirmed one Elite boar low-health rage; the wider rollout
+is not yet rebuilt or tested. TM2 uses six elemental on-hit profiles for
+36 *individual, audited Hero archetypes*, at 15% on-hit activation chance,
+8s cooldown and 3m radius, with no in-game build/test yet. Reinforcements
+(TM3) and spawn-frequency changes (TM4/5) remain proposals.
+See [ASCENDED_ELEMENTAL_RETALIATION.md](ASCENDED_ELEMENTAL_RETALIATION.md). Designed as a Codex
 handoff for the existing **`dev`** branch of `ben0kay/Ben_MonsterExpansion`.
 Never write to `main`. Follow the existing README and repository generators;
 keep tests focused and avoid lengthy full-suite runs unless requested.
@@ -50,7 +52,7 @@ Current tier definitions: `config/tiers.json`. Enabled snapshots: 148 Veterans,
 | Ascended rage | Same low-life template + existing aura FX | **IMPLEMENTED in generator/config** at the same 30%/12s/+15%/+10% as Elite; broad in-game compatibility still needs testing |
 | Veteran rage at 20% HP, ~20% spawn chance | Low-life template has threshold but **no explicit activation-chance field** in inspected template | **ON HOLD / not authorized**: user has shelved Veteran rage; retain feasibility note only, no implementation |
 | Elite calls Veteran reinforcements | `Skill_SpawnPet` with `petBurstSpawn`, `petLimit`, `spawnObjects` | **HIGH for normal summon / moderate–hard for low-HP gated summon**; faction, target, lifetime, limits, loot, XP, and recursive spawns need testing |
-| Elemental counterattack when struck | `Skill_OnHitAttackRadius`, `onHitActivationChance` | **HIGH / low–moderate** for a simple cooldown-limited proc; choose family-compatible FX/damage types |
+| Elemental counterattack when struck | `Skill_OnHitAttackRadius`, `onHitActivationChance` | **TM2 CONFIGURED** for 36 individual Ascended Hero archetypes at 15% chance/8s/3m across six elements. Build/gameplay not yet verified; other Hero elements excluded pending audit. |
 | +15% Champion-group chance | `proxypool.tpl` `championChance` field | **HIGH / moderate**: selectively multiply eligible nonzero pool chances by 1.15, clamp ≤100, preserve exclusions; note that this group also contains Heroes |
 | +10–15% Hero selection | `nameChampionN` includes both Champions and Heroes; weights are `weightChampionN` | **HIGH / moderate–hard**: raise **combined Hero+Ascended selection mass** relative to Champion+Elite, while preserving each Hero's original 67/33 split and group quotas |
 | More living Champion/Hero counts per encounter | `championMin`, `championMax` and their count equations | **CONDITIONAL / high regression risk**: can violate bounded-Hero quota proof. **Do not** casually raise `championMax` or global champion count equations. |
@@ -119,7 +121,7 @@ External corroboration (context, not a substitute for inspecting repo):
   individual spawn pools, deliberately skipping special pools:
   https://forums.crateentertainment.com/t/rel-increased-champion-spawns/35124
 
-## Proposed implementation architecture (nothing approved/built yet)
+## Implementation architecture (TM1/TM2 configured; later milestones proposed)
 
 ### TM0 — compatibility/prototype audit (must precede bulk implementation)
 
@@ -192,6 +194,19 @@ External corroboration (context, not a substitute for inspecting repo):
 
 ### TM2 — elemental retaliations
 
+**Current implementation:** `config/tiers.json` controls an independently
+reversible **15% per qualifying hit**, **8s cooldown**, **3m radius**
+`Skill_OnHitAttackRadius` clone for **36 exact source Hero archetypes**.
+Aether, Poison, Fire, Cold, Lightning, Chaos have distinct native radius FX
+and matching damage types. It skips monsters with native on-hit radius
+skills or no safe skill slot and reports coverage in the generated manifest.
+The 101 unmapped Ascended are intentionally unchanged. The generator/code
+and focused tests were committed to `dev`; the mod has **not yet
+been regenerated, compiled or validated in-game**. This is not a
+random chance to assign an ability at spawn, and it does not alter
+the low-health rage threshold. See the dedicated TM2 doc.
+
+**Earlier exploratory guidance (for future tuning/expansion):**
 - Reuse/clone `Skill_OnHitAttackRadius` for small appropriate attacks:
   Poison Nova for poisonous beasts, Aether burst for aetherials,
   Fire shockwave for fire-aligned monsters, etc. Derive compatible damage
@@ -339,7 +354,10 @@ External corroboration (context, not a substitute for inspecting repo):
    original one-Elite boar test was successful; new variants still
    need gameplay verification.
 3. **TM1b:** Veteran rage **shelved**. Do not implement without a new request.
-4. **TM2:** one on-hit elemental counterattack prototype on a chosen Elite.
+4. **TM2 (implemented in generator/config):** curated Ascended elemental
+   on-hit retaliation on 36 archetypes, not originally proposed Elite
+   blanket coverage. **Pending:** local validation, regen, F7 and
+   gameplay confirmation across six effects.
 5. **TM3:** one capped Elite→Veteran reinforcement prototype, then
    investigate low-life-specific gating.
 6. **TM4 (deferred):** audited optional +10–15% relative Champion-group chance across
@@ -349,18 +367,19 @@ External corroboration (context, not a substitute for inspecting repo):
 8. **TM6:** finish enable/disable switches, short regression coverage,
    documentation and in-game verification.
 
-**Current priority:** regenerate/stage/build the Elite and Ascended
-rage rollout and check representative different families at 30% HP.
-Only then consider TM2 (elemental retaliation) or TM3
-(capped summoning) separately. Veteran rage and Champion/Hero
-spawn-rate increases remain deferred. No original Hero
-override should be introduced.
+**Current priority:** validate/regenerate/stage/build both TM1 rage and
+TM2 Ascended elemental retaliation; confirm native on-hit FX/chance/damage
+and cooldown across representative archetypes. Only then consider TM3
+(capped summoning). Veteran rage and Champion/Hero spawn-rate
+increases remain deferred. No original Hero override should be introduced.
 
 ## Note for Codex
 
-TM1a is **implemented only for the identified Elite boar**.
-The remainder is a **design backlog**, not authorization to implement
-every milestone at once. Before editing, explain the selected milestone,
+TM1a is configured for all compatible Elite and Ascended variants;
+only the earlier single Elite boar rage was observed in-game. TM2 has been
+added for 36 audited Ascended Hero archetypes but has not been tested
+in-game. TM3–TM5 remain design proposals, not authorization to
+implement every milestone at once. Before editing, explain the selected milestone,
 current repo state, affected records, which mechanics are confirmed
 versus hypothetical, and minimal test plan. Use `dev` only, push
 there, and leave `main` intact.
