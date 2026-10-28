@@ -461,6 +461,87 @@ class PlayerSkillTests(unittest.TestCase):
                              DBR.from_file(resolve(name, gen.REFERENCE)).render())
             self.assertFalse(next(item["changed"] for item in report if item["record"] == name))
 
+    def test_demolition_first_pass_preserves_native_fields_and_rank_curves(self):
+        factors = {
+            "stunjacks1": {"projectileExplosionRadius": 1.10},
+            "stunjacks2": {},
+            "flamestrike2": {"skillTargetRadius": 1.10},
+            "grenado1": {"projectileExplosionRadius": 1.10},
+            "canisterbomb1": {"projectileExplosionRadius": 1.10},
+            "canisterbomb2": {"explosionRadius": 1.10},
+            "blackwater1": {
+                "projectileExplosionRadius": 1.12,
+                "skillActiveDuration": 1.10,
+            },
+            "flashbang1": {"projectileExplosionRadius": 1.10},
+        }
+        entries = {
+            item["record"]: item for item in self.settings["records"]
+            if item["record"].startswith("records/skills/playerclass02/")
+        }
+        self.assertEqual(
+            set(entries),
+            {f"records/skills/playerclass02/{name}.dbr" for name in factors},
+        )
+        for name, multipliers in factors.items():
+            path = f"records/skills/playerclass02/{name}.dbr"
+            entry = entries[path]
+            native = DBR.from_file(resolve(path, gen.REFERENCE))
+            modified = self.record(f"playerclass02/{name}.dbr")
+            expected = DBR.from_file(resolve(path, gen.REFERENCE))
+            changed = set(entry["set"]) | set(entry["curves"])
+            for field in changed:
+                expected.set(field, modified.get(field))
+            with self.subTest(skill=name):
+                self.assertEqual(modified.render(), expected.render())
+                for field, multiplier in multipliers.items():
+                    before = list(map(float, native.get(field).split(";")))
+                    after = list(map(float, modified.get(field).split(";")))
+                    self.assertEqual(len(before), len(after))
+                    for old, new in zip(before, after):
+                        self.assertAlmostEqual(new, old * multiplier, places=5)
+
+        full_spread = self.record("playerclass02/stunjacks2.dbr")
+        old_spread = DBR.from_file(resolve(
+            "records/skills/playerclass02/stunjacks2.dbr", gen.REFERENCE))
+        old_counts = list(map(int, old_spread.get("projectileLaunchNumber").split(";")))
+        new_counts = list(map(int, full_spread.get("projectileLaunchNumber").split(";")))
+        self.assertEqual(len(old_counts), 22)
+        self.assertEqual([n - o for o, n in zip(old_counts, new_counts)],
+                         [0] * 13 + [1] * 9)
+        self.assertEqual(new_counts[-1], 6)
+
+        canister_path = "records/skills/playerclass02/canisterbomb1.dbr"
+        original = DBR.from_file(resolve(canister_path, gen.REFERENCE))
+        improved = self.record("playerclass02/canisterbomb1.dbr")
+        for field in ("projectileFragmentsLaunchNumberMin",
+                      "projectileFragmentsLaunchNumberMax"):
+            old = list(map(int, original.get(field).split(";")))
+            new = list(map(int, improved.get(field).split(";")))
+            self.assertEqual(len(old), 22)
+            self.assertEqual([n - o for o, n in zip(old, new)],
+                             [0] * 7 + [1] * 10 + [2] * 5)
+        mins = list(map(int, improved.get("projectileFragmentsLaunchNumberMin").split(";")))
+        maxs = list(map(int, improved.get("projectileFragmentsLaunchNumberMax").split(";")))
+        self.assertTrue(all(low <= high for low, high in zip(mins, maxs)))
+        self.assertEqual((mins[0], maxs[0], mins[-1], maxs[-1]),
+                         (4, 6, 11, 13))
+        self.assertEqual(improved.get("skillProjectileNumber"),
+                         original.get("skillProjectileNumber"))
+
+    def test_demolition_first_pass_individual_rollback(self):
+        for skill in ("stunjacks2", "canisterbomb1", "blackwater1"):
+            name = f"records/skills/playerclass02/{skill}.dbr"
+            with self.subTest(skill=skill):
+                settings = copy.deepcopy(self.settings)
+                next(e for e in settings["records"]
+                     if e["record"] == name)["enabled"] = False
+                files, report = build_skills(settings, gen.REFERENCE)
+                original = DBR.from_file(resolve(name, gen.REFERENCE))
+                self.assertEqual(files[Path("database") / name], original.render())
+                self.assertFalse(next(e["changed"] for e in report
+                                      if e["record"] == name))
+
     def test_disable_restores_exact_sources(self):
         settings = copy.deepcopy(self.settings)
         settings["enabled"] = False
