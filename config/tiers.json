@@ -156,7 +156,21 @@
                 "aetherialfleshshaper_h04",
                 "zombiehound_h01",
                 "zombiehound_h03",
-                "zombiehound_h04"
+                "zombiehound_h04",
+                "boar_h05",
+                "bonerat_melee_h06",
+                "fleshhulk_h02",
+                "fleshhulk_h03",
+                "human_ascended_h02",
+                "human_possessed_h01",
+                "human_possessed_h02",
+                "human_possessed_h04",
+                "human_possessed_h05",
+                "mosquitogiant_h04",
+                "vulture_h04",
+                "waspgiant_h06",
+                "worm_h04",
+                "yetiswamp_h04"
               ]
             },
             "poison": {
@@ -167,7 +181,29 @@
                 "zombiehound_h02",
                 "prawn_h03",
                 "rifthound_h02",
-                "thornedhorror_h04"
+                "thornedhorror_h04",
+                "boar_h04",
+                "bonerat_melee_h01",
+                "bonerat_ranged_h01",
+                "groblesand_h01",
+                "harvestman_h02",
+                "mummy_h01",
+                "spider_cave_h02",
+                "spider_cave_h03",
+                "spider_h02",
+                "spider_h03",
+                "spider_h04",
+                "spider_h05",
+                "spider_h06",
+                "vulture_h02",
+                "waspgiant_h02",
+                "waspgiant_h03",
+                "waspgiant_h04",
+                "worm_h01",
+                "worm_h03",
+                "yetiswamp_h01",
+                "yetiswamp_h02",
+                "zombie_h01"
               ]
             },
             "fire": {
@@ -178,7 +214,17 @@
                 "aetherialfleshshaper_h01",
                 "prawn_h05",
                 "rifthound_h01",
-                "rifthound_h04"
+                "rifthound_h04",
+                "boar_h03",
+                "eldritcharmor_h01",
+                "eldritcharmor_h02",
+                "golemrock_h02",
+                "groblesand_h02",
+                "gryphonstone_h01",
+                "human_ascended_h01",
+                "human_korvaak_h01",
+                "mummy_h03",
+                "spider_h01"
               ]
             },
             "cold": {
@@ -191,7 +237,14 @@
                 "yeti_h02",
                 "yeti_h03",
                 "yeti_h04",
-                "thornedhorror_h06"
+                "thornedhorror_h06",
+                "bonerat_melee_h05",
+                "golemrock_h05",
+                "gryphon_h01",
+                "human_ascended_h04",
+                "human_possessed_h03",
+                "mummy_h02",
+                "waspgiant_h05"
               ]
             },
             "lightning": {
@@ -205,7 +258,12 @@
                 "gazer_h01",
                 "gazer_h03",
                 "gazer_h04",
-                "gazer_h05"
+                "gazer_h05",
+                "human_ascended_h03",
+                "human_korvaak_h02",
+                "mosquitogiant_h02",
+                "rifthound_h06",
+                "worm_h02"
               ]
             },
             "chaos": {
@@ -216,7 +274,78 @@
                 "prawncave_h01",
                 "rifthound_h03",
                 "gazer_h02",
-                "thornedhorror_h01"
+                "thornedhorror_h01",
+                "boar_h06",
+                "golemrock_h06",
+                "mosquitogiant_h05",
+                "raptor_h03",
+                "raptor_h06",
+                "spider_cave_h01",
+                "vulture_h05",
+                "waspgiant_h07",
+                "worm_h05"
+              ]
+            },
+            "vitality": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass01/counterstrikevitality1_fxpak.dbr",
+              "hero_stems": [
+                "aetherialcolossus_h03",
+                "aetherialcorruption_h02",
+                "groblesand_h03",
+                "gryphon_h02",
+                "harvestman_h01",
+                "human_wendigo_h01",
+                "human_wendigo_h02",
+                "human_wendigo_h04",
+                "raptor_h01",
+                "raptor_h02",
+                "yetiswamp_h03"
+              ]
+            },
+            "physical": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass01/warcry1_radius_fxpak01.dbr",
+              "hero_stems": [
+                "boar_h01",
+                "boar_h02",
+                "bonerat_melee_h04",
+                "fleshhulk_h01",
+                "golemrock_h01",
+                "golemrock_h03",
+                "groblesand_h04",
+                "gryphon_h04",
+                "raptor_h04",
+                "raptor_h05",
+                "thornedhorror_h03",
+                "thornedhorror_h05",
+                "vulture_h03"
+              ]
+            },
+            "pierce": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass04/ringofsteel1_radius_fxpak01.dbr",
+              "hero_stems": [
+                "bonerat_melee_h02",
+                "mosquitogiant_h03",
+                "thornedhorror_h02"
+              ]
+            },
+            "bleeding": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass04/bladespirit_showerofblades_radius_fxpak01.dbr",
+              "hero_stems": [
+                "harvestman_h03",
+                "harvestman_h04",
+                "mosquitogiant_h01",
+                "vulture_h01"
+              ]
+            },
+            "elemental": {
+              "source_skill_record": "records/skills/nonplayerskills/passivelyactivated/aetherobelisk_vindictiveaether.dbr",
+              "radius_effect_record": "records/fx/skillclass03/elementalblast1_radius_fxpak01.dbr",
+              "hero_stems": [
+                "human_wendigo_h03"
               ]
             }
           }
