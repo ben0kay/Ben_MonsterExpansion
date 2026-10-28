@@ -7,8 +7,8 @@ original enemy skill remain untouched. Existing Ascended rage remains independen
 ## Why the chance is real
 
 The native `Skill_OnHitAttackRadius` class supports `onHitActivationChance`.
-This means a **15% chance on each qualifying hit while the skill is available**;
-it does **not** mean 15% of Ascended spawns receive a skill, and it is **not**
+This means a **10% chance on each qualifying hit while the skill is available**;
+it does **not** mean 10% of Ascended spawns receive a skill, and it is **not**
 a probability on the separate low-health rage trigger. The cooldown limits
 repeat activations. Precise handling of damage-over-time, blocked hits and
 cooldown timing still needs in-game testing.
@@ -17,7 +17,7 @@ cooldown timing still needs in-game testing.
 
 - All **curated** Ascended Hero archetypes receive one compatible on-hit retaliation
   skill if they have a free skill slot and no native on-hit radius passive.
-- `activation_chance_percent = 15`, `cooldown_seconds = 8`,
+- `activation_chance_percent = 10`, `cooldown_seconds = 8`,
   `radius_meters = 3`.
 - Rank `charLevel/4+1`; original 60-rank native damage curve is retained,
   moved to the correct element field where appropriate. Conservative balance
