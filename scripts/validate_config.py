@@ -164,7 +164,9 @@ def check_configs(reference_root=None, repo=REPO):
                             and low <= value <= high, "Invalid retaliation " + key)
                 profiles = retaliation["profiles"]
                 require(isinstance(profiles, dict) and bool(profiles) and
-                        set(profiles) <= {"aether", "poison", "fire", "cold", "lightning", "chaos"},
+                        set(profiles) <= {"aether", "poison", "fire", "cold", "lightning",
+                                         "chaos", "vitality", "physical", "pierce",
+                                         "bleeding", "elemental"},
                         "Unsupported elemental retaliation profile")
                 seen_names = set()
                 for element, settings in profiles.items():
