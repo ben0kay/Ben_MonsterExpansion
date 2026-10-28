@@ -1,6 +1,9 @@
 # AI1 — Smarter custom enemy controllers
 
-**Plan recorded 2026-10-28, before implementation.**
+**Plan recorded 2026-10-28 and committed before any code changes.**
+**AI1a status:** implemented in config/generator with focused tests on `dev`;
+not yet run locally, compiled or gameplay verified.
+**AI1b status:** future proposal only; no general rollout.
 **Branch:** `dev` only. Treat reference DBRs as read-only.
 
 ## Goal
@@ -40,7 +43,7 @@ scripted AI or a promise of flanking / coordinated tactics.
 
 ## Implementation gates
 
-### AI1a — small prototype (authorized now)
+### AI1a — small prototype (configured/implemented; awaiting local tests)
 
 - Scope **only two exact Ascended source Hero stems**:
   `boar_h01` (aggressive) and `gazer_h01` (evasive).
@@ -62,9 +65,10 @@ scripted AI or a promise of flanking / coordinated tactics.
   (under Ascended prototype), and deterministic named Hero/profile lists.
 - Fail closed on missing/unexpected source controller or properties,
   duplicate assignments or output collisions.
-- Focused tests: exact target/clone mapping, controller template,
-  changed values, unmodified original fields and skills, off switch,
-  no unintended changes to other variants, no source-Hero overrides.
+- Focused tests (`tests/test_ascended_ai.py`): exact target/clone mapping,
+  controller template, changed values, unmodified original fields and
+  skills, off switch, no unintended changes to other variants, no
+  source-Hero overrides, unsafe-delta rejection and manifest coverage.
 - Regenerate/stage/build manually. **No claim of runtime compatibility
   until the user sees the behavior in Grim Dawn.**
 
@@ -78,6 +82,20 @@ scripted AI or a promise of flanking / coordinated tactics.
   add controlled target/retreat changes only after verifying efficacy.
 - Roll out to compatible Ascended variants with a coverage/skip report.
 - Consider custom Elite profiles only after a separate decision.
+
+## Generated outputs and coverage
+
+The feature is in `config/tiers.json` → `tiers[id=ascended].prototype.smart_ai`.
+`profiles[role].hero_stems` provides exact native Hero file stems;
+`adjustments` supplies the approved additive per-field values. The two
+chosen sources are `boar_h01` and `gazer_h01`. Generated controllers are
+at `records/controllers/enemy/monsterexpansion/<family>_<variant>_ai.dbr`.
+Generator reports `ai_coverage.ascended` (mapped, attached, unmapped,
+by_profile) in `generated/MonsterExpansion/manifest.json`.
+
+**The source Hero controller is always preserved**. A missing native field,
+invalid controller template, or out-of-range adjusted value must fail the
+build, not silently rewrite the game's original controller.
 
 ## Compatibility & rollback
 
