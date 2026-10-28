@@ -207,8 +207,8 @@ These changes are DBR generation/build settings, **not live sliders**.
 
 `config/player_skills.json` contains reversible, **rank-aware** overrides,
 using the effective game DBR fields rather than flattening rank curves.
-It covers Nightblade, Occultist, Arcanist and shared pets (not a universal
-buff to every mastery). All **13 exclusive-skill flags found in the
+It covers Nightblade, Occultist, Arcanist, targeted Demolitionist skills,
+and shared pets (not a universal buff to every mastery). All **13 exclusive-skill flags found in the
 uploaded masteries** were cleared for the intended stacking behaviour;
 actual in-game interactions still need testing.
 
@@ -264,6 +264,23 @@ mastery remains separately available.
   Dreeg is a sustained toggle. Other pet abilities not explicitly
   configured remain vanilla.
 
+### Demolitionist (first pass — configured, not yet tested)
+
+- **Canister Bomb** gains **+10% main explosion radius** and small
+  *rank-gated* fragment increases: unchanged at ranks 1–7; +1 min/max
+  fragments at ranks 8–17; +2 at ranks 18–22. Native **4–6** fragments
+  at rank 1 become **11–13** at rank 22 (original rank-22 **9–11**).
+  **Improved Casing** increases each original explosion-radius rank by 10%.
+- **Stun Jacks** explosion radius rises 10%; **Full Spread** adds one
+  additional projectile from ranks 14–22 (6 at rank 22, from 5).
+- **Explosive Strike** and **Grenado** get +10% radius;
+  **Flashbang** gets +10% area radius; **Blackwater Cocktail** gains
+  +12% radius and +10% duration at every rank.
+- No Demolitionist damage curves, cooldowns, Thermite Mine or Mortar Trap
+  counts, or defensive skills were changed. All eight changed records
+  retain reversible overrides; tests are committed but not run and the
+  pass has not been generated, F7-built or checked in-game.
+
 ### Arcanist
 
 - **Aether Ray**: beam range **16 → 22** and thickness **1.25 → 2**;
@@ -283,7 +300,8 @@ These mastery changes are intended to be **playable rather than
 overpowered**. Details, actual field names and untouched skills:
 [Nightblade](docs/NIGHTBLADE_BALANCE.md),
 [Nightblade skeleton layout](docs/NIGHTBLADE_SKELETONS_BUILD.md),
-[Occultist/Arcanist and pet tuning](docs/PLAYER_SKILLS.md).
+[Occultist/Arcanist and pet tuning](docs/PLAYER_SKILLS.md),
+[Demolitionist first-pass balance](docs/DEMOLITIONIST_BALANCE.md).
 
 ## 5. Verified in game vs configured only
 
