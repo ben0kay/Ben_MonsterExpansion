@@ -1478,6 +1478,82 @@
           "multiplier": 1.15
         }
       }
+    },
+    {
+      "record": "records/skills/playerclass02/stunjacks1.dbr",
+      "set": {},
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass02/stunjacks2.dbr",
+      "set": {
+        "projectileLaunchNumber": "1;1;1;1;2;2;2;2;2;3;3;3;3;4;4;4;5;5;5;5;5;6"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass02/flamestrike2.dbr",
+      "set": {},
+      "curves": {
+        "skillTargetRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass02/grenado1.dbr",
+      "set": {},
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass02/canisterbomb1.dbr",
+      "set": {
+        "projectileFragmentsLaunchNumberMin": "4;4;5;5;5;6;6;7;8;8;8;9;9;9;9;9;9;11;11;11;11;11",
+        "projectileFragmentsLaunchNumberMax": "6;6;7;7;7;8;8;9;10;10;10;11;11;11;11;11;11;13;13;13;13;13"
+      },
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass02/canisterbomb2.dbr",
+      "set": {},
+      "curves": {
+        "explosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass02/blackwater1.dbr",
+      "set": {},
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.12
+        },
+        "skillActiveDuration": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass02/flashbang1.dbr",
+      "set": {},
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
     }
   ]
 }
