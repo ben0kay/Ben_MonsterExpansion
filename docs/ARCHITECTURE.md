@@ -15,9 +15,10 @@ The build-time pipeline is:
 8. Compile/install manually with Asset Manager and record in-game results.
 
 Tier JSON is tooling input; Grim Dawn reads generated DBRs, not JSON at runtime.
-Ascended TM2 uses exact reviewed native Hero record stems (not species-wide
+Ascended TM2 covers 135 of 137 exact reviewed native Hero record stems (not species-wide
 substring guesses) in `config/tiers.json`, cloning a native
-`Skill_OnHitAttackRadius` with 10% on-hit activation and elemental FX.
+`Skill_OnHitAttackRadius` with 10% on-hit activation and eleven themed damage/FX profiles.
+The two Cave Prawns with native Poison Nova are intentionally excluded.
 Each actor gets at most one new retaliation skill; existing native on-hit
 radius skills and full ordinary skill slots are skipped. The deterministic
 manifest includes `retaliation_coverage.ascended`; see
