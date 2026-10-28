@@ -149,6 +149,58 @@ def check_configs(reference_root=None, repo=REPO):
                     require(effect_path.is_file() and not effect_path.is_symlink() and
                             dbr_values(effect_path).get("templateName") == "database/templates/effect.tpl",
                             "Rage aura must be an existing effect DBR")
+            retaliation = proto.get("elemental_retaliation")
+            if retaliation is not None:
+                allowed = {"enabled", "activation_chance_percent", "cooldown_seconds",
+                           "radius_meters", "profiles"}
+                require(tier["id"] == "ascended" and isinstance(retaliation, dict) and
+                        set(retaliation) == allowed and type(retaliation["enabled"]) is bool,
+                        "Elemental retaliation must be Ascended-only with explicit settings")
+                for key, low, high in (("activation_chance_percent", 1, 100),
+                                       ("cooldown_seconds", 1, 600),
+                                       ("radius_meters", 0.5, 10)):
+                    value = retaliation[key]
+                    require(type(value) in (float, int) and math.isfinite(value)
+                            and low <= value <= high, "Invalid retaliation " + key)
+                profiles = retaliation["profiles"]
+                require(isinstance(profiles, dict) and bool(profiles) and
+                        set(profiles) <= {"aether", "poison", "fire", "cold", "lightning", "chaos"},
+                        "Unsupported elemental retaliation profile")
+                seen_names = set()
+                for element, settings in profiles.items():
+                    require(isinstance(settings, dict) and
+                            set(settings) == {"source_skill_record", "radius_effect_record",
+                                              "monster_basenames"},
+                            "Invalid " + element + " retaliation profile")
+                    names = settings["monster_basenames"]
+                    require(isinstance(names, list) and bool(names) and
+                            all(isinstance(name, str) and
+                                re.fullmatch(r"[a-z][a-z0-9_]*", name) for name in names) and
+                            len(set(names)) == len(names) and
+                            not (set(names) & seen_names),
+                            "Retaliation species must be explicit, unique and non-overlapping")
+                    seen_names.update(names)
+                    source_name = settings["source_skill_record"]
+                    effect_name = settings["radius_effect_record"]
+                    require(source_name.startswith("records/skills/nonplayerskills/") and
+                            effect_name.startswith("records/fx/"),
+                            "Retaliation source/FX path must be in native namespaces")
+                    source = reference_path(source_name, root)
+                    effect = reference_path(effect_name, root)
+                    if reference_root is not None:
+                        require(source.is_file() and not source.is_symlink() and
+                                dbr_values(source).get("templateName") ==
+                                "database/templates/skill_onhitattackradius.tpl" and
+                                dbr_values(source).get("Class") == "Skill_OnHitAttackRadius",
+                                "Retaliation source must be a native on-hit radius skill")
+                        require(effect.is_file() and not effect.is_symlink() and
+                                dbr_values(effect).get("templateName") ==
+                                "database/templates/fxpak.tpl",
+                                "Retaliation source FX must be a native FX pack")
+                        damage_field = ("offensivePoisonMin" if element == "poison"
+                                        else "offensiveAetherMin")
+                        require(";" in dbr_values(source).get(damage_field, ""),
+                                "Retaliation damage source must have a native rank curve")
             if "natural_spawns" in proto:
                 value = proto["natural_spawns"].get("conversion_share", proto["natural_spawns"].get("common_conversion_share"))
                 require(type(value) in (int, float) and math.isfinite(value) and 0 < value < .5,
