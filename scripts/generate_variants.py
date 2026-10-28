@@ -194,6 +194,106 @@ def build_low_health_rage(monster, prototype, family_id, variant_id, prefix):
 
 
 
+# Deliberately curated monster-source basenames select the elemental identity;
+# this is an on-hit PROC probability, not a random chance to spawn the skill.
+RETALIATION_DAMAGE_FIELDS = {
+    "aether": "offensiveAetherMin",
+    "poison": "offensivePoisonMin",
+    "fire": "offensiveFireMin",
+    "cold": "offensiveColdMin",
+    "lightning": "offensiveLightningMin",
+    "chaos": "offensiveChaosMin",
+}
+
+
+def retaliation_element(source_record, config):
+    """Match an exact native Hero species, never a substring or arbitrary faction."""
+    match = re.fullmatch(r"(.+)_h\\d+[a-z]?", Path(source_record).stem)
+    if not match:
+        return None
+    basename = match.group(1)
+    for element, profile in config["profiles"].items():
+        if basename in profile["monster_basenames"]:
+            return element
+    return None
+
+
+def has_native_onhit_radius(monster):
+    """Avoid a duplicate reactive-radius skill on parents that already have one."""
+    for index in range(1, 61):
+        key = f"skillName{index}"
+        if not monster._locations(key):
+            continue
+        record = monster.get(key)
+        if not record.startswith("records/skills/") or not record.endswith(".dbr"):
+            continue
+        source = reference_path(record, REFERENCE)
+        if source.is_file():
+            skill = DBR.from_file(source)
+            if (skill._locations("templateName") and
+                    skill.get("templateName") == "database/templates/skill_onhitattackradius.tpl"):
+                return True
+    return False
+
+
+def set_or_append(dbr, key, value):
+    """Set a native template field, adding it only when the reference omits it."""
+    if dbr._locations(key):
+        dbr.set(key, value)
+    else:
+        if dbr.lines and not dbr.lines[-1].endswith("\\n"):
+            dbr.lines[-1] += "\\n"
+        dbr.lines.append(f"{key},{value},\\n")
+
+
+def build_elemental_retaliation(monster, proto, source_record, prefix):
+    """Clone a real on-hit radius skill for a curated Ascended elemental type."""
+    config = proto.get("elemental_retaliation")
+    if not config or not config["enabled"]:
+        return {}
+    element = retaliation_element(source_record, config)
+    if element is None or has_native_onhit_radius(monster):
+        return {}
+    slot = next((n for n in range(1, 61)
+                 if not monster._locations(f"skillName{n}") and
+                 not monster._locations(f"skillLevel{n}")), None)
+    if slot is None:
+        return {}
+    profile = config["profiles"][element]
+    skill = read_game_dbr(profile["source_skill_record"])
+    fail_unless(skill.get("templateName") == "database/templates/skill_onhitattackradius.tpl"
+                and skill.get("Class") == "Skill_OnHitAttackRadius",
+                "Retaliation source must be a native on-hit radius skill")
+    effect = read_game_dbr(profile["radius_effect_record"])
+    fail_unless(effect.get("templateName") == "database/templates/fxpak.tpl",
+                "Retaliation radius effect must be a native FX pack")
+    # Native Prawn supplies Poison damage; native Aether Obelisk supplies
+    # Aether damage. For other elements MOVE (not duplicate) the Aether damage
+    # rank series to the appropriate real offensive*Min field, keeping original
+    # level scaling. The radius particle is a matching native element FX pack.
+    source_field = ("offensivePoisonMin" if element == "poison"
+                    else "offensiveAetherMin")
+    target_field = RETALIATION_DAMAGE_FIELDS[element]
+    if source_field != target_field:
+        series = skill.get(source_field)
+        fail_unless(";" in series and all(float(x) > 0 for x in series.split(";")),
+                    "Retaliation source lacks a damage rank curve")
+        skill.set(source_field, "0.000000")
+        set_or_append(skill, target_field, series)
+    skill.set("onHitActivationChance", f"{config['activation_chance_percent']:.6f}")
+    skill.set("skillCooldownTime", f"{config['cooldown_seconds']:.6f}")
+    skill.set("skillTargetRadius", f"{config['radius_meters']:.6f}")
+    skill.set("radiusEffectName", profile["radius_effect_record"])
+    set_or_append(skill, "FileDescription",
+                  "MonsterExpansion Ascended " + element + " on-hit counterattack")
+    record = f"records/skills/nonplayerskills/monsterexpansion/{prefix}_retaliation.dbr"
+    set_or_append(monster, f"skillName{slot}", record)
+    set_or_append(monster, f"skillLevel{slot}", "charLevel/4+1")
+    return {game_location(record): skill.render()}
+
+
+
+
 def display_tag(family, variant):
     return f"tagBME_{family['id']}_{variant['id']}"
 
@@ -271,9 +371,11 @@ def build_variant(family, variant, tier):
 
     aura_files = build_cosmetic_aura(monster, proto, prefix, tier["name"])
     rage_files = build_low_health_rage(monster, proto, fid, variant["id"], prefix)
+    retaliation_files = build_elemental_retaliation(monster, proto, source_record, prefix)
     result = {
         **aura_files,
         **rage_files,
+        **retaliation_files,
         game_location(target_monster): monster.render(),
         game_location(bio_record): bio.render(),
         game_location(damage_record): damage.render(),
@@ -287,6 +389,9 @@ def build_plan(families, tier_by_id, include_spawns=False):
     rage_coverage = {tier: {"targeted": 0, "attached": 0,
                             "inherited_low_health": 0, "no_free_slot": 0}
                      for tier in ("elite", "ascended")}
+    retaliation_coverage = {"ascended": {"mapped": 0, "attached": 0, "native_onhit": 0,
+                                          "no_free_slot": 0, "unmapped": 0,
+                                          "by_element": {}}}
     pool_mappings = {}
     def merge(records):
         fail_unless(not set(files) & set(records), "Duplicate generated output path")
@@ -313,6 +418,24 @@ def build_plan(families, tier_by_id, include_spawns=False):
                         coverage["inherited_low_health"] += 1
                     else:
                         coverage["no_free_slot"] += 1
+            if variant["tier"] == "ascended":
+                settings = tier["prototype"].get("elemental_retaliation")
+                if settings and settings["enabled"]:
+                    report = retaliation_coverage["ascended"]
+                    element = retaliation_element(variant["source_record"], settings)
+                    if element is None:
+                        report["unmapped"] += 1
+                    else:
+                        report["mapped"] += 1
+                        report["by_element"][element] = report["by_element"].get(element, 0) + 1
+                        skill_record = ("records/skills/nonplayerskills/monsterexpansion/"
+                                        + family["id"] + "_" + variant["id"] + "_retaliation.dbr")
+                        if game_location(skill_record) in output:
+                            report["attached"] += 1
+                        elif has_native_onhit_radius(read_game_dbr(variant["source_record"])):
+                            report["native_onhit"] += 1
+                        else:
+                            report["no_free_slot"] += 1
             label = display_text(variant, tier)
             if label is not None:
                 tag = display_tag(family, variant)
@@ -336,6 +459,7 @@ def build_plan(families, tier_by_id, include_spawns=False):
                 "include_spawns": include_spawns, "variants": variants, "pools": pools,
                 "text_source": TEXT_SOURCE.as_posix() if tags else None,
                 "rage_coverage": rage_coverage,
+                "retaliation_coverage": retaliation_coverage,
                 "files": sorted(p.as_posix() for p in files),
                 "notes": ["Variant runtime flags default to unverified; see docs for existing boar evidence.",
                           "Pool conversion shares apply only to mapped entries within their own selection groups.",
