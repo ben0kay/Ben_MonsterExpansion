@@ -1,104 +1,113 @@
-# TM2 — Ascended elemental on-hit counterattacks
+# TM2 — Ascended chance-on-hit themed retaliation
 
-**Status: configured and committed on `dev`, NOT yet generated/compiled or verified in-game.**
-Only custom Ascended actors are targets. Original Heroes, Elites, Veterans and every
-original enemy skill remain untouched. Existing Ascended rage remains independent.
+**Status (2026-10-28): configured and committed on `dev`; needs a local
+generator/build and in-game verification.** This feature alters generated
+custom Ascended monsters only, never vanilla Heroes or other tiers.
+Existing Elite/Ascended low-health rage remains independent.
 
-## Why the chance is real
+## Native Cave Prawn exclusions
 
-The native `Skill_OnHitAttackRadius` class supports `onHitActivationChance`.
-This means a **10% chance on each qualifying hit while the skill is available**;
-it does **not** mean 10% of Ascended spawns receive a skill, and it is **not**
-a probability on the separate low-health rage trigger. The cooldown limits
-repeat activations. Precise handling of damage-over-time, blocked hits and
-cooldown timing still needs in-game testing.
+`prawncave_h02` (Chiricrix, Frozen) and `prawncave_h03`
+(Blucrix, Defender) already inherit the native
+`prawn_poisonnova_onhit01.dbr` skill (`Skill_OnHitAttackRadius`).
+**Do not change or duplicate those attacks.** Their natural native
+chance/cooldown remain untouched. They are intentionally not in the new
+retaliation mapping.
 
-## Current tuning
+## Activation and tuning
 
-- All **curated** Ascended Hero archetypes receive one compatible on-hit retaliation
-  skill if they have a free skill slot and no native on-hit radius passive.
-- `activation_chance_percent = 10`, `cooldown_seconds = 8`,
-  `radius_meters = 3`.
-- Rank `charLevel/4+1`; original 60-rank native damage curve is retained,
-  moved to the correct element field where appropriate. Conservative balance
-  and high-level scaling have not yet been observed in-game.
-- Original `Skill_OnHitAttackRadius` records are cloned into
-  `records/skills/nonplayerskills/monsterexpansion/*_retaliation.dbr`.
-  Native FX packs supply element-matched radius visuals. **No base files
-  are edited.**
-- The original Prawn Poison Nova supplies Poison. The Aether Obelisk
-  Vindictive Aether supplies Aether; Fire, Cold, Lightning and Chaos use
-  its rank curve *moved* to the corresponding damage field, together with
-  a matching vanilla radius FX pack. Those four combinations are **new,
-  unverified gameplay compositions**, not claims of existing vanilla skills.
+- All *mapped, compatible* Ascended get **one** new themed on-hit
+  radius counterattack via an unused `skillNameN/skillLevelN` slot.
+- Shared `onHitActivationChance=10` is **a 10% chance per qualifying
+  incoming hit while ready**, not a spawn chance and not a low-HP roll.
+- Shared `skillCooldownTime=8` seconds reduces proc spam;
+  shared `skillTargetRadius=3` meters makes a close-range burst.
+  Multi-hit, DoT, damage and cooldown behavior need gameplay checks.
+- Rank `charLevel/4+1` keeps a native 60-rank damage curve. The
+  ordinary source is the native Aether Obelisk on-hit radius skill;
+  Poison uses the native Prawn Poison Nova curve. All clone changes
+  use existing DBR fields and source FX packs, without modifying
+  reference or vanilla Hero records.
+- The five expanded profiles use the native damage fields:
+  `offensiveLifeMin` (Vitality),
+  `offensivePhysicalMin` (Physical),
+  `offensivePierceMin` (Pierce);
+  Bleeding has 25% of the source curve as physical impact + 50% as
+  `offensiveSlowBleedingMin` over 2 seconds; mixed Elemental splits
+  the source curve equally between Fire, Cold and Lightning.
+  These are **proposed conservative starting values**; final actual
+  damage, bleed timing and animation/FX suitability need testing.
 
-## Curated individual-Hero mapping
+## Exact Hero mapping
 
-| Element | Example matched Hero archetypes | Mapped variants |
+An exact `hero_stems` allowlist was reviewed against the original
+Hero description and skill names. Each Hero belongs to **at most one**
+profile; same species can have different elements (e.g. Electrified
+boar is not treated as a Burning boar).
+
+| Theme | Native visual concept | Mapped custom Ascended |
 | --- | --- | ---: |
-| Aether | Arcane/Timewarped Aetherials, Aether Zombie Hounds | 6 |
-| Poison | Diseased Aetherial, Plague Hound, toxic Prawn, Diseased Thorned Horror | 5 |
-| Fire | Burning Aetherials, fire Rift Hounds, Burning Prawn | 5 |
-| Cold | Coldheart/Frozen Aetherials, frost Yetis, Frozen Thorned Horror | 7 |
-| Lightning | Electrified Aetherials and Prawns, lightning Gazers | 8 |
-| Chaos | Chaos Prawn, Cave Prawn, Rift Hound, Gazer and Thorned Horror | 5 |
-| **Total** | **36 of 137 configured Ascended Hero variants** | **36** |
+| Aether | Arcane blast | 20 |
+| Poison/Acid | Poison Nova | 27 |
+| Fire | Fire tempest | 15 |
+| Cold | Ice tempest | 14 |
+| Lightning | Lightning tempest | 13 |
+| Chaos | Chaos tempest | 14 |
+| Vitality | Vitality counterstrike | 11 |
+| Physical | War Cry impact/shockwave | 13 |
+| Pierce | Ring of Steel burst | 3 |
+| Bleeding | Shower of Blades burst | 4 |
+| Mixed Elemental | Elemental blast (Fire/Cold/Lightning) | 1 |
+| **Total configured** | **36 earlier + 99 newly assigned** | **135 of 137** |
 
-The allowlist uses **exact Hero source record stems**, e.g.
-`aetherialcolossus_h01` (Electrified → Lightning) and
-`aetherialcolossus_h02` (Burning → Fire); matching all
-`aetherialcolossus` as Aether would be incorrect. Explicitly unmatched
-Vampiric, physical-only and other ambiguous Hero archetypes are left alone.
+**Excluded:** exactly two native Cave Prawns, left unchanged.
 
-These are **configured matches, not guaranteed assignments**.
-The generator skips an actor when it inherits a native on-hit radius
-ability or has no vacant ordinary skill slot, reporting the outcome in
+**Configured ≠ guaranteed attached.** The generator preserves inherited
+on-hit radius attacks and skips a monster with no spare ordinary skill
+slot, logging all outcomes under
 `generated/MonsterExpansion/manifest.json` ->
 `retaliation_coverage.ascended` (`mapped`, `attached`,
 `native_onhit`, `no_free_slot`, `unmapped`, `by_element`).
-The remaining 101 are intentionally unmapped until their actual elemental
-identity and compatible effects are reviewed. Do not infer an element
-blindly from every monster filename, or add several reactive skills to
-one Hero.
+A native on-hit radius skill discovered on any other original Hero
+is preserved instead of overwritten or doubled.
 
-## Config/rollback
+## Configuration and rollback
 
 `config/tiers.json` ->
 `tiers[id=ascended].prototype.elemental_retaliation`.
 
-- `enabled=false` disables the entire mechanic independently from rage.
-- `activation_chance_percent`, `cooldown_seconds`, `radius_meters`
-  control the shared balance.
-- `profiles[element].hero_stems` is an **exact, reviewed Hero source
-  record allowlist**, not a species-wide rule. Different Heroes from the
-  same species can belong to different elemental profiles.
-- `profiles[element].source_skill_record` and
-  `radius_effect_record` reference native on-hit skills and FX packs.
-- Rebuild with `--replace-generated` and `--replace-staged` when
-  turning it off; stale previous compiled content must be replaced.
+- Global `enabled`, `activation_chance_percent`,
+  `cooldown_seconds`, `radius_meters` apply consistently to
+  all eleven profiles.
+- Each profile has a native `source_skill_record`,
+  `radius_effect_record`, and an explicit `hero_stems` list.
+  No automatic element guess based on the species filename.
+- `enabled=false` removes generated attachments on regeneration.
+  Replace staged/compiled files during rebuild; previously compiled
+  mod content is not automatically removed by changing JSON.
 
-## Lightweight validation and in-game test
+## Focused local validation, build and test
 
-From the repository root, after `git switch dev` and `git pull origin dev`:
+From repository root:
 
 ```powershell
+git switch dev
+git pull origin dev
 python scripts/validate_config.py
 python -m unittest discover -s tests -p test_elemental_retaliation.py
 python scripts/generate_variants.py --include-spawns --write --replace-generated
 python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
-Check the manifest coverage first, then compile **Asset Manager F7** and
-install the mod. Spawn a selected generated `output_record` from
-`config/families/discovered_ascended.json` via `game.Spawn`.
-Confirm correct native elemental FX and actual damage on a hit,
-that many hits do **not** always proc, and an approximately eight-second
-minimum gap between activations. Repeat with both melee/pets and multiple
-monster families. Check damage and visual spam at high character levels.
-Verify parent Hero is unchanged and the separate red low-health rage
-can still activate. A successful generator run does **not** prove engine
-FX compatibility or cooldown mechanics.
+Review the `manifest.json` retaliation coverage, then compile with
+**Asset Manager F7** and install the current custom game. Use
+`config/families/discovered_ascended.json` `output_record`
+values for `game.Spawn`. Test at least one Hero for each new
+damage category, plus both Cave Prawns to confirm unchanged native
+skills. Confirm new burst visuals, damage type, no excessive spam,
+the expected cooldown, original skills, and independent low-HP rage.
+The generator/tests alone cannot prove native FX or on-hit behavior.
 
-**Deferred:** additional families, true per-spawn skill rolls,
-reinforcement summons and low-health-gated summons. No changes to
-natural monster spawn/conversion percentages.
+**Not implemented by TM2:** reinforcement summoning, low-health
+summon gating, random skill assignment at spawn, or changes to
+natural monster spawn rates/weights.
