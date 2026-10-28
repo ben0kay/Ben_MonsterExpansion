@@ -70,24 +70,61 @@ class ElementalRetaliationTests(unittest.TestCase):
                 if element not in ("aether", "poison"):
                     self.assertEqual(skill.get("offensiveAetherMin"), "0.000000")
 
+    def test_new_damage_profiles_produce_native_compatible_bursts(self):
+        for stem, element in (("aetherialcolossus_h03", "vitality"),
+                              ("boar_h01", "physical"),
+                              ("bonerat_melee_h02", "pierce"),
+                              ("harvestman_h03", "bleeding"),
+                              ("human_wendigo_h03", "elemental")):
+            with self.subTest(element=element):
+                skill = self.assert_counterattack(stem, element)
+                self.assertEqual(skill.get("offensiveAetherMin"), "0.000000")
+                if element == "bleeding":
+                    self.assertEqual(skill.get("offensiveSlowBleedingDurationMin"), "2.000000")
+                    self.assertEqual(skill.get("offensiveSlowBleedingDurationMax"), "2.000000")
+                    for field in ("offensivePhysicalMin", "offensiveSlowBleedingMin"):
+                        self.assertGreater(len(skill.get(field).split(";")), 20)
+                elif element == "elemental":
+                    for field in ("offensiveFireMin", "offensiveColdMin",
+                                  "offensiveLightningMin"):
+                        self.assertGreater(len(skill.get(field).split(";")), 20)
+                        self.assertGreater(float(skill.get(field).split(";")[0]), 0)
+                else:
+                    field = gen.RETALIATION_DAMAGE_FIELDS[element]
+                    self.assertGreater(len(skill.get(field).split(";")), 20)
+                    self.assertGreater(float(skill.get(field).split(";")[0]), 0)
+
     def test_same_monster_species_can_have_different_hero_elements(self):
         stem = lambda name: "records/creatures/enemies/hero/" + name + ".dbr"
         self.assertEqual(gen.retaliation_element(stem("aetherialcolossus_h01"),
                                                  self.config), "lightning")
         self.assertEqual(gen.retaliation_element(stem("aetherialcolossus_h02"),
                                                  self.config), "fire")
-        self.assertIsNone(gen.retaliation_element(stem("aetherialcolossus_h03"),
-                                                    self.config))
+        self.assertEqual(gen.retaliation_element(stem("aetherialcolossus_h03"),
+                                                  self.config), "vitality")
         self.assertEqual(gen.retaliation_element(stem("prawn_h03"),
                                                  self.config), "poison")
         self.assertEqual(gen.retaliation_element(stem("prawn_h04"),
                                                  self.config), "lightning")
 
-    def test_unmapped_preserved_and_no_unwanted_retaliation(self):
-        v = self.variant("boar_h01")
-        files = gen.build_variant(self.family, v, self.ascended)
-        self.assertFalse(any(p.name.endswith("_retaliation.dbr") for p in files))
-        self.assertTrue(any(p.name.endswith("_rage.dbr") for p in files))
+    def test_existing_cave_prawns_unmapped_and_unmodified(self):
+        for stem in ("prawncave_h02", "prawncave_h03"):
+            with self.subTest(stem=stem):
+                v = self.variant(stem)
+                self.assertIsNone(gen.retaliation_element(v["source_record"], self.config))
+                original = gen.read_game_dbr(v["source_record"])
+                self.assertTrue(gen.has_native_onhit_radius(original))
+                files = gen.build_variant(self.family, v, self.ascended)
+                self.assertFalse(any(p.name.endswith("_retaliation.dbr") for p in files))
+
+    def test_all_mappings_are_unique_and_only_two_native_prawns_unmapped(self):
+        assignments = [stem for profile in self.config["profiles"].values()
+                       for stem in profile["hero_stems"]]
+        self.assertEqual(len(assignments), 135)
+        self.assertEqual(len(set(assignments)), 135)
+        all_stems = {Path(v["source_record"]).stem for v in self.family["variants"]}
+        self.assertEqual(all_stems - set(assignments),
+                         {"prawncave_h02", "prawncave_h03"})
 
     def test_off_switch_keeps_rage(self):
         tier = copy.deepcopy(self.ascended)
