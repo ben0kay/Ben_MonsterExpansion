@@ -4,7 +4,10 @@ from pathlib import Path
 
 def layers(root):
     root = Path(root)
-    return [root / 'gdx2/database/records', root / 'gdx1/database/records', root]
+    base = root / 'original/database/records'
+    if not base.is_dir():
+        base = root  # Compatibility with older flattened reference extracts and test fixtures.
+    return [root / 'gdx2/database/records', root / 'gdx1/database/records', base]
 
 
 def resolve(record, root):
@@ -22,7 +25,7 @@ def resolve(record, root):
             if not candidate.is_file():
                 raise ValueError('Reference is not a file: ' + str(candidate))
             return candidate
-    return Path(root).joinpath(*parts[1:])
+    return layers(root)[-1].joinpath(*parts[1:])
 
 
 def records(root, prefix='proxies'):
