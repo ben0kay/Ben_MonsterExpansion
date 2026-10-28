@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/structures/ruins/arkovianwall_rubble_blocker01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.areaEBarricades.krakenBlockadeOnAddToWorld,
+onDestroy,gd.areaEBarricades.krakenBlockadeOnDestroy,
+pathing,0,

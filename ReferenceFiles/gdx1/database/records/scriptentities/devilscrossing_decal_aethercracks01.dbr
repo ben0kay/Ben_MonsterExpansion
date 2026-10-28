@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,fx/meshfx/aetherspike01.msh,
+editorScale,7.000000,
+onAddToWorld,gd.quests.devilsCrossingAttack.aetherCracksOnAddToWorld,
+onDestroy,gd.quests.devilsCrossingAttack.aetherCracksOnDestroy,
+pathing,0,

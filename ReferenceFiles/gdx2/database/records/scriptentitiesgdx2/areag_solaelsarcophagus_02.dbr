@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,items/chests/sarcophagus_sandtemple01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaGSolaelFaction.SarcophagiSpawn02,
+onDestroy,gd.quests.areaGSolaelFaction.SarcophagiSpawn02OnDestroy,
+pathing,0,

@@ -1,0 +1,7 @@
+templateName,database/templates/shrineicon.tpl,
+FileDescription,Ruins of Abyd,
+WindowLocationX,943,
+WindowLocationY,755,
+corruptedShrine,0,
+hideUndiscovered,1,
+ruinedShrine,1,

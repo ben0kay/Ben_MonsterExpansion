@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/signature/dc_gateentrance01_before.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.devilsCrossingAttack.gateEntranceOnAddToWorld,
+onDestroy,gd.quests.devilsCrossingAttack.gateEntranceOnDestroy,
+pathing,1,

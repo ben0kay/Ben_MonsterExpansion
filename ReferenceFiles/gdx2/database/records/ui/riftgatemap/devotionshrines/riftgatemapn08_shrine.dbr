@@ -1,0 +1,7 @@
+templateName,database/templates/shrineicon.tpl,
+FileDescription,Barrowholm Mine,
+WindowLocationX,850,
+WindowLocationY,-40,
+corruptedShrine,1,
+hideUndiscovered,1,
+ruinedShrine,0,

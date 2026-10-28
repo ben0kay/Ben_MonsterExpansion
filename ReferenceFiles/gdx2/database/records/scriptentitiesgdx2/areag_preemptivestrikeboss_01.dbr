@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/scorpionmonster/scorpionmonster01a_eldritch.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaGSQPreemptiveStrike.bossOnAddToWorld,
+onDestroy,gd.quests.areaGSQPreemptiveStrike.bossOnDestroy,
+pathing,0,

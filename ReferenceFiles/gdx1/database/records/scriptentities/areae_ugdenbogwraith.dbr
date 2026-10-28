@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/pc/hero01.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaEQuestWraith.wraithOnAddToWorld,
+onDestroy,gd.quests.areaEQuestWraith.wraithOnDestroy,
+pathing,0,

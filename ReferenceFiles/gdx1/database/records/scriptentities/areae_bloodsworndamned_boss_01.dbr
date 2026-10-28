@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/chthonianservitor/chthonianservitor01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaEQuestVoid.servitorBossOnAddToWorld,
+onDestroy,gd.quests.areaEQuestVoid.servitorBossOnDestroy,
+pathing,0,

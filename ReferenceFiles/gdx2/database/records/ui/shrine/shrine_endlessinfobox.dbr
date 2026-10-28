@@ -1,0 +1,8 @@
+templateName,database/templates/ingameui/textbox.tpl,
+style,records/ui/styles/text/style_shrine_windowsubtitle01.dbr,
+textAlignmentX,Center,
+textAlignmentY,Center,
+textBoxX,32,
+textBoxXSize,280,
+textBoxY,65,
+textBoxYSize,60,

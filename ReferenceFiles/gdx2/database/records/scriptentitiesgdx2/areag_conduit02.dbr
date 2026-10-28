@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/monstercamp/cultist_bloodwagon01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaGSQPreemptiveStrike.conduit02OnAddToWorld,
+onDestroy,gd.quests.areaGSQPreemptiveStrike.conduit02OnDestroy,
+pathing,0,

@@ -1,0 +1,8 @@
+templateName,database/templates/challengearea.tpl,
+Class,ChallengeArea,
+maxMutators,1,
+maxPlayerMutators,1,
+minMutators,1,
+minPlayerMutators,0,
+mutatorPakList,records/game/mutators/mutatorpak_monster_01.dbr;records/game/mutators/mutatorpak_monster_02.dbr;records/game/mutators/mutatorpak_monster_03.dbr;records/game/mutators/mutatorpak_monster_04.dbr;records/game/mutators/mutatorpak_monster_05.dbr;records/game/mutators/mutatorpak_monster_06.dbr;records/game/mutators/mutatorpak_monster_07.dbr;records/game/mutators/mutatorpak_monster_08.dbr;records/game/mutators/mutatorpak_monster_09.dbr;records/game/mutators/mutatorpak_monster_10.dbr;records/game/mutators/mutatorpak_monster_11.dbr;records/game/mutators/mutatorpak_monster_12.dbr;records/game/mutators/mutatorpak_monster_13.dbr;records/game/mutators/mutatorpak_monster_14.dbr;records/game/mutators/mutatorpak_monster_15.dbr;records/game/mutators/mutatorpak_monster_16.dbr;records/game/mutators/mutatorpak_monster_17.dbr,
+playerMutatorPakList,records/game/mutators/mutatorpak_player_01.dbr;records/game/mutators/mutatorpak_player_02.dbr;records/game/mutators/mutatorpak_player_03.dbr;records/game/mutators/mutatorpak_player_04.dbr;records/game/mutators/mutatorpak_player_05.dbr;records/game/mutators/mutatorpak_player_06.dbr;records/game/mutators/mutatorpak_player_07.dbr;records/game/mutators/mutatorpak_player_08.dbr;records/game/mutators/mutatorpak_player_09.dbr;records/game/mutators/mutatorpak_player_10.dbr,

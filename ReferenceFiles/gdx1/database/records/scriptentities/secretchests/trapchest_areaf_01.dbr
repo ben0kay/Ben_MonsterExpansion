@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,items/chests/proxy_chestsecret01.msh,
+editorScale,1.500000,
+onAddToWorld,gd.quests.areaFSideQuests.trappedChestMourndaleOnAddToWorld,
+onDestroy,gd.quests.areaFSideQuests.trappedChestMourndaleOnDestroy,
+pathing,0,

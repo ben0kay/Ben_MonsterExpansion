@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/aetherialcolossus/aetherialcolossus01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaFGatekeeper.keeperAtGateOnAddToWorld,
+onDestroy,gd.quests.areaFGatekeeper.keeperAtGateOnDestroy,
+pathing,0,

@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,items/chests/breakables/crate_basic01.msh,
+editorScale,2.000000,
+onAddToWorld,gd.quests.areaGNPCSpecial.breakable02OnAddToWorld,
+onDestroy,gd.quests.areaGNPCSpecial.breakableOnDestroy,
+pathing,0,

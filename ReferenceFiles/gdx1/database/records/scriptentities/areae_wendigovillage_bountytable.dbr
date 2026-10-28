@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/faction/necromancer_tablebounty01a.msh,
+editorScale,0.950000,
+onAddToWorld,gd.quests.areaEQuestWendigoVillage.tableOnAddToWorld,
+onDestroy,gd.quests.areaEQuestWendigoVillage.tableOnDestroy,
+pathing,1,

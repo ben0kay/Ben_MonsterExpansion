@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/aetherialcorruption/aetherialcorruption01a.msh,
+editorScale,2.000000,
+onAddToWorld,gd.quests.areaFRebelBaseAttacks.aetherialAttack01OnAddToWorld,
+onDestroy,gd.quests.areaFRebelBaseAttacks.aetherialAttack01OnDestroy,
+pathing,0,

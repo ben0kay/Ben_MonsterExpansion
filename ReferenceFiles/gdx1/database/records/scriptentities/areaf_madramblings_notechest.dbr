@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,items/chests/chest01_metala.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaFQuestMadRamblings.noteChestOnAddToWorld,
+onDestroy,gd.quests.areaFQuestMadRamblings.chestOnDestroy,
+pathing,0,

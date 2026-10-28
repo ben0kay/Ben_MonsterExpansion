@@ -1,0 +1,7 @@
+templateName,database/templates/shrineicon.tpl,
+FileDescription,Witch God,
+WindowLocationX,365,
+WindowLocationY,760,
+corruptedShrine,0,
+hideUndiscovered,1,
+ruinedShrine,1,

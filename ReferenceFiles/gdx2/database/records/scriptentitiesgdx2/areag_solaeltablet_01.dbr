@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,fx/meshfx/ui_questicon_exclamation01.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaGSolaelFaction.tabletPieceSpawn01,
+onDestroy,gd.quests.areaGSolaelFaction.solaelStatuesOnDestroy,
+pathing,0,

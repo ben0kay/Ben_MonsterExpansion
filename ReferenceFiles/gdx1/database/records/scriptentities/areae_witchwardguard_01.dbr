@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/wraith/wraith01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaEQuestFactionWitchWards.wardGuard01OnAddToWorld,
+onDestroy,gd.quests.areaEQuestFactionWitchWards.WardGuard01OnDestroy,
+pathing,0,

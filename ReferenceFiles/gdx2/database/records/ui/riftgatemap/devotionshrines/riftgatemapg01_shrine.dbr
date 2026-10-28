@@ -1,0 +1,7 @@
+templateName,database/templates/shrineicon.tpl,
+FileDescription,Temple of Osyr,
+WindowLocationX,845,
+WindowLocationY,1248,
+corruptedShrine,1,
+hideUndiscovered,1,
+ruinedShrine,0,

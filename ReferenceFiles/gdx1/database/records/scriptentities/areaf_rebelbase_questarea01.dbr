@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/signature/mm_questarea01_after.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaFRebelBase.npcArea01OnAddToWorld,
+onDestroy,gd.quests.areaFRebelBase.npcArea01OnDestroy,
+pathing,1,

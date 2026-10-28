@@ -1,0 +1,6 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/boss_korvaak/boss_korvaak01a_p00.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaGKorvaak.decorationOnAddToWorld,
+pathing,1,

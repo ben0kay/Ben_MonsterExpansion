@@ -1,0 +1,7 @@
+templateName,database/templates/shrineicon.tpl,
+FileDescription,Hallowed Hill,
+WindowLocationX,395,
+WindowLocationY,347,
+corruptedShrine,0,
+hideUndiscovered,1,
+ruinedShrine,1,

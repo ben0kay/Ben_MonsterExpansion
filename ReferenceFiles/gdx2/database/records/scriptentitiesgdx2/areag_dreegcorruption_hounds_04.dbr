@@ -1,0 +1,6 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/eldritchhound/eldritchhound01a.msh,
+editorScale,3.000000,
+onAddToWorld,gd.quests.areaGDreegQuests.corruptionQuest09OnAddToWorld,
+pathing,0,

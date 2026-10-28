@@ -1,0 +1,7 @@
+templateName,database/templates/ingameui/caravanwindowreagent.tpl,
+TransferPlate,records/ui/caravan/caravan_materialcoverimage.dbr,
+WindowLocationX,0,
+WindowLocationY,88,
+backgroundShadeReduction,2,
+pickUpSoundName,records/sounds/objects/loot/spak_itempickupgenericinventory.dbr,
+reagentBoxes,records/ui/caravan/reagents/materials/caravan_reagent001.dbr;records/ui/caravan/reagents/materials/caravan_reagent002.dbr;records/ui/caravan/reagents/materials/caravan_reagent003.dbr;records/ui/caravan/reagents/materials/caravan_reagent004.dbr;records/ui/caravan/reagents/materials/caravan_reagent005.dbr;records/ui/caravan/reagents/materials/caravan_reagent006.dbr;records/ui/caravan/reagents/materials/caravan_reagent007.dbr;records/ui/caravan/reagents/materials/caravan_reagent008.dbr;records/ui/caravan/reagents/materials/caravan_reagent009.dbr;records/ui/caravan/reagents/materials/caravan_reagent010.dbr;records/ui/caravan/reagents/materials/caravan_reagent011.dbr;records/ui/caravan/reagents/materials/caravan_reagent012.dbr;records/ui/caravan/reagents/materials/caravan_reagent013.dbr;records/ui/caravan/reagents/materials/caravan_reagent014.dbr;records/ui/caravan/reagents/materials/caravan_reagent015.dbr;records/ui/caravan/reagents/materials/caravan_reagent016.dbr;records/ui/caravan/reagents/materials/caravan_reagent017.dbr;records/ui/caravan/reagents/materials/caravan_reagent018.dbr,

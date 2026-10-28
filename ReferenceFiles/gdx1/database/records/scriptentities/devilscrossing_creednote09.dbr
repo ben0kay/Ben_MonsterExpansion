@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,items/misc/loreobj_journal01.msh,
+editorScale,2.500000,
+onAddToWorld,gd.quests.areaFNPCCreed.CreedNoteDCOnAddToWorld,
+onDestroy,gd.quests.areaFNPCCreed.CreedNoteDCOnDestroy,
+pathing,0,

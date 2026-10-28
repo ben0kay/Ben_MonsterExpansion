@@ -1,0 +1,6 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/special/crate01a.msh,
+editorScale,2.000000,
+onAddToWorld,gd.quests.areaGNPCSpecial.crateBoss02OnAddToWorld,
+pathing,0,

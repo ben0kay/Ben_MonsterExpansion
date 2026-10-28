@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uitutorialpageinstance.tpl,
+FadeSeconds,60,
+FileDescription,Start,
+NuggetArray,records/ui/tutorial/endlessdungeonstart/start_n1.dbr;records/ui/tutorial/endlessdungeonstart/start_n2.dbr;records/ui/tutorial/endlessdungeonstart/start_n3.dbr;records/ui/tutorial/endlessdungeonstart/start_n4.dbr;records/ui/tutorial/endlessdungeonstart/start_n5.dbr;records/ui/tutorial/endlessdungeonstart/start_n6.dbr;records/ui/tutorial/endlessdungeonstart/start_n7.dbr;records/ui/tutorial/endlessdungeonstart/start_n8.dbr;records/ui/tutorial/endlessdungeonstart/start_n9.dbr;records/ui/tutorial/endlessdungeonstart/start_n10.dbr;records/ui/tutorial/endlessdungeonstart/start_n11.dbr,
+quickTag,tagQuickTip66,

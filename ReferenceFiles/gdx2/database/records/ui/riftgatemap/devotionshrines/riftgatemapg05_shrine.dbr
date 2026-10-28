@@ -1,0 +1,7 @@
+templateName,database/templates/shrineicon.tpl,
+FileDescription,Tomb of the Eldritch Sun,
+WindowLocationX,632,
+WindowLocationY,632,
+corruptedShrine,1,
+hideUndiscovered,1,
+ruinedShrine,0,

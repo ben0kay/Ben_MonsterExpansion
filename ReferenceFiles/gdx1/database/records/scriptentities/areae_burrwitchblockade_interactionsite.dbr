@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,fx/meshfx/ui_questicon_exclamation01.msh,
+editorScale,1.000000,
+onAddToWorld,gd.areaEBarricades.interactionSiteOnAddToWorld,
+onDestroy,gd.areaEBarricades.interactionSiteOnDestroy,
+pathing,0,

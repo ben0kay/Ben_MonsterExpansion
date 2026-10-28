@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/carnage/corpse_blacklegion_f_01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaEQuestFactionWendigo.deadWitchOnAddToWorld,
+onDestroy,gd.quests.areaEQuestFactionWendigo.deadWitchOnDestroy,
+pathing,0,

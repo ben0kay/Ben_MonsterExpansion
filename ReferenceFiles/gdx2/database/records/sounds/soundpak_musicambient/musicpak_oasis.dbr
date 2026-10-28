@@ -1,0 +1,4 @@
+templateName,database/templates/musicpak.tpl,
+Class,MusicSession,
+randomize,1,
+tracks,sound/music/gdx2_oasis_high.ogg;sound/music/gdx2_oasis_low.ogg;sound/music/gdx2_oasis_med.ogg,

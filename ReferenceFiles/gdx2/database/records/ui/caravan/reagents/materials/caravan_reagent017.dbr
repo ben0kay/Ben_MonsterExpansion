@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uireagentitem.tpl,
+FileDescription,UIItemReagent,
+itemBoxX,248,
+itemBoxY,348,
+reagentName,records/items/crafting/materials/craft_eldritchessence.dbr,

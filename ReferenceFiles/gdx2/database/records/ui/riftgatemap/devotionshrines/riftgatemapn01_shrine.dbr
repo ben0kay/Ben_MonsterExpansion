@@ -1,0 +1,7 @@
+templateName,database/templates/shrineicon.tpl,
+FileDescription,Port Valbury,
+WindowLocationX,75,
+WindowLocationY,-75,
+corruptedShrine,1,
+hideUndiscovered,1,
+ruinedShrine,0,

@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/wendigo/wendigo_cannibal01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaEWendigoVillageFlavor.villageProxy01OnAddToWorld,
+onDestroy,gd.quests.areaEWendigoVillageFlavor.villageProxyOnDestroy,
+pathing,0,

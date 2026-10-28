@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/aetherialcorruption/aetherialcorruption01a.msh,
+editorScale,2.000000,
+onAddToWorld,gd.quests.areaGWitchGodBaseAttacks.gateAttack02OnAddToWorld,
+onDestroy,gd.quests.areaGWitchGodBaseAttacks.gateAttacksOnDestroy,
+pathing,0,

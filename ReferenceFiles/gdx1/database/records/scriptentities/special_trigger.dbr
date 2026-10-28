@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/zombie/zombie01.msh,
+editorScale,2.000000,
+onAddToWorld,gd.quests.areaFNPCSpecial.triggerProxyOnAddToWorld,
+onDestroy,gd.quests.areaFNPCSpecial.triggerProxyOnDestroy,
+pathing,0,

@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/wendigo/wendigo01c.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaEQuestWendigoVillage.ravagerOnAddToWorld,
+onDestroy,gd.quests.areaEQuestWendigoVillage.ravagerOnDestroy,
+pathing,0,

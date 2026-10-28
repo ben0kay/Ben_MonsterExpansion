@@ -1,0 +1,6 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/wraith/wraith_eldritch01a.msh,
+editorScale,3.000000,
+onAddToWorld,gd.quests.areaGDreegQuests.corruptionQuest12OnAddToWorld,
+pathing,0,

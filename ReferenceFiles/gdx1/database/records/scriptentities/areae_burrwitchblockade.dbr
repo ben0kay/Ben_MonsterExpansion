@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,fx/meshfx/aetherialbarrier_crystals01.msh,
+editorScale,1.000000,
+onAddToWorld,gd.areaEBarricades.burrwitchBlockadeOnAddToWorld,
+onDestroy,gd.areaEBarricades.burrwitchBlockadeOnDestroy,
+pathing,0,

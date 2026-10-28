@@ -1,0 +1,6 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,fx/meshfx/crystalarcane01a_lg.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaGTombOfHereticBosses.turret01OnAddToWorld,
+pathing,1,

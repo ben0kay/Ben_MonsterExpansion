@@ -1,0 +1,5 @@
+templateName,database/templates/ingameui/uitutorialpageinstance.tpl,
+FadeSeconds,60,
+FileDescription,Endless Dungeon End,
+NuggetArray,records/ui/tutorial/endlessdungeonend/end_n1.dbr;records/ui/tutorial/endlessdungeonend/end_n2.dbr;records/ui/tutorial/endlessdungeonend/end_n3.dbr;records/ui/tutorial/endlessdungeonend/end_n4.dbr;records/ui/tutorial/endlessdungeonend/end_n5.dbr;records/ui/tutorial/endlessdungeonend/end_n6.dbr;records/ui/tutorial/endlessdungeonend/end_n7.dbr;records/ui/tutorial/endlessdungeonend/end_n8.dbr;records/ui/tutorial/endlessdungeonend/end_n9.dbr;records/ui/tutorial/endlessdungeonend/end_n10.dbr;records/ui/tutorial/endlessdungeonend/end_n11.dbr;records/ui/tutorial/endlessdungeonend/end_n12.dbr,
+quickTag,tagQuickTip67,

@@ -1,0 +1,7 @@
+templateName,database/templates/shrineicon.tpl,
+FileDescription,Tomb of the Heretic,
+WindowLocationX,875,
+WindowLocationY,610,
+corruptedShrine,1,
+hideUndiscovered,1,
+ruinedShrine,0,

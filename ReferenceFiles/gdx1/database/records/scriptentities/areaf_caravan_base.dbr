@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/pc/hero01.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaFRebelBase.CaravanBaseOnAddToWorld,
+onDestroy,gd.quests.areaFRebelBase.CaravanBaseOnDestroy,
+pathing,0,

@@ -1,0 +1,6 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/debris&rubble/debriswall_rockpile03.msh,
+editorScale,0.800000,
+onAddToWorld,gd.quests.areaFNPCSpecial.specialBlockadeOnAddToWorld,
+pathing,0,

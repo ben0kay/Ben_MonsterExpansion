@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/quests/witch_ward01a_corrupted.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaEQuestFactionWitchWards.witchWard02OnAddToWorld,
+onDestroy,gd.quests.areaEQuestFactionWitchWards.witchWard02OnDestroy,
+pathing,1,

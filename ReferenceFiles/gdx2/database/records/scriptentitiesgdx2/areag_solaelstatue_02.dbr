@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/possessedstatue/possessedstatue_m_01a_rahn_active.msh,
+editorScale,3.000000,
+onAddToWorld,gd.quests.areaGSolaelFaction.solaelStatue02OnAddToWorld,
+onDestroy,gd.quests.areaGSolaelFaction.solaelStatuesOnDestroy,
+pathing,0,

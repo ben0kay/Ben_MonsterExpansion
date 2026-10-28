@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,level art/terrain/rocks/rock_obsidianruned_sm01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaEQuestVoid.crystalOnAddToWorld,
+onDestroy,gd.quests.areaEQuestVoid.crystalOnDestroy,
+pathing,0,

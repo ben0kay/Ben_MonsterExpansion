@@ -1,0 +1,7 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/possessedstatue/possessedstatue_m_01a.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaGTombOfKorvaak.templeGuardOnAddToWorld,
+onDestroy,gd.quests.areaGTombOfKorvaak.templeGuardOnDestroy,
+pathing,0,

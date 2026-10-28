@@ -1,0 +1,8 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+FileDescription,Rebel Blacksmith,
+editorMesh,creatures/pc/hero01.msh,
+editorScale,1.000000,
+onAddToWorld,gd.quests.areaFNPCBlacksmith.rebelSmithOnAddToWorld,
+onDestroy,gd.quests.areaFNPCBlacksmith.rebelSmithOnDestroy,
+pathing,0,

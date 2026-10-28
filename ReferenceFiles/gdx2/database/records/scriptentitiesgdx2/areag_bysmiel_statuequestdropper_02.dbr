@@ -1,0 +1,6 @@
+templateName,database/templates/scriptentity.tpl,
+Class,ScriptEntity,
+editorMesh,creatures/enemies/possessedstatue/possessedstatue_f_01a.msh,
+editorScale,2.000000,
+onAddToWorld,gd.quests.areaGBysmielQuests.bysmielQuestDropper02OnAddToWorld,
+pathing,0,
