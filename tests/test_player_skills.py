@@ -600,6 +600,56 @@ class PlayerSkillTests(unittest.TestCase):
                 self.assertFalse(next(e["changed"] for e in report
                                       if e["record"] == name))
 
+    def test_occultist_pyromancer_fire_synergy_preserves_native_damage(self):
+        profiles = (
+            ("doombolt1", 0.08, ("offensiveChaosMin", "offensiveLifeMin")),
+            ("evileye1", 0.15, ("offensivePoisonMin",)),
+        )
+        for name, factor, source_fields in profiles:
+            path = f"records/skills/playerclass03/{name}.dbr"
+            with self.subTest(skill=name):
+                native = DBR.from_file(resolve(path, gen.REFERENCE))
+                modified = self.record(f"playerclass03/{name}.dbr")
+                settings_entry = next(e for e in self.settings["records"]
+                                      if e["record"] == path)
+                native_fire = list(map(float, native.get("offensiveFireMin").split(";")))
+                self.assertEqual(native_fire, [0.0])
+                new_fire = list(map(float, modified.get("offensiveFireMin").split(";")))
+                source_curves = [list(map(float, native.get(field).split(";")))
+                                 for field in source_fields]
+                self.assertEqual(len(new_fire), 22)
+                self.assertTrue(all(len(values) == 22 for values in source_curves))
+                for index, value in enumerate(new_fire):
+                    expected = sum(values[index] for values in source_curves) * factor
+                    self.assertAlmostEqual(value, expected, places=5)
+                    self.assertGreater(value, 0)
+                # The new Fire field is the only addition to the already
+                # configured damage/area/cooldown overrides.
+                expected_record = DBR.from_file(resolve(path, gen.REFERENCE))
+                for field in set(settings_entry["set"]) | set(settings_entry["curves"]):
+                    expected_record.set(field, modified.get(field))
+                self.assertEqual(modified.render(), expected_record.render())
+                for field in source_fields:
+                    self.assertEqual(settings_entry["curves"].get(field),
+                                     {"multiplier": 1.15, "multiplier_per_rank": 0.015}
+                                     if name == "doombolt1" else
+                                     {"multiplier": 1.1})
+                self.assertEqual(native.get("skillMaxLevel"),
+                                 modified.get("skillMaxLevel"))
+
+    def test_occultist_pyromancer_fire_individual_rollback(self):
+        for name in ("doombolt1", "evileye1"):
+            path = f"records/skills/playerclass03/{name}.dbr"
+            with self.subTest(skill=name):
+                settings = copy.deepcopy(self.settings)
+                next(e for e in settings["records"]
+                     if e["record"] == path)["enabled"] = False
+                files, report = build_skills(settings, gen.REFERENCE)
+                original = DBR.from_file(resolve(path, gen.REFERENCE))
+                self.assertEqual(files[Path("database") / path], original.render())
+                self.assertFalse(next(r["changed"] for r in report
+                                      if r["record"] == path))
+
     def test_disable_restores_exact_sources(self):
         settings = copy.deepcopy(self.settings)
         settings["enabled"] = False
