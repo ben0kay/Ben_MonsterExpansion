@@ -36,9 +36,11 @@ class CosmeticAuraTests(unittest.TestCase):
         self.assertEqual(before, monster.render())
 
     def test_minimal_cosmetic_fields_match_real_template_no_stat_bonuses(self):
-        root = REPO / 'ReferenceFiles/Resources/templates'
+        root = gen.REFERENCE / 'original/database/templates'
+        if not root.is_dir():
+            root = gen.REFERENCE / 'Resources/templates'  # Legacy extraction layout.
         def fields(template):
-            text = (root / template).read_text()
+            text = (root / template).read_text(encoding='utf-8-sig')
             result = set(re.findall(r'name = "([^"]+)"', text))
             for include in re.findall(r'defaultValue = "database\\Templates\\([^"\n]+)"', text):
                 result |= fields(include.replace('\\', '/').lower())

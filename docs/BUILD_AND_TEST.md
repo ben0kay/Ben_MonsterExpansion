@@ -110,3 +110,19 @@ The Veteran Boar's intended changes are approximately **+30% life, +8% defensive
 ## Next after the smoke test
 
 Once direct spawning is verified, implement an isolated Veteran Boar spawn-pool/proxy integration (ME3). The eventual debug hotkey GUI, directional spawning and new tier colors/FX are **future work**, not part of this initial build.
+
+### Reference-layout test compatibility (October 28, 2026)
+
+Base templates now live in `ReferenceFiles/original/database/templates/`.
+A stale fixture in `test_effective_dlc_priority` still read the former
+`ReferenceFiles/Resources/templates/skilltree.tpl`, causing FileNotFoundError
+on the reorganized checkout despite the other attachment checks passing.
+The fixture now reads the current layout (with legacy fallback) and exercises
+both temporary layouts. Cosmetic-template checks use the same layout fallback.
+These are test-only fixes; generated gameplay records are unchanged.
+
+To rerun the screenshot's failing check quickly:
+
+```powershell
+python -m unittest discover -s tests -p test_mastery_attachment.py -k test_effective_dlc_priority -v
+```

@@ -130,22 +130,28 @@ class AttachmentTests(unittest.TestCase):
         self.assertEqual([4+additions[i] for i in (0,11,21)], [5,9,11])
 
     def test_effective_dlc_priority(self):
-        # An expansion override must be cloned instead of a stale base reference.
-        with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
-            import mastery_attachment as attachment
-            def effective(name, ignored):
-                if name == self.settings['skills'][0]['source']:
-                    return root / 'effective.dbr'
-                return resolve(name, gen.REFERENCE)
-            native = DBR.from_file(resolve(self.settings['skills'][0]['source'], gen.REFERENCE))
-            native.set('skillManaCost', '123')
-            (root / 'effective.dbr').write_text(native.render())
-            (root / 'Resources/templates').mkdir(parents=True)
-            (root / 'Resources/templates/skilltree.tpl').write_text((gen.REFERENCE / 'Resources/templates/skilltree.tpl').read_text())
-            with patch.object(attachment, 'resolve', side_effect=effective):
-                files, _ = attachment.build_attachment(self.settings, root)
-            self.assertEqual(DBR(files[Path('database') / self.settings['skills'][0]['target']]).get('skillManaCost'), '123')
+        # Use the actual extraction layout for the donor, and exercise both
+        # supported template layouts in the temporary attachment reference root.
+        template = gen.REFERENCE / 'original/database/templates/skilltree.tpl'
+        if not template.is_file():
+            template = gen.REFERENCE / 'Resources/templates/skilltree.tpl'
+        for directory in ('original/database/templates', 'Resources/templates'):
+            with self.subTest(template_layout=directory), tempfile.TemporaryDirectory() as folder:
+                root = Path(folder)
+                import mastery_attachment as attachment
+                def effective(name, ignored):
+                    if name == self.settings['skills'][0]['source']:
+                        return root / 'effective.dbr'
+                    return resolve(name, gen.REFERENCE)
+                native = DBR.from_file(resolve(self.settings['skills'][0]['source'], gen.REFERENCE))
+                native.set('skillManaCost', '123')
+                (root / 'effective.dbr').write_text(native.render(), encoding='utf-8')
+                target = root / directory / 'skilltree.tpl'
+                target.parent.mkdir(parents=True)
+                target.write_bytes(template.read_bytes())
+                with patch.object(attachment, 'resolve', side_effect=effective):
+                    files, _ = attachment.build_attachment(self.settings, root)
+                self.assertEqual(DBR(files[Path('database') / self.settings['skills'][0]['target']]).get('skillManaCost'), '123')
 
 
 class DemolitionistSkeletonAttachmentTests(unittest.TestCase):
