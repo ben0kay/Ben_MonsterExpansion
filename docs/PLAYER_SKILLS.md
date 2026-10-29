@@ -245,6 +245,44 @@ isolation, all 22 added values, preserved native curves, and per-skill
 rollback. They have not been run in the GitHub-only authoring session,
 and in-game behavior still needs verification.
 
+## Pyromancer ranged support — Witchfire and Hellfire
+
+**Configured on `dev`; requires regeneration and F7 build; not yet
+verified in-game.** This is the next focused Demolitionist + Occultist
+compatibility pass, following Fire additions to Doom Bolt and Evil Eye.
+
+| Skill | Native rank curve | New rank curve |
+| --- | --- | --- |
+| **Solael's Witchfire** (`witchfire1.dbr`) | Flat Chaos damage 8 at rank 1 → 121 at rank 22; native flat Fire is 0 | **New flat Fire damage = 20% of native flat Chaos at each rank** (rank 1: **1.6**, rank 12: **11**, rank 22: **24.2**) |
+| **Hellfire's passive aura buff** (`pets/petskill_hellhound_hellfireaura_buff.dbr`) | Flat Fire 3 → 45; Fire % modifier 8 → 250 across 22 ranks | Multiply **both existing Fire curves by 1.08**: flat Fire **3.24 → 48.6**, Fire % bonus **8.64 → 270** |
+
+Solael's Witchfire is a toggled weapon buff, so the Fire damage supports
+weapon attacks such as **Demolitionist's Fire Strike** (including rifles
+and pistols). Its previously modified **+8% native flat Chaos damage** and
+**+5% native attack speed** remain unchanged. No new Witchfire Fire %
+damage bonus, proc, animation, cost or reserve changes are introduced.
+
+The actual Hellhound aura wrapper `petskill_hellhound_hellfireaura.dbr`
+points to the modified `petskill_hellhound_hellfireaura_buff.dbr`.
+Its original flat Chaos and percentage Chaos damage curves, range, rank
+limits, FX and behavior remain unchanged. The 8% increase is **relative to
+the original bonus field**, not a claim that total Fire DPS rises by 8%:
+other additive bonuses, pet attack scaling and resistances affect results.
+Multiple active Hellhounds do **not** imply four independently stacking
+instances of the same aura bonus. This is shared native pet content, not
+a per-player Fire Strike damage multiplier.
+
+The two edits live independently in `config/player_skills.json`: Witchfire
+adds a 22-rank string in `set.offensiveFireMin` to the already-managed
+record, and Hellfire introduces one additional managed record with
+`curves.offensiveFireMin.multiplier=1.08` and
+`curves.offensiveFireModifier.multiplier=1.08`.
+Disable each record with `enabled:false` for native rollback after
+replacement staging. New tests in `tests/test_player_skills.py` check
+all 22 ranks, unchanged prior/Chaos fields, exact record diffs, actual
+Hellhound aura buff link and isolated rollback. The tests have not been
+run in this GitHub-only session.
+
 ## Tuning and rollback
 
 Each record has set (literal DBR values) and curves (numeric rank transforms).
