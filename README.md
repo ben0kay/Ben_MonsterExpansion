@@ -263,8 +263,14 @@ mastery remains separately available.
   Vulnerability, Bloody Pox, Dreeg's Evil Eye and related modifiers
   have modest targeted buffs (commonly +5–10%).
 - **Doom Bolt** and selected pet/passive skills enhanced; Blood of
-  Dreeg is a sustained toggle. Other pet abilities not explicitly
-  configured remain vanilla.
+  Dreeg is a sustained toggle. For **Demolitionist + Occultist (Pyromancer)**
+  compatibility, Doom Bolt now has an additional **Fire damage** curve at
+  8% of each native rank's Vitality + Chaos base, while **Dreeg's Evil Eye**
+  gains Fire damage at 15% of its native rank's direct Poison/Acid damage.
+  Original damage types, skill effects and prior buffs remain; Sigil's
+  Destruction modifier already supplies Fire. Details and rollback:
+  [Pyromancer Fire synergy](docs/PLAYER_SKILLS.md#pyromancer-fire-synergy--focused-occultist-additions).
+  Other pet abilities not explicitly configured remain vanilla.
 
 ### Demolitionist (first pass — configured, not yet tested)
 
