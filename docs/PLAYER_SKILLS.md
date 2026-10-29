@@ -209,6 +209,42 @@ main-buff rules remain untouched. For each new record, setting
 `enabled: false` restores the exact effective original DBR after regeneration;
 Possession is still a single record with its prior exclusivity override.
 
+## Pyromancer Fire synergy — focused Occultist additions
+
+A small cross-mastery compatibility pass adds **direct Fire damage** to
+two Occultist spells for Demolitionist + Occultist play, preserving all
+existing Poison/Acid, Vitality and Chaos damage, modifiers, cooldowns,
+projectiles and effects. No conversion is performed.
+
+| Skill DBR | New `offensiveFireMin` by skill rank | Rank 1 | Rank 22 |
+| --- | --- | ---: | ---: |
+| `records/skills/playerclass03/doombolt1.dbr` | **8%** of each native rank's `offensiveChaosMin + offensiveLifeMin` | 34.4 | 318.88 |
+| `records/skills/playerclass03/evileye1.dbr` | **15%** of each native rank's `offensivePoisonMin` | 1.2 | 64.5 |
+
+Both fields were `0.000000` in the effective original reference; the
+game's DBR attack templates accept 22-rank real-valued damage curves.
+This pass writes explicit 22-rank positive Fire curves as
+semicolon-separated strings through the **existing** per-record `set`
+overrides in `config/player_skills.json`. Source equations are evaluated
+against the native original values, not previously buffed output, so the
+increase stays conservative. Prior Doom Bolt Chaos/Vitality rank scaling and
+cooldown/radius improvements, plus Dreeg's Evil Eye poison/acid scaling,
+remain unchanged.
+
+The main synergy is with **Thermite Mine's elemental resistance reduction**,
+**Curse of Frailty/Vulnerability's elemental resistance reduction**, and
+fire-oriented character damage bonuses from Demolitionist/equipment.
+`Destruction` already adds Fire damage to Sigil of Consumption; it is
+untouched. **No summon damage, Demolitionist raw damage, other Occultist
+spells, loot or XP** are changed by this pass.
+
+No new projectile visuals or Burning damage-over-time are added: the
+spells will keep their native appearance, but should show the added Fire
+component in their tooltips after building. Tests check exact field
+isolation, all 22 added values, preserved native curves, and per-skill
+rollback. They have not been run in the GitHub-only authoring session,
+and in-game behavior still needs verification.
+
 ## Tuning and rollback
 
 Each record has set (literal DBR values) and curves (numeric rank transforms).
