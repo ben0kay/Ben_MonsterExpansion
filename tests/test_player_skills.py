@@ -25,8 +25,10 @@ class PlayerSkillTests(unittest.TestCase):
     def test_pet_rank_milestone_and_health(self):
         for pet in ("raven", "hellhound"):
             limit = self.record(f"playerclass03/summon_{pet}1.dbr").get("petLimit").split(";")
-            self.assertEqual(limit[:7], ["1"]*7)
-            self.assertEqual(limit[7:], ["2"]*19)
+            self.assertEqual(limit, ["2"]*7 + ["3"]*7 + ["4"]*12)
+            self.assertEqual(len(limit), 26)
+            self.assertEqual(limit[7], "3")  # Rank 8
+            self.assertEqual(limit[14], "4")  # Rank 15, before the native 16-rank cap
             for rank in (1, 8, 26):
                 old_health_bonus = 10 + 2*(rank-1)
                 expected = 20 + 1.2 * old_health_bonus
