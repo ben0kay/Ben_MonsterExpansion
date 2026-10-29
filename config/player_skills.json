@@ -1554,6 +1554,48 @@
           "multiplier": 1.1
         }
       }
+    },
+    {
+      "record": "records/skills/playerclass02/mortartrap1.dbr",
+      "set": {
+        "petLimit": "1;1;1;1;1;1;1;1;1;1;1;2;2;2;2;2;2;3;3;3;3;3;3;4;4;4",
+        "spawnObjectsTimeToLive": "27.600000"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass02/mortartrap2.dbr",
+      "set": {},
+      "curves": {
+        "explosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass02/pets/mortartrap_firemortar1.dbr",
+      "set": {},
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass02/thermitemines1.dbr",
+      "set": {
+        "petBurstSpawn": "3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;4;4;4;4;4;4;4;4;4;4;4",
+        "petLimit": "6;6;6;6;6;6;6;6;6;6;6;6;6;6;6;8;8;8;8;8;8;8;9;9;9;9",
+        "spawnObjectsTimeToLive": "20.700000"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass02/pets/thermitemine_skill_radius.dbr",
+      "set": {
+        "skillTargetRadius": "2.200000"
+      },
+      "curves": {}
     }
   ]
 }
