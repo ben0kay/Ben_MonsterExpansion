@@ -48,10 +48,13 @@ build with Asset Manager F7 to apply these changes in-game.
   additional rank (3.16 seconds at rank 22).
 - Maiven's Sphere: original absorption plus 1 + 0.15 * (rank - 1)
   percentage points, capped at 38%. Original damage penalty preserved.
-- Familiar and Hellhound: one per type at ranks 1-7, two per type at ranks 8-26.
-  One summon per cast; equipment summon-limit bonuses remain untouched and may
-  raise the final limit further. These pets already have no summon expiry.
-  They can die and must be resummoned, including after a new session as usual.
+- Familiar and Hellhound: **2 per type at ranks 1–7**, **3 per type at ranks
+  8–14**, and **4 per type at ranks 15–26**. Rank 15 unlocks four without
+  equipment overcapping (normal cap 16; ultimate 26). One pet is summoned
+  per cast, with the original 18-second cooldown; equipment summon-limit
+  bonuses remain untouched and may raise the final limit further. Pets
+  have no summon expiry, but can die and must be resummoned, including
+  after a new session as usual.
 - Familiar and Hellhound actors (all 26 ranks for each) originally received
   +10% health modifier at rank 1, +2 percentage points per further rank
   (+60% at rank 26). A subsequent +20% **relative-health** pass multiplies
