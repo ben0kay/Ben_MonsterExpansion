@@ -650,6 +650,69 @@ class PlayerSkillTests(unittest.TestCase):
                 self.assertFalse(next(r["changed"] for r in report
                                       if r["record"] == path))
 
+    def test_pyromancer_witchfire_and_hellfire_rank_scaling(self):
+        witch_name = "records/skills/playerclass03/witchfire1.dbr"
+        native_witch = DBR.from_file(resolve(witch_name, gen.REFERENCE))
+        mod_witch = self.record("playerclass03/witchfire1.dbr")
+        original_chaos = [float(v) for v in native_witch.get("offensiveChaosMin").split(";")]
+        fire = [float(v) for v in mod_witch.get("offensiveFireMin").split(";")]
+        self.assertEqual(len(original_chaos), 22)
+        self.assertEqual(len(fire), 22)
+        self.assertEqual(native_witch.get("offensiveFireMin"), "0.000000")
+        for old, new in zip(original_chaos, fire):
+            self.assertAlmostEqual(new, old * 0.20, places=5)
+        # Retain the previously configured +8% Chaos and +5% attack speed.
+        new_chaos = [float(v) for v in mod_witch.get("offensiveChaosMin").split(";")]
+        self.assertEqual(len(new_chaos), 22)
+        for old, new in zip(original_chaos, new_chaos):
+            self.assertAlmostEqual(new, old * 1.08, places=5)
+        entry = next(e for e in self.settings["records"] if e["record"] == witch_name)
+        self.assertEqual(entry["curves"]["characterAttackSpeedModifier"],
+                         {"multiplier": 1.05})
+        exact_witch = DBR.from_file(resolve(witch_name, gen.REFERENCE))
+        for field in set(entry["set"]) | set(entry["curves"]):
+            exact_witch.set(field, mod_witch.get(field))
+        self.assertEqual(mod_witch.render(), exact_witch.render())
+
+        hell_name = ("records/skills/playerclass03/pets/"
+                     "petskill_hellhound_hellfireaura_buff.dbr")
+        native_hell = DBR.from_file(resolve(hell_name, gen.REFERENCE))
+        mod_hell = self.record(
+            "playerclass03/pets/petskill_hellhound_hellfireaura_buff.dbr")
+        for field in ("offensiveFireMin", "offensiveFireModifier"):
+            original = [float(v) for v in native_hell.get(field).split(";")]
+            improved = [float(v) for v in mod_hell.get(field).split(";")]
+            self.assertEqual(len(original), 22)
+            self.assertEqual(len(improved), 22)
+            for old, new in zip(original, improved):
+                self.assertAlmostEqual(new, old * 1.08, places=5)
+        for field in ("offensiveChaosMin", "offensiveChaosModifier",
+                      "skillTargetRadius", "skillMaxLevel", "skillUltimateLevel"):
+            self.assertEqual(mod_hell.get(field), native_hell.get(field))
+        exact_hell = DBR.from_file(resolve(hell_name, gen.REFERENCE))
+        for field in ("offensiveFireMin", "offensiveFireModifier"):
+            exact_hell.set(field, mod_hell.get(field))
+        self.assertEqual(mod_hell.render(), exact_hell.render())
+        # The real Hellhound aura must reference this buff: no dead/unattached DBR.
+        wrapper = DBR.from_file(resolve(
+            "records/skills/playerclass03/pets/petskill_hellhound_hellfireaura.dbr",
+            gen.REFERENCE))
+        self.assertEqual(wrapper.get("buffSkillName"), hell_name)
+
+    def test_pyromancer_witchfire_and_hellfire_individual_rollback(self):
+        for name in ("records/skills/playerclass03/witchfire1.dbr",
+                     "records/skills/playerclass03/pets/"
+                     "petskill_hellhound_hellfireaura_buff.dbr"):
+            with self.subTest(name=name):
+                settings = copy.deepcopy(self.settings)
+                entry = next(e for e in settings["records"] if e["record"] == name)
+                entry["enabled"] = False
+                files, report = build_skills(settings, gen.REFERENCE)
+                native = DBR.from_file(resolve(name, gen.REFERENCE))
+                self.assertEqual(files[Path("database") / name], native.render())
+                self.assertFalse(next(r["changed"] for r in report
+                                      if r["record"] == name))
+
     def test_disable_restores_exact_sources(self):
         settings = copy.deepcopy(self.settings)
         settings["enabled"] = False
