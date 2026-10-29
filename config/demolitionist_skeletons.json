@@ -1,0 +1,181 @@
+{
+  "schema_version": 2,
+  "enabled": true,
+  "tree": "records/skills/playerclass02/_classtree_class02.dbr",
+  "panel": "records/ui/skills/class02/classtable.dbr",
+  "skills": [
+    {
+      "source": "records/skills/playerclass08/summon_skeleton1.dbr",
+      "target": "records/skills/playerclass02/ben_raiseskeletons1.dbr",
+      "button_source": "records/ui/skills/class08/skill22.dbr",
+      "button_target": "records/ui/skills/class02/skill34.dbr",
+      "position": [
+        246,
+        459
+      ],
+      "visible": true,
+      "set": {
+        "petBurstSpawn": "4",
+        "petLimit": "4"
+      }
+    },
+    {
+      "source": "records/skills/playerclass08/summon_skeleton2.dbr",
+      "target": "records/skills/playerclass02/ben_raiseskeletons2.dbr",
+      "button_source": "records/ui/skills/class08/skill23.dbr",
+      "button_target": "records/ui/skills/class02/skill35.dbr",
+      "position": [
+        406,
+        459
+      ],
+      "visible": true,
+      "set": {}
+    },
+    {
+      "source": "records/skills/playerclass08/summon_skeleton3_petmodifier.dbr",
+      "target": "records/skills/playerclass02/ben_raiseskeletons3_petmodifier.dbr",
+      "button_source": "records/ui/skills/class08/skill24.dbr",
+      "button_target": "records/ui/skills/class02/skill36.dbr",
+      "position": [
+        566,
+        459
+      ],
+      "visible": true,
+      "set": {}
+    }
+  ],
+  "existing_button_positions": {
+    "records/ui/skills/class02/skill01.dbr": [
+      326,
+      39
+    ],
+    "records/ui/skills/class02/skill02.dbr": [
+      566,
+      39
+    ],
+    "records/ui/skills/class02/skill03.dbr": [
+      886,
+      219
+    ],
+    "records/ui/skills/class02/skill04.dbr": [
+      246,
+      99
+    ],
+    "records/ui/skills/class02/skill05.dbr": [
+      406,
+      99
+    ],
+    "records/ui/skills/class02/skill06.dbr": [
+      646,
+      99
+    ],
+    "records/ui/skills/class02/skill07.dbr": [
+      886,
+      99
+    ],
+    "records/ui/skills/class02/skill08.dbr": [
+      246,
+      219
+    ],
+    "records/ui/skills/class02/skill09.dbr": [
+      486,
+      219
+    ],
+    "records/ui/skills/class02/skill10.dbr": [
+      726,
+      279
+    ],
+    "records/ui/skills/class02/skill11.dbr": [
+      886,
+      279
+    ],
+    "records/ui/skills/class02/skill12.dbr": [
+      246,
+      339
+    ],
+    "records/ui/skills/class02/skill13.dbr": [
+      406,
+      339
+    ],
+    "records/ui/skills/class02/skill14.dbr": [
+      486,
+      339
+    ],
+    "records/ui/skills/class02/skill15.dbr": [
+      646,
+      339
+    ],
+    "records/ui/skills/class02/skill16.dbr": [
+      806,
+      339
+    ],
+    "records/ui/skills/class02/skill17.dbr": [
+      646,
+      399
+    ],
+    "records/ui/skills/class02/skill18.dbr": [
+      726,
+      399
+    ],
+    "records/ui/skills/class02/skill19.dbr": [
+      886,
+      399
+    ],
+    "records/ui/skills/class02/skill20.dbr": [
+      326,
+      159
+    ],
+    "records/ui/skills/class02/skill21.dbr": [
+      566,
+      159
+    ],
+    "records/ui/skills/class02/skill22.dbr": [
+      806,
+      159
+    ],
+    "records/ui/skills/class02/skill23.dbr": [
+      566,
+      219
+    ],
+    "records/ui/skills/class02/skill24.dbr": [
+      806,
+      219
+    ],
+    "records/ui/skills/class02/skill25.dbr": [
+      726,
+      39
+    ],
+    "records/ui/skills/class02/skill26.dbr": [
+      406,
+      399
+    ],
+    "records/ui/skills/class02/skill27.dbr": [
+      566,
+      399
+    ],
+    "records/ui/skills/class02/skill28.dbr": [
+      326,
+      251
+    ],
+    "records/ui/skills/class02/skill29.dbr": [
+      646,
+      191
+    ],
+    "records/ui/skills/class02/skill30.dbr": [
+      486,
+      132
+    ],
+    "records/ui/skills/class02/skill31.dbr": [
+      406,
+      191
+    ],
+    "records/ui/skills/class02/skill32.dbr": [
+      486,
+      61
+    ],
+    "records/ui/skills/class02/skill33.dbr": [
+      566,
+      311
+    ]
+  }
+}
