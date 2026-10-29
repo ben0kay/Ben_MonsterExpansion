@@ -660,10 +660,16 @@ def configured_plan(family="all", include_spawns=False):
     manifest = json.loads(files[Path("manifest.json")])
     manifest["player_skills"] = skill_report
     from mastery_attachment import load_settings as load_attachment, build_attachment
-    attachment_files, attachment_report = build_attachment(load_attachment(REPO), REFERENCE)
-    fail_unless(not set(attachment_files) & set(files), "Mastery attachment output collision")
-    files.update(attachment_files)
-    manifest["nightblade_skeletons"] = attachment_report
+    for mastery, report_key in (
+        ("nightblade", "nightblade_skeletons"),
+        ("demolitionist", "demolitionist_skeletons"),
+    ):
+        attachment_files, attachment_report = build_attachment(
+            load_attachment(REPO, mastery), REFERENCE)
+        fail_unless(not set(attachment_files) & set(files),
+                    "Mastery attachment output collision: " + mastery)
+        files.update(attachment_files)
+        manifest[report_key] = attachment_report
     manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
     files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return files
