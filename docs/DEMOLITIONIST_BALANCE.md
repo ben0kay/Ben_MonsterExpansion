@@ -38,17 +38,29 @@ change the reference files themselves.
 - The projectile-count fields are supplied as literal semicolon-separated **integers**; the generic numeric-curve generator serializes decimal values and is therefore deliberately *not* used for integer projectile counts.
 - No skills have additional damage multipliers or altered cooldowns. Increases in coverage or fragment quantity may still increase actual damage against clustered enemies.
 
-## Explicitly unchanged
+## Subsequent deployables pass
+
+A second committed Demolitionist pass now adjusts **Mortar Trap and Thermite
+Mine counts, lifetimes and attack areas** in five additional DBRs. Therefore
+their summon counts/caps are **no longer unchanged**. See
+[Demolitionist deployables](DEMOLITIONIST_DEPLOYABLES.md) for the exact
+1/2/3/4 mortar caps, 3/4 mines-per-cast progression, 6/8/9 mine caps and
+per-rank or fixed radius improvements.
+
+## Explicitly unchanged by these Demolitionist passes
 
 Fire Strike's weapon damage, Explosive Strike's damage, other Fire Strike
-modifiers, the base Stun Jacks launch count, Mortar Trap summon cap, Thermite
-Mine summon count and cap, Blast Shield, Vindictive Flame, Flame Touched and
-all Demolitionist exclusive-skill flags. The rest of Nightblade, Occultist,
-Arcanist and skeleton configuration remains unchanged.
+modifiers, the base Stun Jacks launch count, Blast Shield, Vindictive Flame,
+Flame Touched and all Demolitionist exclusive-skill flags remain unchanged.
+The separate **Demolitionist skeleton attachment** is configured in
+`config/demolitionist_skeletons.json` and documented in
+[Demolitionist skeletons](DEMOLITIONIST_SKELETONS_BUILD.md). It does not
+change the original Nightblade or Necromancer skills.
 
 ## Implementation and rollback
 
-The eight entries are independent records in `config/player_skills.json`.
+The **13 Demolitionist balance entries** are independent records in
+`config/player_skills.json`.
 To disable just one skill, set its entry's `enabled` to `false`, then
 regenerate, replace-staging and rebuild. Disabling the global player skill
 pass restores *all* player skill records, not only Demolitionist.
