@@ -276,10 +276,26 @@ mastery remains separately available.
 - **Explosive Strike** and **Grenado** get +10% radius;
   **Flashbang** gets +10% area radius; **Blackwater Cocktail** gains
   +12% radius and +10% duration at every rank.
-- No Demolitionist damage curves, cooldowns, Thermite Mine or Mortar Trap
-  counts, or defensive skills were changed. All eight changed records
-  retain reversible overrides; tests are committed but not run and the
-  pass has not been generated, F7-built or checked in-game.
+- **Mortar Trap**: **+10% base shell explosion radius** and
+  **+10% Heavy Ordnance radius curve**; lifetime **24 → 27.6 s**.
+  Active mortar cap is now **1** at ranks 1–11, **2** at 12–17,
+  **3** at 18–23 and **4** at 24–26 (up from a vanilla maximum of 3).
+- **Thermite Mine**: **+10% attack radius** (2 → 2.2 m),
+  lifetime **18 → 20.7 s**; launches **3 per cast** at ranks 1–15
+  and **4 per cast** at 16–26. The total cap rises from **6**
+  to **8** at ranks 16–22 and **9** at ranks 23–26.
+- No Demolitionist raw damage curves, cooldowns, or defensive skills
+  were changed. All **13 changed records** retain independent rollback;
+  tests are committed but not run, and the pass has not been generated,
+  F7-built or checked in-game.
+- **New Demolitionist skeleton line:** cloned Necromancer
+  **Raise Skeletons → Undead Legion → Will of the Crypt** in a dedicated
+  bottom horizontal skill-tree row (slots 37–39). As with Nightblade,
+  Raise Skeletons starts at **4**, reaches **9** with Undead Legion 12,
+  and **11** at overcap rank 22. The original 33 Demolitionist UI
+  buttons shift upward without replacing any existing skills.
+  The two classes' skeleton attachment configs and rollback are independent.
+  This new Demolitionist UI has **not** been verified in-game.
 
 ### Arcanist
 
@@ -301,7 +317,9 @@ overpowered**. Details, actual field names and untouched skills:
 [Nightblade](docs/NIGHTBLADE_BALANCE.md),
 [Nightblade skeleton layout](docs/NIGHTBLADE_SKELETONS_BUILD.md),
 [Occultist/Arcanist and pet tuning](docs/PLAYER_SKILLS.md),
-[Demolitionist first-pass balance](docs/DEMOLITIONIST_BALANCE.md).
+[Demolitionist first-pass balance](docs/DEMOLITIONIST_BALANCE.md),
+[Demolitionist deployables](docs/DEMOLITIONIST_DEPLOYABLES.md),
+[Demolitionist skeleton line](docs/DEMOLITIONIST_SKELETONS_BUILD.md).
 
 ## 5. Verified in game vs configured only
 
