@@ -479,9 +479,8 @@ class PlayerSkillTests(unittest.TestCase):
             item["record"]: item for item in self.settings["records"]
             if item["record"].startswith("records/skills/playerclass02/")
         }
-        self.assertEqual(
-            set(entries),
-            {f"records/skills/playerclass02/{name}.dbr" for name in factors},
+        self.assertTrue(
+            {f"records/skills/playerclass02/{name}.dbr" for name in factors}.issubset(set(entries))
         )
         for name, multipliers in factors.items():
             path = f"records/skills/playerclass02/{name}.dbr"
@@ -528,6 +527,63 @@ class PlayerSkillTests(unittest.TestCase):
                          (4, 6, 11, 13))
         self.assertEqual(improved.get("skillProjectileNumber"),
                          original.get("skillProjectileNumber"))
+
+    def test_demolition_deployables_rank_scaling(self):
+        mortar_name = "records/skills/playerclass02/mortartrap1.dbr"
+        mine_name = "records/skills/playerclass02/thermitemines1.dbr"
+        mortar = self.record("playerclass02/mortartrap1.dbr")
+        mines = self.record("playerclass02/thermitemines1.dbr")
+        mortar_limit = list(map(int, mortar.get("petLimit").split(";")))
+        mine_limit = list(map(int, mines.get("petLimit").split(";")))
+        mine_burst = list(map(int, mines.get("petBurstSpawn").split(";")))
+        self.assertEqual(mortar_limit, [1]*11 + [2]*6 + [3]*6 + [4]*3)
+        self.assertEqual(mine_burst, [3]*15 + [4]*11)
+        self.assertEqual(mine_limit, [6]*15 + [8]*7 + [9]*4)
+        self.assertEqual(float(mortar.get("spawnObjectsTimeToLive")), 27.6)
+        self.assertEqual(float(mines.get("spawnObjectsTimeToLive")), 20.7)
+        self.assertTrue(all(burst <= limit for burst, limit in zip(mine_burst, mine_limit)))
+
+        for record, keys in (
+            (mortar_name, ("petLimit", "spawnObjectsTimeToLive")),
+            (mine_name, ("petBurstSpawn", "petLimit", "spawnObjectsTimeToLive")),
+        ):
+            base = DBR.from_file(resolve(record, gen.REFERENCE))
+            edited = self.record(record.removeprefix("records/skills/"))
+            for key in keys:
+                base.set(key, edited.get(key))
+            self.assertEqual(edited.render(), base.render())
+
+        for name, field, multiplier in (
+            ("playerclass02/mortartrap2.dbr", "explosionRadius", 1.10),
+            ("playerclass02/pets/mortartrap_firemortar1.dbr", "projectileExplosionRadius", 1.10),
+            ("playerclass02/pets/thermitemine_skill_radius.dbr", "skillTargetRadius", 1.10),
+        ):
+            with self.subTest(name=name):
+                path = "records/skills/" + name
+                before = DBR.from_file(resolve(path, gen.REFERENCE))
+                after = self.record(name)
+                original = list(map(float, before.get(field).split(";")))
+                result = list(map(float, after.get(field).split(";")))
+                self.assertEqual(len(result), len(original))
+                for old, new in zip(original, result):
+                    self.assertAlmostEqual(new, old * multiplier, places=5)
+                before.set(field, after.get(field))
+                self.assertEqual(after.render(), before.render())
+
+    def test_demolition_deployables_individual_rollback(self):
+        for name in ("mortartrap1", "mortartrap2",
+                     "pets/mortartrap_firemortar1", "thermitemines1",
+                     "pets/thermitemine_skill_radius"):
+            path = f"records/skills/playerclass02/{name}.dbr"
+            with self.subTest(name=name):
+                settings = copy.deepcopy(self.settings)
+                next(entry for entry in settings["records"]
+                     if entry["record"] == path)["enabled"] = False
+                files, report = build_skills(settings, gen.REFERENCE)
+                original = DBR.from_file(resolve(path, gen.REFERENCE))
+                self.assertEqual(files[Path("database") / path], original.render())
+                self.assertFalse(next(entry["changed"] for entry in report
+                                      if entry["record"] == path))
 
     def test_demolition_first_pass_individual_rollback(self):
         for skill in ("stunjacks2", "canisterbomb1", "blackwater1"):
