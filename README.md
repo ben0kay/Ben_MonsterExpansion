@@ -264,12 +264,17 @@ mastery remains separately available.
   have modest targeted buffs (commonly +5–10%).
 - **Doom Bolt** and selected pet/passive skills enhanced; Blood of
   Dreeg is a sustained toggle. For **Demolitionist + Occultist (Pyromancer)**
-  compatibility, Doom Bolt now has an additional **Fire damage** curve at
-  8% of each native rank's Vitality + Chaos base, while **Dreeg's Evil Eye**
-  gains Fire damage at 15% of its native rank's direct Poison/Acid damage.
-  Original damage types, skill effects and prior buffs remain; Sigil's
-  Destruction modifier already supplies Fire. Details and rollback:
-  [Pyromancer Fire synergy](docs/PLAYER_SKILLS.md#pyromancer-fire-synergy--focused-occultist-additions).
+  compatibility, Doom Bolt adds **Fire damage** at 8% of each native
+  rank's Vitality + Chaos base, while **Dreeg's Evil Eye** adds Fire at 15%
+  of its native direct Poison/Acid damage. **Solael's Witchfire** now adds
+  **flat Fire damage equal to 20% of its native flat Chaos** at each rank,
+  boosting weapon attacks such as ranged Fire Strike; existing Chaos and
+  attack speed remain. **Hellhound's Hellfire aura** boosts its existing
+  flat and percentage Fire bonuses by **8%** without changing Chaos or
+  summoning limits. Original damage types and spell FX remain intact;
+  Sigil's Destruction modifier already supplies Fire. Details and rollback:
+  [Pyromancer Fire synergy](docs/PLAYER_SKILLS.md#pyromancer-fire-synergy--focused-occultist-additions)
+  and [Witchfire/Hellfire](docs/PLAYER_SKILLS.md#pyromancer-ranged-support--witchfire-and-hellfire).
   Other pet abilities not explicitly configured remain vanilla.
 
 ### Demolitionist (first pass — configured, not yet tested)
