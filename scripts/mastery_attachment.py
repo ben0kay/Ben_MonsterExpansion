@@ -6,8 +6,15 @@ from dbr import DBR
 from references import resolve
 
 
-def load_settings(repo):
-    path = repo / 'config/nightblade_skeletons.json'
+def load_settings(repo, mastery='nightblade'):
+    """Load an individual skeleton attachment; Nightblade remains the default."""
+    names = {
+        'nightblade': 'nightblade_skeletons.json',
+        'demolitionist': 'demolitionist_skeletons.json',
+    }
+    if mastery not in names:
+        raise ValueError('Unsupported skeleton attachment mastery')
+    path = repo / 'config' / names[mastery]
     return json.loads(path.read_text()) if path.exists() else None
 
 
@@ -27,6 +34,16 @@ def build_attachment(settings, reference):
         raise ValueError('Unknown mastery attachment configuration fields')
     if settings['schema_version'] != 2 or type(settings['enabled']) is not bool:
         raise ValueError('Invalid mastery attachment configuration')
+    class_match = re.fullmatch(
+        r'records/skills/playerclass(\d{2})/_classtree_class(\d{2})\.dbr',
+        settings['tree'])
+    if class_match is None or class_match.group(1) != class_match.group(2):
+        raise ValueError('Skeleton attachment tree path is not a mastery tree')
+    class_id = class_match.group(1)
+    if class_id not in ('02', '04'):
+        raise ValueError('Only Demolitionist/Nightblade skeleton attachments are supported')
+    if settings['panel'] != f'records/ui/skills/class{class_id}/classtable.dbr':
+        raise ValueError('Attachment panel must match the target mastery')
     skills = settings['skills']
     if not isinstance(skills, list) or len(skills) != 3:
         raise ValueError('Skeleton attachment requires its three native skill records')
@@ -85,10 +102,14 @@ def build_attachment(settings, reference):
             raise ValueError('Unknown attachment skill configuration fields')
         if entry['visible'] is not True:
             raise ValueError('Expose the complete skill line together')
-        if not entry['target'].startswith('records/skills/playerclass04/ben_'):
-            raise ValueError('Attachment skill must use custom Nightblade namespace')
-        if not entry['button_target'].startswith('records/ui/skills/class04/skill'):
-            raise ValueError('Attachment button must use Nightblade UI namespace')
+        if not re.fullmatch(
+            rf'records/skills/playerclass{class_id}/ben_[a-z0-9_]+\.dbr',
+            entry['target']):
+            raise ValueError('Attachment skill must use custom target-mastery namespace')
+        if not re.fullmatch(
+            rf'records/ui/skills/class{class_id}/skill[0-9]+\.dbr',
+            entry['button_target']):
+            raise ValueError('Attachment button must use target-mastery UI namespace')
         if entry['target'] in targets:
             raise ValueError('Duplicate attachment skill')
         targets.add(entry['target'])
