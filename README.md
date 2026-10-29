@@ -252,9 +252,11 @@ mastery remains separately available.
 
 ### Occultist
 
-- **Familiar and Hellhound** cap rises from one each to **two of
-  each at summon rank 8+**; each pet gets **+20% relative intrinsic
-  HP** compared with the prior modded actor scaling, across 26 ranks.
+- **Familiar and Hellhound** now each start with **2 maximum summons
+  at ranks 1–7**, increase to **3 at ranks 8–14**, and **4 at ranks
+  15–26** (normal skill cap 16, overcap 26). Each pet gets **+20%
+  relative intrinsic HP** compared with the prior modded actor scaling.
+  One pet is summoned per cast; native cooldowns are unchanged.
 - **Sigil of Consumption**: +15% **radius at every rank**, duration
   **6 → 7.2 s** (+20%), cooldown **3 → 2.7 s** (−10%);
   original damage/cost curve unchanged. **Curse of Frailty**,
