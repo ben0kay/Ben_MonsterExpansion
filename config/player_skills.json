@@ -207,7 +207,7 @@
     {
       "record": "records/skills/playerclass03/summon_raven1.dbr",
       "set": {
-        "petLimit": "1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2"
+        "petLimit": "2;2;2;2;2;2;2;3;3;3;3;3;3;3;4;4;4;4;4;4;4;4;4;4;4;4"
       },
       "curves": {}
     },
@@ -471,7 +471,7 @@
     {
       "record": "records/skills/playerclass03/summon_hellhound1.dbr",
       "set": {
-        "petLimit": "1;1;1;1;1;1;1;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2"
+        "petLimit": "2;2;2;2;2;2;2;3;3;3;3;3;3;3;4;4;4;4;4;4;4;4;4;4;4;4"
       },
       "curves": {}
     },
