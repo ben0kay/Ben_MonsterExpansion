@@ -177,5 +177,22 @@
       566,
       311
     ]
-  }
+  },
+  "extra_skills": [
+    {
+      "enabled": true,
+      "source": "records/skills/playerclass09/viremight1.dbr",
+      "target": "records/skills/playerclass02/ben_viremight1.dbr",
+      "button_source": "records/ui/skills/class09/skill21.dbr",
+      "button_target": "records/ui/skills/class02/skill37.dbr",
+      "position": [
+        806,
+        459
+      ],
+      "set": {
+        "skillConnectionOff": "",
+        "skillConnectionOn": ""
+      }
+    }
+  ]
 }
