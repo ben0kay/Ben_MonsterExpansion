@@ -2,8 +2,10 @@
 
 Enabled for all 148 Veterans, 124 Elites and 137 Ascended. Each generated monster
 changes only its own `experiencePoints` input for this feature. Original enemy
-DBRs, `giveXP`, classifications, global difficulty XP equations, player progression,
-loot and spawn selections are untouched.
+DBRs, `giveXP`, classifications, player progression,
+loot and spawn selections are untouched. A **separate, independently
+configurable global monster XP multiplier** now wraps the four difficulty
+formula outputs (default ×1); see [GLOBAL_XP.md](GLOBAL_XP.md).
 
 Each tier's `prototype.experience_reward.enabled` in `config/tiers.json` enables
 this feature. It reuses `prototype.stats_vs_parent.health`: 1.30 Veteran, 1.30 Elite,
