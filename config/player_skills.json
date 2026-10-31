@@ -1613,6 +1613,156 @@
           "multiplier": 1.08
         }
       }
+    },
+    {
+      "record": "records/skills/playerclass01/shieldhammer1.dbr",
+      "set": {
+        "waveDistance": "11.000000",
+        "waveStartWidth": "3.300000",
+        "waveEndWidth": "4.950000"
+      },
+      "curves": {
+        "offensivePhysicalMin": {
+          "multiplier": 1.08
+        },
+        "offensivePhysicalMax": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/bladearc1.dbr",
+      "set": {
+        "skillTargetAngle": "195.000000",
+        "skillTargetNumber": "6"
+      },
+      "curves": {
+        "offensivePhysicalMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/blitz1.dbr",
+      "set": {
+        "skillCooldownTime": "3.250000",
+        "skillTargetNumber": "4"
+      },
+      "curves": {
+        "offensivePhysicalMin": {
+          "multiplier": 1.05
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/warcry1.dbr",
+      "set": {},
+      "curves": {
+        "skillTargetRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/counterstrike1.dbr",
+      "set": {
+        "skillTargetRadius": "5.500000"
+      },
+      "curves": {
+        "offensivePhysicalMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/weaponpool2.dbr",
+      "set": {
+        "skillTargetNumber": "2;2;2;3;3;3;4;4;4;4;4;6;6;6;6;7;7;7;7;7;8;8"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass01/cadence1.dbr",
+      "set": {},
+      "curves": {
+        "offensivePhysicalMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/cadence3_buff.dbr",
+      "set": {
+        "skillActiveDuration": "6.000000"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass01/overguard1.dbr",
+      "set": {
+        "skillActiveDuration": "11.000000"
+      },
+      "curves": {
+        "characterLifeRegenModifier": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/willtolive1.dbr",
+      "set": {
+        "skillActiveDuration": "11.500000"
+      },
+      "curves": {
+        "characterLifeRegen": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/fightingspirit1.dbr",
+      "set": {},
+      "curves": {
+        "skillActiveDuration": {
+          "multiplier": 1.15
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/passive1.dbr",
+      "set": {},
+      "curves": {
+        "characterLifeModifier": {
+          "multiplier": 1.05
+        },
+        "characterStrengthModifier": {
+          "multiplier": 1.05
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/passiveshield.dbr",
+      "set": {},
+      "curves": {
+        "defensiveBlockModifier": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass01/passive3.dbr",
+      "set": {},
+      "curves": {
+        "defensiveElementalResistance": {
+          "multiplier": 1.05
+        },
+        "offensivePhysicalModifier": {
+          "multiplier": 1.05
+        },
+        "offensivePierceModifier": {
+          "multiplier": 1.05
+        }
+      }
     }
   ]
 }
