@@ -713,6 +713,99 @@ class PlayerSkillTests(unittest.TestCase):
                 self.assertFalse(next(r["changed"] for r in report
                                       if r["record"] == name))
 
+    def test_soldier_offensive_and_defensive_pass_preserves_unrelated_fields(self):
+        # The Soldier pass changes only these fourteen original skill DBRs.
+        changes = {
+            "shieldhammer1": {"waveDistance", "waveStartWidth", "waveEndWidth",
+                               "offensivePhysicalMin", "offensivePhysicalMax"},
+            "bladearc1": {"skillTargetAngle", "skillTargetNumber",
+                          "offensivePhysicalMin"},
+            "blitz1": {"skillCooldownTime", "skillTargetNumber",
+                       "offensivePhysicalMin"},
+            "warcry1": {"skillTargetRadius"},
+            "counterstrike1": {"skillTargetRadius", "offensivePhysicalMin"},
+            "weaponpool2": {"skillTargetNumber"},
+            "cadence1": {"offensivePhysicalMin"},
+            "cadence3_buff": {"skillActiveDuration"},
+            "overguard1": {"skillActiveDuration", "characterLifeRegenModifier"},
+            "willtolive1": {"skillActiveDuration", "characterLifeRegen"},
+            "fightingspirit1": {"skillActiveDuration"},
+            "passive1": {"characterLifeModifier", "characterStrengthModifier"},
+            "passiveshield": {"defensiveBlockModifier"},
+            "passive3": {"defensiveElementalResistance",
+                         "offensivePhysicalModifier", "offensivePierceModifier"},
+        }
+        soldier = {e["record"].rsplit("/", 1)[-1].removesuffix(".dbr"): e
+                   for e in self.settings["records"]
+                   if e["record"].startswith("records/skills/playerclass01/")}
+        self.assertEqual(set(soldier) - {"stancedefensive", "stanceoffensive"},
+                         set(changes))
+        for name, fields in changes.items():
+            with self.subTest(skill=name):
+                path = f"records/skills/playerclass01/{name}.dbr"
+                entry = soldier[name]
+                self.assertEqual(set(entry["set"]) | set(entry["curves"]), fields)
+                native = DBR.from_file(resolve(path, gen.REFERENCE))
+                modified = self.record(f"playerclass01/{name}.dbr")
+                expected = DBR.from_file(resolve(path, gen.REFERENCE))
+                for field, exact in entry["set"].items():
+                    self.assertEqual(modified.get(field), exact)
+                    expected.set(field, exact)
+                for field, rule in entry["curves"].items():
+                    original = [float(v) for v in native.get(field).split(";")]
+                    actual = [float(v) for v in modified.get(field).split(";")]
+                    self.assertEqual(len(actual), rule.get("ranks", len(original)))
+                    for i, got in enumerate(actual):
+                        old = original[min(i, len(original) - 1)]
+                        value = (old * (rule.get("multiplier", 1) +
+                                        i * rule.get("multiplier_per_rank", 0)) +
+                                 rule.get("add", 0) + i * rule.get("add_per_rank", 0))
+                        self.assertAlmostEqual(got, value, places=5)
+                    expected.set(field, modified.get(field))
+                self.assertEqual(modified.render(), expected.render())
+                self.assertEqual(modified.get("skillMaxLevel"),
+                                 native.get("skillMaxLevel"))
+                self.assertEqual(modified.get("skillUltimateLevel"),
+                                 native.get("skillUltimateLevel"))
+
+        # Rank 12 is the first extra Zolhan target; earlier ranks are native.
+        native = DBR.from_file(resolve(
+            "records/skills/playerclass01/weaponpool2.dbr", gen.REFERENCE))
+        original = list(map(int, native.get("skillTargetNumber").split(";")))
+        upgraded = list(map(int, self.record(
+            "playerclass01/weaponpool2.dbr").get("skillTargetNumber").split(";")))
+        self.assertEqual(len(original), 22)
+        self.assertEqual(upgraded, original[:11] +
+                         [value + 1 for value in original[11:]])
+        self.assertEqual(upgraded[-1], original[-1] + 1)
+        # Preserve Cadence's original high-impact weapon percentage.
+        self.assertEqual(self.record("playerclass01/cadence1.dbr").get("weaponDamagePct"),
+                         DBR.from_file(resolve(
+                             "records/skills/playerclass01/cadence1.dbr",
+                             gen.REFERENCE)).get("weaponDamagePct"))
+
+    def test_soldier_first_pass_each_skill_can_rollback_independently(self):
+        names = ("shieldhammer1", "bladearc1", "blitz1", "warcry1",
+                 "counterstrike1", "weaponpool2", "cadence1", "cadence3_buff",
+                 "overguard1", "willtolive1", "fightingspirit1",
+                 "passive1", "passiveshield", "passive3")
+        for name in names:
+            with self.subTest(skill=name):
+                path = f"records/skills/playerclass01/{name}.dbr"
+                settings = copy.deepcopy(self.settings)
+                chosen = next(e for e in settings["records"] if e["record"] == path)
+                chosen["enabled"] = False
+                files, report = build_skills(settings, gen.REFERENCE)
+                native = DBR.from_file(resolve(path, gen.REFERENCE))
+                self.assertEqual(files[Path("database") / path], native.render())
+                self.assertFalse(next(r["changed"] for r in report
+                                      if r["record"] == path))
+                # An unrelated Soldier offensive skill remains enabled.
+                other = "blitz1" if name != "blitz1" else "bladearc1"
+                other_path = f"records/skills/playerclass01/{other}.dbr"
+                self.assertEqual(files[Path("database") / other_path],
+                                 self.files[Path("database") / other_path])
+
     def test_disable_restores_exact_sources(self):
         settings = copy.deepcopy(self.settings)
         settings["enabled"] = False
