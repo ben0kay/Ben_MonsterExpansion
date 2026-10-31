@@ -31,8 +31,10 @@ overrides, as in the Nightblade implementation.
 
 `config/demolitionist_skeletons.json` is independent of
 `config/nightblade_skeletons.json`, with its own `enabled` flag.
-Generator output includes **41 DBRs**: 33 moved existing buttons, 3 skill
-clones, 3 new button clones, the skill tree and panel. It is included
+Generator output now includes **43 DBRs** while Vire's Might is configured:
+33 moved existing buttons, 3 skeleton skills/buttons, 1 Vire's Might
+skill/button, and the skill tree and panel. The skeleton-only count was
+41 before adding the separate movement skill. It is included
 automatically in the combined generator and staged manifest under
 `demolitionist_skeletons`; the existing `nightblade_skeletons` manifest
 entry remains unchanged.
@@ -74,15 +76,20 @@ as separate skill DBRs. Existing Nightblade build/test entry points work with
 the default `load_settings(repo)`; new code uses
 `load_settings(repo, 'demolitionist')`.
 
-To remove only the Demolitionist skeletons, change
-`config/demolitionist_skeletons.json` -> `enabled:false` and rerun the
-complete generator with **replacement staging**, then F7. The same 41 paths
-are generated: original Demolitionist buttons, tree and panel are restored,
-and the cloned skills remain unlisted by the UI/tree. Nightblade stays enabled.
+To remove **only the skeletons**, set
+`config/demolitionist_skeletons.json` -> `enabled:false` and regenerate,
+replace stage and rebuild F7. The independent **Vire's Might** clone remains
+available when `extra_skills[0].enabled:true`; the UI/layout stays compacted
+and the Vire's Might entry moves to tree slot 37. If you want the **exact
+native Demolitionist tree, panel and original button positions restored**,
+also set `extra_skills[0].enabled:false`. The same 43 paths are generated in
+all configurations to overwrite prior output. Nightblade stays enabled.
+See [Vire's Might attachment](DEMOLITIONIST_VIRES_MIGHT.md).
 
-New tests in `tests/test_mastery_attachment.py` check donor record parity,
-three consecutive tree slots, exact UI layout and field preservation,
-independent manifests, per-class rollback and namespace/layout rejection.
+Tests in `tests/test_mastery_attachment.py` check donor record parity,
+three consecutive skeleton slots, independent Vire's Might tree slot and
+UI, original button preservation, independent flags and rollback,
+manifest integrity, and namespace/layout rejection.
 These tests have not been executed in the GitHub-only session.
 
 ## Build and in-game checks
