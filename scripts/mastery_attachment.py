@@ -30,7 +30,9 @@ def build_attachment(settings, reference):
     """Return deterministic DBRs and a report, including vanilla rollback records."""
     if settings is None:
         return {}, None
-    if set(settings) != {'schema_version', 'enabled', 'tree', 'panel', 'skills', 'existing_button_positions'}:
+    required = {'schema_version', 'enabled', 'tree', 'panel', 'skills',
+                'existing_button_positions'}
+    if not required <= set(settings) or set(settings) - required - {'extra_skills'}:
         raise ValueError('Unknown mastery attachment configuration fields')
     if settings['schema_version'] != 2 or type(settings['enabled']) is not bool:
         raise ValueError('Invalid mastery attachment configuration')
@@ -42,6 +44,11 @@ def build_attachment(settings, reference):
     class_id = class_match.group(1)
     if class_id not in ('02', '04'):
         raise ValueError('Only Demolitionist/Nightblade skeleton attachments are supported')
+    # A standalone Vire's Might clone is supported alongside the existing
+    # Demolitionist skeleton row, with its own enabled flag.
+    extras = settings.get('extra_skills', [])
+    if not isinstance(extras, list) or len(extras) > 1 or (class_id != '02' and extras):
+        raise ValueError('Extra mastery skills are currently Demolitionist-only')
     if settings['panel'] != f'records/ui/skills/class{class_id}/classtable.dbr':
         raise ValueError('Attachment panel must match the target mastery')
     skills = settings['skills']
@@ -78,6 +85,10 @@ def build_attachment(settings, reference):
             raise ValueError('Attachment button outside existing skill layout bounds')
         return x, y
 
+    # A disabled skeleton row must not remove an independently enabled
+    # movement skill or revert the layout while that skill still needs space.
+    layout_enabled = settings['enabled'] or any(
+        isinstance(e, dict) and e.get('enabled') is True for e in extras)
     original_names = [name for name in buttons
                       if re.fullmatch(r'skill\d+\.dbr', name.rsplit('/', 1)[-1])]
     layout = settings['existing_button_positions']
@@ -88,7 +99,7 @@ def build_attachment(settings, reference):
         button = source(name)
         x, y = position(layout[name])
         occupied.append((x, y))
-        if settings['enabled']:
+        if layout_enabled:
             button.set('bitmapPositionX', str(x))
             button.set('bitmapPositionY', str(y))
         # Always emit originals in disabled mode to undo previously staged moves.
@@ -148,7 +159,58 @@ def build_attachment(settings, reference):
             put(tree, f'skillLevel{slot}', '0')
             buttons.append(entry['button_target'])
             active.append(entry['target'])
-    if settings['enabled']:
+    # The movement clone is an additional *independent* skill, not a fourth
+    # skeleton modifier. It uses Oathkeeper's existing Rush template, original
+    # animation, FX, rank curves and cooldown; only orphaned UI connectors
+    # are suppressed because the Oathkeeper modifiers are not cloned.
+    allowed_extra = {
+        'source': 'records/skills/playerclass09/viremight1.dbr',
+        'target': 'records/skills/playerclass02/ben_viremight1.dbr',
+        'button_source': 'records/ui/skills/class09/skill21.dbr',
+        'button_target': 'records/ui/skills/class02/skill37.dbr',
+        'set': {'skillConnectionOff': '', 'skillConnectionOn': ''},
+    }
+    for extra in extras:
+        if not isinstance(extra, dict) or set(extra) != {
+                'enabled', 'source', 'target', 'button_source',
+                'button_target', 'position', 'set'}:
+            raise ValueError('Invalid standalone mastery skill')
+        if type(extra['enabled']) is not bool or any(
+                extra[key] != value for key, value in allowed_extra.items()):
+            raise ValueError('Only the untouched Vire\'s Might combat clone is supported')
+        if extra['target'] in targets:
+            raise ValueError('Duplicate mastery skill target')
+        if extra['button_target'] in buttons or extra['button_target'] in (
+                entry['button_target'] for entry in skills):
+            raise ValueError('Duplicate mastery skill button')
+        targets.add(extra['target'])
+        x, y = position(extra['position'])
+        if any(abs(x-a) < 60 and abs(y-b) < 60 for a,b in occupied):
+            raise ValueError('Standalone skill button overlaps another skill')
+        occupied.append((x, y))
+        skill = source(extra['source'])
+        button = source(extra['button_source'])
+        if (skill.get('Class') != 'Skill_AttackPathCharge'
+                or button.get('skillName') != extra['source']):
+            raise ValueError('Standalone skill donor is not native Vire\'s Might')
+        if extra['enabled']:
+            for key, value in extra['set'].items():
+                skill.set(key, value)
+        button.set('skillName', extra['target'])
+        button.set('bitmapPositionX', str(x))
+        button.set('bitmapPositionY', str(y))
+        emit(extra['target'], skill)
+        emit(extra['button_target'], button)
+        if extra['enabled']:
+            slot = next_slot + len(active)
+            for field in (f'skillName{slot}', f'skillLevel{slot}'):
+                if f'name = "{field}"' not in template:
+                    raise ValueError('Standalone skill exceeds tree template capacity')
+            put(tree, f'skillName{slot}', extra['target'])
+            put(tree, f'skillLevel{slot}', '0')
+            buttons.append(extra['button_target'])
+            active.append(extra['target'])
+    if layout_enabled:
         panel.set('tabSkillButtons', ';'.join(buttons))
     emit(settings['tree'], tree)
     emit(settings['panel'], panel)
