@@ -164,8 +164,8 @@ class DemolitionistSkeletonAttachmentTests(unittest.TestCase):
         return DBR(self.files[Path('database') / name])
 
     def test_demolitionist_three_skill_line_and_native_pet_dependencies(self):
-        self.assertEqual(len(self.files), 41)  # 33 original UI + 3 skills + 3 new UI + tree/panel
-        self.assertEqual(len(self.report['active_skills']), 3)
+        self.assertEqual(len(self.files), 43)  # 33 original UI + 4 skills + 4 new UI + tree/panel
+        self.assertEqual(len(self.report['active_skills']), 4)
         original = DBR.from_file(resolve(self.settings['tree'], gen.REFERENCE))
         tree = self.record(self.settings['tree'])
         for i, entry in enumerate(self.settings['skills'], start=37):
@@ -195,7 +195,9 @@ class DemolitionistSkeletonAttachmentTests(unittest.TestCase):
     def test_demolitionist_ui_and_independent_manifest(self):
         layout = self.settings['existing_button_positions']
         self.assertEqual(len(layout), 33)
-        positions = list(layout.values()) + [entry['position'] for entry in self.settings['skills']]
+        positions = (list(layout.values()) +
+                     [entry['position'] for entry in self.settings['skills']] +
+                     [entry['position'] for entry in self.settings['extra_skills']])
         self.assertTrue(all(not (abs(ax-bx) < 60 and abs(ay-by) < 60)
                             for i,(ax,ay) in enumerate(positions)
                             for bx,by in positions[i+1:]))
@@ -208,7 +210,8 @@ class DemolitionistSkeletonAttachmentTests(unittest.TestCase):
         original_panel = DBR.from_file(resolve(self.settings['panel'], gen.REFERENCE))
         original_panel.set('tabSkillButtons',
                            original_panel.get('tabSkillButtons') + ';' +
-                           ';'.join(entry['button_target'] for entry in self.settings['skills']))
+                           ';'.join(entry['button_target'] for entry in
+                                    self.settings['skills'] + self.settings['extra_skills']))
         self.assertEqual(panel.render(), original_panel.render())
         night_files, night_report = build_attachment(load_settings(gen.REPO), gen.REFERENCE)
         self.assertFalse(set(self.files) & set(night_files))
@@ -222,6 +225,7 @@ class DemolitionistSkeletonAttachmentTests(unittest.TestCase):
     def test_demolitionist_disabled_rolls_back_without_changing_nightblade(self):
         disabled = copy.deepcopy(self.settings)
         disabled['enabled'] = False
+        disabled['extra_skills'][0]['enabled'] = False
         restored, report = build_attachment(disabled, gen.REFERENCE)
         self.assertEqual(set(restored), set(self.files))
         self.assertEqual(report['active_skills'], [])
@@ -236,8 +240,73 @@ class DemolitionistSkeletonAttachmentTests(unittest.TestCase):
         self.assertEqual(base.get('petBurstSpawn'), '3')
         self.assertEqual(base.get('petLimit'), '3')
 
+    def test_demolitionist_vire_might_native_dash_and_skill_tree(self):
+        extra = self.settings['extra_skills'][0]
+        self.assertTrue(extra['enabled'])
+        self.assertEqual(extra['source'], 'records/skills/playerclass09/viremight1.dbr')
+        native = DBR.from_file(resolve(extra['source'], gen.REFERENCE))
+        clone = self.record(extra['target'])
+        self.assertEqual(clone.get('Class'), 'Skill_AttackPathCharge')
+        self.assertEqual(clone.get('skillSpecialAnimationName'), 'Rush')
+        self.assertEqual(clone.get('skillCooldownTime'), native.get('skillCooldownTime'))
+        self.assertEqual(clone.get('skillMaxLevel'), native.get('skillMaxLevel'))
+        self.assertEqual(clone.get('skillUltimateLevel'), native.get('skillUltimateLevel'))
+        expected = DBR.from_file(resolve(extra['source'], gen.REFERENCE))
+        for field in ('skillConnectionOff', 'skillConnectionOn'):
+            self.assertEqual(clone.get(field), '')
+            expected.set(field, '')
+        # Only orphaned Oathkeeper connector icons are suppressed.
+        self.assertEqual(clone.render(), expected.render())
+        donor_button = DBR.from_file(resolve(extra['button_source'], gen.REFERENCE))
+        self.assertEqual(donor_button.get('skillName'), extra['source'])
+        donor_button.set('skillName', extra['target'])
+        donor_button.set('bitmapPositionX', str(extra['position'][0]))
+        donor_button.set('bitmapPositionY', str(extra['position'][1]))
+        self.assertEqual(self.record(extra['button_target']).render(),
+                         donor_button.render())
+        tree = self.record(self.settings['tree'])
+        self.assertEqual(tree.get('skillName40'), extra['target'])
+        self.assertEqual(tree.get('skillLevel40'), '0')
+        self.assertEqual(self.report['active_skills'][-1], extra['target'])
+
+    def test_demolitionist_skeleton_and_dash_independent_rollbacks(self):
+        # Skeletons disabled, Vire's Might remains selectable in slot 37.
+        no_skeletons = copy.deepcopy(self.settings)
+        no_skeletons['enabled'] = False
+        files, report = build_attachment(no_skeletons, gen.REFERENCE)
+        self.assertEqual(set(files), set(self.files))
+        extra = no_skeletons['extra_skills'][0]
+        self.assertEqual(report['active_skills'], [extra['target']])
+        tree = DBR(files[Path('database') / no_skeletons['tree']])
+        self.assertEqual(tree.get('skillName37'), extra['target'])
+        self.assertFalse(tree._locations('skillName38'))
+        panel = DBR(files[Path('database') / no_skeletons['panel']])
+        original_panel = DBR.from_file(resolve(no_skeletons['panel'], gen.REFERENCE))
+        self.assertEqual(panel.get('tabSkillButtons'),
+                         original_panel.get('tabSkillButtons') + ';' + extra['button_target'])
+        for name, (x, y) in no_skeletons['existing_button_positions'].items():
+            original = DBR.from_file(resolve(name, gen.REFERENCE))
+            original.set('bitmapPositionX', str(x))
+            original.set('bitmapPositionY', str(y))
+            self.assertEqual(files[Path('database') / name], original.render())
+        base = DBR(files[Path('database') / no_skeletons['skills'][0]['target']])
+        self.assertEqual((base.get('petBurstSpawn'), base.get('petLimit')), ('3','3'))
+
+        # Dash disabled, all three skeleton abilities remain in the class.
+        no_dash = copy.deepcopy(self.settings)
+        no_dash['extra_skills'][0]['enabled'] = False
+        files, report = build_attachment(no_dash, gen.REFERENCE)
+        self.assertEqual(set(files), set(self.files))
+        self.assertEqual(report['active_skills'],
+                         [entry['target'] for entry in no_dash['skills']])
+        self.assertFalse(DBR(files[Path('database') / no_dash['tree']])._locations('skillName40'))
+        donor = DBR.from_file(resolve(extra['source'], gen.REFERENCE))
+        self.assertEqual(files[Path('database') / extra['target']], donor.render())
+
     def test_demolitionist_invalid_layout_and_cross_mastery_paths(self):
-        for error in ('overlap','wrong_skill_mastery','wrong_ui_mastery','wrong_panel'):
+        for error in ('overlap','wrong_skill_mastery','wrong_ui_mastery','wrong_panel',
+                      'dash_overlap','dash_wrong_donor','dash_wrong_target',
+                      'dash_button_collision','dash_damage_edit','dash_enabled_type'):
             settings = copy.deepcopy(self.settings)
             if error == 'overlap':
                 settings['skills'][0]['position'] = [406, 399]
@@ -247,6 +316,18 @@ class DemolitionistSkeletonAttachmentTests(unittest.TestCase):
                 settings['skills'][0]['button_target'] = 'records/ui/skills/class04/skill34.dbr'
             elif error == 'wrong_panel':
                 settings['panel'] = 'records/ui/skills/class04/classtable.dbr'
+            elif error == 'dash_overlap':
+                settings['extra_skills'][0]['position'] = [566, 459]
+            elif error == 'dash_wrong_donor':
+                settings['extra_skills'][0]['source'] = 'records/skills/playerclass04/shadowstrike.dbr'
+            elif error == 'dash_wrong_target':
+                settings['extra_skills'][0]['target'] = 'records/skills/playerclass04/ben_viremight1.dbr'
+            elif error == 'dash_button_collision':
+                settings['extra_skills'][0]['button_target'] = 'records/ui/skills/class02/skill34.dbr'
+            elif error == 'dash_damage_edit':
+                settings['extra_skills'][0]['set']['offensivePhysicalMin'] = '100'
+            elif error == 'dash_enabled_type':
+                settings['extra_skills'][0]['enabled'] = 'yes'
             with self.subTest(case=error), self.assertRaises(ValueError):
                 build_attachment(settings, gen.REFERENCE)
 
