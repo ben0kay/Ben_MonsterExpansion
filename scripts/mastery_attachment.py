@@ -214,6 +214,10 @@ def build_attachment(settings, reference):
         panel.set('tabSkillButtons', ';'.join(buttons))
     emit(settings['tree'], tree)
     emit(settings['panel'], panel)
-    return files, {'enabled': settings['enabled'], 'active_skills': active,
-                   'status': 'complete skill line; layout and modifiers await in-game verification',
-                   'cloned_records': [s['target'] for s in skills]}
+    report = {'enabled': settings['enabled'], 'active_skills': active,
+              'status': 'attached skills; layout and behavior await in-game verification',
+              'cloned_records': ([s['target'] for s in skills] +
+                                 [s['target'] for s in extras])}
+    if extras:
+        report['movement_enabled'] = extras[0]['enabled']
+    return files, report
