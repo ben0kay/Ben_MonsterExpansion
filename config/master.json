@@ -3,5 +3,9 @@
   "monster_spawning": {
     "enabled": true,
     "pack_size_multiplier": 2
+  },
+  "global_xp": {
+    "enabled": true,
+    "multiplier": 1
   }
 }
