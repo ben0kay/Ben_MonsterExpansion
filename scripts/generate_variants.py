@@ -601,6 +601,18 @@ def configured_plan(family="all", include_spawns=False):
             manifest["global_spawning"] = settings
             manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
             files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
+    # Monster-kill XP is independent of pack-size spawning and is emitted
+    # even when --include-spawns is omitted. Always stage the original at x1
+    # or disabled so rollback overwrites any previously compiled multiplier.
+    from global_xp import load_settings as load_xp, build_global_xp, OUTPUT_RECORD as XP_RECORD
+    xp_settings = load_xp(REPO)
+    if xp_settings is not None:
+        fail_unless(XP_RECORD not in files, "Global XP equation output collision")
+        files[XP_RECORD] = build_global_xp(xp_settings, REFERENCE)
+        manifest = json.loads(files[Path("manifest.json")])
+        manifest["global_xp"] = xp_settings
+        manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
+        files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     from player_stats import load_settings as load_player_stats, build_player_stats, OUTPUT_RECORD as PLAYER_RECORD
     player_settings = load_player_stats(REPO)
     if player_settings is not None:
