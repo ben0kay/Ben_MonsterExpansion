@@ -89,8 +89,16 @@ Common, Champion, Hero, Boss and Nemesis types remain present.
   forced, scripted or unsupported pools are intentionally excluded.
 - Variant XP inputs target approximately **+30% Veteran**, **+30% Elite**,
   **+40% Ascended** relative to their parents. Actual XP depends on native
-  XP formulas, level, difficulty and rounding. Original loot, enemy XP
-  eligibility and global reward formulas are not intentionally changed.
+  XP formulas, level, difficulty and rounding. Loot and enemy XP eligibility
+  are unchanged.
+- **Configurable global monster XP** now lives beside pack density in
+  `config/master.json`: `global_xp.enabled=true`,
+  `global_xp.multiplier=1` (default vanilla kill XP). Change to `1.5`
+  or `2` for more kill XP, independently of pack size and custom-tier
+  XP inputs. The generator wraps the four native difficulty XP equations;
+  quest XP, death penalties and leveling requirements are unaffected.
+  Setting the multiplier to `1` or disabling it regenerates the exact
+  native formula record. [Full scope and rollback](docs/GLOBAL_XP.md).
 - The existing **discovery scanners and reviewed family JSON catalogs** are
   reusable. To add an ability to already-enabled Elites or Ascended, **do
   not rescan their parent monsters**; extend the shared generator/config.
@@ -442,13 +450,14 @@ The researched DBR mechanics and proposed phases live in
 | --- | --- |
 | `config/tiers.json` | Tier stat, size, glow, XP, conversion shares, rage and elemental proc settings |
 | `config/families/*.json` | Reviewed actual parents, custom variants, pool promotions and enabled selection |
-| `config/master.json` | 2× regular pack-size multiplier |
+| `config/master.json` | 2× regular pack-size multiplier; independent global monster XP multiplier (default ×1) |
 | `config/player_stats.json` | Level cap, skill/attribute points, devotion |
 | `config/player_basics.json`, `config/player_movement.json` | Base player health/energy, speed, camera |
 | `config/player_skills.json`, `config/nightblade_skeletons.json` | Mastery balance and Nightblade skeleton tree |
 | `scripts/discover_veterans.py`, `discover_elites.py`, `discover_ascended.py` | Read-only-by-default family/pool discovery; optional disabled draft configs |
 | `scripts/generate_variants.py`, `scripts/creature_names.py` | Compose variant DBRs and auto-resolve custom tier labels from original/GDX1/GDX2 English creature tags |
 | `scripts/natural_spawns.py`, `scripts/global_spawns.py` | Safe merged pool weights; global **regular-only** pack size |
+| `scripts/global_xp.py` | Configurable all-difficulty monster-kill XP formula multiplier; preserves exact vanilla at ×1 or disabled |
 | `scripts/validate_config.py`, `scripts/prepare_console_test.py` | Input/reference checks and guarded staging |
 | `ReferenceFiles/` | **Read-only** extracted game DBRs and templates; never edit/copy wholesale |
 
@@ -512,7 +521,8 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
 - [Elite discovery, selection and test](docs/ELITES.md);
   [Ascended quotas and selection](docs/ASCENDED.md);
   [Veteran discovery](docs/VETERAN_DISCOVERY.md)
-- [Variant XP rewards](docs/ENEMY_XP.md)
+- [Variant XP rewards](docs/ENEMY_XP.md);
+  [global monster XP multiplier](docs/GLOBAL_XP.md)
 - [Player level 150 and skill-point progression](docs/PLAYER_LEVEL_CAP.md);
   [Devotion rewards/cap](docs/DEVOTION.md)
 - [Player starting stats/camera](docs/PLAYER_BASICS.md);
