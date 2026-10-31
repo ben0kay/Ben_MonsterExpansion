@@ -344,6 +344,19 @@ mastery remains separately available.
   buttons shift upward without replacing any existing skills.
   The two classes' skeleton attachment configs and rollback are independent.
   This new Demolitionist UI has **not** been verified in-game.
+- **Oathkeeper Vire's Might cloned into Demolitionist:** an additional,
+  independently enabled **Rush** movement skill based on the original
+  Forgotten Gods `playerclass09/viremight1.dbr`. It appears in Demolitionist's
+  compressed bottom UI row at **(806, 459)** (tree **slot 40** when skeletons
+  are enabled). It retains the native **3.6 s cooldown**, Physical/trauma
+  rank curves, animation, sound and native skill name/icons; only dangling
+  Oathkeeper connector artwork is suppressed. It does **not** add Vire's
+  Might's Oathkeeper modifiers or convert its damage to Fire. The separate
+  `extra_skills[0].enabled` switch lets you remove the dash while keeping
+  skeletons, or remove skeletons while keeping the dash; replacement staging
+  restores native UI when both are off. Requires Forgotten Gods and
+  **F7/in-game verification**.
+  [Vire's Might attachment and rollback](docs/DEMOLITIONIST_VIRES_MIGHT.md).
 
 ### Arcanist
 
@@ -505,6 +518,8 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
 - [Player starting stats/camera](docs/PLAYER_BASICS.md);
   [movement](docs/PLAYER_MOVEMENT.md)
 - [Soldier offensive/defensive balance](docs/SOLDIER_BALANCE.md)
+- [Demolitionist Vire's Might clone](docs/DEMOLITIONIST_VIRES_MIGHT.md);
+  [Demolitionist skeleton attachment](docs/DEMOLITIONIST_SKELETONS_BUILD.md)
 - [Nightblade balance](docs/NIGHTBLADE_BALANCE.md);
   [Nightblade skeleton attachment](docs/NIGHTBLADE_SKELETONS_BUILD.md);
   [Occultist/Arcanist/pet skills](docs/PLAYER_SKILLS.md)
