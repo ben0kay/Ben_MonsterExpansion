@@ -207,10 +207,45 @@ These changes are DBR generation/build settings, **not live sliders**.
 
 `config/player_skills.json` contains reversible, **rank-aware** overrides,
 using the effective game DBR fields rather than flattening rank curves.
-It covers Nightblade, Occultist, Arcanist, targeted Demolitionist skills,
+It covers Soldier, Nightblade, Occultist, Arcanist, targeted Demolitionist skills,
 and shared pets (not a universal buff to every mastery). All **13 exclusive-skill flags found in the
 uploaded masteries** were cleared for the intended stacking behaviour;
 actual in-game interactions still need testing.
+
+### Soldier (first offensive/defensive pass — configured, not yet tested)
+
+Fourteen separate Soldier skill DBRs now receive conservative
+rank-aware buffs; all existing skills, skill prerequisites and
+native weapon-damage percentages are preserved.
+
+- **Forcewave**: +10% wave distance and start/end width
+  (**10→11 m** range; **3→3.3**, **4.5→4.95 m** widths);
+  +8% native flat Physical damage at each of 26 ranks.
+- **Blade Arc**: **180→195°** base arc, **5→6** base targets,
+  +8% flat Physical damage. **Blitz**: **3.5→3.25 s** cooldown,
+  **3→4** base targets, +5% flat Physical damage.
+- **War Cry**: +10% radius at every rank (**5→18 m** becomes
+  **5.5→19.8 m**), not increased damage reduction.
+  **Counter Strike**: **5→5.5 m** radius, +8% Physical damage.
+- **Zolhan's Technique**: +1 additional target at ranks
+  **12–22**, max **8** instead of 7; earlier ranks unchanged.
+  **Cadence**: +8% native flat Physical damage (not its weapon
+  damage multiplier). **Deadly Momentum**: duration **5→6 s**.
+- **Overguard**: duration **10→11 s**, +8% relative life
+  regeneration modifier. **Menhir's Will**: **10→11.5 s**
+  with +8% flat life regeneration. **Fighting Spirit**:
+  +15% duration at every rank (5→10 s becomes 5.75→11.5 s).
+- **Military Conditioning**: +5% relative to native Physique
+  and Health bonus curves. **Shield Training**: +8% relative
+  block modifier. **Decorated Soldier**: +5% relative native
+  elemental resistance, Physical and Pierce damage-bonus curves.
+- Original FX/particle assets are unchanged; gameplay range/width
+  modifications do not automatically guarantee the visible effects
+  enlarge identically. The separate **Field Command/Squad
+  Tactics/Fighting Form/Rending Force** proposals are not included.
+  Two regression tests are committed but not run; F7/in-game behavior
+  still needs verification.
+  [Exact native DBR fields, rollback and build](docs/SOLDIER_BALANCE.md).
 
 ### Nightblade
 
@@ -469,6 +504,7 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
   [Devotion rewards/cap](docs/DEVOTION.md)
 - [Player starting stats/camera](docs/PLAYER_BASICS.md);
   [movement](docs/PLAYER_MOVEMENT.md)
+- [Soldier offensive/defensive balance](docs/SOLDIER_BALANCE.md)
 - [Nightblade balance](docs/NIGHTBLADE_BALANCE.md);
   [Nightblade skeleton attachment](docs/NIGHTBLADE_SKELETONS_BUILD.md);
   [Occultist/Arcanist/pet skills](docs/PLAYER_SKILLS.md)
