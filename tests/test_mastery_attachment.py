@@ -268,6 +268,8 @@ class DemolitionistSkeletonAttachmentTests(unittest.TestCase):
         self.assertEqual(tree.get('skillName40'), extra['target'])
         self.assertEqual(tree.get('skillLevel40'), '0')
         self.assertEqual(self.report['active_skills'][-1], extra['target'])
+        self.assertEqual(self.report['cloned_records'][-1], extra['target'])
+        self.assertTrue(self.report['movement_enabled'])
 
     def test_demolitionist_skeleton_and_dash_independent_rollbacks(self):
         # Skeletons disabled, Vire's Might remains selectable in slot 37.
