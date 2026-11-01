@@ -2,10 +2,10 @@
   "schema_version": 1,
   "monster_spawning": {
     "enabled": true,
-    "pack_size_multiplier": 2
+    "pack_size_multiplier": 1
   },
   "global_xp": {
     "enabled": true,
-    "multiplier": 1
+    "multiplier": 1.5
   }
 }
