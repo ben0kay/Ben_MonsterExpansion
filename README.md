@@ -50,18 +50,28 @@ everything wildly overpowered.**
 
 ## 2. Enemy tiers and natural encounters
 
-| Tier | Origin / parent | Current catalog | Relative health | Physical base-damage passive* | Defensive ability | Model scale | Visual identity |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| Veteran | Custom from Common | **148** | 1.30× | 1.10× | 1.08× | **1.20×** | Green glow |
-| Elite | Custom from Champion | **124** | 1.30× | 1.18× | 1.12× | **1.20×** | Amber / golden glow |
-| Ascended | Custom from Hero | **137** | 1.40× | 1.22× | 1.15× | **1.20×** | Violet / purple glow |
-| Apex | Proposed from Nemesis | **Not implemented** | 1.50× proposed | 1.25× proposed | 1.20× proposed | 1.20× proposed | Crimson/pink concept |
+| Tier | Origin / parent | Current catalog | Relative health | Physical base-damage passive* | Defensive ability | Model scale | Base run speed | Visual identity |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| Veteran | Custom from Common | **148** | 1.30× | 1.10× | 1.08× | **1.20×** | **1.15×** | Green glow |
+| Elite | Custom from Champion | **124** | 1.30× | 1.18× | 1.12× | **1.20×** | **1.15×** | Amber / golden glow |
+| Ascended | Custom from Hero | **137** | 1.40× | 1.22× | 1.15× | **1.20×** | **1.15×** | Violet / purple glow |
+| Apex | Proposed from Nemesis | **Not implemented** | 1.50× proposed | 1.25× proposed | 1.20× proposed | 1.20× proposed | Not configured | Crimson/pink concept |
 
 *The generator scales an existing **physical base-damage skill**, not
 necessarily the monster's final total damage. Each multiplier is applied
 to that variant's **own exact parent**, not cumulatively to other custom
 tiers. These are not new `monsterClassification` values. Original
 Common, Champion, Hero, Boss and Nemesis types remain present.
+
+**Tier movement speed:** `config/tiers.json` now sets
+`prototype.run_speed_vs_parent=1.15` for Veteran, Elite and Ascended.
+Generation multiplies each source actor's native `characterRunSpeed` field
+by 1.15; it does **not** change native random speed jitter, AI controllers,
+abilities, spawn odds or movement caps. The separate **+10% temporary
+run-speed modifier during low-health rage** still applies to Elite and
+Ascended when triggered. Remove the optional key, or set it to `1`, to
+restore the original base speed when regenerating and rebuilding. Changes
+are configured and committed, not yet checked in-game.
 
 **Current natural selection mechanics:**
 
