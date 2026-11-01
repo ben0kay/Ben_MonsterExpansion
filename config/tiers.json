@@ -26,7 +26,7 @@
           "damage": 1.1,
           "defense": 1.08
         },
-        "model_scale_vs_parent": 1.1,
+        "model_scale_vs_parent": 1.2,
         "ability_policy": "reuse_base_skills_first",
         "visual_intensity": "subtle",
         "spawn_policy": "standard_pool_variant",
@@ -66,7 +66,7 @@
           "damage": 1.18,
           "defense": 1.12
         },
-        "model_scale_vs_parent": 1.1,
+        "model_scale_vs_parent": 1.2,
         "ability_policy": "reuse_base_skills_first",
         "visual_intensity": "noticeable",
         "spawn_policy": "champion_pool_variant",
@@ -115,7 +115,7 @@
           "damage": 1.22,
           "defense": 1.15
         },
-        "model_scale_vs_parent": 1.15,
+        "model_scale_vs_parent": 1.2,
         "ability_policy": "reuse_base_skills_first",
         "visual_intensity": "strong",
         "spawn_policy": "rare_hero_pool_variant",
