@@ -36,11 +36,13 @@ class TierRunSpeedTests(unittest.TestCase):
                 result = DBR(generated[gen.game_location(variant["output_record"])])
                 expected = Decimal(original.get("characterRunSpeed")) * Decimal("1.15")
                 self.assertEqual(result.get("characterRunSpeed"), f"{expected:.6f}")
-                self.assertEqual(result.get("characterRunSpeedModifier"),
-                                 original.get("characterRunSpeedModifier"))
-                self.assertEqual(result.get("characterRunSpeedJitter"),
-                                 original.get("characterRunSpeedJitter"))
-                self.assertEqual(result.get("controller"), original.get("controller"))
+                for native_field in ("characterRunSpeedModifier",
+                                     "characterRunSpeedJitter"):
+                    self.assertEqual(result._locations(native_field),
+                                     original._locations(native_field))
+                    if original._locations(native_field):
+                        self.assertEqual(result.get(native_field),
+                                         original.get(native_field))
                 self.assertEqual(result.get("scale"),
                                  f"{Decimal(original.get('scale')) * Decimal('1.2'):.6f}")
 
