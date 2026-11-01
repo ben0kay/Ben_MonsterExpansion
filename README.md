@@ -52,9 +52,9 @@ everything wildly overpowered.**
 
 | Tier | Origin / parent | Current catalog | Relative health | Physical base-damage passive* | Defensive ability | Model scale | Visual identity |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| Veteran | Custom from Common | **148** | 1.30× | 1.10× | 1.08× | 1.10× | Green glow |
-| Elite | Custom from Champion | **124** | 1.30× | 1.18× | 1.12× | 1.10× | Amber / golden glow |
-| Ascended | Custom from Hero | **137** | 1.40× | 1.22× | 1.15× | 1.15× | Violet / purple glow |
+| Veteran | Custom from Common | **148** | 1.30× | 1.10× | 1.08× | **1.20×** | Green glow |
+| Elite | Custom from Champion | **124** | 1.30× | 1.18× | 1.12× | **1.20×** | Amber / golden glow |
+| Ascended | Custom from Hero | **137** | 1.40× | 1.22× | 1.15× | **1.20×** | Violet / purple glow |
 | Apex | Proposed from Nemesis | **Not implemented** | 1.50× proposed | 1.25× proposed | 1.20× proposed | 1.20× proposed | Crimson/pink concept |
 
 *The generator scales an existing **physical base-damage skill**, not
