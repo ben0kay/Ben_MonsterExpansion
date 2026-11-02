@@ -95,6 +95,15 @@ def check_configs(reference_root=None, repo=REPO):
                 require(not occupied & set(attachment_files),
                         "Mastery attachment output collision: " + mastery)
                 occupied.update(attachment_files)
+            from inquisitor_attachment import load_settings as load_inquisitor_extras, build_attachment as build_inquisitor_extras
+            inquisitor_files, _ = build_inquisitor_extras(
+                load_inquisitor_extras(repo), reference_root, skill_files)
+            require(not occupied & set(inquisitor_files),
+                    "Inquisitor attachment output collision")
+            occupied.update(inquisitor_files)
+        else:
+            from inquisitor_attachment import load_settings as load_inquisitor_extras
+            load_inquisitor_extras(repo)  # Validate schema without reading game records.
         root = reference_root or repo / "ReferenceFiles"
         catalog = load_json(repo / "config/tiers.json")
         require(catalog.get("schema_version") == 1, "Unsupported tier schema")
