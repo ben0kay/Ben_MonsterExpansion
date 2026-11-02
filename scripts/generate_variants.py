@@ -697,6 +697,13 @@ def configured_plan(family="all", include_spawns=False):
                 "Inquisitor extra skills output collision")
     files.update(inquisitor_files)
     manifest["inquisitor_extras"] = inquisitor_report
+    from arcanist_attachment import load_settings as load_arcanist_summons, build_attachment as build_arcanist_summons
+    arcanist_files, arcanist_report = build_arcanist_summons(
+        load_arcanist_summons(REPO), REFERENCE)
+    fail_unless(not set(arcanist_files) & set(files),
+                "Arcanist summon attachment output collision")
+    files.update(arcanist_files)
+    manifest["arcanist_summons"] = arcanist_report
     manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
     files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return files
