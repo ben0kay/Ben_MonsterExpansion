@@ -498,6 +498,9 @@ def build_plan(families, tier_by_id, include_spawns=False):
                                           "by_element": {}}}
     ai_coverage = {"ascended": {"mapped": 0, "attached": 0,
                                  "unmapped": 0, "by_profile": {}}}
+    loot_coverage = {tier: {"variants":0, "rare_affix_graph":0,
+                             "equipment_weights":0, "no_effective_path":0}
+                     for tier in ("veteran", "elite", "ascended")}
     pool_mappings = {}
     def merge(records):
         duplicates = set(files) & set(records)
@@ -517,6 +520,24 @@ def build_plan(families, tier_by_id, include_spawns=False):
             tier = tier_by_id[variant["tier"]]
             output = build_variant(family, variant, tier)
             merge(output)
+            if variant["tier"] in loot_coverage:
+                slot_report = loot_coverage[variant["tier"]]
+                slot_report["variants"] += 1
+                current = DBR(output[game_location(variant["output_record"])])
+                original = read_game_dbr(variant["source_record"])
+                rare_graph = any(
+                    line.split(",", 1)[0].startswith("loot") and
+                    "/loottables/monsterexpansion/" in line
+                    for line in current.lines)
+                quality_change = any(
+                    line.startswith("chanceToEquip") and "Item" in line.split(",", 1)[0]
+                    and (lambda key: original._locations(key) and
+                         original.get(key) != current.get(key))(
+                        line.split(",", 1)[0])
+                    for line in current.lines)
+                slot_report["rare_affix_graph"] += int(rare_graph)
+                slot_report["equipment_weights"] += int(quality_change)
+                slot_report["no_effective_path"] += int(not rare_graph and not quality_change)
             if variant["tier"] in rage_coverage:
                 rage = tier["prototype"].get("low_health_rage")
                 identity = family["id"] + ":" + variant["id"]
@@ -595,6 +616,7 @@ def build_plan(families, tier_by_id, include_spawns=False):
                 "rage_coverage": rage_coverage,
                 "retaliation_coverage": retaliation_coverage,
                 "ai_coverage": ai_coverage,
+                "loot_coverage": loot_coverage,
                 "files": sorted(p.as_posix() for p in files),
                 "notes": ["Variant runtime flags default to unverified; see docs for existing boar evidence.",
                           "Pool conversion shares apply only to mapped entries within their own selection groups.",
