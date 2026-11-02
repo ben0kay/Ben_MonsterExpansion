@@ -12,8 +12,8 @@
       "button_source": "records/ui/skills/class09/skill21.dbr",
       "button_target": "records/ui/skills/class07/skill33.dbr",
       "position": [
-        246,
-        459
+        486,
+        39
       ]
     },
     {
@@ -28,5 +28,11 @@
         459
       ]
     }
-  ]
+  ],
+  "relocated_buttons": {
+    "records/ui/skills/class07/skill30.dbr": [
+      486,
+      145
+    ]
+  }
 }
