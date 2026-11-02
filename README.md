@@ -400,7 +400,30 @@ mastery remains separately available.
   `config/player_skills.json` entry. See
   [Inquisitor first-pass balance and tests](docs/INQUISITOR_BALANCE.md).
   **Cross-mastery skills have not been added.** Future attachment
-  work needs the missing native `class07` UI DBRs described in that guide.
+  **Cross-mastery additions are now integrated:** Vire's Might and
+  Blade Spirit (see below).
+
+### Inquisitor — Vire's Might and Blade Spirit attachment (configured, untested)
+
+- **Vire's Might**: native Oathkeeper Rush cloned into Inquisitor, keeping
+  the original animation, FX, rank curves and 3.6-second cooldown.
+  It has its own toggle in `config/inquisitor_extras.json`.
+- **Blade Spirit**: Nightblade's persistent whirring blade summons cloned
+  into Inquisitor. The generator reuses the **existing enhanced
+  Nightblade skill** (2 blades at ranks 1–15, 4 at 16–23, 5 at 24–26),
+  including spawn burst and cap; no separate summon balance fork.
+  **Ring of Steel is a different instant attack and has not been cloned.**
+- New Inquisitor UI buttons use bottom-left (246,459) and bottom-right
+  (886,459) vacant positions, with added skill-tree slots 35 and 36.
+  Existing Inquisitor buttons are not moved. Both skill toggles are
+  independent and emit native tree/panel records for rollback.
+- The uploaded Inquisitor UI files were found on **`main`**;
+  the necessary original `class07/classtable.dbr` panel was copied
+  from the upload to `dev` without merging other branches.
+  This is code/staging-ready, **not F7-built or in-game verified**.
+  [Attachment details and validation](docs/INQUISITOR_EXTRA_SKILLS.md).
+- **Future, not yet implemented:** separate Arcanist skeleton tree
+  `Raise Skeletons → Undead Legion → Will of the Crypt`.
 
 ### Arcanist
 
@@ -490,6 +513,7 @@ The researched DBR mechanics and proposed phases live in
 | `config/player_stats.json` | Level cap, skill/attribute points, devotion |
 | `config/player_basics.json`, `config/player_movement.json` | Base player health/energy, speed, camera |
 | `config/player_skills.json`, `config/nightblade_skeletons.json` | Mastery balance and Nightblade skeleton tree |
+| `config/inquisitor_extras.json`, `scripts/inquisitor_attachment.py` | Standalone Inquisitor Vire's Might and Nightblade-buffed Blade Spirit attachment |
 | `scripts/discover_veterans.py`, `discover_elites.py`, `discover_ascended.py` | Read-only-by-default family/pool discovery; optional disabled draft configs |
 | `scripts/generate_variants.py`, `scripts/creature_names.py` | Compose variant DBRs and auto-resolve custom tier labels from original/GDX1/GDX2 English creature tags |
 | `scripts/natural_spawns.py`, `scripts/global_spawns.py` | Safe merged pool weights; global **regular-only** pack size |
@@ -566,7 +590,8 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
 - [Soldier offensive/defensive balance](docs/SOLDIER_BALANCE.md)
 - [Demolitionist Vire's Might clone](docs/DEMOLITIONIST_VIRES_MIGHT.md);
   [Demolitionist skeleton attachment](docs/DEMOLITIONIST_SKELETONS_BUILD.md)
-- [Inquisitor first-pass balance and missing class07 UI references](docs/INQUISITOR_BALANCE.md)
+- [Inquisitor first-pass balance](docs/INQUISITOR_BALANCE.md);
+  [Vire's Might + Blade Spirit attachment](docs/INQUISITOR_EXTRA_SKILLS.md)
 - [Nightblade balance](docs/NIGHTBLADE_BALANCE.md);
   [Nightblade skeleton attachment](docs/NIGHTBLADE_SKELETONS_BUILD.md);
   [Occultist/Arcanist/pet skills](docs/PLAYER_SKILLS.md)
