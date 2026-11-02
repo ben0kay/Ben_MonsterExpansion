@@ -422,9 +422,6 @@ mastery remains separately available.
   from the upload to `dev` without merging other branches.
   This is code/staging-ready, **not F7-built or in-game verified**.
   [Attachment details and validation](docs/INQUISITOR_EXTRA_SKILLS.md).
-- **Future, not yet implemented:** separate Arcanist skeleton tree
-  `Raise Skeletons → Undead Legion → Will of the Crypt`.
-
 ### Arcanist
 
 - **Aether Ray**: beam range **16 → 22** and thickness **1.25 → 2**;
@@ -439,6 +436,29 @@ mastery remains separately available.
   Elemental Exchange support skills. Skill ranks and original
   other damage types are otherwise preserved unless explicitly
   configured.
+- **New skeleton tree:** Raise Skeletons → Undead Legion → Will of the
+  Crypt, cloned from Necromancer into Arcanist skill-tree slots **32–34**.
+  Initial cast/cap **4**, plus native Undead Legion (+5 at rank 12 =
+  **9 total**, up to **11** at maximum overcap, before equipment).
+  Shared Necromancer skeleton scaling (+20% relative HP and +15%
+  relative damage) still applies.
+- **New Summon Guardian of Empyrion:** standalone Oathkeeper native
+  Guardian skill cloned into Arcanist tree slot **35**. Original
+  **2 guardians**, increasing to **3 at ranks 24–26**, with native
+  permanent summon behavior, damage, FX and 20 s cooldown.
+  Oathkeeper's transmuter/Celestial Presence modifier is not added.
+- **Arcanist UI layout:** three skeleton buttons in a horizontal bottom
+  row and one Guardian button at (726,179). Five existing standalone
+  passives/Nullification buttons are repositioned without changing
+  their X mastery tier or skill effects. The two summon features have
+  **independent enabled switches** in `config/arcanist_summons.json`.
+- **Olexra's Flash Freeze**: radius now grows by a further modest
+  per-rank bonus: multiplier `1.10 + 0.0025 × (rank-1)` relative
+  to each original rank's radius, giving **5.5 m** at rank 1 and
+  **20.745 m** at rank 22 (formerly 5.4 m / 19.44 m).
+  All new summon UI placements and Flash Freeze behavior are
+  **configured, not yet game-tested**.
+  See [Arcanist summons, layout and rollback](docs/ARCANIST_SUMMONS_BUILD.md).
 
 These mastery changes are intended to be **playable rather than
 overpowered**. Details, actual field names and untouched skills:
@@ -514,6 +534,7 @@ The researched DBR mechanics and proposed phases live in
 | `config/player_basics.json`, `config/player_movement.json` | Base player health/energy, speed, camera |
 | `config/player_skills.json`, `config/nightblade_skeletons.json` | Mastery balance and Nightblade skeleton tree |
 | `config/inquisitor_extras.json`, `scripts/inquisitor_attachment.py` | Standalone Inquisitor Vire's Might and Nightblade-buffed Blade Spirit attachment |
+| `config/arcanist_summons.json`, `scripts/arcanist_attachment.py` | Arcanist skeleton/Guardian tree, relocated skill UI and independent toggles |
 | `scripts/discover_veterans.py`, `discover_elites.py`, `discover_ascended.py` | Read-only-by-default family/pool discovery; optional disabled draft configs |
 | `scripts/generate_variants.py`, `scripts/creature_names.py` | Compose variant DBRs and auto-resolve custom tier labels from original/GDX1/GDX2 English creature tags |
 | `scripts/natural_spawns.py`, `scripts/global_spawns.py` | Safe merged pool weights; global **regular-only** pack size |
@@ -592,6 +613,7 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
   [Demolitionist skeleton attachment](docs/DEMOLITIONIST_SKELETONS_BUILD.md)
 - [Inquisitor first-pass balance](docs/INQUISITOR_BALANCE.md);
   [Vire's Might + Blade Spirit attachment](docs/INQUISITOR_EXTRA_SKILLS.md)
+- [Arcanist skeletons + Guardian and Flash Freeze radius](docs/ARCANIST_SUMMONS_BUILD.md)
 - [Nightblade balance](docs/NIGHTBLADE_BALANCE.md);
   [Nightblade skeleton attachment](docs/NIGHTBLADE_SKELETONS_BUILD.md);
   [Occultist/Arcanist/pet skills](docs/PLAYER_SKILLS.md)
