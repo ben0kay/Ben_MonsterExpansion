@@ -376,6 +376,32 @@ mastery remains separately available.
   **F7/in-game verification**.
   [Vire's Might attachment and rollback](docs/DEMOLITIONIST_VIRES_MIGHT.md).
 
+### Inquisitor — first-pass enhancements (configured, not yet game-tested)
+
+- **Bursting Round**: +10% explosion radius at every rank;
+  **Chilling Rounds**: +8% native weapon-damage curve; **Storm Spread**:
+  **3→4 projectiles** at ranks 1–6, **4→5** at ranks 7–20. Original
+  projectile spread rotation, cooldown and damage-per-projectile remain.
+- **Ranged Expertise**: +5% attack-speed bonus and +8% Elemental damage
+  bonus; **Deadly Aim**: +8% Offensive Ability and crit-damage bonuses.
+- **Word of Pain**: radius **3→3.3 m**, duration **8→9.2 s**,
+  +8% Fire/Cold damage; **Word of Agony**: +10% rank-based radius;
+  **Death Sentence**: +8% Elemental damage, native Aether resistance
+  reduction unchanged.
+- **Lightning Tether**: range **18→19.8 m**, +8% Lightning damage.
+  **Rune of Hagarrad / Kalastor**: each placement cap **5→6** and
+  cooldown **4→3.6 s**. **Inquisitor Seal**: duration **24→28 s**,
+  cooldown **5→4.5 s** (placement cap stays 3).
+- **Flames of Ignaffar**: range **9.1→10.01**, +8% native Fire damage;
+  **Aura of Censure**: +10% radius at each rank while retaining its
+  previous non-exclusive flag. These changes use original rank curves,
+  no new skills, no new masteries and no custom effects.
+- Every modified Inquisitor DBR can be reverted through its
+  `config/player_skills.json` entry. See
+  [Inquisitor first-pass balance and tests](docs/INQUISITOR_BALANCE.md).
+  **Cross-mastery skills have not been added.** Future attachment
+  work needs the missing native `class07` UI DBRs described in that guide.
+
 ### Arcanist
 
 - **Aether Ray**: beam range **16 → 22** and thickness **1.25 → 2**;
@@ -540,6 +566,7 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
 - [Soldier offensive/defensive balance](docs/SOLDIER_BALANCE.md)
 - [Demolitionist Vire's Might clone](docs/DEMOLITIONIST_VIRES_MIGHT.md);
   [Demolitionist skeleton attachment](docs/DEMOLITIONIST_SKELETONS_BUILD.md)
+- [Inquisitor first-pass balance and missing class07 UI references](docs/INQUISITOR_BALANCE.md)
 - [Nightblade balance](docs/NIGHTBLADE_BALANCE.md);
   [Nightblade skeleton attachment](docs/NIGHTBLADE_SKELETONS_BUILD.md);
   [Occultist/Arcanist/pet skills](docs/PLAYER_SKILLS.md)
