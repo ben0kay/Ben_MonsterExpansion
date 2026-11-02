@@ -109,9 +109,15 @@ original radius at each rank, keeping all 22 native radii:
 | 12 | 16 m | **18.04 m** |
 | 22 | 18 m | **20.745 m** |
 
-This replaces the previous flat 1.08× radius enhancement. Original
-Cold damage, duration, freeze/resistance behavior and cooldown retain
-their existing mod changes and base game semantics.
+This replaces the previous flat 1.08× radius enhancement.
+**Follow-up cooldown change:** the native `skillCooldownTime` is a fixed
+scalar 6.000000 seconds, not a per-rank curve. The Arcanist skill
+override now sets it to **3.000000 seconds** at every rank, a 50%
+reduction; this does not compound with overcap levels. Existing +10%
+Cold damage, +10% freeze-duration enhancement, radius progression and
+freeze/resistance behavior remain unchanged. Disable the
+`chillingsurge_buff.dbr` entry to restore the native record after
+regenerating/rebuilding.
 
 ## Build and focused checks
 
