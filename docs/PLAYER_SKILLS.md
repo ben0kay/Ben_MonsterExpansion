@@ -144,7 +144,8 @@ per-record `enabled` flags still support exact vanilla rollback.
   **1.10 + 0.0025 × (rank − 1)** (5 -> **5.5** at rank 1,
   18 -> **20.745** at rank 22; previous enhancement was a flat
   +8%), +10% original per-rank duration (2 -> 2.2 seconds at
-  rank 1, 6 -> 6.6 at rank 22). Cooldown, freeze and resistance
+  rank 1, 6 -> 6.6 at rank 22). Native fixed cooldown
+  **6 → 3 seconds** for every rank. Freeze and resistance
   stripping unchanged. Absolute Zero (`chillingsurge2`) keeps its
   +8% frostburn component; other debuffs unchanged.
   See [Arcanist summon/UI and radius follow-up](ARCANIST_SUMMONS_BUILD.md).
