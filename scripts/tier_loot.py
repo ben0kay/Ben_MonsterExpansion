@@ -95,23 +95,26 @@ def _scale_category_weights(weights, categories, factors):
     modified = dict(weights)
     if total == 0:
         return modified
+    active = {cat: Decimal(str(mult)) for cat, mult in factors.items()
+              if Decimal(str(mult)) > 1}
     grouped = {cat: sum(weights[k] for k in weights if categories.get(k) == cat)
-               for cat in factors}
-    if not any(grouped[cat] > 0 and Decimal(str(factors[cat])) > 1
-               for cat in factors):
+               for cat in active}
+    if not any(grouped.values()):
         return modified
-    # Preserve every other category as the reference mass. When a loot set
-    # contains ONLY quality categories, use the non-boosted category as anchor.
-    unboosted = total - sum(grouped.values())
-    if unboosted <= 0:
+    # The unboosted base includes unmodified rare, epic or legendary entries
+    # whose multiplier is 1, plus other non-equipment/consumable entries.
+    other = total - sum(grouped.values())
+    if other <= 0:
         return modified
-    target_mass = sum(Decimal(str(factors[cat])) * grouped[cat] for cat in factors)
+    target_mass = sum(active[cat] * grouped[cat] for cat in active)
     if target_mass >= total:
         return modified
-    anchor = Decimal(unboosted) / (Decimal(total) - target_mass)
+    anchor = Decimal(other) / (Decimal(total) - target_mass)
     for key, old in weights.items():
-        factor = Decimal(str(factors.get(categories.get(key), 1)))
-        scaled = Decimal(old) * WEIGHT_SCALE * (factor*anchor if factor != 1 else 1)
+        cat = categories.get(key)
+        factor = active.get(cat)
+        scaled = Decimal(old) * WEIGHT_SCALE * (
+            factor * anchor if factor is not None else 1)
         # The unboosted categories may be multiplied by WEIGHT_SCALE to
         # preserve their ratios, not their absolute drop chances.
         if old:
