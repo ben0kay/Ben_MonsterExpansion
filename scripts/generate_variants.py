@@ -690,6 +690,13 @@ def configured_plan(family="all", include_spawns=False):
                     "Mastery attachment output collision: " + mastery)
         files.update(attachment_files)
         manifest[report_key] = attachment_report
+    from inquisitor_attachment import load_settings as load_inquisitor_extras, build_attachment as build_inquisitor_extras
+    inquisitor_files, inquisitor_report = build_inquisitor_extras(
+        load_inquisitor_extras(REPO), REFERENCE, skill_files)
+    fail_unless(not set(inquisitor_files) & set(files),
+                "Inquisitor extra skills output collision")
+    files.update(inquisitor_files)
+    manifest["inquisitor_extras"] = inquisitor_report
     manifest["files"] = sorted(p.as_posix() for p in files if p != Path("manifest.json"))
     files[Path("manifest.json")] = json.dumps(manifest, indent=2, sort_keys=True) + "\n"
     return files
