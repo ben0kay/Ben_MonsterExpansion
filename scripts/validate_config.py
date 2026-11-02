@@ -137,6 +137,8 @@ def check_configs(reference_root=None, repo=REPO):
                     "Tier run-speed multiplier must be finite, positive and at most 3")
             from enemy_rewards import validate_settings as validate_reward_settings
             validate_reward_settings(proto.get("experience_reward"))
+            from tier_loot import validate_settings as validate_loot_settings
+            validate_loot_settings(proto.get("loot_rewards"))
             aura = proto.get("cosmetic_aura", {"enabled": False})
             require(type(aura.get("enabled")) is bool, "Aura enabled must be boolean")
             if aura["enabled"]:
