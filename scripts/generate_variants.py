@@ -19,6 +19,7 @@ from pathlib import Path
 
 from dbr import DBR, DBRError
 from enemy_rewards import apply_experience_reward
+from tier_loot import enhance_monster_loot
 from creature_names import creature_name
 from natural_spawns import build_pool_override, build_merged_pool
 from validate_config import check_configs, reference_path
@@ -461,6 +462,10 @@ def build_variant(family, variant, tier):
     monster.set("characterRunSpeed", scaled_number(
         monster.get("characterRunSpeed"), proto.get("run_speed_vs_parent", 1)))
 
+    # Improve item-quality odds only on this cloned actor. Normal equipment
+    # has private rare-affix table clones; shared game/DLC records stay native.
+    loot_files, _loot_report = enhance_monster_loot(monster, proto, tier["id"], REFERENCE)
+
     # Preserve original monsterClassification, actorRadius, actorHeight, description,
     # skill timing and spawn references pending in-game compatibility tests.
 
@@ -469,6 +474,7 @@ def build_variant(family, variant, tier):
     retaliation_files = build_elemental_retaliation(monster, proto, source_record, prefix)
     smart_ai_files = build_smart_ai_controller(monster, proto, source_record, prefix)
     result = {
+        **loot_files,
         **aura_files,
         **rage_files,
         **retaliation_files,
@@ -494,7 +500,15 @@ def build_plan(families, tier_by_id, include_spawns=False):
                                  "unmapped": 0, "by_profile": {}}}
     pool_mappings = {}
     def merge(records):
-        fail_unless(not set(files) & set(records), "Duplicate generated output path")
+        duplicates = set(files) & set(records)
+        # Tier-private loot descendants are shared by many variants and must
+        # be staged once, with exact content equality; every non-loot collision
+        # remains a strict error as before.
+        for path in duplicates:
+            valid = path.as_posix().startswith(
+                "database/records/items/loottables/monsterexpansion/")
+            fail_unless(valid and files[path] == records[path],
+                        "Duplicate generated output path: " + path.as_posix())
         files.update(records)
     for family in families:
         if not family["enabled"]:
