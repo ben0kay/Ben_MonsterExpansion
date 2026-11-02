@@ -99,8 +99,21 @@ are configured and committed, not yet checked in-game.
   forced, scripted or unsupported pools are intentionally excluded.
 - Variant XP inputs target approximately **+30% Veteran**, **+30% Elite**,
   **+40% Ascended** relative to their parents. Actual XP depends on native
-  XP formulas, level, difficulty and rounding. Loot and enemy XP eligibility
-  are unchanged.
+  XP formulas, level, difficulty and rounding. Enemy XP eligibility
+  remains unchanged.
+- **Tier-specific equipment quality rewards (configured; game testing
+  pending):** Veteran **+15% Rare affix / +5% Epic / no Legendary bonus**;
+  Elite **+30% Rare affix / +20% Epic / +10% Legendary**;
+  Ascended **+50% Rare affix / +30% Epic / +15% Legendary**,
+  all relative to their own Common/Champion/Hero parents. The generator
+  reweights only supported *custom monster* equipment selections and
+  links to private rare-affix tables where appropriate; it does NOT
+  change vanilla/shared loot tables, quest loot, potion/component drops
+  or Hero/boss loot orbs. These are **relative eligible-table weights**,
+  NOT verified final green/blue/purple drop probabilities. Some variants
+  may not have compatible native loot paths. The generated manifest's
+  `loot_coverage` reports supported/skipped variants.
+  [Design, limitations and rollback](docs/TIER_LOOT.md).
 - **Configurable global monster XP** now lives beside pack density in
   `config/master.json`: `global_xp.enabled=true`,
   `global_xp.multiplier=1` (default vanilla kill XP). Change to `1.5`
@@ -536,7 +549,7 @@ The researched DBR mechanics and proposed phases live in
 
 | Location | Responsibility |
 | --- | --- |
-| `config/tiers.json` | Tier stat, size, glow, XP, conversion shares, rage and elemental proc settings |
+| `config/tiers.json` | Tier stat, size, glow, XP, rarity reward weighting, conversion shares, rage and elemental proc settings |
 | `config/families/*.json` | Reviewed actual parents, custom variants, pool promotions and enabled selection |
 | `config/master.json` | 2× regular pack-size multiplier; independent global monster XP multiplier (default ×1) |
 | `config/player_stats.json` | Level cap, skill/attribute points, devotion |
@@ -546,6 +559,7 @@ The researched DBR mechanics and proposed phases live in
 | `config/arcanist_summons.json`, `scripts/arcanist_attachment.py` | Arcanist skeleton/Guardian tree, relocated skill UI and independent toggles |
 | `scripts/discover_veterans.py`, `discover_elites.py`, `discover_ascended.py` | Read-only-by-default family/pool discovery; optional disabled draft configs |
 | `scripts/generate_variants.py`, `scripts/creature_names.py` | Compose variant DBRs and auto-resolve custom tier labels from original/GDX1/GDX2 English creature tags |
+| `scripts/tier_loot.py` | Private rarity-affix DBR graph cloning and custom-variant-only equipment choice reweighting |
 | `scripts/natural_spawns.py`, `scripts/global_spawns.py` | Safe merged pool weights; global **regular-only** pack size |
 | `scripts/global_xp.py` | Configurable all-difficulty monster-kill XP formula multiplier; preserves exact vanilla at ×1 or disabled |
 | `scripts/validate_config.py`, `scripts/prepare_console_test.py` | Input/reference checks and guarded staging |
@@ -611,6 +625,7 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
 - [Elite discovery, selection and test](docs/ELITES.md);
   [Ascended quotas and selection](docs/ASCENDED.md);
   [Veteran discovery](docs/VETERAN_DISCOVERY.md)
+- [Custom tier loot quality bonuses, scope and limitations](docs/TIER_LOOT.md)
 - [Variant XP rewards](docs/ENEMY_XP.md);
   [global monster XP multiplier](docs/GLOBAL_XP.md)
 - [Player level 150 and skill-point progression](docs/PLAYER_LEVEL_CAP.md);
