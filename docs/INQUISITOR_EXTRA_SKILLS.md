@@ -10,9 +10,11 @@ The Inquisitor GDX1 UI records were uploaded to **`main`** in commit
 merging potentially unrelated diverged history, the exact native
 `ReferenceFiles/gdx1/database/records/ui/skills/class07/classtable.dbr`
 was copied independently to `dev`. All 32 original class07 button positions
-were audited from that upload. Other native class07 buttons remain game-owned
-DLC assets, referenced unchanged by the modified panel. **No original button
-is moved or rewritten**, and no new UI art resources are required.
+were audited from that upload. The user's November 2 in-game screenshot
+showed a mismatch: native mastery-10 Vire's Might was visually placed in
+the mastery-1 column. The new placement moves just one native circular
+transmuter button in addition to the Vire's Might button; no original
+skill record or UI art resources are changed.
 
 ## Requested skills
 
@@ -24,7 +26,7 @@ is a separate immediate circular Nightblade attack and is **not** cloned.
 
 | Feature | Native donor | Inquisitor cloned skill | New UI button | Position |
 | --- | --- | --- | --- | --- |
-| Vire's Might | `records/skills/playerclass09/viremight1.dbr` | `records/skills/playerclass07/ben_viremight1.dbr` | `records/ui/skills/class07/skill33.dbr` | (246, 459) |
+| Vire's Might | `records/skills/playerclass09/viremight1.dbr` | `records/skills/playerclass07/ben_viremight1.dbr` | `records/ui/skills/class07/skill33.dbr` | **(486, 39)** |
 | Blade Spirit | `records/skills/playerclass04/summon_bladespirit.dbr` | `records/skills/playerclass07/ben_summon_bladespirit.dbr` | `records/ui/skills/class07/skill34.dbr` | (886, 459) |
 
 Existing Inquisitor tree slots 1–34 and original UI buttons remain intact.
@@ -34,10 +36,25 @@ prerequisites. The native `skilltree.tpl` supports these indices.
 ### Vire's Might
 
 This is the native Oathkeeper `Skill_AttackPathCharge` donor, with original
-`Rush` animation, physical/trauma rank curves, FX and 3.6s cooldown. Only
-the orphaned connector strips to Oathkeeper-specific modifiers are cleared,
-as already done for the Demolitionist clone. **Other Oathkeeper modifier
-skills are not added.**
+`Rush` animation, physical/trauma rank curves, FX, **mastery-10**
+requirement and 3.6s cooldown. Only the orphaned connector strips to
+Oathkeeper-specific modifiers are cleared, as already done for the
+Demolitionist clone. **Other Oathkeeper modifier skills are not added.**
+
+**November 2 correction:** the player verified in game that Vire's Might's
+previous `(246,459)` button appeared in the mastery-1 column, although
+the tooltip correctly required nine more Inquisitor mastery points. The
+button is now `(486,39)`: top row, directly right of Bursting Round
+(`class07/skill25`, `326,39`) and left of Chilling Rounds
+(`class07/skill26`, `566,39`). This matches the 10-point mastery bar.
+
+The nearby original circular **Word of Renewal transmuter**
+(`class07/skill30.dbr`, referring to `hunteraura1b.dbr`) must move
+from `(486,71)` to `(486,145)` to clear the overlap. Its associated
+skill, requirements, art and all other fields are untouched. This is an
+audited UI-only move and is restored exactly when Vire's Might is disabled.
+The adjusted transmuter/connector appearance should still be checked
+in-game. No other Inquisitor buttons are moved.
 
 ### Blade Spirit
 
@@ -73,11 +90,14 @@ top-level `enabled:false`), generator emits the exact native tree and
 panel DBRs, reversing previous versions when rebuilt. New unused
 clone/button DBRs may remain staged but are unreferenced.
 
-The original class07 button positions were inspected for overlaps, including
-the bottom-row native buttons at x406/x486/x646/x806 and the nearby
-x246/y389 native button. New buttons fit at x246 and x886, y459;
-visual alignment remains subject to in-game testing. If either edge
-clips in-game, review the UI before repositioning native buttons.
+The original class07 button positions were inspected for overlaps. The
+top-row placement at `(486,39)` requires the one original circular
+transmuter move described above; with that move, all original and
+added buttons clear the 60-pixel proximity check. Blade Spirit still
+fits at `(886,459)`. A new focused regression test checks exact native
+rollback of `skill30.dbr` when Vire's Might is disabled. Verify
+the visible spacing and transmuter/connector orientation in game
+after rebuilding.
 
 ## Run the focused test and rebuild
 
