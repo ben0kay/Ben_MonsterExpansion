@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "tree": "records/skills/playerclass07/_classtree_class07.dbr",
+  "panel": "records/ui/skills/class07/classtable.dbr",
+  "skills": [
+    {
+      "id": "vires_might",
+      "enabled": true,
+      "source": "records/skills/playerclass09/viremight1.dbr",
+      "target": "records/skills/playerclass07/ben_viremight1.dbr",
+      "button_source": "records/ui/skills/class09/skill21.dbr",
+      "button_target": "records/ui/skills/class07/skill33.dbr",
+      "position": [
+        246,
+        459
+      ]
+    },
+    {
+      "id": "blade_spirit",
+      "enabled": true,
+      "source": "records/skills/playerclass04/summon_bladespirit.dbr",
+      "target": "records/skills/playerclass07/ben_summon_bladespirit.dbr",
+      "button_source": "records/ui/skills/class04/skill19.dbr",
+      "button_target": "records/ui/skills/class07/skill34.dbr",
+      "position": [
+        886,
+        459
+      ]
+    }
+  ]
+}
