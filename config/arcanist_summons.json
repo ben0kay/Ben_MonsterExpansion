@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "tree": "records/skills/playerclass05/_classtree_class05.dbr",
+  "panel": "records/ui/skills/class05/classtable.dbr",
+  "skeletons": {
+    "enabled": true,
+    "skills": [
+      {
+        "source": "records/skills/playerclass08/summon_skeleton1.dbr",
+        "target": "records/skills/playerclass05/ben_raiseskeletons1.dbr",
+        "button_source": "records/ui/skills/class08/skill22.dbr",
+        "button_target": "records/ui/skills/class05/skill32.dbr",
+        "position": [
+          246,
+          459
+        ],
+        "set": {
+          "petBurstSpawn": "4",
+          "petLimit": "4"
+        }
+      },
+      {
+        "source": "records/skills/playerclass08/summon_skeleton2.dbr",
+        "target": "records/skills/playerclass05/ben_raiseskeletons2.dbr",
+        "button_source": "records/ui/skills/class08/skill23.dbr",
+        "button_target": "records/ui/skills/class05/skill33.dbr",
+        "position": [
+          406,
+          459
+        ],
+        "set": {}
+      },
+      {
+        "source": "records/skills/playerclass08/summon_skeleton3_petmodifier.dbr",
+        "target": "records/skills/playerclass05/ben_raiseskeletons3_petmodifier.dbr",
+        "button_source": "records/ui/skills/class08/skill24.dbr",
+        "button_target": "records/ui/skills/class05/skill34.dbr",
+        "position": [
+          566,
+          459
+        ],
+        "set": {}
+      }
+    ]
+  },
+  "guardian": {
+    "enabled": true,
+    "source": "records/skills/playerclass09/summon_celestialguardian1.dbr",
+    "target": "records/skills/playerclass05/ben_summon_celestialguardian1.dbr",
+    "button_source": "records/ui/skills/class09/skill19.dbr",
+    "button_target": "records/ui/skills/class05/skill35.dbr",
+    "position": [
+      726,
+      179
+    ]
+  },
+  "relocated_buttons": {
+    "records/ui/skills/class05/skill10.dbr": [
+      566,
+      109
+    ],
+    "records/ui/skills/class05/skill11.dbr": [
+      246,
+      109
+    ],
+    "records/ui/skills/class05/skill12.dbr": [
+      486,
+      39
+    ],
+    "records/ui/skills/class05/skill13.dbr": [
+      726,
+      39
+    ],
+    "records/ui/skills/class05/skill14.dbr": [
+      806,
+      179
+    ]
+  }
+}
