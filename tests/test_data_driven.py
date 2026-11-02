@@ -17,10 +17,19 @@ from test_natural_spawns import catalog
 
 
 class DataDrivenTests(unittest.TestCase):
+    @staticmethod
+    def disable_tier_loot(tiers):
+        # Legacy snapshots intentionally freeze their pre-loot feature scope;
+        # tier-specific loot behavior has dedicated isolated regression tests.
+        for tier in tiers.values():
+            if "prototype" in tier and tier["prototype"].get("loot_rewards"):
+                tier["prototype"]["loot_rewards"]["enabled"] = False
+
     def test_approved_original_boar_six_records_unchanged_with_xp_disabled(self):
         hashes = json.loads((REPO / 'tests/fixtures/boar_veteran_01_baseline.json').read_text())
         families, tiers = catalog()
         tiers["veteran"]["prototype"]["experience_reward"]["enabled"] = False
+        self.disable_tier_loot(tiers)
         files = gen.build_plan([f for f in families if f["id"] == "boar"], tiers, include_spawns=True)
         for path, digest in hashes.items():
             self.assertEqual(hashlib.sha256(files[Path(path)].encode()).hexdigest(), digest, path)
@@ -44,6 +53,7 @@ class DataDrivenTests(unittest.TestCase):
         families, tiers = catalog(); family = copy.deepcopy(next(f for f in families if f['id'] == 'zombie'))
         family['id'] = 'configuration_test'
         family['pools'] = []
+        self.disable_tier_loot(tiers)
         for v in family['variants']:
             v['output_record'] = f"records/creatures/enemies/monsterexpansion/configuration_test_{v['id']}.dbr"
         files = gen.build_plan([family], tiers)
@@ -52,6 +62,7 @@ class DataDrivenTests(unittest.TestCase):
 
     def test_tier_aura_disable_applies_to_both_families(self):
         families, tiers = catalog(); tiers['veteran']['prototype']['cosmetic_aura']['enabled'] = False
+        self.disable_tier_loot(tiers)
         files = gen.build_plan([f for f in families if all(v["tier"] == "veteran" for v in f["variants"])], tiers)
         self.assertEqual(len(files), 446)
         self.assertFalse(any('_cosmetic' in str(p) for p in files))
