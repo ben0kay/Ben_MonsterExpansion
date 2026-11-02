@@ -1033,7 +1033,9 @@
     },
     {
       "record": "records/skills/playerclass05/chillingsurge_buff.dbr",
-      "set": {},
+      "set": {
+        "skillCooldownTime": "3.000000"
+      },
       "curves": {
         "offensiveColdMin": {
           "multiplier": 1.1
