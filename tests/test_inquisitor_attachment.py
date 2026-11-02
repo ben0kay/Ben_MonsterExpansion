@@ -11,7 +11,8 @@ from dbr import DBR
 from references import resolve
 from player_skills import build_skills, load_settings as load_skill_settings
 from inquisitor_attachment import (
-    build_attachment, load_settings, DONORS, TREE, PANEL, BLADE_SOURCE
+    build_attachment, load_settings, DONORS, TREE, PANEL, BLADE_SOURCE,
+    RELOCATED_BUTTON, RELOCATED_POSITION, NATIVE_BUTTON_COORDS
 )
 import generate_variants as gen
 
@@ -58,6 +59,37 @@ class InquisitorAttachmentTests(unittest.TestCase):
         self.assertEqual(tree.render(), expected.render())
         self.assertEqual(source_tree.get("skillName34"), tree.get("skillName34"))
 
+    def test_vire_mastery_ten_alignment_and_nonoverlapping_native_transmuter(self):
+        # User screenshot: Vire previously appeared in mastery-1 x246 while
+        # its native Oathkeeper requirement is mastery 10. Keep its tier.
+        vire = DONORS["vires_might"]
+        self.assertEqual(vire["position"], [486, 39])
+        button = self.result(vire["button_target"])
+        self.assertEqual((int(button.get("bitmapPositionX")),
+                          int(button.get("bitmapPositionY"))), (486, 39))
+        burst = self.native("records/ui/skills/class07/skill25.dbr")
+        chill = self.native("records/ui/skills/class07/skill26.dbr")
+        self.assertEqual((int(burst.get("bitmapPositionX")),
+                          int(burst.get("bitmapPositionY"))), (326, 39))
+        self.assertEqual((int(chill.get("bitmapPositionX")),
+                          int(chill.get("bitmapPositionY"))), (566, 39))
+        native = self.native(RELOCATED_BUTTON)
+        shifted = self.result(RELOCATED_BUTTON)
+        self.assertEqual((native.get("bitmapPositionX"),
+                          native.get("bitmapPositionY")), ("486", "71"))
+        self.assertEqual((shifted.get("bitmapPositionX"),
+                          shifted.get("bitmapPositionY")), ("486", "145"))
+        expected = self.native(RELOCATED_BUTTON)
+        expected.set("bitmapPositionX", "486")
+        expected.set("bitmapPositionY", "145")
+        self.assertEqual(shifted.render(), expected.render())
+        coords = list(NATIVE_BUTTON_COORDS)
+        coords[29] = RELOCATED_POSITION
+        coords += [tuple(e["position"]) for e in self.settings["skills"]]
+        for i, (x, y) in enumerate(coords):
+            for a, b in coords[i+1:]:
+                self.assertFalse(abs(x-a) < 60 and abs(y-b) < 60)
+
     def test_vire_matches_native_rush_other_than_orphaned_connectors(self):
         source = self.native(DONORS["vires_might"]["source"])
         clone = self.result(DONORS["vires_might"]["target"])
@@ -93,12 +125,18 @@ class InquisitorAttachmentTests(unittest.TestCase):
                 self.assertEqual(DBR(files[Path("database") / TREE]).get("skillName35"),
                                  other["target"])
                 self.assertFalse(DBR(files[Path("database") / TREE])._locations("skillName36"))
+                expected_transmuter = (self.native(RELOCATED_BUTTON).render()
+                    if off == "vires_might" else self.files[Path("database") / RELOCATED_BUTTON])
+                self.assertEqual(files[Path("database") / RELOCATED_BUTTON],
+                                 expected_transmuter)
         config = copy.deepcopy(self.settings)
         config["enabled"] = False
         files, report = build_attachment(config, gen.REFERENCE, self.skill_files)
         self.assertEqual(report["active_skills"], [])
         self.assertEqual(files[Path("database") / TREE], self.native(TREE).render())
         self.assertEqual(files[Path("database") / PANEL], self.native(PANEL).render())
+        self.assertEqual(files[Path("database") / RELOCATED_BUTTON],
+                         self.native(RELOCATED_BUTTON).render())
 
     def test_config_refuses_unknown_donors_or_unverified_ui_layout(self):
         for field, value in (
