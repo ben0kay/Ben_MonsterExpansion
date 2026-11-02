@@ -101,9 +101,17 @@ def check_configs(reference_root=None, repo=REPO):
             require(not occupied & set(inquisitor_files),
                     "Inquisitor attachment output collision")
             occupied.update(inquisitor_files)
+            from arcanist_attachment import load_settings as load_arcanist_summons, build_attachment as build_arcanist_summons
+            arcanist_files, _ = build_arcanist_summons(
+                load_arcanist_summons(repo), reference_root)
+            require(not occupied & set(arcanist_files),
+                    "Arcanist summon attachment output collision")
+            occupied.update(arcanist_files)
         else:
             from inquisitor_attachment import load_settings as load_inquisitor_extras
             load_inquisitor_extras(repo)  # Validate schema without reading game records.
+            from arcanist_attachment import load_settings as load_arcanist_summons
+            load_arcanist_summons(repo)  # Also validate Arcanist schema only.
         root = reference_root or repo / "ReferenceFiles"
         catalog = load_json(repo / "config/tiers.json")
         require(catalog.get("schema_version") == 1, "Unsupported tier schema")
