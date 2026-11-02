@@ -387,10 +387,13 @@ class PlayerSkillTests(unittest.TestCase):
 
         sky = self.record("playerclass05/skyshard1.dbr")
         self.assertEqual(sky.get("skillCooldownTime"), "2.850000")
+        # Native Flash Freeze cooldown is a scalar (6 seconds) at all ranks.
+        # Halve it to 3 seconds, leaving the previously improved radius,
+        # freeze duration and Cold damage rank curves intact.
+        self.assertEqual(native.get("skillCooldownTime"), "6.000000")
         self.assertEqual(
             self.record("playerclass05/chillingsurge_buff.dbr").get("skillCooldownTime"),
-            DBR.from_file(resolve("records/skills/playerclass05/chillingsurge_buff.dbr",
-                                  gen.REFERENCE)).get("skillCooldownTime"))
+            "3.000000")
 
     def test_arcanist_second_pass_record_disable_is_exact_rollback(self):
         settings = copy.deepcopy(self.settings)
