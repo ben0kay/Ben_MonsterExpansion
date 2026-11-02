@@ -453,6 +453,14 @@ def build_variant(family, variant, tier):
     fail_unless(factor.is_finite() and Decimal("0.1") <= factor <= Decimal("20"),
                 "Unsafe monster scale")
     monster.set("scale", f"{factor:.6f}")
+
+    # Per-tier permanent *base* run speed boost (not a global cap or AI
+    # frequency change). Preserve native per-monster speed differences, jitter
+    # and all existing temporary effects including Elite/Ascended low-HP rage.
+    # Decimal scaling avoids float drift when regenerating the same source.
+    monster.set("characterRunSpeed", scaled_number(
+        monster.get("characterRunSpeed"), proto.get("run_speed_vs_parent", 1)))
+
     # Preserve original monsterClassification, actorRadius, actorHeight, description,
     # skill timing and spawn references pending in-game compatibility tests.
 
