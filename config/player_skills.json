@@ -66,7 +66,11 @@
       "set": {
         "exclusiveSkill": "0"
       },
-      "curves": {}
+      "curves": {
+        "skillTargetRadius": {
+          "multiplier": 1.1
+        }
+      }
     },
     {
       "record": "records/skills/playerclass07/auraconviction1_buff.dbr",
@@ -1761,6 +1765,150 @@
         },
         "offensivePierceModifier": {
           "multiplier": 1.05
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/wpattack01.dbr",
+      "enabled": true,
+      "set": {},
+      "curves": {
+        "projectileExplosionRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/wpattack02.dbr",
+      "enabled": true,
+      "set": {},
+      "curves": {
+        "weaponDamagePct": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/wpattack03.dbr",
+      "enabled": true,
+      "set": {
+        "projectileLaunchNumber": "4;4;4;4;4;4;5;5;5;5;5;5;5;5;5;5;5;5;5;5"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass07/passive01.dbr",
+      "enabled": true,
+      "set": {},
+      "curves": {
+        "characterAttackSpeedModifier": {
+          "multiplier": 1.05
+        },
+        "offensiveElementalModifier": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/passive02.dbr",
+      "enabled": true,
+      "set": {},
+      "curves": {
+        "characterOffensiveAbilityModifier": {
+          "multiplier": 1.08
+        },
+        "offensiveCritDamageModifier": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/wordofpain1_buff.dbr",
+      "enabled": true,
+      "set": {},
+      "curves": {
+        "skillTargetRadius": {
+          "multiplier": 1.1
+        },
+        "skillActiveDuration": {
+          "multiplier": 1.15
+        },
+        "offensiveColdMin": {
+          "multiplier": 1.08
+        },
+        "offensiveFireMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/wordofpain2.dbr",
+      "enabled": true,
+      "set": {},
+      "curves": {
+        "skillTargetRadius": {
+          "multiplier": 1.1
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/wordofpain3.dbr",
+      "enabled": true,
+      "set": {},
+      "curves": {
+        "offensiveElementalMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/lightningnet2.dbr",
+      "enabled": true,
+      "set": {
+        "maxRange": "19.800000"
+      },
+      "curves": {
+        "offensiveLightningMin": {
+          "multiplier": 1.08
+        }
+      }
+    },
+    {
+      "record": "records/skills/playerclass07/icerune.dbr",
+      "enabled": true,
+      "set": {
+        "petLimit": "6",
+        "skillCooldownTime": "3.600000"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass07/concussiverune1.dbr",
+      "enabled": true,
+      "set": {
+        "petLimit": "6",
+        "skillCooldownTime": "3.600000"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass07/arcaneseal1.dbr",
+      "enabled": true,
+      "set": {
+        "spawnObjectsTimeToLive": "28.000000",
+        "skillCooldownTime": "4.500000"
+      },
+      "curves": {}
+    },
+    {
+      "record": "records/skills/playerclass07/purifyingflame1.dbr",
+      "enabled": true,
+      "set": {
+        "maxRange": "10.010000"
+      },
+      "curves": {
+        "offensiveFireMin": {
+          "multiplier": 1.08
         }
       }
     }
