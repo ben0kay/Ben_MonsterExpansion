@@ -97,6 +97,9 @@ def _scale_category_weights(weights, categories, factors):
         return modified
     grouped = {cat: sum(weights[k] for k in weights if categories.get(k) == cat)
                for cat in factors}
+    if not any(grouped[cat] > 0 and Decimal(str(factors[cat])) > 1
+               for cat in factors):
+        return modified
     # Preserve every other category as the reference mass. When a loot set
     # contains ONLY quality categories, use the non-boosted category as anchor.
     unboosted = total - sum(grouped.values())
@@ -148,7 +151,7 @@ def _dynamic_affix(source, tier, multiplier, reference):
     weights = {k: _num(record, k) for k in AFFIX_RARE + AFFIX_OTHER}
     rare = sum(weights[k] for k in AFFIX_RARE)
     common = sum(weights[k] for k in AFFIX_OTHER)
-    if not rare or not common:
+    if not rare or not common or Decimal(str(multiplier)) == 1:
         return None
     result = _scale_category_weights(
         weights, {k:"rare" for k in AFFIX_RARE}, {"rare":multiplier})
@@ -244,7 +247,7 @@ def enhance_monster_loot(monster, proto, tier_id, reference):
         ("d","legendary_multiplier"))}
 
     for slot, entries in groups.items():
-        weights = {_index:int(_num(source, w)) for _index, w, _, _ in entries}
+        weights = {w:_num(source, w) for _, w, _, _ in entries}
         # Include all native entries, even quest, consumable and other kinds,
         # in the probability denominator; never promote these classes.
         for i in range(1, 7):
