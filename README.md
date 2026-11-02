@@ -460,10 +460,11 @@ mastery remains separately available.
   passives/Nullification buttons are repositioned without changing
   their X mastery tier or skill effects. The two summon features have
   **independent enabled switches** in `config/arcanist_summons.json`.
-- **Olexra's Flash Freeze**: radius now grows by a further modest
-  per-rank bonus: multiplier `1.10 + 0.0025 × (rank-1)` relative
-  to each original rank's radius, giving **5.5 m** at rank 1 and
-  **20.745 m** at rank 22 (formerly 5.4 m / 19.44 m).
+- **Olexra's Flash Freeze**: native fixed cooldown **6 → 3 seconds**
+  at all ranks; radius grows by a modest per-rank bonus:
+  multiplier `1.10 + 0.0025 × (rank-1)` relative to each original
+  radius, giving **5.5 m** at rank 1 and **20.745 m** at rank 22
+  (formerly 5.4 m / 19.44 m).
   All new summon UI placements and Flash Freeze behavior are
   **configured, not yet game-tested**.
   See [Arcanist summons, layout and rollback](docs/ARCANIST_SUMMONS_BUILD.md).
