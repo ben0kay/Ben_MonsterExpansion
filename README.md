@@ -413,10 +413,18 @@ mastery remains separately available.
   Nightblade skill** (2 blades at ranks 1–15, 4 at 16–23, 5 at 24–26),
   including spawn burst and cap; no separate summon balance fork.
   **Ring of Steel is a different instant attack and has not been cloned.**
-- New Inquisitor UI buttons use bottom-left (246,459) and bottom-right
-  (886,459) vacant positions, with added skill-tree slots 35 and 36.
-  Existing Inquisitor buttons are not moved. Both skill toggles are
-  independent and emit native tree/panel records for rollback.
+- **In-game UI correction (Nov 2):** Vire's Might originally sat at
+  (246,459), the mastery-1 column, despite its native mastery-10
+  requirement. Its button now sits at **(486,39)** on the top row,
+  directly between Bursting Round and Chilling Rounds, aligned with
+  mastery 10. The nearby circular Word of Renewal transmuter
+  (`class07/skill30.dbr`) moves from **(486,71) to (486,145)**
+  to avoid overlap. Only this one native button is repositioned;
+  all skill unlock requirements and Vire's Might combat stats stay
+  unchanged. Both UI changes are reversible when Vire is disabled.
+- Blade Spirit retains the bottom-right (886,459) button; the new
+  skill-tree slots remain 35 and 36. Both skill toggles are independent
+  and preserve native tree/panel rollback.
 - The uploaded Inquisitor UI files were found on **`main`**;
   the necessary original `class07/classtable.dbr` panel was copied
   from the upload to `dev` without merging other branches.
