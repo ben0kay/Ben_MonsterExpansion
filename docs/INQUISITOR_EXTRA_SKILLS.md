@@ -96,8 +96,10 @@ and `Text_EN.arc` as needed, restart the Custom Game and verify both new
 Inquisitor skill buttons. The Python tests and in-game behaviour have
 **not** been run in this GitHub-only environment.
 
-## Future plans
+## Related Arcanist summon addition
 
-The user has separately proposed attaching the entire Necromancer skeleton
-line to **Arcanist**. This is **not part of this implementation** and
-remains a future step requiring its own config and UI space review.
+The independent Arcanist configuration now attaches the Necromancer
+three-skill skeleton line **and** native Guardian of Empyrion.
+It has a separate generator, UI layout and toggle set; the Inquisitor
+Vire's Might/Blade Spirit implementation is unchanged.
+See [Arcanist summon attachment and rollback](ARCANIST_SUMMONS_BUILD.md).
