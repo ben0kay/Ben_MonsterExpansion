@@ -1039,7 +1039,8 @@
           "multiplier": 1.1
         },
         "skillTargetRadius": {
-          "multiplier": 1.08
+          "multiplier": 1.1,
+          "multiplier_per_rank": 0.0025
         },
         "skillActiveDuration": {
           "multiplier": 1.1
