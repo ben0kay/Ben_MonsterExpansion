@@ -366,12 +366,25 @@ class PlayerSkillTests(unittest.TestCase):
         for name, field, base_first, base_last, factor in (
             ("skyshard1", "projectileExplosionRadius", 1.4, 3.3, 1.10),
             ("razorwind1", "skillTargetRadius", 4.2, 5.8, 1.10),
-            ("chillingsurge_buff", "skillTargetRadius", 5.0, 18.0, 1.08),
         ):
             record = self.record(f"playerclass05/{name}.dbr")
             values = list(map(float, record.get(field).split(";")))
             self.assertAlmostEqual(values[0], base_first * factor)
             self.assertAlmostEqual(values[-1], base_last * factor)
+        # Flash Freeze's radius receives a modest extra +0.25 percentage
+        # point multiplier for every skill rank, across native 22 ranks.
+        logical = "records/skills/playerclass05/chillingsurge_buff.dbr"
+        native = DBR.from_file(resolve(logical, gen.REFERENCE))
+        original_radii = list(map(float, native.get("skillTargetRadius").split(";")))
+        modified_radii = list(map(float, self.record(
+            "playerclass05/chillingsurge_buff.dbr").get("skillTargetRadius").split(";")))
+        self.assertEqual(len(original_radii), 22)
+        self.assertEqual(len(modified_radii), 22)
+        for index, (old, new) in enumerate(zip(original_radii, modified_radii)):
+            self.assertAlmostEqual(new, old * (1.10 + 0.0025*index), places=5)
+        self.assertAlmostEqual(modified_radii[0], 5.5)
+        self.assertAlmostEqual(modified_radii[-1], 20.745)
+
         sky = self.record("playerclass05/skyshard1.dbr")
         self.assertEqual(sky.get("skillCooldownTime"), "2.850000")
         self.assertEqual(
