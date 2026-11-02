@@ -1,7 +1,8 @@
 """Attach Inquisitor Vire's Might and the Nightblade-buffed Blade Spirit.
 
-Uses only audited native skill/UI donors. Existing Inquisitor buttons stay at
-their vanilla coordinates; two new standalone buttons occupy open panel edges.
+Uses audited native skill/UI donors. Vire's Might sits at mastery-10 between
+Bursting Round and Chilling Rounds; the original circular Word of Renewal
+transmuter is moved slightly lower to avoid overlapping the new button.
 """
 import json
 import re
@@ -20,7 +21,7 @@ DONORS = {
         "target": "records/skills/playerclass07/ben_viremight1.dbr",
         "button_source": "records/ui/skills/class09/skill21.dbr",
         "button_target": "records/ui/skills/class07/skill33.dbr",
-        "position": [246, 459],
+        "position": [486, 39],
         "skill_class": "Skill_AttackPathCharge",
         "template": "database/templates/skill_attackpathcharge.tpl",
     },
@@ -36,7 +37,8 @@ DONORS = {
 }
 
 # Audited against all 32 original GDX1 class07 button DBRs uploaded in
-# commit 25c32486. No original UI buttons need to be moved/overridden.
+# commit 25c32486. Only the circular skill30 transmuter needs to move
+# so the native mastery-10 column can accommodate Vire's Might.
 NATIVE_BUTTON_COORDS = (
     (646, 389), (806, 389), (886, 319), (886, 109),
     (486, 459), (406, 109), (566, 109), (726, 109),
@@ -47,6 +49,10 @@ NATIVE_BUTTON_COORDS = (
     (326, 39), (566, 39), (806, 39), (326, 421),
     (486, 211), (486, 71), (646, 459), (726, 421),
 )
+RELOCATED_BUTTON = "records/ui/skills/class07/skill30.dbr"
+NATIVE_RELOCATED_POSITION = (486, 71)
+RELOCATED_POSITION = (486, 145)
+RELOCATED_BUTTON_SKILL = "records/skills/playerclass07/hunteraura1b.dbr"
 
 
 def load_settings(repo):
@@ -60,7 +66,7 @@ def load_settings(repo):
 
 def validate_settings(settings):
     if (not isinstance(settings, dict)
-            or set(settings) != {"schema_version", "enabled", "tree", "panel", "skills"}
+            or set(settings) != {"schema_version", "enabled", "tree", "panel", "skills", "relocated_buttons"}
             or type(settings["schema_version"]) is not int
             or settings["schema_version"] != 1
             or type(settings["enabled"]) is not bool
@@ -68,6 +74,15 @@ def validate_settings(settings):
             or not isinstance(settings["skills"], list)
             or len(settings["skills"]) != 2):
         raise ValueError("Invalid Inquisitor attachment schema")
+    if settings["relocated_buttons"] != {
+            RELOCATED_BUTTON: list(RELOCATED_POSITION)}:
+        raise ValueError("Unreviewed Inquisitor transmuter relocation")
+    active_vire = settings["enabled"] and any(
+        entry["id"] == "vires_might" and entry["enabled"]
+        for entry in settings["skills"])
+    occupied_positions = list(NATIVE_BUTTON_COORDS)
+    if active_vire:
+        occupied_positions[29] = RELOCATED_POSITION  # Original skill30
     seen = set()
     for entry in settings["skills"]:
         if not isinstance(entry, dict) or set(entry) != {
@@ -87,8 +102,9 @@ def validate_settings(settings):
         x, y = entry["position"]
         if not (246 <= x <= 886 and 39 <= y <= 459):
             raise ValueError("Inquisitor extra button outside native panel")
-        if any(abs(x-a) < 60 and abs(y-b) < 60
-               for a, b in NATIVE_BUTTON_COORDS):
+        if settings["enabled"] and entry["enabled"] and any(
+                abs(x-a) < 60 and abs(y-b) < 60
+                for a, b in occupied_positions):
             raise ValueError("Inquisitor extra button overlaps native button")
     if seen != set(DONORS):
         raise ValueError("Both approved Inquisitor skills must be configured")
@@ -135,6 +151,20 @@ def build_attachment(settings, reference, existing_skill_files):
         if path in files:
             raise ValueError("Duplicate Inquisitor attachment record")
         files[path] = record.render()
+
+    # Emit an exact native rollback record when Vire's Might is disabled.
+    # While enabled, move only the original circular transmuter button
+    # down into the available gap; leave its skill and links unchanged.
+    transmuter = DBR.from_file(resolve(RELOCATED_BUTTON, reference))
+    if (transmuter.get("skillName") != RELOCATED_BUTTON_SKILL
+            or (int(transmuter.get("bitmapPositionX")),
+                int(transmuter.get("bitmapPositionY"))) != NATIVE_RELOCATED_POSITION):
+        raise ValueError("Inquisitor skill30 native donor changed")
+    if settings["enabled"] and next(
+            entry for entry in settings["skills"] if entry["id"] == "vires_might")["enabled"]:
+        transmuter.set("bitmapPositionX", str(RELOCATED_POSITION[0]))
+        transmuter.set("bitmapPositionY", str(RELOCATED_POSITION[1]))
+    emit(RELOCATED_BUTTON, transmuter)
 
     for entry in settings["skills"]:
         donor = DONORS[entry["id"]]
@@ -197,5 +227,6 @@ def build_attachment(settings, reference, existing_skill_files):
         "active_skills": active,
         "blade_spirit_uses_enhanced_nightblade_skill": True,
         "movement_donor": "native Oathkeeper Vire's Might",
+        "relocated_native_button": RELOCATED_BUTTON if active and "vires_might" in active else None,
         "in_game_verified": False,
     }
