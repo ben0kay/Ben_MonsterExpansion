@@ -29,23 +29,49 @@ class ArcanistAttachmentTests(unittest.TestCase):
     def result(self, logical, files=None):
         return DBR((files or self.files)[Path("database") / logical])
 
-    def test_full_arcanist_tree_has_three_skeleton_buttons_plus_guardian(self):
+    def test_default_arcanist_has_only_guardian_and_restores_original_ui(self):
+        self.assertFalse(self.settings["skeletons"]["enabled"])
+        self.assertTrue(self.settings["guardian"]["enabled"])
+        self.assertEqual(self.report["active_skills"], [GUARDIAN_TARGET])
+        self.assertFalse(self.report["skeletons_enabled"])
+        self.assertTrue(self.report["guardian_enabled"])
+        self.assertEqual(self.report["original_buttons_moved"], 0)
         tree = self.result(TREE)
         panel = self.result(PANEL)
-        base_tree = self.native(TREE)
-        base_panel = self.native(PANEL)
+        self.assertEqual(tree.get("skillName32"), GUARDIAN_TARGET)
+        self.assertFalse(tree._locations("skillName33"))
+        buttons = panel.get("tabSkillButtons").split(";")
+        native_buttons = self.native(PANEL).get("tabSkillButtons").split(";")
+        self.assertEqual(buttons, native_buttons + [GUARDIAN_BUTTON_TARGET])
+        for removed in SKELETON_BUTTON_TARGETS:
+            self.assertNotIn(removed, buttons)
+        for removed in SKELETON_TARGETS:
+            self.assertFalse(any(
+                tree.get(f"skillName{i}") == removed
+                for i in range(1, 33)))
+        for original in MOVES:
+            self.assertEqual(self.files[Path("database") / original],
+                             self.native(original).render())
+
+    def test_full_line_can_be_opted_back_in_without_touching_guardian(self):
+        config = copy.deepcopy(self.settings)
+        config["skeletons"]["enabled"] = True
+        files, report = build_attachment(config, gen.REFERENCE)
+        tree = self.result(TREE, files)
+        panel = self.result(PANEL, files)
         targets = SKELETON_TARGETS + [GUARDIAN_TARGET]
         buttons = SKELETON_BUTTON_TARGETS + [GUARDIAN_BUTTON_TARGET]
-        self.assertEqual(self.report["active_skills"], targets)
+        self.assertEqual(report["active_skills"], targets)
         for slot, (name, button) in enumerate(zip(targets, buttons), 32):
             self.assertEqual(tree.get(f"skillName{slot}"), name)
             self.assertEqual(tree.get(f"skillLevel{slot}"), "0")
             self.assertIn(button, panel.get("tabSkillButtons").split(";"))
-            self.assertEqual(self.result(button).get("skillName"), name)
-        expected_buttons = base_panel.get("tabSkillButtons").split(";")
+            self.assertEqual(self.result(button, files).get("skillName"), name)
+        expected_buttons = self.native(PANEL).get("tabSkillButtons").split(";")
         self.assertEqual(panel.get("tabSkillButtons").split(";"),
                          expected_buttons + buttons)
-        self.assertEqual(base_tree.get("skillName31"), tree.get("skillName31"))
+        self.assertEqual(self.native(TREE).get("skillName31"),
+                         tree.get("skillName31"))
 
     def test_skeleton_base_is_four_but_undead_legion_remains_additive(self):
         first = self.result(SKELETON_TARGETS[0])
@@ -80,13 +106,16 @@ class ArcanistAttachmentTests(unittest.TestCase):
         self.assertEqual(clone.get("skillCooldownTime"), "20.000000")
 
     def test_original_arcanist_buttons_move_only_when_skeletons_active(self):
-        self.assertEqual(self.report["original_buttons_moved"], 5)
+        config = copy.deepcopy(self.settings)
+        config["skeletons"]["enabled"] = True
+        files, report = build_attachment(config, gen.REFERENCE)
+        self.assertEqual(report["original_buttons_moved"], 5)
         panel = self.native(PANEL)
         original_names = [p for p in panel.get("tabSkillButtons").split(";")
                           if p.startswith("records/ui/skills/class05/skill")]
         all_coords = []
         for path in original_names:
-            result = (self.result(path) if path in MOVES else self.native(path))
+            result = (self.result(path, files) if path in MOVES else self.native(path))
             num = int(Path(path).stem.removeprefix("skill"))
             xy = (int(result.get("bitmapPositionX")), int(result.get("bitmapPositionY")))
             all_coords.append(xy)
@@ -97,7 +126,7 @@ class ArcanistAttachmentTests(unittest.TestCase):
                 self.assertEqual(result.get("bitmapPositionX"),
                                  original.get("bitmapPositionX"))
         for button in SKELETON_BUTTON_TARGETS + [GUARDIAN_BUTTON_TARGET]:
-            record = self.result(button)
+            record = self.result(button, files)
             all_coords.append((int(record.get("bitmapPositionX")),
                                int(record.get("bitmapPositionY"))))
         for i, (x, y) in enumerate(all_coords):
@@ -108,6 +137,7 @@ class ArcanistAttachmentTests(unittest.TestCase):
         for group in ("skeletons", "guardian"):
             with self.subTest(group=group):
                 setting = copy.deepcopy(self.settings)
+                setting["skeletons"]["enabled"] = True
                 setting[group]["enabled"] = False
                 files, report = build_attachment(setting, gen.REFERENCE)
                 tree = self.result(TREE, files)
