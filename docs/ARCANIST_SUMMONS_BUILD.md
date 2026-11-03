@@ -1,8 +1,19 @@
-# Arcanist: Raise Skeletons line + Guardian of Empyrion
+# Arcanist: Guardian of Empyrion (skeleton line disabled)
 
-**Status:** configured and integrated into `dev`. Python tests were authored,
-but not run in the GitHub-only environment. F7, game loading, buttons, summons,
-modifiers and UI appearance require the user's in-game check.
+**Active status (November 3, 2026):** Skeleton attachment is **disabled**
+in `config/arcanist_summons.json` (`skeletons.enabled=false`).
+**Guardian of Empyrion stays enabled** and takes the first free
+Arcanist skill-tree slot **32** (rather than slot 35). Native Arcanist
+buttons and positions are restored. This is committed on `dev`,
+not yet rebuilt by F7 or verified in-game.
+
+The three skeleton donor skills and custom UI DBR templates remain
+available for an optional later re-enable, but **none are registered
+in the active Arcanist skill tree or panel**. Nightblade and
+Demolitionist skeleton lines are unaffected.
+
+Python tests were updated but not run in the GitHub-only environment.
+F7, game loading, buttons and summon behavior still need testing.
 
 ## Requested features and native donors
 
@@ -10,7 +21,7 @@ Both are cloned from **original game/DLC skills**, not made-up actor skills.
 `ReferenceFiles` remains read-only. The custom skills use
 `records/skills/playerclass05/ben_*.dbr` and native game pet actors.
 
-### Necromancer skeleton line (three Arcanist buttons)
+### Inactive option only: Necromancer skeleton line (not in current Arcanist UI)
 
 | Skill | Original (GDX1) | Cloned Arcanist skill | UI button |
 | --- | --- | --- | --- |
@@ -50,11 +61,11 @@ Both are cloned from **original game/DLC skills**, not made-up actor skills.
 
 ## Skill panel layout
 
-The original Arcanist panel has 30 actual skill buttons (numbers
+The original Arcanist panel has 30 native skill buttons (numbers
 01–26, 28–31; number 27 is not included in the native panel).
-Three new skeleton buttons use a horizontal row, preserving the
-same native Necromancer connector geometry as the working Nightblade
-implementation:
+**Currently the three skeleton buttons are disabled and not present
+in the Arcanist panel.** The following skeleton layout is the
+optional configuration if re-enabled:
 
 - Skeletons: **(246,459), (406,459), (566,459)**.
 - Guardian: **(726,179)**, on the same mastery-tier X-column as
@@ -77,17 +88,19 @@ native button changes. **The user should visually inspect label,
 connector and hover positions in-game**; rectangle spacing alone is not
 a guarantee of correct on-screen appearance.
 
-New Arcanist skill-tree slots are **32, 33, 34, 35**. Native slots
-1–31 remain intact. Original panel and button DBRs are only emitted
-as targeted overrides when needed; no original reference edits.
+**Current active Arcanist skill-tree slot: 32 = Guardian of Empyrion.**
+Native slots 1–31 remain intact. Skeleton slots 32–34 and the old
+Guardian slot 35 apply only when the skeleton line is explicitly
+re-enabled. Original panel and button DBRs are emitted as targeted
+overrides for clean restoration, without edits to original references.
 
 ## Independent toggles / rollback
 
 Configuration: `config/arcanist_summons.json`.
 
-- `skeletons.enabled:false`: removes all three skeleton buttons/tree
-  slots and returns all five moved native Arcanist buttons to original
-  positions, while still allowing Guardian.
+- **Current default — `skeletons.enabled:false`:** removes all three
+  skeleton buttons/tree slots and restores all five original
+  Arcanist buttons to native coordinates, while leaving Guardian enabled.
 - `guardian.enabled:false`: removes only Guardian; skeletons remain.
 - Top-level `enabled:false`: emits exact native Arcanist tree, panel,
   and the five native button records. The dormant `ben_*` skill and
