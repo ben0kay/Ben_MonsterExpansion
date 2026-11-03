@@ -4,7 +4,7 @@
   "tree": "records/skills/playerclass05/_classtree_class05.dbr",
   "panel": "records/ui/skills/class05/classtable.dbr",
   "skeletons": {
-    "enabled": true,
+    "enabled": false,
     "skills": [
       {
         "source": "records/skills/playerclass08/summon_skeleton1.dbr",
