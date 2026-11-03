@@ -457,22 +457,20 @@ mastery remains separately available.
   Elemental Exchange support skills. Skill ranks and original
   other damage types are otherwise preserved unless explicitly
   configured.
-- **New skeleton tree:** Raise Skeletons → Undead Legion → Will of the
-  Crypt, cloned from Necromancer into Arcanist skill-tree slots **32–34**.
-  Initial cast/cap **4**, plus native Undead Legion (+5 at rank 12 =
-  **9 total**, up to **11** at maximum overcap, before equipment).
-  Shared Necromancer skeleton scaling (+20% relative HP and +15%
-  relative damage) still applies.
-- **New Summon Guardian of Empyrion:** standalone Oathkeeper native
-  Guardian skill cloned into Arcanist tree slot **35**. Original
-  **2 guardians**, increasing to **3 at ranks 24–26**, with native
-  permanent summon behavior, damage, FX and 20 s cooldown.
-  Oathkeeper's transmuter/Celestial Presence modifier is not added.
-- **Arcanist UI layout:** three skeleton buttons in a horizontal bottom
-  row and one Guardian button at (726,179). Five existing standalone
-  passives/Nullification buttons are repositioned without changing
-  their X mastery tier or skill effects. The two summon features have
-  **independent enabled switches** in `config/arcanist_summons.json`.
+- **Arcanist skeleton tree removed from the active UI (Nov 3):**
+  `config/arcanist_summons.json` now has `skeletons.enabled=false`.
+  Raise Skeletons, Undead Legion and Will of the Crypt are no longer
+  registered in the Arcanist skill tree or displayed as buttons. The
+  three donors remain configurable for an optional future rollback;
+  Nightblade/Demolitionist skeleton skills are untouched.
+- **Summon Guardian of Empyrion remains enabled:** the standalone
+  Oathkeeper Guardian is now the only extra Arcanist skill, occupying
+  the first free tree slot **32**. It retains native 2 guardians
+  (3 at ranks 24–26), damage, FX and 20-second cooldown.
+- **Original Arcanist UI layout restored:** the five native standalone
+  buttons previously displaced by skeletons return to their original
+  positions. Only Guardian's added UI button at (726,179) remains.
+  The skeleton toggle is reversible without affecting Guardian.
 - **Olexra's Flash Freeze**: native fixed cooldown **6 → 3 seconds**
   at all ranks; radius grows by a modest per-rank bonus:
   multiplier `1.10 + 0.0025 × (rank-1)` relative to each original
