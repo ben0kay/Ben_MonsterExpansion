@@ -1,3 +1,12 @@
+> **November 4 follow-up:** Guardian is still independently enabled in slot 32
+> and skeletons remain disabled. The new Sigil/Destruction pair occupies slots
+> 33–34 by default. This generator now composes those changes before emitting
+> its final outputs. With Sigil enabled, native main rows compact to 60px spacing
+> and Guardian is at (726,159); with Sigil disabled, the prior layout below is
+> restored exactly. The old optional skeleton row and Sigil row cannot be active
+> together. See [Spellbinder additions](SPELLBINDER_OCCULTIST.md) for current
+> layout, switches, generated paths and F7/in-game verification.
+
 # Arcanist: Guardian of Empyrion (skeleton line disabled)
 
 **Active status (November 3, 2026):** Skeleton attachment is **disabled**
@@ -145,11 +154,12 @@ python scripts/prepare_console_test.py --include-spawns --stage --replace-staged
 ```
 
 F7 in Asset Manager; install rebuilt `.arz` and, where applicable,
-`Text_EN.arc`; restart Custom Game. Test both summon buttons separately,
-four skeletons on initial cast, Undead Legion capacity increases, active
-guardian limit, Flash Freeze at low/high ranks, and all five moved
-Arcanist original buttons. More active pets means more CPU/FX work,
-so evaluate crowded-battle performance.
+`Text_EN.arc`; restart Custom Game. With the current defaults, test Guardian
+limits, Flash Freeze at low/high ranks, native Arcanist buttons and the new
+Sigil/Destruction pair using the linked Spellbinder checklist. Skeleton buttons
+should remain absent. The optional skeleton summon/cap checks apply only after
+disabling Sigil and explicitly re-enabling skeletons. Evaluate crowded-battle
+performance when testing multiple active summons.
 
 ## Not in this pass
 

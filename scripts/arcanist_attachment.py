@@ -121,7 +121,7 @@ def validate_settings(settings):
     return settings
 
 
-def build_attachment(settings, reference):
+def build_attachment(settings, reference, occultist_settings=None, existing_skill_files=None):
     if settings is None:
         return {}, None
     validate_settings(settings)
@@ -250,7 +250,11 @@ def build_attachment(settings, reference):
         panel.set("tabSkillButtons", ";".join(buttons))
     emit(TREE, tree)
     emit(PANEL, panel)
+    from spellbinder_attachment import compose_class
+    files, occultist_report = compose_class(
+        occultist_settings, reference, existing_skill_files or {}, "05", files)
     return files, {
+        "occultist_expansion": occultist_report,
         "skeletons_enabled": activated_skeletons,
         "guardian_enabled": activated_guardian,
         "active_skills": active,

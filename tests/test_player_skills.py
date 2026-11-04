@@ -331,8 +331,9 @@ class PlayerSkillTests(unittest.TestCase):
                     factor = rule["multiplier"]
                     self.assertGreaterEqual(factor, 1.05)
                     self.assertLessEqual(factor, 1.10)
-                    for old, new in zip(source, output):
-                        self.assertAlmostEqual(new, old * factor, places=5)
+                    for rank, (old, new) in enumerate(zip(source, output)):
+                        rank_factor = factor + rank * rule.get("multiplier_per_rank", 0)
+                        self.assertAlmostEqual(new, old * rank_factor, places=5)
 
     def test_panetti_main_missile_fragment_counts_by_rank(self):
         missile = self.record("playerclass05/arcanemissile.dbr")

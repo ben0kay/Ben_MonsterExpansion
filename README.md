@@ -443,6 +443,27 @@ mastery remains separately available.
   from the upload to `dev` without merging other branches.
   This is code/staging-ready, **not F7-built or in-game verified**.
   [Attachment details and validation](docs/INQUISITOR_EXTRA_SKILLS.md).
+### Spellbinder — cloned Occultist support and Sigil lines
+
+Arcanist + Necromancer now gains three independently reversible additions in
+`config/spellbinder_occultist.json`: **Bonds of Bysmiel → Manipulation** and
+**Blood of Dreeg → Aspect of the Guardian** on Necromancer, plus
+**Sigil of Consumption → Destruction** on Arcanist. Nine namespaced skill/buff/
+pet-bonus clones inherit effective `player_skills.json` values, including the
+pet improvements, sustained Blood toggle with 100 energy reserve and no instant
+heal, and enhanced Sigil/Destruction. Original Occultist remains unchanged.
+
+Default tree slots: Necromancer **33–36**, Arcanist **33–34**, following Guardian
+in slot 32. Arcanist skeletons remain disabled and Guardian remains independently
+toggleable. Arcanist's existing generator owns the composed final tree/panel.
+Where a bottom row is needed, native rows tighten from 70px to 60px spacing,
+keeping mastery X columns, horizontal chains and transmuter offsets. Disabling
+the relevant additions restores the prior layout. The optional old Arcanist
+skeleton row cannot be enabled together with Sigil; validation rejects overlap.
+**Static validation, focused tests and replacement staging are completed; F7
+and in-game skill/modifier/UI verification remain required.**
+[Generated paths, switches, build and game checklist](docs/SPELLBINDER_OCCULTIST.md).
+
 ### Arcanist
 
 - **Aether Ray**: beam range **16 → 22** and thickness **1.25 → 2**;
@@ -464,13 +485,13 @@ mastery remains separately available.
   three donors remain configurable for an optional future rollback;
   Nightblade/Demolitionist skeleton skills are untouched.
 - **Summon Guardian of Empyrion remains enabled:** the standalone
-  Oathkeeper Guardian is now the only extra Arcanist skill, occupying
-  the first free tree slot **32**. It retains native 2 guardians
+  Oathkeeper Guardian occupies tree slot **32**, before the new Sigil pair.
+  It retains native 2 guardians
   (3 at ranks 24–26), damage, FX and 20-second cooldown.
-- **Original Arcanist UI layout restored:** the five native standalone
-  buttons previously displaced by skeletons return to their original
-  positions. Only Guardian's added UI button at (726,179) remains.
-  The skeleton toggle is reversible without affecting Guardian.
+- **Arcanist UI composition:** disabling skeletons restores the five
+  standalone buttons to their original rows; the new Sigil layout then
+  compacts native rows to make room at the bottom. Guardian moves from
+  (726,179) to (726,159). Disabling Sigil restores the prior layout.
 - **Olexra's Flash Freeze**: native fixed cooldown **6 → 3 seconds**
   at all ranks; radius grows by a modest per-rank bonus:
   multiplier `1.10 + 0.0025 × (rank-1)` relative to each original
@@ -555,6 +576,7 @@ The researched DBR mechanics and proposed phases live in
 | `config/player_skills.json`, `config/nightblade_skeletons.json` | Mastery balance and Nightblade skeleton tree |
 | `config/inquisitor_extras.json`, `scripts/inquisitor_attachment.py` | Standalone Inquisitor Vire's Might and Nightblade-buffed Blade Spirit attachment |
 | `config/arcanist_summons.json`, `scripts/arcanist_attachment.py` | Arcanist skeleton/Guardian tree, relocated skill UI and independent toggles |
+| `config/spellbinder_occultist.json`, `scripts/spellbinder_attachment.py` | Independent Necromancer Bonds/Blood and Arcanist Sigil pairs; effective Occultist graph cloning and UI composition |
 | `scripts/discover_veterans.py`, `discover_elites.py`, `discover_ascended.py` | Read-only-by-default family/pool discovery; optional disabled draft configs |
 | `scripts/generate_variants.py`, `scripts/creature_names.py` | Compose variant DBRs and auto-resolve custom tier labels from original/GDX1/GDX2 English creature tags |
 | `scripts/tier_loot.py` | Private rarity-affix DBR graph cloning and custom-variant-only equipment choice reweighting |
@@ -635,6 +657,7 @@ Review the relevant rollback docs and perform clean rebuilds as needed.
   [Demolitionist skeleton attachment](docs/DEMOLITIONIST_SKELETONS_BUILD.md)
 - [Inquisitor first-pass balance](docs/INQUISITOR_BALANCE.md);
   [Vire's Might + Blade Spirit attachment](docs/INQUISITOR_EXTRA_SKILLS.md)
+- [Spellbinder Occultist additions and F7 checklist](docs/SPELLBINDER_OCCULTIST.md)
 - [Arcanist skeletons + Guardian and Flash Freeze radius](docs/ARCANIST_SUMMONS_BUILD.md)
 - [Nightblade balance](docs/NIGHTBLADE_BALANCE.md);
   [Nightblade skeleton attachment](docs/NIGHTBLADE_SKELETONS_BUILD.md);

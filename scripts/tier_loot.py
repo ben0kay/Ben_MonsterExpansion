@@ -91,7 +91,7 @@ def _scale_category_weights(weights, categories, factors):
     Integer weighting uses a fixed scale to prevent rounding away rare rolls.
     A category without a positive native weight remains absent.
     """
-    total = sum(weights)
+    total = sum(weights.values())
     modified = dict(weights)
     if total == 0:
         return modified

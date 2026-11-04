@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "enabled": true,
+  "lines": {
+    "bonds": true,
+    "blood": true,
+    "sigil": true
+  }
+}

@@ -102,16 +102,23 @@ def check_configs(reference_root=None, repo=REPO):
                     "Inquisitor attachment output collision")
             occupied.update(inquisitor_files)
             from arcanist_attachment import load_settings as load_arcanist_summons, build_attachment as build_arcanist_summons
+            from spellbinder_attachment import load_settings as load_spellbinder, compose_class
+            spellbinder_settings = load_spellbinder(repo)
             arcanist_files, _ = build_arcanist_summons(
-                load_arcanist_summons(repo), reference_root)
+                load_arcanist_summons(repo), reference_root, spellbinder_settings, skill_files)
             require(not occupied & set(arcanist_files),
                     "Arcanist summon attachment output collision")
             occupied.update(arcanist_files)
+            necro_files, _ = compose_class(spellbinder_settings, reference_root, skill_files, "08")
+            require(not occupied & set(necro_files), "Necromancer expansion output collision")
+            occupied.update(necro_files)
         else:
             from inquisitor_attachment import load_settings as load_inquisitor_extras
             load_inquisitor_extras(repo)  # Validate schema without reading game records.
             from arcanist_attachment import load_settings as load_arcanist_summons
             load_arcanist_summons(repo)  # Also validate Arcanist schema only.
+            from spellbinder_attachment import load_settings as load_spellbinder
+            load_spellbinder(repo)
         root = reference_root or repo / "ReferenceFiles"
         catalog = load_json(repo / "config/tiers.json")
         require(catalog.get("schema_version") == 1, "Unsupported tier schema")

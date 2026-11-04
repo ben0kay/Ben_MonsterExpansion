@@ -328,3 +328,15 @@ file-count expectations after the shrine-reference upload; all three passed on
 rerun after correcting those expectations. Config validation and combined
 generation pass. Staging idempotence, edit protection and manifest preflight
 pass in temporary Asset Manager directory fixtures. No Windows archive built.
+
+## Spellbinder Occultist skill copies — November 4, 2026
+
+Necromancer now receives complete Bonds/Manipulation and Blood/Aspect lines;
+Arcanist receives Sigil/Destruction. The originals remain unchanged. The new
+`scripts/spellbinder_attachment.py` uses the effective outputs from this skill
+balance stage, including the enhanced pet-bonus curves, Blood's sustained
+toggle/no instant heal/reservation/regen, Aspect resistance curves and the
+Sigil radius/duration/cooldown plus Destruction damage changes. Internal buff
+and pet-bonus references are repointed to private clones. No balance settings
+are duplicated or changed. The three switches, default slots, generated paths,
+rollback behavior and F7 checks are in [SPELLBINDER_OCCULTIST.md](SPELLBINDER_OCCULTIST.md).

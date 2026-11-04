@@ -58,3 +58,17 @@ further compatible higher-tier abilities, rewards and curated Apex encounters. N
 conversion of quests, summons, loot droppers or special enemies.
 
 Finite Hero quotas are supported only when identity Champion count equations bound the entire group within the source limit. Larger-draw quotas remain excluded; see [Ascended policy](ASCENDED.md).
+
+## Spellbinder Occultist composition
+
+The skill stage generates effective `player_skills.json` overrides first.
+Arcanist's existing attachment generator then calls the Spellbinder composer
+on its own outputs, keeping a single owner for the final class05 tree/panel
+and preserving the independent Guardian toggle. Necromancer is composed from
+its native tree/panel. The three new pairs have independent switches in
+`config/spellbinder_occultist.json`. Both generators receive the same effective
+Occultist DBRs, clone local buff/pet-bonus graphs with namespaced links, and
+retain native consecutive base/modifier ordering and connector spacing.
+Validation and staging recomputation use the identical composition path;
+all unrelated output collisions remain errors. Native UI overrides also emit
+rollback states. See [Spellbinder details](SPELLBINDER_OCCULTIST.md).
